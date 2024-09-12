@@ -32,13 +32,13 @@ class AppServiceProvider extends ServiceProvider
         // Initialize the AWS Secrets Manager Client
         $client = new SecretsManagerClient([
             'version' => 'latest',
-            'region' => env('AWS_DEFAULT_REGION', 'your-default-region'), // Use your AWS region
+            'region' => env('AWS_DEFAULT_REGION', 'ap-south-1'), // Use your AWS region
         ]);
 
         // Fetch the secret value
         try {
             $result = $client->getSecretValue([
-                'SecretId' => 'laravel/app/secrets', // Replace with your secret name
+                'SecretId' => 'ecosansar-dev/app/secrets', // Replace with your secret name
             ]);
 
             if (isset($result['SecretString'])) {
