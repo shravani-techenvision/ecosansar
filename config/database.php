@@ -44,13 +44,13 @@ return [
         ],
 
         'mysql' => [
-            'driver' => 'mysql',
+            'driver' => env('DB_CONNECTION', 'mysql'),
             'url' => env('DATABASE_URL'),
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
-             'database' => 'ecosansardb',
-            'username' => 'ecosansaruser',
-            'password' => 'fK0k%dV.VND8',
+            'database' => env('DB_DATABASE', 'ecosansardb'),
+            'username' => env('DB_USERNAME', 'ecosansaruser'),
+            'password' => env('DB_PASSWORD', 'fK0k%dV.VND8'),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
