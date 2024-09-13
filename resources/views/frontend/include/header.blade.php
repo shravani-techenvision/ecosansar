@@ -115,39 +115,6 @@
                 </div>
                 <!--end primary-nav-->
 
-    <!--            <div class="secondary-nav">-->
-    <!--                @php-->
-    <!--                $user_id = session('user_id');-->
-    <!--                if(null !== $user_id && $user_id != ''){-->
-    <!--                    echo "<span style='background-color: #6ab04c;'>".session('user')."</span>";-->
-    <!--                } else {-->
-    <!--                @endphp-->
-    <!--                    <a href="{{ route('consumer_login') }}" class="promoted" >Sign In</a>-->
-    <!--                    <a href="{{ route('user_register') }}" class="promoted" >Register</a>-->
-    <!--                @php-->
-    <!--                }-->
-    <!--                @endphp-->
-
-    <!--                @php-->
-    <!--              $user_id = session()->get('user_id'); -->
-    <!--              $userdet = null;-->
-
-    <!--if(isset($user_id) && !empty($user_id)) {-->
-    <!--    $userdet = \App\Models\frontend\EcosansarUsers::where('id', $user_id)->first();-->
-        
-    <!--     $type = $userdet->user_type; -->
-    <!--}-->
-    <!--            if(isset($user_id) && !empty($user_id)) {-->
-    <!--        @endphp-->
-    <!--          <a class="  " href="{{ url('profile'). "/".$user_id }}" >  My Profile </a>-->
-    <!--        <a class="  " href="{{ route('user_logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">  {{ __('Logout') }} </a>-->
-    <!--        <form id="logout-form" action="{{ route('user_logout') }}"   class="d-none">-->
-    <!--            @csrf-->
-    <!--        </form>-->
-    <!--        @php-->
-    <!--            }-->
-    <!--        @endphp-->
-    <!--            </div>-->
                 <!--end secondary-nav-->
                @if(session()->has('user_id'))
                  @if($type == 'consumer')
