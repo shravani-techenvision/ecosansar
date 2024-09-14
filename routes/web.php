@@ -247,3 +247,7 @@ Route::controller(WeightController::class)->group(function(){
     Route::post('weight/update/{id}','update')->name('weight.update');
     Route::get('weight/delete/{id}','delete')->name('weight.delete');
 });
+
+Route::get('/health', function () {
+    return response()->json(['status' => 'OK'], 200);
+});
