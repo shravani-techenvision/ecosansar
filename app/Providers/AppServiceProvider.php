@@ -15,13 +15,6 @@ class AppServiceProvider extends ServiceProvider
      * @return void
      */
 
-    public function boot()
-    {
-         if (config('app.env') === 'production') {
-             \URL::forceScheme('https');
-         }
-    }     
-
     public function register()
     {
         //
@@ -34,6 +27,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        if (config('app.env') === 'production') {
+            \URL::forceScheme('https');
+        }
         // Set the default string length for database schema
         Schema::defaultStringLength(191);
 
