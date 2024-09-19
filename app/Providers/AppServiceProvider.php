@@ -50,78 +50,57 @@ class AppServiceProvider extends ServiceProvider
                 $secrets = json_decode($result['SecretString'], true);
 
                 // Manually map each secret to its respective environment variable
-                if (isset($secrets['APP_KEY'])) {
-                    Config::set('app.key', $secrets['APP_KEY']);
-                    putenv("APP_KEY={$secrets['APP_KEY']}");
-                }
 
-                if (isset($secrets['DB_HOST'])) {
-                    Config::set('database.connections.mysql.host', $secrets['DB_HOST']);
-                    putenv("DB_HOST={$secrets['DB_HOST']}");
-                }
+                // Application Settings
+                Config::set('app.name', $secrets['APP_NAME'] ?? '');
+                Config::set('app.env', $secrets['APP_ENV'] ?? 'production');
+                Config::set('app.key', $secrets['APP_KEY'] ?? '');
+                Config::set('app.debug', $secrets['APP_DEBUG'] ?? false);
+                Config::set('app.url', $secrets['APP_URL'] ?? '');
 
-                if (isset($secrets['DB_DATABASE'])) {
-                    Config::set('database.connections.mysql.database', $secrets['DB_DATABASE']);
-                    putenv("DB_DATABASE={$secrets['DB_DATABASE']}");
-                }
+                // Log Settings
+                Config::set('logging.channels.stack', $secrets['LOG_CHANNEL'] ?? 'stack');
+                Config::set('logging.level', $secrets['LOG_LEVEL'] ?? 'debug');
 
-                if (isset($secrets['DB_USERNAME'])) {
-                    Config::set('database.connections.mysql.username', $secrets['DB_USERNAME']);
-                    putenv("DB_USERNAME={$secrets['DB_USERNAME']}");
-                }
+                // Database Settings
+                Config::set('database.connections.mysql.host', $secrets['DB_HOST'] ?? '');
+                Config::set('database.connections.mysql.port', $secrets['DB_PORT'] ?? '3306');
+                Config::set('database.connections.mysql.database', $secrets['DB_DATABASE'] ?? '');
+                Config::set('database.connections.mysql.username', $secrets['DB_USERNAME'] ?? '');
+                Config::set('database.connections.mysql.password', $secrets['DB_PASSWORD'] ?? '');
 
-                if (isset($secrets['DB_PASSWORD'])) {
-                    Config::set('database.connections.mysql.password', $secrets['DB_PASSWORD']);
-                    putenv("DB_PASSWORD={$secrets['DB_PASSWORD']}");
-                }
+                // Mail Settings
+                Config::set('mail.mailers.smtp.host', $secrets['MAIL_HOST'] ?? '');
+                Config::set('mail.mailers.smtp.port', $secrets['MAIL_PORT'] ?? '465');
+                Config::set('mail.mailers.smtp.username', $secrets['MAIL_USERNAME'] ?? '');
+                Config::set('mail.mailers.smtp.password', $secrets['MAIL_PASSWORD'] ?? '');
+                Config::set('mail.mailers.smtp.encryption', $secrets['MAIL_ENCRYPTION'] ?? 'tls');
+                Config::set('mail.from.address', $secrets['MAIL_FROM_ADDRESS'] ?? '');
+                Config::set('mail.from.name', $secrets['MAIL_FROM_NAME'] ?? '');
 
-                if (isset($secrets['MAIL_HOST'])) {
-                    Config::set('mail.mailers.smtp.host', $secrets['MAIL_HOST']);
-                    putenv("MAIL_HOST={$secrets['MAIL_HOST']}");
-                }
+                // Redis Settings
+                Config::set('database.redis.default.host', $secrets['REDIS_HOST'] ?? '127.0.0.1');
+                Config::set('database.redis.default.password', $secrets['REDIS_PASSWORD'] ?? null);
+                Config::set('database.redis.default.port', $secrets['REDIS_PORT'] ?? '6379');
 
-                if (isset($secrets['MAIL_PORT'])) {
-                    Config::set('mail.mailers.smtp.port', $secrets['MAIL_PORT']);
-                    putenv("MAIL_PORT={$secrets['MAIL_PORT']}");
-                }
+                // AWS Settings
+                Config::set('filesystems.disks.s3.key', $secrets['AWS_ACCESS_KEY_ID'] ?? '');
+                Config::set('filesystems.disks.s3.secret', $secrets['AWS_SECRET_ACCESS_KEY'] ?? '');
+                Config::set('filesystems.disks.s3.region', $secrets['AWS_DEFAULT_REGION'] ?? 'ap-south-1');
+                Config::set('filesystems.disks.s3.bucket', $secrets['AWS_BUCKET'] ?? '');
 
-                if (isset($secrets['MAIL_USERNAME'])) {
-                    Config::set('mail.mailers.smtp.username', $secrets['MAIL_USERNAME']);
-                    putenv("MAIL_USERNAME={$secrets['MAIL_USERNAME']}");
-                }
+                // Other services (e.g., Pusher, MSG91)
+                Config::set('broadcasting.connections.pusher.app_id', $secrets['PUSHER_APP_ID'] ?? '');
+                Config::set('broadcasting.connections.pusher.key', $secrets['PUSHER_APP_KEY'] ?? '');
+                Config::set('broadcasting.connections.pusher.secret', $secrets['PUSHER_APP_SECRET'] ?? '');
+                Config::set('broadcasting.connections.pusher.options.cluster', $secrets['PUSHER_APP_CLUSTER'] ?? 'mt1');
+                Config::set('broadcasting.connections.pusher.options.useTLS', true);
 
-                if (isset($secrets['MAIL_PASSWORD'])) {
-                    Config::set('mail.mailers.smtp.password', $secrets['MAIL_PASSWORD']);
-                    putenv("MAIL_PASSWORD={$secrets['MAIL_PASSWORD']}");
-                }
+                Config::set('services.msg91.auth_key', $secrets['MSG91_AUTH_KEY'] ?? '');
+                Config::set('services.msg91.sender_id', $secrets['MSG91_SENDER_ID'] ?? 'ECSNSR');
+                Config::set('services.msg91.route', $secrets['MSG91_ROUTE'] ?? '4');
 
-                if (isset($secrets['MAIL_ENCRYPTION'])) {
-                    Config::set('mail.mailers.smtp.encryption', $secrets['MAIL_ENCRYPTION']);
-                    putenv("MAIL_ENCRYPTION={$secrets['MAIL_ENCRYPTION']}");
-                }
-
-                if (isset($secrets['AWS_ACCESS_KEY_ID'])) {
-                    Config::set('filesystems.disks.s3.key', $secrets['AWS_ACCESS_KEY_ID']);
-                    putenv("AWS_ACCESS_KEY_ID={$secrets['AWS_ACCESS_KEY_ID']}");
-                }
-
-                if (isset($secrets['AWS_SECRET_ACCESS_KEY'])) {
-                    Config::set('filesystems.disks.s3.secret', $secrets['AWS_SECRET_ACCESS_KEY']);
-                    putenv("AWS_SECRET_ACCESS_KEY={$secrets['AWS_SECRET_ACCESS_KEY']}");
-                }
-
-                if (isset($secrets['AWS_DEFAULT_REGION'])) {
-                    Config::set('filesystems.disks.s3.region', $secrets['AWS_DEFAULT_REGION']);
-                    putenv("AWS_DEFAULT_REGION={$secrets['AWS_DEFAULT_REGION']}");
-                }
-
-                if (isset($secrets['AWS_BUCKET'])) {
-                    Config::set('filesystems.disks.s3.bucket', $secrets['AWS_BUCKET']);
-                    putenv("AWS_BUCKET={$secrets['AWS_BUCKET']}");
-                }
-
-                // Map additional secret variables as needed...
-                // Add any other secrets from the Secrets Manager that you want to set
+                // Additional secret mappings as needed...
             }
         } catch (\Exception $e) {
             // Log any errors for troubleshooting
