@@ -15,7 +15,7 @@
    font-size: 28px!important;
    font-weight: 500!important;
 }
-}  
+}
 </style>
     <div id="page-content">
         <div class="container">
@@ -28,21 +28,21 @@
                 <div class="col-md-5 col-sm-5 col-md-offset-4 col-sm-offset-4">
                     <section class="">
                         <div class="col-md-12">
-                             <h1 class="reg" style ="margin-top: -6px;"><a href="{{route('consumer_login')}}">Sign In</a>  <span> |  <u style="color: #8eb66f;">Register</u></span></h1> 
+                             <h1 class="reg" style ="margin-top: -6px;"><a href="{{route('consumer_login')}}">Sign In</a>  <span> |  <u style="color: #8eb66f;">Register</u></span></h1>
                              <p style="font-size: 17px;"><b>Welcome! We're thrilled to have you here.</b></p>
-                             
+
                                <p style="font-size: 17px;"> Choose your role to register :<br><br>
-                                <b>Contributor</b> – For waste/resource generators.<br>
-                                <b>Resource Collector</b> – For pickups and collections.<br>
-                                <b>Corporate</b> – For Recyclers or Brands buying resources.</p>
-                                
+                                <b>Contributor</b> – For Waste / Resource Generators (consumers)<br>
+                                <b>Resource Collector</b> – Resource Pickup Agents <br>
+                                <b>Corporate</b> – Brands / Waste Management Companies / Recyclers / businesses dealing in bulk quantities</p>
+
                                 <p style="font-size: 17px;" ><b>Join your community by registering here</b></p>
                         </div>
                     </section
                     <!--end page-title-->
                     <section id="consumer" >
                         <!--<form id="submit-contact" class="form inputs-underline" action="{{ route('consumer.save') }}" method="post">-->
-                            
+
                              <form id="registerForm" class="form inputs-underline" method="POST">
                             @csrf
                             <!--<input type="hidden" name="user_type" value="consumer">-->
@@ -59,7 +59,7 @@
                                 <span class="text-danger">{{ $errors->first('type_of_user') }}</span>
                              @endif
                                <span class="error-message text-danger" id="type_of_user-error"></span>
-                               
+
                             </div>
                                     <div class="form-group">
                                         <label for="first_name">Name<span style="color:red;">*</span></label>
@@ -69,19 +69,19 @@
                                      <!--@endif-->
                                      <span class="error-message text-danger" id="name-error"></span>
                                     </div>
-                                    
+
                                     <!--end form-group-->
                                 <!--end col-md-6-->
                                   <div class="form-group">
-                                    <label for="last_name">Phone number<span style="color:red;">*</span> </label><br> 
+                                    <label for="last_name">Phone number<span style="color:red;">*</span> </label><br>
                                     <div class="input-group">
                                         <span class="input-group-addon">+91</span>
                                             <input onkeydown="" type="text" class="form-control" name="mobile" id="contact" placeholder="Please enter 10 digit mobile number" minlength="10" maxlength="10" value={{ old('mobile') }}>
                                      <!--<input type="text" class="form-control" aria-label="Amount (rounded to the nearest dollar)">-->
                                     </div>
-                                    
+
                                     <span class="error-message text-danger" id="mobile-error"></span>
-                                                                         
+
                                     <div id="contact-error" class="invalid-feedback text-danger" style="display: none;"></div>
                                      @if ($errors->has('mobile'))
                                             <span class="text-danger">{{ $errors->first('mobile') }}</span>
@@ -99,26 +99,26 @@
                                     <!--end form-group-->
                                 <!--end col-md-6-->
                             <!--enr row-->
-                            
+
                             <div class="form-group">
                                 <label for="address">
                                     Address<span style="color:red;">*</span>
                                 </label>
-                                <textarea 
-                                    class="form-control" 
-                                    rows="4" 
-                                    cols="50" 
-                                    name="address" 
-                                    id="address" 
+                                <textarea
+                                    class="form-control"
+                                    rows="4"
+                                    cols="50"
+                                    name="address"
+                                    id="address"
                                     placeholder="Address"
                                 >{{ old('address') }}</textarea>
                                 @if ($errors->has('address'))
                                     <span class="text-danger">{{ $errors->first('address') }}</span>
                                 @endif
-                                
+
                                  <span class="error-message text-danger" id="address-error"></span>
                             </div>
-                            
+
                             <!--end form-group-->
                             <div class="form-group">
                                 <label for="password">Pincode<span style="color:red;">*</span></label>
@@ -126,7 +126,7 @@
                                 @if ($errors->has('pincode'))
                                 <span class="text-danger">{{ $errors->first('pincode') }}</span>
                              @endif
-                             
+
                              <span class="error-message text-danger" id="pincode-error"></span>
                             </div>
                             <!--end form-group-->
@@ -142,9 +142,9 @@
                                             @if ($errors->has('type_of_residences'))
                                 <span class="text-danger">{{ $errors->first('type_of_residences') }}</span>
                              @endif
-                             
+
                              <span class="error-message text-danger" id="type_of_residences-error"></span>
-                             
+
                             </div>
                             <div class="form-group" id="hide-em">
                                 <label for="confirm_password">Email id<span id="email-star" style="display:none; color:red;">*</span></label>
@@ -152,9 +152,9 @@
                                 @if ($errors->has('email'))
                                 <span class="text-danger">{{ $errors->first('email') }}</span>
                              @endif
-                             
+
                              <span class="error-message text-danger" id="email-error"></span>
-                             
+
                             </div>
                             <!--<div class="form-group" id="hide-pass">-->
                             <!--    <label for="confirm_password">Password<span id="password-star" style="display:none; color:red;">*</span></label>-->
@@ -167,7 +167,7 @@
         					<label>
         						<input type="checkbox" name="terms" id="terms" value="accepted" {{ old('terms') ? 'checked' : '' }}>  <a href="{{ route('terms_conditions') }}">I agree to the Terms and Conditions</a><span style="color:red;">*</span>
         					</label>
-        					
+
         				</div>
         				<span class="error-message text-danger" id="terms-error"></span>
         				 @if ($errors->has('terms'))
@@ -189,7 +189,7 @@
                                 </div>
                             <!--end form-group-->
                         </form>
-                        
+
                         <div id="responseMessage"></div>
                         {{--  <hr>  --}}
                    </section>
@@ -203,8 +203,8 @@
     </div>
     <!--end page-content-->
 
-        
- 
+
+
 <!--end page-wrapper-->
 <a href="#" class="to-top scroll" data-show-after-scroll="600"><i class="arrow_up"></i></a>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -215,7 +215,7 @@
 <script>
 document.getElementById('registerForm').addEventListener('submit', function(event) {
     event.preventDefault(); // Prevent the form from submitting normally
-    
+
    //alert('hhh');
 
     // Clear previous error messages
@@ -236,7 +236,7 @@ document.getElementById('registerForm').addEventListener('submit', function(even
     })
     .then(response => response.json())
     .then(data => {
-        
+
         // Handle the response
        if (data.errors) {
             // Display errors next to the respective form fields
@@ -244,7 +244,7 @@ document.getElementById('registerForm').addEventListener('submit', function(even
                 document.getElementById(`${field}-error`).innerHTML = data.errors[field][0];
             }
         } else {
-            
+
            // alert(data.user_id);
             // Display success message
                window.location.href = "{{ url('register_otp') }}/" + data.user_id;
@@ -267,12 +267,12 @@ document.getElementById('registerForm').addEventListener('submit', function(even
 
 
 <script>
-    
+
     document.getElementById('submit-contact').addEventListener('click', function(){
-        
+
     var contact = document.getElementById('contact').value;
     var contactError = document.getElementById('contact-error');
-    
+
      alert(contact);
     // alert(contactError);
 
@@ -289,41 +289,41 @@ document.getElementById('registerForm').addEventListener('submit', function(even
         })
         .then(response => response.json())
         .then(data => {
-            
+
              //alert('ssss');
-     
+
             if (data.status === 'success'){
-                
+
                            //  alert('success');
-                           
+
                 document.getElementById('contact-group').style.display = 'none';
                 document.getElementById('submit-contact').style.display = 'none';
                 document.getElementById('otp-group').style.display = 'block';
                 document.getElementById('submit-otp').style.display = 'block';
-            
+
             }else {
                 contactError.style.display = 'block';
                 // contactError.textContent = data.message + data.registration_url;
                 // Assuming 'data' is your JSON response
                 contactError.textContent = data.message + " ";
-                
+
                 // Create the anchor element
                 var anchor = document.createElement('a');
-                
+
                 // Set the href attribute to the registration URL
                 anchor.href = data.registration_url;
-                
+
                 // Set the text content of the anchor
                 anchor.textContent = "here";
                 // Apply the underline style
                 anchor.style.textDecoration = "underline";
-                
+
                 // Optionally, open the link in a new tab
                 //anchor.target = "_blank";
-                
+
                 // Append the anchor to the contactError element
                 contactError.appendChild(anchor);
-                
+
                 // alert('falus');
             }
         })
@@ -363,7 +363,7 @@ document.getElementById('registerForm').addEventListener('submit', function(even
                    // alert('OTP resent successfully.');
                       window.location.href = "{{ url('register_otp') }}/" + data.user_id;
                     otpInput.value = ''; // Clear the OTP input field
-                    
+
                 } else {
                      //alert('OTP resent successfully22222.');
                   // contactError.style.display = 'block';
@@ -388,7 +388,7 @@ document.getElementById('registerForm').addEventListener('submit', function(even
     $(document).ready(function(){
         function toggleFields() {
             var userType = $('#type_of_user').val();
-           
+
             if (userType === 'business') {
                 $('#email-star').css('display', 'inline');
                 $('#password-star').css('display', 'inline');
@@ -411,8 +411,8 @@ document.getElementById('registerForm').addEventListener('submit', function(even
         toggleFields(); // Call it initially to set the correct state on page load
     });
 </script>
- 
- 
+
+
 
 
 @include('frontend.include.footer')
