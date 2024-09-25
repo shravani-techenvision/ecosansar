@@ -38,6 +38,7 @@ Weight Add
                                                 <option value="">Select</option>
                                                 <option @if(isset($weight->min_measure) && ($weight->min_measure == "Kg")) selected @else @endif  value="Kg">Kg</option>
                                                 <option @if(isset($weight->min_measure) && ($weight->min_measure == "Ton")) selected @else @endif  value="Ton">Ton</option>
+                                                <option @if(isset($weight->min_measure) && ($weight->min_measure == "Piece")) selected @else @endif  value="Piece">Piece</option>
                                             </select>
                                             @if ($errors->has('min_measure'))
                                                 <span class="text-danger">{{ $errors->first('min_measure') }}</span>
@@ -60,6 +61,7 @@ Weight Add
                                                 <option value="">Select</option>
                                                 <option @if(isset($weight->max_measure) && ($weight->max_measure == "Kg")) selected @else @endif  value="Kg">Kg</option>
                                                 <option @if(isset($weight->max_measure) && ($weight->max_measure == "Ton")) selected @else @endif  value="Ton">Ton</option>
+                                                <option @if(isset($weight->max_measure) && ($weight->max_measure == "Piece")) selected @else @endif  value="Piece">Piece</option>
                                             </select>
                                             @if ($errors->has('max_measure'))
                                                 <span class="text-danger">{{ $errors->first('max_measure') }}</span>
