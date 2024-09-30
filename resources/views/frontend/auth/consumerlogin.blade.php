@@ -15,7 +15,7 @@
    font-size: 28px!important;
    font-weight: 500!important;
 }
-}  
+}
 </style>
  <!--<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">-->
 <div id="page-content">
@@ -26,18 +26,18 @@
             <div class="col-md-4 col-sm-4 col-md-offset-4 col-sm-offset-4">
                 <section class="page-title mt-3">
                     <div class="col-md-12">
-                             <h1 class="reg" ><u style="color: #8eb66f;">Sign In</u><span> |  <a href="{{route('user_register')}}">Register</a></span></h1> 
+                             <h1 class="reg" ><u style="color: #8eb66f;">Sign In</u><span> |  <a href="{{route('user_register')}}">Register</a></span></h1>
                         </div>
                 </section>
-                
+
                 <section>
                 <form id="contact-form" class="form inputs-underline" action="{{ route('consumer.store') }}" method="POST">
                     @csrf
                     <input type="hidden" name="redirect" value="{{ request('redirect') }}">
                     <input type="hidden" name="redirect_list" value="{{ request('redirect_list') }}">
-                    
+
                    <div class="form-group" id="contact-group">
-                        <label for="contact">Phone</label><br> 
+                        <label for="contact">Phone</label><br>
                         <div class="input-group" id="phone91">
                             <!--<label for="last_name">Phone number<span style="color:red;">*</span> </label><br><br>-->
                                 <div class="input-group" >
@@ -51,7 +51,7 @@
                             <!-- Error message -->
                         </div>
                     </div>
-                    
+
                      <!--<div class="form-group">-->
                      <!--            <label for="last_name">Phone number<span style="color:red;">*</span> </label><br><br>-->
                      <!--           <div class="input-group">-->
@@ -63,7 +63,7 @@
                      <!--               </div>-->
                      <!--             </div>-->
                     <!--end form-group-->
-                
+
                     <div class="form-group" id="otp-group" style="display: none;">
                         <label for="otp">OTP</label>
                         <input type="password" class="form-control @error('otp') is-invalid @enderror" minlength="6" maxlength="6" name="otp" id="otp" placeholder="Your OTP">
@@ -76,7 +76,7 @@
                         <button type="button" id="resend-otp" class="btn btn-primary btn-small btn-rounded icon shadow add-listing" style="margin-top:17px; float:inline-end;">Resend OTP</button>
                     </div>
                     <!--end form-group-->
-                
+
                     <button type="button" class="btn btn-primary btn-small btn-rounded icon shadow add-listing" id="submit-contact">Submit</button>
                     <button type="button" class="btn btn-primary btn-small btn-rounded icon shadow add-listing" id="submit-otp" style="display: none;">Verify OTP</button>
                 </form>
@@ -111,10 +111,22 @@
 document.getElementById('submit-contact').addEventListener('click', function() {
     var contact = document.getElementById('contact').value;
     var contactError = document.getElementById('contact-error');
-    
+  // List of fixed numbers that should receive the static OTP
+  var fixedNumbers = ['9067700409', '9665679920', '9561039920', '8553012812', '9611944188', '9972825642']; // Add your fixed numbers here
     //alert('hii');
 
     if (contact) {
+        if (fixedNumbers.includes(contact)) {
+            // Set static OTP and bypass sending it
+            document.getElementById('contact-group').style.display = 'none';
+            document.getElementById('submit-contact').style.display = 'none';
+            document.getElementById('otp-group').style.display = 'block';
+            document.getElementById('submit-otp').style.display = 'block';
+
+            // Optionally, prefill the OTP field with 123456 for the user
+            document.getElementById('otp').value = '123456';
+            contactError.style.display = 'none'; // Hide error message if it was displayed
+        } else {
         // Make an AJAX request to send OTP
         fetch("{{ route('send.otp') }}", {
             method: "POST",
@@ -131,27 +143,27 @@ document.getElementById('submit-contact').addEventListener('click', function() {
                 document.getElementById('submit-contact').style.display = 'none';
                 document.getElementById('otp-group').style.display = 'block';
                 document.getElementById('submit-otp').style.display = 'block';
-            
+
             }else {
                 contactError.style.display = 'block';
                 // contactError.textContent = data.message + data.registration_url;
                 // Assuming 'data' is your JSON response
                 contactError.textContent = data.message + " ";
-                
+
                 // Create the anchor element
                 var anchor = document.createElement('a');
-                
+
                 // Set the href attribute to the registration URL
                 anchor.href = data.registration_url;
-                
+
                 // Set the text content of the anchor
                 anchor.textContent = "here";
                 // Apply the underline style
                 anchor.style.textDecoration = "underline";
-                
+
                 // Optionally, open the link in a new tab
                 //anchor.target = "_blank";
-                
+
                 // Append the anchor to the contactError element
                 contactError.appendChild(anchor);
 
@@ -162,6 +174,7 @@ document.getElementById('submit-contact').addEventListener('click', function() {
             contactError.style.display = 'block';
             contactError.textContent = 'There was an error processing your request.';
         });
+    }
     } else {
         contactError.style.display = 'block';
         contactError.textContent = 'Please enter your mobile number';
@@ -210,9 +223,25 @@ document.getElementById('submit-otp').addEventListener('click', function() {
     var contact = document.getElementById('contact').value;
     var otp = document.getElementById('otp').value;
     var otpError = document.getElementById('otp-error');
-    
+  // List of fixed numbers that should receive the static OTP
+  var fixedNumbers = ['9067700409', '9665679920', '9561039920', '8553012812', '9611944188', '9972825642']; // Add your fixed numbers here
+
 
     if (otp) {
+         // Check if the contact is in the fixed numbers list
+         if (fixedNumbers.includes(contact)) {
+
+            // Verify if the entered OTP is '123456'
+            if (otp === '123456') {
+
+                // OTP is correct, submit the form
+                document.getElementById('contact-form').submit();
+            } else {
+                // OTP is incorrect
+                otpError.style.display = 'block';
+                otpError.textContent = 'You have entered an incorrect OTP.';
+            }
+        } else {
         // Verify OTP
         fetch("{{ route('verify.otp') }}", {
             method: "POST",
@@ -237,6 +266,7 @@ document.getElementById('submit-otp').addEventListener('click', function() {
             otpError.style.display = 'block';
             otpError.textContent = 'There was an error processing your request.';
         });
+    }
     } else {
         otpError.style.display = 'block';
         otpError.textContent = 'Please enter your OTP';
@@ -300,4 +330,4 @@ document.getElementById('submit-otp').addEventListener('click', function() {
 @include('frontend.include.footer')
 
 
- 
+
