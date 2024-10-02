@@ -14,16 +14,16 @@ input[type="text"],input[type="email"]{
 textarea.form-control {
     padding:5px;
 }
- 
+
   .item.item-row > a .image{
         width:239px !important;
         border-radius: 10px !important;
     }
     .item.item-row > a .description {
     padding-left:80px !important;
-         color:black !important; 
+         color:black !important;
     }
-    
+
     .btn-dropdown {
     width: 100% !important;
     text-align: left !important;
@@ -76,7 +76,7 @@ textarea.form-control {
 }
 .modal-header {
     position: relative;
-    
+
 }
 
 .hr-wrapper {
@@ -100,6 +100,15 @@ textarea.form-control {
 }
 .star-ratings1 i{
     margin-right: 5px;
+}
+.wp{
+    clear: both;
+    margin-top: 75px;
+}
+@media screen and (max-width: 786px) {
+.wp{
+    margin-top: 50px !important;
+}
 }
 </style>
 <div id="page-content">
@@ -270,7 +279,7 @@ textarea.form-control {
 
 {{--  Consumer posts section start  --}}
 <section>
-    
+
     <h1>Contributor Posts</h1>
     <div class="row">
         @foreach($uniqueListings as $listing)
@@ -278,7 +287,7 @@ textarea.form-control {
                 <div class="item" data-id="{{ $listing->id }}">
                     <a href="{{ url('con_listing_details/'.$listing->id) }}">
                         <div class="description">
-                            
+
                         </div>
                         <!--end description-->
                         <div class="image bg-transfer">
@@ -287,7 +296,7 @@ textarea.form-control {
                         <!--end image-->
                     </a>
                     <div class="additional-info">
-                        
+
                                 <!--@foreach(explode(', ', $listing->resource_names) as $resourceName)-->
                                 <!--     {{ $resourceName }} ,-->
                                 <!--@endforeach-->
@@ -298,15 +307,27 @@ textarea.form-control {
 @if(!empty($resourceNames))
     {{ implode(', ', $resourceNames) }}
 @endif
-                            
-                            
+
+
                             <h4>{{ $listing->address }}</h4>
-                            
-                        
+
+
                          <div class="controls-more">
     <a href="#" data-id="{{ $listing->id }}" data-toggle="modal" data-target="#enquiryModal" class="btn btn-primary btn-small btn-rounded icon shadow connect-listing" style="float:right;">
         <span>Connect</span>
     </a>
+    <!-- WhatsApp share button -->
+    <div class="wp"> <!-- This ensures the WhatsApp button goes below the Connect button -->
+        @if (session()->has('user_id'))
+          Share&nbsp; .&nbsp; <a href="https://wa.me/?text={{ urlencode('Check out this post: ' . url('con_listing_details/'.$listing->id)) }}" target="_blank"  style="margin-bottom:10px;">
+                <i class="fa fa-whatsapp"></i>
+            </a>
+        @else
+            <a href="{{ route('consumer_login', ['redirect_wp' => url('con_listing_details/' . $listing->id)]) }}" target="_blank" class="btn btn-success btn-small btn-rounded icon shadow" style="margin-bottom:10px;">
+                <i class="fa fa-whatsapp"></i> Share on WhatsApp
+            </a>
+        @endif
+    </div>
 </div>
                         <!--end controls-more-->
                     </div>
@@ -317,14 +338,14 @@ textarea.form-control {
             <!--end col-md-4-->
         @endforeach
     </div>
-     
- 
+
+
     <!--end row-->
 </section>
 {{--  Consumer posts section end  --}}
-                
 
- 
+
+
                 <section>
                     <div class="center">
                         {{--  <nav aria-label="Page navigation">
@@ -383,7 +404,7 @@ textarea.form-control {
                                             <option value="Sale">Sell Posts</option>
                                             <option value="Giveaway">Giveaway Posts</option>
                                              <option value="Buy">Buy Posts</option>
-                                             
+
                                     </select>
                                 </div>
                                 <!--end form-group-->
@@ -392,7 +413,7 @@ textarea.form-control {
                                         <option value="">Condition </option>
                                             <option value="Clean">Clean</option>
                                             <option value="Unclean">Unclean</option>
-                                            
+
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -400,7 +421,7 @@ textarea.form-control {
                                         <option value="">Packaged </option>
                                             <option value="Yes">Yes</option>
                                             <option value="No">No</option>
-                                            
+
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -416,16 +437,16 @@ textarea.form-control {
                                 </div>
                                 <div class="form-group">
                                      <button type="submit" class="btn btn-primary btn-small btn-rounded icon shadow add-listing ">Search <i class="fa fa-search"></i></button>
-                                    <button id="clear-button" type="submit" class="btn btn-primary btn-small btn-rounded icon shadow add-listing  pull-right">Clear<i class="fa fa-clear"></i></button> 
-                                    
+                                    <button id="clear-button" type="submit" class="btn btn-primary btn-small btn-rounded icon shadow add-listing  pull-right">Clear<i class="fa fa-clear"></i></button>
+
                                 </div>
                                 <!--end form-group-->
                             </form>
                         </section>
                         <section>
-                             
-                            
-                            
+
+
+
                         </section>
                     </aside>
                     <!--end sidebar-->
@@ -435,7 +456,7 @@ textarea.form-control {
                 <div class="col-md-9 col-sm-9"  id="postListings">
                     <section>
                         <div class="search-results-controls clearfix">
-                            
+
                             <!--end left-->
                             <div class="pull-right">
     <div class="input-group inputs-underline min-width-150px">
@@ -456,7 +477,7 @@ textarea.form-control {
                     </section>
                        <section class="page-title"  >
                         <h1>Contributor Posts</h1>
-                       @if (isset($uniqueListings) && $uniqueListings->isNotEmpty()) 
+                       @if (isset($uniqueListings) && $uniqueListings->isNotEmpty())
                       @if (!empty($appliedFilters))
     <h4>You have searched for:</h4>
     <ul>
@@ -521,7 +542,7 @@ function displayStars($rating) {
 
     return $stars;
 }
- 
+
 
 @endphp
  @if( $user_type == 'consumer')
@@ -541,12 +562,12 @@ function displayStars($rating) {
                                     @php
                                     $resourceNames = explode(', ', $listing->resource_names);
                                 @endphp
-                                
+
                                 @if(!empty($resourceNames))
                                     {{ implode(', ', $resourceNames) }}
                                 @endif
                                               <h4>{{ $listing->min_weight}} {{ $listing->min_measure}} {{'to'}} {{ $listing->max_weight}} {{ $listing->max_measure}}</h4>
-                                            
+
                                             <h4>{{ $listing->address }}</h4><br>
                                            <!--<h4 class="star-ratings1">{!! displayStars($listing->averageRating) !!}</h4>-->
                                           <h4> Posted by: {{ $listing->name }} | On {{ date('jS F Y', strtotime($listing->created_at)) }}</h4>
@@ -554,12 +575,24 @@ function displayStars($rating) {
                                 </div>
                                 </div>
                                 <!--end description-->
-                           
+
                             <div class="col-md-3">
                         <div class="controls-more">
     <a href="#" data-id="{{ $listing->id }}" data-toggle="modal" data-target="#enquiryModal" class="btn btn-primary btn-small btn-rounded icon shadow connect-listing" style="float:right;">
         <span>Connect</span>
     </a>
+    <!-- WhatsApp share button -->
+    <div class="wp"> <!-- This ensures the WhatsApp button goes below the Connect button -->
+        @if (session()->has('user_id'))
+          Share&nbsp; .&nbsp; <a href="https://wa.me/?text={{ urlencode('Check out this post: ' . url('con_listing_details/'.$listing->id)) }}" target="_blank"  style="margin-bottom:10px;">
+                <i class="fa fa-whatsapp"></i>
+            </a>
+        @else
+            <a href="{{ route('consumer_login', ['redirect_wp' => url('con_listing_details/' . $listing->id)]) }}" target="_blank" class="btn btn-success btn-small btn-rounded icon shadow" style="margin-bottom:10px;">
+                <i class="fa fa-whatsapp"></i> Share on WhatsApp
+            </a>
+        @endif
+    </div>
 </div>
 </div>
                             <!--end controls-more-->
@@ -582,12 +615,12 @@ function displayStars($rating) {
                                     @php
                                     $resourceNames = explode(', ', $listing->resource_names);
                                 @endphp
-                                
+
                                 @if(!empty($resourceNames))
                                     {{ implode(', ', $resourceNames) }}
                                 @endif
                                               <h4>{{ $listing->min_weight}} {{ $listing->min_measure}} {{'to'}} {{ $listing->max_weight}} {{ $listing->max_measure}}</h4>
-                                            
+
                                             <h4>{{ $listing->address }}</h4><br>
                                            <!--<h4 class="star-ratings1">{!! displayStars($listing->averageRating) !!}</h4>-->
                                           <h4> Posted by: {{ $listing->name }} | On {{ date('jS F Y', strtotime($listing->created_at)) }}</h4>
@@ -595,12 +628,24 @@ function displayStars($rating) {
                                 </div>
                                 </div>
                                 <!--end description-->
-                           
+
                             <div class="col-md-3">
                         <div class="controls-more">
     <a href="#" data-id="{{ $listing->id }}" data-toggle="modal" data-target="#enquiryModal" class="btn btn-primary btn-small btn-rounded icon shadow connect-listing" style="float:right;">
         <span>Connect</span>
     </a>
+    <!-- WhatsApp share button -->
+    <div class="wp"> <!-- This ensures the WhatsApp button goes below the Connect button -->
+        @if (session()->has('user_id'))
+          Share&nbsp; .&nbsp; <a href="https://wa.me/?text={{ urlencode('Check out this post: ' . url('con_listing_details/'.$listing->id)) }}" target="_blank"  style="margin-bottom:10px;">
+                <i class="fa fa-whatsapp"></i>
+            </a>
+        @else
+            <a href="{{ route('consumer_login', ['redirect_wp' => url('con_listing_details/' . $listing->id)]) }}" target="_blank" class="btn btn-success btn-small btn-rounded icon shadow" style="margin-bottom:10px;">
+                <i class="fa fa-whatsapp"></i> Share on WhatsApp
+            </a>
+        @endif
+    </div>
 </div>
 </div>
                             <!--end controls-more-->
@@ -610,11 +655,11 @@ function displayStars($rating) {
                         <!--end item.row-->
                     </section>
 
-                    
+
                 </div>
                 <!--end col-md-9-->
             </div>
-            
+
             @endif
             <!--end col-md-9-->
         </div>
@@ -628,10 +673,10 @@ function displayStars($rating) {
             <div class="modal-header">
                  <h2 class="modal-title text-center" id="enquiryModalLabel"><strong>Contact Details</strong></h2>
                  <div id="user-details" class="mb-1" style="line-height:1.75">
-                     
+
                     <!-- User details will be appended here -->
                 </div>
-               
+
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -643,7 +688,7 @@ function displayStars($rating) {
     </div>
             <h2 class="modal-title text-center mt-1" id="enquiryModalLabel"><strong>Send Enquiry</strong></h2>
             <div class="modal-body">
-                
+
                <form class="form form-email inputs-underline"  action="{{ route('enquiry.consumer_save') }}" method="POST">
                     @csrf
                     <input type="hidden" name="id" id="postid" value="">
@@ -651,7 +696,7 @@ function displayStars($rating) {
                     <div class="row justify-content-center align-items-center">
                         <div class="col-md-12 col-sm-12">
                             <div class="form-group">
-                                 
+
                                 <input type="text" class="form-control" name="name" id="name" placeholder="Enter name">
                                 @if ($errors->has('name'))
                                     <span class="text-danger">{{ $errors->first('name') }}</span>
@@ -662,17 +707,17 @@ function displayStars($rating) {
                     <div class="row">
                         <div class="col-md-6 col-sm-12">
                             <div class="form-group">
-                                 
+
                                 <input type="email" class="form-control" name="email" id="email" placeholder="Enter email">
                                 @if ($errors->has('email'))
                                     <span class="text-danger">{{ $errors->first('email') }}</span>
                                 @endif
                             </div>
                         </div>
-                    
+
                         <div class="col-md-6 col-sm-12">
                             <div class="form-group">
-                                
+
                                 <input type="text" class="form-control" name="mobile" id="mobile" placeholder="Enter mobile">
                                 @if ($errors->has('mobile'))
                                     <span class="text-danger">{{ $errors->first('mobile') }}</span>
@@ -681,7 +726,7 @@ function displayStars($rating) {
                         </div>
                     </div>
                     <div class="form-group">
-                        
+
                         <textarea class="form-control" id="message" rows="3" name="message" placeholder="Enter message"></textarea>
                         @if ($errors->has('message'))
                             <span class="text-danger">{{ $errors->first('message') }}</span>
@@ -691,8 +736,8 @@ function displayStars($rating) {
                         <button type="submit" class="btn btn-primary btn-rounded">Send Message</button>
                     </div>
                 </form>
-                
-                
+
+
             </div>
         </div>
     </div>
@@ -705,6 +750,9 @@ function displayStars($rating) {
     // Submit form using AJAX for filtering
     $('#filterForm').on('submit', function(e) {
         e.preventDefault();
+        var sessionUserId = '{{ session('user_id') }}';
+        var baseUrl = "{{ url('/') }}";
+   var consumerLoginRoute = "{{ route('consumer_login') }}";
         var formData = $(this).serialize();
         $.ajax({
             type: 'POST',
@@ -713,7 +761,7 @@ function displayStars($rating) {
             dataType: 'json', // Specify JSON dataType for response parsing
                 success: function(response) {
     console.log(response.sabuniqueListings); // Log the response to console
-     
+
     // Clear existing listings
     $('#postListings').empty();
     if (response.user_type === 'consumer') {
@@ -721,11 +769,11 @@ function displayStars($rating) {
     var filtersHtml = '<section class="page-title"><h1>Contributor Posts</h1>';
     if (response.sabuniqueListings.length > 0) {
         filtersHtml += '<h4>You have searched for:</h4><ul>';
-        
+
         if (response.appliedFilters.pincode) {
             filtersHtml += '<li>Pincode: ' + response.appliedFilters.pincode + '</li>';
         }
-        
+
         if (response.appliedFilters.resource) {
             filtersHtml += '<li>Resource: ';
             $.each(response.appliedFilters.resource, function(index, resourceId) {
@@ -737,30 +785,30 @@ function displayStars($rating) {
             filtersHtml = filtersHtml.slice(0, -2); // Remove trailing comma and space
             filtersHtml += '</li>';
         }
-        
+
        if (response.appliedFilters.sale_giveaway) {
     var saleGiveawayText = response.appliedFilters.sale_giveaway === 'Sale' ? 'Sell' : response.appliedFilters.sale_giveaway;
     filtersHtml += '<li>Sale giveaway: ' + saleGiveawayText + '</li>';
 }
 
-        
+
         if (response.appliedFilters.clean_unclean) {
             filtersHtml += '<li>Clean unclean: ' + response.appliedFilters.clean_unclean + '</li>';
         }
-        
+
         if (response.appliedFilters.packaged) {
             filtersHtml += '<li>Packaged: ' + response.appliedFilters.packaged + '</li>';
         }
          if (response.appliedFilters.weight) {
             filtersHtml += '<li>Quantity: ' + response.appliedFilters.min_weight +  ' ' +response.appliedFilters.min_measure +  ' to ' +response.appliedFilters.max_weight +  ' ' +response.appliedFilters.max_measure +'</li>';
         }
-        
+
         filtersHtml += '</ul>';
     } else {
         filtersHtml += '<p>No results found for the applied filters.</p>';
     }
     filtersHtml += '</section>';
-    
+
     // Append filters HTML to #postListings
     $('#postListings').append(filtersHtml);
     }else{
@@ -768,11 +816,11 @@ function displayStars($rating) {
     var filtersHtml = '<section class="page-title"><h1>Contributor Posts</h1>';
     if (response.sabuniquesellListings.length > 0) {
         filtersHtml += '<h4>You have searched for:</h4><ul>';
-        
+
         if (response.appliedFilters.pincode) {
             filtersHtml += '<li>Pincode: ' + response.appliedFilters.pincode + '</li>';
         }
-        
+
         if (response.appliedFilters.resource) {
             filtersHtml += '<li>Resource: ';
             $.each(response.appliedFilters.resource, function(index, resourceId) {
@@ -784,34 +832,34 @@ function displayStars($rating) {
             filtersHtml = filtersHtml.slice(0, -2); // Remove trailing comma and space
             filtersHtml += '</li>';
         }
-        
+
        if (response.appliedFilters.sale_giveaway) {
     var saleGiveawayText = response.appliedFilters.sale_giveaway === 'Sale' ? 'Sell' : response.appliedFilters.sale_giveaway;
     filtersHtml += '<li>Sale giveaway: ' + saleGiveawayText + '</li>';
 }
 
-        
+
         if (response.appliedFilters.clean_unclean) {
             filtersHtml += '<li>Clean unclean: ' + response.appliedFilters.clean_unclean + '</li>';
         }
-        
+
         if (response.appliedFilters.packaged) {
             filtersHtml += '<li>Packaged: ' + response.appliedFilters.packaged + '</li>';
         }
          if (response.appliedFilters.weight) {
             filtersHtml += '<li>Quantity: ' + response.appliedFilters.min_weight +  ' ' +response.appliedFilters.min_measure +  ' to ' +response.appliedFilters.max_weight +  ' ' +response.appliedFilters.max_measure +'</li>';
         }
-        
+
         filtersHtml += '</ul>';
     } else {
         filtersHtml += '<p>No results found for the applied filters.</p>';
     }
     filtersHtml += '</section>';
-    
+
     // Append filters HTML to #postListings
     $('#postListings').append(filtersHtml);
     }
-    
+
     // Iterate through filtered listings and append to #postListings
      if (response.user_type === 'consumer') {
     $.each(response.sabuniqueListings, function(index, listing) {
@@ -825,7 +873,7 @@ function displayStars($rating) {
          html += '</div>';
            html += '<div class="col-md-6">';
         html += '<div class="description">';
-        
+
         // PHP-like conditional check in JavaScript
         var resourceNames = listing.resource_names ? listing.resource_names.split(', ') : [];
         if (resourceNames.length > 0) {
@@ -834,7 +882,7 @@ function displayStars($rating) {
          html += '<h4>' + listing.weight_details  + '</h4>';
         html += '<h4>' + listing.address + '</h4>';
         html += '<h4>' + 'Posted by: ' + listing.name + ' | On ' + listing.formatted_date + '</h4>';
-         
+
         html += '</div>';
          html += '</div>';
          html += '<div class="col-md-3">';
@@ -842,6 +890,16 @@ function displayStars($rating) {
         html += '<a href="#" data-id="' + listing.id + '" data-toggle="modal" data-target="#enquiryModal" class="btn btn-primary btn-small btn-rounded icon shadow connect-listing" style="float:right;">';
         html += '<span>Connect</span>';
         html += '</a>';
+         // Add WhatsApp Share Button
+         html += '<div class="wp">'; // Ensure it goes below the "Connect" button
+            if (sessionUserId) { // Assuming you have session user ID in JavaScript (e.g., passed from backend or retrieved via AJAX)
+                html += 'Share&nbsp; .&nbsp;<a href="https://wa.me/?text=' + encodeURIComponent('Check out this post: ' + baseUrl + 'con_listing_details/' + listing.id) + '" target="_blank" style="margin-bottom:10px;">';
+                html += '<i class="fa fa-whatsapp"></i></a>';
+            } else {
+                html += '<a href="' + consumerLoginRoute + '?redirect_wp=' + encodeURIComponent(baseUrl + 'con_listing_details/' + listing.id) + '" target="_blank" class="btn btn-success btn-small btn-rounded icon shadow" style="margin-bottom:10px;">';
+                html += '<i class="fa fa-whatsapp"></i> Share on WhatsApp</a>';
+            }
+            html += '</div>';
         html += '</div>';
         html += '</div>';
          html += '</div>';
@@ -860,7 +918,7 @@ function displayStars($rating) {
          html += '</div>';
            html += '<div class="col-md-6">';
         html += '<div class="description">';
-        
+
         // PHP-like conditional check in JavaScript
         var resourceNames = listing.resource_names ? listing.resource_names.split(', ') : [];
         if (resourceNames.length > 0) {
@@ -869,7 +927,7 @@ function displayStars($rating) {
          html += '<h4>' + listing.weight_details  + '</h4>';
         html += '<h4>' + listing.address + '</h4>';
         html += '<h4>' + 'Posted by: ' + listing.name + ' | On ' + listing.formatted_date + '</h4>';
-         
+
         html += '</div>';
          html += '</div>';
          html += '<div class="col-md-3">';
@@ -877,6 +935,16 @@ function displayStars($rating) {
         html += '<a href="#" data-id="' + listing.id + '" data-toggle="modal" data-target="#enquiryModal" class="btn btn-primary btn-small btn-rounded icon shadow connect-listing" style="float:right;">';
         html += '<span>Connect</span>';
         html += '</a>';
+         // Add WhatsApp Share Button
+html += '<div class="wp">'; // Ensure it goes below the "Connect" button
+    if (sessionUserId) { // Assuming you have session user ID in JavaScript (e.g., passed from backend or retrieved via AJAX)
+        html += 'Share&nbsp; .&nbsp;<a href="https://wa.me/?text=' + encodeURIComponent('Check out this post: ' + baseUrl + 'con_listing_details/' + listing.id) + '" target="_blank" style="margin-bottom:10px;">';
+        html += '<i class="fa fa-whatsapp"></i></a>';
+    } else {
+        html += '<a href="' + consumerLoginRoute + '?redirect_wp=' + encodeURIComponent(baseUrl + 'con_listing_details/' + listing.id) + '" target="_blank" class="btn btn-success btn-small btn-rounded icon shadow" style="margin-bottom:10px;">';
+        html += '<i class="fa fa-whatsapp"></i> Share on WhatsApp</a>';
+    }
+    html += '</div>';
         html += '</div>';
         html += '</div>';
          html += '</div>';
@@ -900,10 +968,10 @@ function displayStars($rating) {
         // Event delegation for .connect-listing elements
         $(document).on('click', '.connect-listing', function(e) {
             e.preventDefault(); // Prevent default anchor tag behavior
-            
+
             var dataId = $(this).attr('data-id'); // Get data-id attribute value
             $('#postid').val(dataId); // Assuming you're setting some value to #postid element
-            
+
             // AJAX request to fetch post details
             $.ajax({
                 url: "{{ url('/get_con_post_details') }}",
@@ -913,7 +981,7 @@ function displayStars($rating) {
                     if (response.status === 'success') {
                         var post = response.post;
                         var user = response.user;
-                        
+
                          // Update modal content with post details
                         $('#name').val(post.name);
                         $('#email').val(post.email);

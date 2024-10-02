@@ -1,6 +1,6 @@
 
 @include('frontend.include.header')
- 
+
 <style>
     .controls-more:after {
     content: none !important;
@@ -27,6 +27,16 @@
     margin: 0;
     padding: 0 10px;
     white-space: nowrap;
+}
+.controls-more {
+right: 5px !important;
+}
+a.btn {
+margin-left: 5px !important;
+}
+.fa {
+    margin-top:6px !important;
+    font-size: xx-large !important;
 }
 </style>
 
@@ -197,26 +207,26 @@
                     </div>
                     <!--end search-results-controls-->
                 </section>
-                
- 
+
+
 {{--  Consumer posts section start  --}}
 <section>
      @if( $user_type !== 'business' && $user_type !== 'sab')
-    
-    
+
+
                 @empty(!$conuniqueListings)
-                            
+
                          <h1>Contributor Posts</h1>
-                            
+
                      @endempty
-    
+
     <div class="row">
         @foreach($conuniqueListings as $listing)
             <div class="col-md-4 col-sm-4">
                 <div class="item" data-id="{{ $listing->id }}">
                     <a href="{{ url('con_listing_details/'.$listing->id) }}">
                         <div class="description">
-                            
+
                         </div>
                         <!--end description-->
                         <div class="image bg-transfer">
@@ -225,34 +235,41 @@
                         <!--end image-->
                     </a>
                     <div class="additional-info">
-                        
+
                                 <!--@foreach(explode(', ', $listing->resource_names) as $resourceName)-->
                                 <!--     {{ $resourceName }} ,-->
                                 <!--@endforeach-->
                                 @php
                                 $resourceNames = explode(', ', $listing->resource_names);
                             @endphp
-                            
+
                             @if(!empty($resourceNames))
                                 {{ implode(', ', $resourceNames) }}
                             @endif
-                            
+
                             <!--<h4>{{ $listing->address }}</h4>-->
-                            
+
                                         @if (session()->has('user_id'))
                                             <h4 style="word-wrap: break-word !important;white-space: normal; max-width: 200px;">{{ Str::limit($listing->address, 50) }} </h4>
                                             @else
                                             <h4>{{ $listing->sale_giveaway }}</h4>
                                             @endif
-                            
-                         
+
+
                         <div class="controls-more">
                              @if (session()->has('user_id'))
                              <a href="#" data-id="{{ $listing->id }}" data-toggle="modal" data-target="#enquiryModal" class="btn btn-primary btn-small btn-rounded icon shadow consumer-connect-listing" style="float:right;">
-                           
+
         <span>Connect</span>
-    </a> 
+    </a>
+    <a href="https://wa.me/?text={{ urlencode('Check out this post: ' . url('con_listing_details/'.$listing->id)) }}" target="_blank" class="btn btn-success btn-small btn-rounded icon shadow" style="margin-bottom:10px;">
+        <i class="fa fa-whatsapp"></i> Share on WhatsApp
+        <!--<i class="fa fa-share-alt"></i> Share on WhatsApp-->
+    </a>
     @else
+    <a href="{{ route('consumer_login', ['redirect_wp' => url('con_listing_details/' . $listing->id)]) }}" target="_blank" class="btn btn-success btn-small btn-rounded icon shadow" style="margin-bottom:10px;">
+        <i class="fa fa-whatsapp"></i> Share on WhatsApp
+    </a>
                               <a href="{{ route('consumer_login') }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing">Connect</a>
                             @endif
                         </div>
@@ -268,34 +285,34 @@
                         <div class="row">
         <div class="col-md-4 col-sm-4">
              @if (session()->has('user_id'))
-         <a href="{{route('con_all_posts')}}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing">Browse More</a> 
+         <a href="{{route('con_all_posts')}}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing">Browse More</a>
           @else
         <a href="{{ route('consumer_login') }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing">Browse More</a>
     @endif
             </div>
     </div>
-    
+
 @endif
     <!--end row-->
 </section>
 
 <section>
      @if( $user_type == 'sab' || $user_type == 'business')
-     
+
      @empty(!$conuniqueListingsnotbuy)
-                            
+
             <h1>Contributor Posts </h1>
-                            
+
         @endempty
-   
-      
+
+
     <div class="row">
         @foreach($conuniqueListingsnotbuy as $listing)
             <div class="col-md-4 col-sm-4">
                 <div class="item" data-id="{{ $listing->id }}">
                     <a href="{{ url('con_listing_details/'.$listing->id) }}">
                         <div class="description">
-                            
+
                         </div>
                         <!--end description-->
                         <div class="image bg-transfer">
@@ -304,7 +321,7 @@
                         <!--end image-->
                     </a>
                     <div class="additional-info">
-                        
+
                                 <!--@foreach(explode(', ', $listing->resource_names) as $resourceName)-->
                                 <!--     {{ $resourceName }} ,-->
                                 <!--@endforeach-->
@@ -315,24 +332,32 @@
 @if(!empty($resourceNames))
     {{ implode(', ', $resourceNames) }}
 @endif
-                            
-                            
+
+
                             <!--<h4>{{ $listing->address }}</h4>-->
-                            
+
                              @if (session()->has('user_id'))
                                             <h4 style="word-wrap: break-word !important;white-space: normal; max-width: 200px;">{{ Str::limit($listing->address, 50) }} </h4>
                                             @else
                                             <h4>{{ $listing->sale_giveaway }}</h4>
                                             @endif
-                            
-                        
+
+
                         <div class="controls-more">
                              @if (session()->has('user_id'))
                              <a href="#" data-id="{{ $listing->id }}" data-toggle="modal" data-target="#enquiryModal" class="btn btn-primary btn-small btn-rounded icon shadow consumer-connect-listing" style="float:right;">
-                            
+
         <span>Connect</span>
     </a>
+    <a href="https://wa.me/?text={{ urlencode('Check out this post: ' . url('con_listing_details/'.$listing->id)) }}" target="_blank"  style="float:right">
+
+        <!--<i class="fa fa-share-alt"></i>  -->
+        <i class="fa fa-whatsapp"></i>
+   </a>
     @else
+    <a href="{{ route('consumer_login', ['redirect_wp' => url('con_listing_details/' . $listing->id)]) }}" target="_blank" class="btn btn-success btn-small btn-rounded icon shadow" style="margin-bottom:10px;">
+        <i class="fa fa-whatsapp"></i> Share on WhatsApp
+    </a>
                             <a href="{{ route('consumer_login') }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing">Connect</a>
                             @endif
                         </div>
@@ -348,13 +373,13 @@
                         <div class="row">
         <div class="col-md-4 col-sm-4">
              @if (session()->has('user_id'))
-         <a href="{{route('con_all_posts')}}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing">Browse More</a> 
+         <a href="{{route('con_all_posts')}}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing">Browse More</a>
           @else
         <a href="{{ route('consumer_login') }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing">Browse More</a>
     @endif
             </div>
     </div>
-    
+
 @endif
     <!--end row-->
 </section>
@@ -366,7 +391,7 @@
 
                 {{--  SAB posts section start  --}}
                 <section>
-                     
+
                     <h1>Resource Collector Posts</h1>
                     <div class="row">
 
@@ -375,7 +400,7 @@
                                 <div class="item" data-id="{{ $listing->id }}">
                                     <a href="{{ url('sabs_listing_details/'.$listing->id) }}">
                                         <div class="description">
-                                            
+
                                         </div>
                                         <!--end description-->
                                         <div class="image bg-transfer">
@@ -384,7 +409,7 @@
                                         <!--end image-->
                                     </a>
                                     <div class="additional-info">
-                                        
+
                                                 <!--@foreach(explode(', ', $listing->resource_names) as $resourceName)-->
                                                 <!--     {{ $resourceName }} ,-->
                                                 <!--@endforeach-->
@@ -395,22 +420,30 @@
 @if(!empty($resourceNames))
     {{ implode(', ', $resourceNames) }}
 @endif
-                                             
-                                            
+
+
                                        @if (session()->has('user_id'))
                                             <h4 style="word-wrap: break-word !important;white-space: normal; max-width: 200px;">{{ Str::limit($listing->address, 50) }}  </h4>
                                             @else
                                             <h4>{{ $listing->sale_giveaway }}</h4>
                                             @endif
-                                             
-                                         
+
+
                                         <div class="controls-more">
                                              @if (session()->has('user_id'))
                                             <a href="#" data-id="{{ $listing->id }}" data-toggle="modal" data-target="#sabenquiryModal" class="btn btn-primary btn-small btn-rounded icon shadow sab-connect-listing" style="float:right;">
-                                            
+
         <span>Connect</span>
     </a>
+    <a href="https://wa.me/?text={{ urlencode('Check out this post: ' . url('sabs_listing_details/'.$listing->id)) }}" target="_blank"  style="float:right">
+
+        <!--<i class="fa fa-share-alt"></i>  -->
+        <i class="fa fa-whatsapp"></i>
+   </a>
     @else
+    <a href="{{ route('consumer_login', ['redirect_wp' => url('sabs_listing_details/' . $listing->id)]) }}" target="_blank" class="btn btn-success btn-small btn-rounded icon shadow" style="margin-bottom:10px;">
+        <i class="fa fa-whatsapp"></i> Share on WhatsApp
+    </a>
                                              <a href="{{ route('consumer_login') }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing">Connect</a>
                                             @endif
                                         </div>
@@ -432,8 +465,8 @@
     @endif
 </div>
                     </div>
-                    
-                  
+
+
                     <!--end row-->
                 </section>
 {{--  SAB posts section end  --}}
@@ -446,10 +479,10 @@
 
 <section>
                      @if( $user_type == 'business')
-                     
-                     
+
+
                     <h1>Corporate Posts </h1>
-                   
+
                     <div class="row">
 
                         @foreach($busuniqueListings as $listing)
@@ -467,7 +500,7 @@
                                         <!--end image-->
                                     </a>
                                     <div class="additional-info">
-                                        
+
                                             <!--@foreach(explode(', ', $listing->resource_names) as $index => $resourceName)-->
                                             <!--    @if($index < 2)-->
                                             <!--         {{ $resourceName }} ,-->
@@ -483,20 +516,28 @@
     {{ implode(', ', $resourceNames) }}
 @endif
 
-                                        
+
                                               @if (session()->has('user_id'))
                                             <h4 style="word-wrap: break-word !important;white-space: normal; max-width: 200px;">{{ Str::limit($listing->address, 50) }}  </h4>
                                             @else
                                             <h4>{{ $listing->sale_giveaway }}</h4>
                                             @endif
-                                             
-                                         
+
+
                                         <div class="controls-more">
                                              @if (session()->has('user_id'))
                                              <a href="#" data-id="{{ $listing->id }}" data-toggle="modal" data-target="#businessenquiryModal" class="btn btn-primary btn-small btn-rounded icon shadow bus-connect-listing" style="float:right;">
         <span>Connect</span>
     </a>
+    <a href="https://wa.me/?text={{ urlencode('Check out this post: ' . url('bus_listing_details/'.$listing->id)) }}" target="_blank"  style="float:right">
+
+        <!--<i class="fa fa-share-alt"></i>  -->
+        <i class="fa fa-whatsapp"></i>
+   </a>
      @else
+     <a href="{{ route('consumer_login', ['redirect_wp' => url('bus_listing_details/' . $listing->id)]) }}" target="_blank" class="btn btn-success btn-small btn-rounded icon shadow" style="margin-bottom:10px;">
+        <i class="fa fa-whatsapp"></i> Share on WhatsApp
+    </a>
                               <a href="{{ route('consumer_login') }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing">Connect</a>
                             @endif
                                         </div>
@@ -512,7 +553,7 @@
                         <div class="row">
   <div class="col-md-4 col-sm-4">
        @if (session()->has('user_id'))
-         <a href="{{route('bus_all_posts')}}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing">Browse More</a> 
+         <a href="{{route('bus_all_posts')}}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing">Browse More</a>
          @else
         <a href="{{ route('consumer_login') }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing">Browse More</a>
     @endif
@@ -521,16 +562,16 @@
                      @endif
                     <!--end row-->
                 </section>
-                
+
                 <section>
                      @if($user_type !== 'business')
-                     
+
                       @empty(!$busuniqueListingsnotsell)
-                            
+
                         <h1>Corporate Posts</h1>
-                                        
+
                     @endempty
-                    
+
                     <div class="row">
 
                         @foreach($busuniqueListingsnotsell as $listing)
@@ -546,7 +587,7 @@
                                         <!--end image-->
                                     </a>
                                     <div class="additional-info">
-                                        
+
                                             <!--@foreach(explode(', ', $listing->resource_names) as $index => $resourceName)-->
                                             <!--    @if($index < 2)-->
                                             <!--         {{ $resourceName }} ,-->
@@ -562,20 +603,28 @@
     {{ implode(', ', $resourceNames) }}
 @endif
 
-                                        
+
                                               @if (session()->has('user_id'))
                                             <h4 style="word-wrap: break-word !important;white-space: normal; max-width: 200px;">{{ Str::limit($listing->address, 50) }}  </h4>
                                             @else
                                             <h4>{{ $listing->sale_giveaway }}</h4>
                                             @endif
-                                             
-                                         
+
+
                                         <div class="controls-more">
                                                 @if (session()->has('user_id'))
                                              <a href="#" data-id="{{ $listing->id }}" data-toggle="modal" data-target="#businessenquiryModal" class="btn btn-primary btn-small btn-rounded icon shadow bus-connect-listing" style="float:right;">
         <span>Connect</span>
     </a>
+    <a href="https://wa.me/?text={{ urlencode('Check out this post: ' . url('bus_listing_details/'.$listing->id)) }}" target="_blank"  style="float:right">
+
+        <!--<i class="fa fa-share-alt"></i>  -->
+        <i class="fa fa-whatsapp"></i>
+   </a>
      @else
+     <a href="{{ route('consumer_login', ['redirect_wp' => url('bus_listing_details/' . $listing->id)]) }}" target="_blank" class="btn btn-success btn-small btn-rounded icon shadow" style="margin-bottom:10px;">
+        <i class="fa fa-whatsapp"></i> Share on WhatsApp
+    </a>
                               <a href="{{ route('consumer_login') }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing">Connect</a>
                             @endif
                                         </div>
@@ -591,7 +640,7 @@
                         <div class="row">
   <div class="col-md-4 col-sm-4">
        @if (session()->has('user_id'))
-         <a href="{{route('bus_all_posts')}}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing">Browse More</a> 
+         <a href="{{route('bus_all_posts')}}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing">Browse More</a>
          @else
         <a href="{{ route('consumer_login') }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing">Browse More</a>
     @endif
@@ -639,10 +688,10 @@
             <div class="modal-header">
                  <h2 class="modal-title text-center" id="enquiryModalLabel"><strong>Contact Details</strong></h2>
                  <div id="user-details" class="mb-1" style="line-height:1.75">
-                     
+
                     <!-- User details will be appended here -->
                 </div>
-               
+
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -654,7 +703,7 @@
     </div>
             <h2 class="modal-title text-center mt-1" id="enquiryModalLabel"><strong>Send Enquiry</strong></h2>
             <div class="modal-body">
-                
+
                <form class="form form-email inputs-underline"  action="{{ route('enquiry.consumer_save') }}" method="POST">
                     @csrf
                     <input type="hidden" name="id" id="postid" value="">
@@ -662,7 +711,7 @@
                     <div class="row justify-content-center align-items-center">
                         <div class="col-md-12 col-sm-12">
                             <div class="form-group">
-                                 
+
                                 <input type="text" class="form-control" name="name" id="name" placeholder="Enter name">
                                 @if ($errors->has('name'))
                                     <span class="text-danger">{{ $errors->first('name') }}</span>
@@ -673,17 +722,17 @@
                     <div class="row">
                         <div class="col-md-6 col-sm-12">
                             <div class="form-group">
-                                 
+
                                 <input type="email" class="form-control" name="email" id="email" placeholder="Enter email">
                                 @if ($errors->has('email'))
                                     <span class="text-danger">{{ $errors->first('email') }}</span>
                                 @endif
                             </div>
                         </div>
-                    
+
                         <div class="col-md-6 col-sm-12">
                             <div class="form-group">
-                                
+
                                 <input type="text" class="form-control" name="mobile" id="mobile" placeholder="Enter mobile">
                                 @if ($errors->has('mobile'))
                                     <span class="text-danger">{{ $errors->first('mobile') }}</span>
@@ -692,7 +741,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        
+
                         <textarea class="form-control" id="message" rows="3" name="message" placeholder="Enter message"></textarea>
                         @if ($errors->has('message'))
                             <span class="text-danger">{{ $errors->first('message') }}</span>
@@ -702,12 +751,12 @@
                         <button type="submit" class="btn btn-primary btn-rounded">Send Message</button>
                     </div>
                 </form>
-                
-                
+
+
             </div>
         </div>
     </div>
-</div>  
+</div>
 <!--consumer modal end-->
 
 <!--sab modal start-->
@@ -717,10 +766,10 @@
             <div class="modal-header">
                  <h2 class="modal-title text-center" id="sabenquiryModalLabel"><strong>Contact Details</strong></h2>
                  <div id="sab-user-details" class="mb-1" style="line-height:1.75">
-                     
+
                     <!-- User details will be appended here -->
                 </div>
-               
+
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -732,7 +781,7 @@
     </div>
             <h2 class="modal-title text-center mt-1" id="sabenquiryModalLabel"><strong>Send Enquiry</strong></h2>
             <div class="modal-body">
-                
+
                <form class="form form-email inputs-underline"  action="{{ route('enquiry.sab_save') }}" method="POST">
                     @csrf
                     <input type="hidden" name="id" id="sabpostid" value="">
@@ -740,7 +789,7 @@
                     <div class="row justify-content-center align-items-center">
                         <div class="col-md-12 col-sm-12">
                             <div class="form-group">
-                                 
+
                                 <input type="text" class="form-control" name="name" id="sabname" placeholder="Enter name">
                                 @if ($errors->has('name'))
                                     <span class="text-danger">{{ $errors->first('name') }}</span>
@@ -751,17 +800,17 @@
                     <div class="row">
                         <div class="col-md-6 col-sm-12">
                             <div class="form-group">
-                                 
+
                                 <input type="email" class="form-control" name="email" id="sabemail" placeholder="Enter email">
                                 @if ($errors->has('email'))
                                     <span class="text-danger">{{ $errors->first('email') }}</span>
                                 @endif
                             </div>
                         </div>
-                    
+
                         <div class="col-md-6 col-sm-12">
                             <div class="form-group">
-                                
+
                                 <input type="text" class="form-control" name="mobile" id="sabmobile" placeholder="Enter mobile">
                                 @if ($errors->has('mobile'))
                                     <span class="text-danger">{{ $errors->first('mobile') }}</span>
@@ -770,7 +819,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        
+
                         <textarea class="form-control" id="sabmessage" rows="3" name="message" placeholder="Enter message"></textarea>
                         @if ($errors->has('message'))
                             <span class="text-danger">{{ $errors->first('message') }}</span>
@@ -780,12 +829,12 @@
                         <button type="submit" class="btn btn-primary btn-rounded">Send Message</button>
                     </div>
                 </form>
-                
-                
+
+
             </div>
         </div>
     </div>
-</div>  
+</div>
 <!--sab modal end-->
 
 <!--business modal start-->
@@ -795,10 +844,10 @@
             <div class="modal-header">
                  <h2 class="modal-title text-center" id="busenquiryModalLabel"><strong>Contact Details</strong></h2>
                  <div id="bus-user-details" class="mb-1" style="line-height:1.75">
-                     
+
                     <!-- User details will be appended here -->
                 </div>
-               
+
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -810,7 +859,7 @@
     </div>
             <h2 class="modal-title text-center mt-1" id="busenquiryModalLabel"><strong>Send Enquiry</strong></h2>
             <div class="modal-body">
-                
+
                <form class="form form-email inputs-underline"  action="{{ route('enquiry.business_save') }}" method="POST">
                     @csrf
                     <input type="hidden" name="id" id="buspostid" value="">
@@ -818,7 +867,7 @@
                     <div class="row justify-content-center align-items-center">
                         <div class="col-md-12 col-sm-12">
                             <div class="form-group">
-                                 
+
                                 <input type="text" class="form-control" name="name" id="busname" placeholder="Enter name">
                                 @if ($errors->has('name'))
                                     <span class="text-danger">{{ $errors->first('name') }}</span>
@@ -829,17 +878,17 @@
                     <div class="row">
                         <div class="col-md-6 col-sm-12">
                             <div class="form-group">
-                                 
+
                                 <input type="email" class="form-control" name="email" id="busemail" placeholder="Enter email">
                                 @if ($errors->has('email'))
                                     <span class="text-danger">{{ $errors->first('email') }}</span>
                                 @endif
                             </div>
                         </div>
-                    
+
                         <div class="col-md-6 col-sm-12">
                             <div class="form-group">
-                                
+
                                 <input type="text" class="form-control" name="mobile" id="busmobile" placeholder="Enter mobile">
                                 @if ($errors->has('mobile'))
                                     <span class="text-danger">{{ $errors->first('mobile') }}</span>
@@ -848,7 +897,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        
+
                         <textarea class="form-control" id="busmessage" rows="3" name="message" placeholder="Enter message"></textarea>
                         @if ($errors->has('message'))
                             <span class="text-danger">{{ $errors->first('message') }}</span>
@@ -858,14 +907,14 @@
                         <button type="submit" class="btn btn-primary btn-rounded">Send Message</button>
                     </div>
                 </form>
-                
-                
+
+
             </div>
         </div>
     </div>
-</div>  
+</div>
 <!--business modal end-->
- 
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -874,10 +923,10 @@
         // Event delegation for .connect-listing elements
         $(document).on('click', '.consumer-connect-listing', function(e) {
             e.preventDefault(); // Prevent default anchor tag behavior
-            
+
             var dataId = $(this).attr('data-id'); // Get data-id attribute value
             $('#postid').val(dataId); // Assuming you're setting some value to #postid element
-            
+
             // AJAX request to fetch post details
             $.ajax({
                 url: "{{ url('/get_consumer_post_details') }}",
@@ -887,7 +936,7 @@
                     if (response.status === 'success') {
                         var post = response.post;
                         var user = response.user;
-                        
+
                          // Update modal content with post details
                         $('#name').val(post.name);
                         $('#email').val(post.email);
@@ -916,10 +965,10 @@
         // Event delegation for .connect-listing elements
         $(document).on('click', '.sab-connect-listing', function(e) {
             e.preventDefault(); // Prevent default anchor tag behavior
-             
+
             var dataId = $(this).attr('data-id'); // Get data-id attribute value
             $('#sabpostid').val(dataId); // Assuming you're setting some value to #postid element
-            
+
             // AJAX request to fetch post details
             $.ajax({
                 url: "{{ url('/get_post_details') }}",
@@ -929,7 +978,7 @@
                     if (response.status === 'success') {
                         var post = response.post;
                         var user = response.user;
-                        
+
                          // Update modal content with post details
                         $('#sabname').val(post.name);
                         $('#sabemail').val(post.email);
@@ -958,10 +1007,10 @@
         // Event delegation for .connect-listing elements
         $(document).on('click', '.bus-connect-listing', function(e) {
             e.preventDefault(); // Prevent default anchor tag behavior
-            
+
             var dataId = $(this).attr('data-id'); // Get data-id attribute value
             $('#buspostid').val(dataId); // Assuming you're setting some value to #postid element
-            
+
             // AJAX request to fetch post details
             $.ajax({
                 url: "{{ url('/get_business_post_details') }}",
@@ -971,7 +1020,7 @@
                     if (response.status === 'success') {
                         var post = response.post;
                         var user = response.user;
-                        
+
                          // Update modal content with post details
                         $('#busname').val(post.name);
                         $('#busemail').val(post.email);
