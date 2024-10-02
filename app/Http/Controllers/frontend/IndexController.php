@@ -164,7 +164,7 @@ class IndexController extends Controller
         // $request->validate([
         //     'contact' => 'required|digits:10', // Assuming Indian 10 digit phone number
         // ]);
-        // 
+        //
         // Check if the user exists in the ecosansar_users table
         $user = DB::table('ecosansar_users')
             ->where('id', $id)->first();
@@ -359,7 +359,7 @@ class IndexController extends Controller
 
     public function terms_conditions()
     {
-        
+
         // user activity start
         $userid = session()->get('user_id');
         if ($userid){
@@ -371,7 +371,7 @@ class IndexController extends Controller
             $userActivity->save();
         }
         // user activity end
-        
+
         return view('frontend/temrs_condition');
     }
     public function index(Request $request)
@@ -397,7 +397,7 @@ $sabMinWeightSum = SABPost::join('weights', 's_a_b_posts.quantity', '=', 'weight
 // Calculating the combined total min_weight
 $totalMinWeight = $busMinWeightSum->total_min_weight + $conMinWeightSum->total_min_weight + $sabMinWeightSum->total_min_weight;
 
-        
+
         //Business posts
         $listings = BusinessPost::leftjoin('business_resource_posts', 'business_resource_posts.post_id', 'business_posts.id')
             ->leftjoin('resources', 'resources.id', 'business_resource_posts.resource_type')
@@ -553,7 +553,7 @@ $totalMinWeight = $busMinWeightSum->total_min_weight + $conMinWeightSum->total_m
         $clistings = ConsumerPost::get()->each(function ($item) {
             $item->type = 'consumer';
         });
-        
+
           // user activity start
         $userid = session()->get('user_id');
         if ($userid){
@@ -568,20 +568,20 @@ $totalMinWeight = $busMinWeightSum->total_min_weight + $conMinWeightSum->total_m
 
         $alllistings = $blistings->merge($slistings)->merge($clistings);
         $res = Resource::get();
-        
-        
+
+
         $users = EcosansarUsers::where('is_delete','0')->count();
-            
+
             $Resourceusers = EcosansarUsers::where('user_type','sab')->where('is_delete','0')->count();
             $Contributorusers = EcosansarUsers::where('user_type','consumer')->where('is_delete','0')->count();
             $Corporateusers = EcosansarUsers::where('user_type','business')->where('is_delete','0')->count();
-            
+
             $Contributorpost = ConsumerPost::where('active','1')->count();
             $Resourcepost = SABPost::where('active','1')->count();
             $Corporatepost = BusinessPost::where('active','1')->count();
-            
+
             $totalpostCount = $Resourcepost + $Contributorpost + $Corporatepost;
-             
+
         return view('frontend/index', compact('totalMinWeight','conuniqueListingsnotbuy', 'user_type', 'busuniqueListings', 'sabuniqueListings', 'conuniqueListings', 'blistings', 'slistings', 'clistings',
         'alllistings', 'res', 'busuniqueListingsnotsell','users','Resourceusers','Contributorusers','Corporateusers','totalpostCount','Resourcepost','Contributorpost','Corporatepost'));
     }
@@ -658,9 +658,9 @@ $totalMinWeight = $busMinWeightSum->total_min_weight + $conMinWeightSum->total_m
             $uniqueListing->resource_img = $resourceImages;
             $uniqueListings->push($uniqueListing);
         }
-        
-        
-        
+
+
+
         $deactivelistings = ConsumerPost::leftjoin('consumer_resource_posts', 'consumer_resource_posts.post_id', 'consumer_posts.id')
             ->leftjoin('resources', 'resources.id', 'consumer_resource_posts.resource_type')
             ->select('consumer_posts.*', 'resources.resource_name', 'consumer_resource_posts.resource_img')
@@ -672,7 +672,7 @@ $totalMinWeight = $busMinWeightSum->total_min_weight + $conMinWeightSum->total_m
         $deactivepostIds = $deactivelistings->pluck('id')->unique();
 
         // Filter listings to get only one record per post and include all resource names
-        
+
         $deactiveuniqueListings = collect([]);
         foreach ($deactivepostIds as $postId) {
             $postListings = $deactivelistings->where('id', $postId);
@@ -683,9 +683,9 @@ $totalMinWeight = $busMinWeightSum->total_min_weight + $conMinWeightSum->total_m
             $uniqueListing->resource_img = $resourceImages;
             $deactiveuniqueListings->push($uniqueListing);
         }
-        
-        
-        
+
+
+
 
         $sablistings = SABPost::leftjoin('s_a_b_resource_posts', 's_a_b_resource_posts.post_id', 's_a_b_posts.id')
             ->leftjoin('resources', 'resources.id', 's_a_b_resource_posts.resource_type')
@@ -708,8 +708,8 @@ $totalMinWeight = $busMinWeightSum->total_min_weight + $conMinWeightSum->total_m
             $sabuniqueListing->resource_img = $resourceImages;
             $sabuniqueListings->push($sabuniqueListing);
         }
-        
-        
+
+
         $deactivesablistings = SABPost::leftjoin('s_a_b_resource_posts', 's_a_b_resource_posts.post_id', 's_a_b_posts.id')
             ->leftjoin('resources', 'resources.id', 's_a_b_resource_posts.resource_type')
             ->select('s_a_b_posts.*', 'resources.resource_name', 's_a_b_resource_posts.resource_img')
@@ -731,10 +731,10 @@ $totalMinWeight = $busMinWeightSum->total_min_weight + $conMinWeightSum->total_m
             $sabuniqueListing->resource_img = $resourceImages;
             $deactivesabuniqueListings->push($sabuniqueListing);
         }
-        
-        
-        
-        
+
+
+
+
 
         $buslistings = BusinessPost::leftjoin('business_resource_posts', 'business_resource_posts.post_id', 'business_posts.id')
             ->leftjoin('resources', 'resources.id', 'business_resource_posts.resource_type')
@@ -742,11 +742,11 @@ $totalMinWeight = $busMinWeightSum->total_min_weight + $conMinWeightSum->total_m
             ->where('business_posts.user_id',  $id)
             ->where('business_posts.active', '=', 1)
             ->get();
-            
-          
+
+
         // Extract unique post IDs
         $buspostIds = $buslistings->pluck('id')->unique();
-        
+
         // user activity start
         $userid = session()->get('user_id');
         if ($userid){
@@ -770,18 +770,18 @@ $totalMinWeight = $busMinWeightSum->total_min_weight + $conMinWeightSum->total_m
             $busuniqueListing->resource_img = $resourceImages;
             $busuniqueListings->push($busuniqueListing);
         }
-        
-        
+
+
           $deactivebuslistings = BusinessPost::leftjoin('business_resource_posts', 'business_resource_posts.post_id', 'business_posts.id')
             ->leftjoin('resources', 'resources.id', 'business_resource_posts.resource_type')
             ->select('business_posts.*', 'resources.resource_name', 'business_resource_posts.resource_img')
             ->where('business_posts.user_id',  $id)
             ->where('business_posts.active', '=', 0)
             ->get();
-            
+
             // Extract unique post IDs
         $deactivebuspostIds = $deactivebuslistings->pluck('id')->unique();
-        
+
          // Filter listings to get only one record per post and include all resource names
         $deactivebusuniqueListings = collect([]);
         foreach ($deactivebuspostIds as $postId) {
@@ -793,9 +793,9 @@ $totalMinWeight = $busMinWeightSum->total_min_weight + $conMinWeightSum->total_m
             $busuniqueListing->resource_img = $resourceImages;
             $deactivebusuniqueListings->push($busuniqueListing);
         }
-        
-        
-        $url = route('profile_update', $id);  
+
+
+        $url = route('profile_update', $id);
         return view('frontend/profile', compact('users', 'url', 'utype', 'conrev', 'sabrev', 'uniqueListings','deactiveuniqueListings','sabuniqueListings','deactivesabuniqueListings', 'busuniqueListings','deactivebusuniqueListings'));
     }
     public function profile_update(Request $req, $id)
@@ -866,10 +866,10 @@ $totalMinWeight = $busMinWeightSum->total_min_weight + $conMinWeightSum->total_m
             $userActivity->save();
         }
         // user activity end
-        
+
         return view('frontend/about');
     }
-    
+
     public function ourteam()
     {
         return view('frontend/ourteam');
@@ -877,7 +877,7 @@ $totalMinWeight = $busMinWeightSum->total_min_weight + $conMinWeightSum->total_m
 
     public function faq()
     {
-        
+
       // user activity start
         $userid = session()->get('user_id');
         if ($userid){
@@ -918,7 +918,7 @@ $totalMinWeight = $busMinWeightSum->total_min_weight + $conMinWeightSum->total_m
     }
  private function generateCaptcha()
     {
-        
+
         $captchaLength = 6; // Set the length of the CAPTCHA
         $captchaCharacters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'; // Define the characters to be used in the CAPTCHA
         $captcha = '';
@@ -963,9 +963,9 @@ $totalMinWeight = $busMinWeightSum->total_min_weight + $conMinWeightSum->total_m
         // user activity end
         // Generate CAPTCHA
         $captcha = $this->generateCaptcha();
-        
+
         // Store CAPTCHA value in session
-        session(['captcha' => $captcha]); 
+        session(['captcha' => $captcha]);
         return view('frontend/contact',compact('captcha'));
     }
     public function contact_store(Request $req){
@@ -976,7 +976,7 @@ $totalMinWeight = $busMinWeightSum->total_min_weight + $conMinWeightSum->total_m
             'captcha' => 'required'
         ]);
         echo "<pre>";
-        print_r($req->all()); 
+        print_r($req->all());
              // Validate CAPTCHA input
     if (!$this->validateCaptcha($req)) {
         echo 'req';die;
@@ -1002,17 +1002,17 @@ $totalMinWeight = $busMinWeightSum->total_min_weight + $conMinWeightSum->total_m
         $contact->save();
 
         $data = [
-             
+
             'name' =>  $req->name,
             'email' => 'ecosansar@yahoo.com',
             'useremail' => $req->email,
              'phone' => $req->phone_no,
             'sub' => $req->subject,
             'msg' => $req->message,
-             
+
             ];
-            
-              
+
+
             // $data["title"] = "IIV India Registered Valuers Foundation | Payment Success | Thank you";
             $data["title"] =  "New contact from ". $req->name;
             // Mail::to(Auth::user()->email)->send(new Payment_done_mail($data));
@@ -1245,7 +1245,7 @@ $totalMinWeight = $busMinWeightSum->total_min_weight + $conMinWeightSum->total_m
         //return redirect()->route('consumer_login');
     }
 
-    public function register_otp($id) 
+    public function register_otp($id)
     {
         // echo $id;
         $users = EcosansarUsers::where('id', $id)->first();
@@ -1318,7 +1318,7 @@ $totalMinWeight = $busMinWeightSum->total_min_weight + $conMinWeightSum->total_m
         // echo "<pre>";
         // print_r($request->all());
         // die;
-        
+
         $user_id = session()->get('user_id');
         $email = EcosansarUsers::where('id', $user_id)->first();
 
@@ -1383,7 +1383,7 @@ if ($request->sale_giveaway == 'Buy') {
         $user->latitude = $request->latitude;
         $user->longitude = $request->longitude;
         $user->save();
-        
+
         // Function to resize an image using the GD library
 function resizeImage($source, $destination, $width, $height)
 {
@@ -1449,7 +1449,7 @@ function resizeImage($source, $destination, $width, $height)
             if (isset($request->resource_img[$index])) {
                 $image = $request->file('resource_img')[$index];
                 $imageName = $user_id . '_' . $user->id . '_' . $resourceId . '.' . $image->extension();
-                
+
                 // Temporary path for the uploaded file
         $tempPath = $image->getRealPath();
         // Destination path for resized image
@@ -1457,14 +1457,14 @@ function resizeImage($source, $destination, $width, $height)
 
         // Resize the image using GD library before moving
         resizeImage($tempPath, $destinationPath, 800, 600); // Resize to 800x600 (or your preferred size)
-        
+
                // $image->move('frontend/assets/img/Businessposts', $imageName);
                 $resource->resource_img = $imageName;
             }
 
             $resource->save();
         }
-        
+
                 // user activity start
         $userid = session()->get('user_id');
         if ($userid){
@@ -1533,7 +1533,7 @@ function resizeImage($source, $destination, $width, $height)
             $uniqueListing->resource_img = $resourceImages;
             $uniqueListings->push($uniqueListing);
         }
-        
+
          // user activity start
         $userid = session()->get('user_id');
         if ($userid){
@@ -1555,7 +1555,7 @@ function resizeImage($source, $destination, $width, $height)
         $users = EcosansarUsers::where('id', $user_id)->first();
         $resources = Resource::get();
         $weights = Weight::get();
-        
+
          // user activity start
         $userid = session()->get('user_id');
         if ($userid){
@@ -1567,8 +1567,8 @@ function resizeImage($source, $destination, $width, $height)
             $userActivity->save();
         }
         // user activity end
-        
-        
+
+
         return view('frontend/userdetails/businessdetails', compact('user_id', 'resources', 'weights', 'users'));
     }
 
@@ -1580,7 +1580,7 @@ function resizeImage($source, $destination, $width, $height)
     public function user_deactivate()
     {
         // Clear all session data
-        
+
         // user activity start
         $userid = session()->get('user_id');
         if ($userid){
@@ -1592,8 +1592,8 @@ function resizeImage($source, $destination, $width, $height)
             $userActivity->save();
         }
         // user activity end
-        
-        
+
+
 
         $user_id = session()->get('user_id');
 
@@ -1678,7 +1678,7 @@ function resizeImage($source, $destination, $width, $height)
         $err = curl_error($curl);
 
         curl_close($curl);
- 
+
         if ($err) {
             return response()->json([
                 'status' => 'error',
@@ -1701,7 +1701,7 @@ function resizeImage($source, $destination, $width, $height)
     public function signOut()
     {
         // Clear all session data
-        
+
          // user activity start
         $userid = session()->get('user_id');
         if ($userid){
@@ -1713,7 +1713,7 @@ function resizeImage($source, $destination, $width, $height)
             $userActivity->save();
         }
         // user activity end
-        
+
         Session::flush();
 
         // Redirect to the login page
@@ -1865,7 +1865,7 @@ function resizeImage($source, $destination, $width, $height)
             $uniqueListing->resource_img = $resourceImages;
             $uniqueListings->push($uniqueListing);
         }
-        
+
         // user activity start
         $userid = session()->get('user_id');
         if ($userid){
@@ -1877,8 +1877,8 @@ function resizeImage($source, $destination, $width, $height)
             $userActivity->save();
         }
         // user activity end
-        
-        
+
+
         return view('frontend/userdetails/sabownposts', compact('uniqueListings'));
     }
     public function sab_details()
@@ -1888,7 +1888,7 @@ function resizeImage($source, $destination, $width, $height)
         $users = EcosansarUsers::where('id', $user_id)->first();
         $resources = Resource::get();
         $weights = Weight::get();
-        
+
           // user activity start
         $userid = session()->get('user_id');
         if ($userid){
@@ -1936,7 +1936,7 @@ function resizeImage($source, $destination, $width, $height)
         'resource_img.*.max' => 'The image must not be greater than 10 MB.',
     ];
 
-   
+
      $validator = \Validator::make($request->all(), $rules, $messages);
 
     if ($validator->fails()) {
@@ -2044,7 +2044,7 @@ function resizeImage($source, $destination, $width, $height)
                 $resource->user_id = $user_id;
                 $resource->post_id = $user->id;
                 $resource->resource_type = $resourceId;
-                
+
                 if (isset($request->resource_img[$index])) {
                 $image = $request->file('resource_img')[$index];
                 $imageName = $user_id . '_' . $user->id . '_' . $resourceId . '.' . $image->extension();
@@ -2057,12 +2057,12 @@ function resizeImage($source, $destination, $width, $height)
         resizeImage($tempPath, $destinationPath, 800, 600); // Resize to 800x600 (or your preferred size)
                // $image->move('frontend/assets/img/SABposts', $imageName);
                 $resource->resource_img = $imageName;
-               
+
             }
              $resource->save();
             }
         }
-        
+
               // user activity start
         $userid = session()->get('user_id');
         if ($userid){
@@ -2148,7 +2148,7 @@ function resizeImage($source, $destination, $width, $height)
             // Authentication successful
             session()->put('user_id', $user->id);
             session()->put('user_type', $user->user_type);
-            
+
                  // user activity start
             $userid = session()->get('user_id');
             if ($userid){
@@ -2160,8 +2160,8 @@ function resizeImage($source, $destination, $width, $height)
                 $userActivity->save();
             }
             // user activity end
-            
-            
+
+
 
             // Check if there is a redirect URL
             if (session()->has('redirect_to')) {
@@ -2235,7 +2235,7 @@ function resizeImage($source, $destination, $width, $height)
 
         // Use Eloquent model to query and update
         $user = EcosansarUsers::where('mobile', $contact)->first();
-        
+
 
         if (!$user) {
             return response()->json([
@@ -2257,7 +2257,7 @@ function resizeImage($source, $destination, $width, $height)
                 'message' => 'Incorrect OTP. Please try again.',
             ], 400);
         }
-        
+
         // user activity start
         // $user22 = EcosansarUsers::where('mobile', $contact)->first();
 
@@ -2276,7 +2276,7 @@ function resizeImage($source, $destination, $width, $height)
         $user->is_delete = 0;
         //$result->is_delete = '0';
         $user->save();
-        
+
 
 
 
@@ -2321,14 +2321,14 @@ function resizeImage($source, $destination, $width, $height)
                 $userActivity->save();
             }
         // user activity end
-        
+
         return response()->json([
             'status' => 'success',
             'message' => 'OTP verified successfully.',
             'user_id' => $user->id
         ]);
     }
-    public function activateverifyOtp(Request $request) 
+    public function activateverifyOtp(Request $request)
     {
         // Validate the request data
         $request->validate([
@@ -2341,7 +2341,7 @@ function resizeImage($source, $destination, $width, $height)
 
         // Use Eloquent model to query and update
         $user = EcosansarUsers::where('mobile', $contact)->first();
-        
+
 
         if (!$user) {
             return response()->json([
@@ -2363,7 +2363,7 @@ function resizeImage($source, $destination, $width, $height)
                 'message' => 'Incorrect OTP. Please try again.',
             ], 400);
         }
-        
+
         // user activity start
         // $user22 = EcosansarUsers::where('mobile', $contact)->first();
 
@@ -2382,7 +2382,7 @@ function resizeImage($source, $destination, $width, $height)
         $user->is_delete = 0;
         //$result->is_delete = '0';
         $user->save();
-        
+
 
 
 
@@ -2427,14 +2427,14 @@ function resizeImage($source, $destination, $width, $height)
                 $userActivity->save();
             }
         // user activity end
-        
+
         return response()->json([
             'status' => 'success',
             'message' => 'OTP verified successfully.',
             'user_id' => $user->id
         ]);
     }
-    
+
 
 
     public function consumer_posts()
@@ -2543,8 +2543,8 @@ function resizeImage($source, $destination, $width, $height)
             $uniqueListing->resource_img = $resourceImages;
             $uniqueListings->push($uniqueListing);
         }
-        
-        
+
+
          // user activity start
         $userid = session()->get('user_id');
         if ($userid){
@@ -2566,7 +2566,7 @@ function resizeImage($source, $destination, $width, $height)
         $users = EcosansarUsers::where('id', $user_id)->first();
         $resources = Resource::get();
         $weights = Weight::get();
-        
+
           // user activity start
         $userid = session()->get('user_id');
         if ($userid){
@@ -2577,7 +2577,7 @@ function resizeImage($source, $destination, $width, $height)
             $userActivity->ip_address = request()->ip();
             $userActivity->save();
         }
-        
+
         return view('frontend/userdetails/consumerdetails', compact('users', 'user_id', 'resources', 'weights'));
     }
     public function consumer_post_save(Request $request)
@@ -2611,7 +2611,7 @@ function resizeImage($source, $destination, $width, $height)
                 'resource_img' => 'required|array|min:1',
                // 'resource_img.*' => 'required|mimes:jpg,jpeg,png,bmp|max:2048', // Adjust mime types and max size as needed
             ]);
-            
+
             $request->validate([
                 'resource_img.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:10240', // max size is in KB, so 2048 KB = 2 MB
             ], [
@@ -2652,7 +2652,7 @@ function resizeImage($source, $destination, $width, $height)
         $user->latitude = $request->latitude;
         $user->longitude = $request->longitude;
         $user->save();
-        
+
         // Function to resize an image using the GD library
 function resizeImage($source, $destination, $width, $height)
 {
@@ -2717,7 +2717,7 @@ function resizeImage($source, $destination, $width, $height)
             if (isset($request->resource_img[$index])) {
                 $image = $request->file('resource_img')[$index];
                 $imageName = $user_id . '_' . $user->id . '_' . $resourceId . '.' . $image->extension();
-                
+
                 // Temporary path for the uploaded file
         $tempPath = $image->getRealPath();
         // Destination path for resized image
@@ -2725,13 +2725,13 @@ function resizeImage($source, $destination, $width, $height)
 
         // Resize the image using GD library before moving
         resizeImage($tempPath, $destinationPath, 800, 600); // Resize to 800x600 (or your preferred size)
-        
+
                // $image->move('frontend/assets/img/Consumerposts', $imageName); // Move image to storage, adjust path as needed
                 $resource->resource_img = $imageName;
             }
             $resource->save();
         }
-        
+
             // user activity start
         $userid = session()->get('user_id');
         if ($userid){
@@ -2743,7 +2743,7 @@ function resizeImage($source, $destination, $width, $height)
             $userActivity->save();
         }
         // user activity end
-        
+
         Session::flash('success', 'Post Added Successfully. You can view in my profile page');
         return redirect()->route('listings');
     }
@@ -2782,7 +2782,7 @@ function resizeImage($source, $destination, $width, $height)
              ->get();
             $conresources = $conresources1->pluck('resource_name')->toArray(); // Extract resource names into an array
         $conreviews = ConsumerReview::where('post_id', $id)->where('user_id', $user_id)->get();
-        
+
           // user activity start
         $userid = session()->get('user_id');
         if ($userid){
@@ -2858,7 +2858,7 @@ function resizeImage($source, $destination, $width, $height)
             $enquiry_id = $sabenquiries[0]->id;
         }
         $sabenquirymsg = SABEnquiryMessages::where('post_id', $id)->where('user_id', $sabuserid)->get();
-        
+
           // user activity start
         $userid = session()->get('user_id');
         if ($userid){
@@ -2870,7 +2870,7 @@ function resizeImage($source, $destination, $width, $height)
             $userActivity->save();
         }
         // user activity end
-        
+
         //      echo "<pre>";
         //    print_r($sabenquirymsg);die;
         if ($sabenquiries->isEmpty()) {
@@ -2979,7 +2979,7 @@ function resizeImage($source, $destination, $width, $height)
         $busresources = $busresources1->pluck('resource_name')->toArray(); // Extract resource names into an array
         //    echo "<pre>";
         //    print_r($businessposts->sale_giveaway);die;
-        
+
           // user activity start
         $userid = session()->get('user_id');
         if ($userid){
@@ -2991,7 +2991,7 @@ function resizeImage($source, $destination, $width, $height)
             $userActivity->save();
         }
         // user activity end
-        
+
         return view('frontend/userdetails/businesslistingdetail', compact('busresources','businesspostsres', 'businessposts'));
     }
 
@@ -3230,7 +3230,7 @@ function resizeImage($source, $destination, $width, $height)
             $uniqueListing->resource_img = $resourceImages;
             $conuniqueListingsnotbuy->push($uniqueListing);
         }
-        
+
          // user activity start
         $userid = session()->get('user_id');
         if ($userid){
@@ -3366,6 +3366,7 @@ function resizeImage($source, $destination, $width, $height)
         if (null === $user_id || $user_id === '') {
             // User is not logged in, redirect to the login page
             session()->put('redirect_to_list', route('con_listing_details', $id));
+            session()->put('redirect_wp', route('con_listing_details', $id));
             return redirect()->route('consumer_login');
         }
         // Fetch the user's role from the database
@@ -3380,10 +3381,10 @@ function resizeImage($source, $destination, $width, $height)
             $consumerposts = ConsumerPost::leftjoin('consumer_resource_posts', 'consumer_resource_posts.post_id', 'consumer_posts.id')
             ->leftjoin('resources', 'resources.id', 'consumer_resource_posts.resource_type')
                 ->join('weights', 'weights.id', 'consumer_posts.quantity')
-                ->select('consumer_posts.*', 'consumer_posts.id as conid','weights.*','resources.resource_name')
+                ->select('consumer_posts.*', 'consumer_posts.id as conid','weights.min_weight', 'weights.min_measure', 'weights.max_weight', 'weights.max_measure','resources.resource_name')
                 ->where('consumer_posts.id', $id)
                 ->first();
-            
+
             // $conresources = ConsumerResourcePost::join('consumer_posts')
             $conresources1 = ConsumerPost::leftjoin('consumer_resource_posts', 'consumer_resource_posts.post_id', 'consumer_posts.id')
             ->leftjoin('resources', 'resources.id', 'consumer_resource_posts.resource_type')
@@ -3400,6 +3401,7 @@ function resizeImage($source, $destination, $width, $height)
         }
         // If the user is not logged in as a consumer, redirect to the login page
         session()->put('redirect_to', route('con_listing_details', $id));
+        session()->put('redirect_wp', route('con_listing_details', $id));
         return redirect()->route('consumer_login');
     }
 
@@ -3413,6 +3415,7 @@ function resizeImage($source, $destination, $width, $height)
         $u_id = $sabpost->user_id;
         if (null === $user_id || $user_id === '') {
             session()->put('redirect_to_list', route('sabs_listing_details', $id));
+            session()->put('redirect_wp', route('sabs_listing_details', $id));
             return redirect()->route('consumer_login'); // Redirect to the login page
         }
         // Fetch the user's role from the database
@@ -3462,6 +3465,7 @@ function resizeImage($source, $destination, $width, $height)
         $u_id = $buspost->user_id;
         if (null === $user_id || $user_id === '') {
             session()->put('redirect_to_list', route('bus_listing_details', $id));
+            session()->put('redirect_wp', route('bus_listing_details', $id));
             return redirect()->route('consumer_login'); // Redirect to the login page
         }
         // Fetch the user's role from the database
@@ -3473,7 +3477,7 @@ function resizeImage($source, $destination, $width, $height)
         $buspostsres = BusinessResourcePost::where('post_id', $id)->get();
 
         $busposts = BusinessPost::join('weights', 'weights.id', 'business_posts.quantity')
-            ->select('business_posts.*','business_posts.id as busid', 'weights.*')
+            ->select('business_posts.*','business_posts.id as busid', 'weights.min_weight', 'weights.min_measure', 'weights.max_weight', 'weights.max_measure')
             ->where('business_posts.id', $id)
             ->first();
         $busresources1 = BusinessPost::leftjoin('business_resource_posts', 'business_resource_posts.post_id', 'business_posts.id')
@@ -3490,6 +3494,7 @@ function resizeImage($source, $destination, $width, $height)
         // }
         // If the user is not logged in as a consumer, redirect to the login page
         session()->put('redirect_to_list', route('bus_listing_details', $id));
+        session()->put('redirect_wp', route('bus_listing_details', $id));
         return redirect()->route('consumer_login');
     }
 
@@ -3503,7 +3508,7 @@ function resizeImage($source, $destination, $width, $height)
             $post->save();
 
             return response()->json(['success' => true, 'message' => 'Post deactivated successfully.']);
-            
+
                 // user activity start
             $userid = session()->get('user_id');
             if ($userid){
@@ -3540,7 +3545,7 @@ function resizeImage($source, $destination, $width, $height)
                 $userActivity->save();
             }
             // user activity end
-            
+
              return response()->json(['success' => true, 'message' => 'Post deactivated successfully.']);
         }
 
@@ -3554,7 +3559,7 @@ function resizeImage($source, $destination, $width, $height)
         if ($post) {
             $post->active = 0;
             $post->save();
-            
+
         // user activity start
             $userid = session()->get('user_id');
             if ($userid){
@@ -3568,8 +3573,8 @@ function resizeImage($source, $destination, $width, $height)
             // user activity end
 
             return response()->json(['success' => true, 'message' => 'Post deactivated successfully.']);
-            
-           
+
+
         }
 
         return response()->json(['success' => false, 'message' => 'Post not found.'], 404);
@@ -3584,7 +3589,7 @@ function resizeImage($source, $destination, $width, $height)
             $post->reactive = 'reactive';
             $post->post_date = Carbon::now()->addDays(7);
             $post->save();
-            
+
              // user activity start
             $userid = session()->get('user_id');
             if ($userid){
@@ -3596,7 +3601,7 @@ function resizeImage($source, $destination, $width, $height)
                 $userActivity->save();
             }
             // user activity end
-            
+
              return response()->json(['success' => true, 'message' => 'Post reactivated successfully.']);
         }
 
@@ -3613,7 +3618,7 @@ function resizeImage($source, $destination, $width, $height)
             $post->post_date = Carbon::now()->addDays(7);
             $post->save();
 
-          
+
               // user activity start
             $userid = session()->get('user_id');
             if ($userid){
@@ -3625,9 +3630,9 @@ function resizeImage($source, $destination, $width, $height)
                 $userActivity->save();
             }
             // user activity end
-            
+
               return response()->json(['success' => true, 'message' => 'Post reactivated successfully.']);
-            
+
         }
 
         return response()->json(['success' => false, 'message' => 'Post not found.'], 404);
@@ -3643,7 +3648,7 @@ function resizeImage($source, $destination, $width, $height)
             $post->post_date = Carbon::now()->addDays(7);
             $post->save();
 
-           
+
               // user activity start
             $userid = session()->get('user_id');
             if ($userid){
@@ -3655,9 +3660,9 @@ function resizeImage($source, $destination, $width, $height)
                 $userActivity->save();
             }
             // user activity end
-            
+
              return response()->json(['success' => true, 'message' => 'Post reactivated successfully.']);
-            
+
         }
 
         return response()->json(['success' => false, 'message' => 'Post not found.'], 404);
@@ -3690,7 +3695,7 @@ function resizeImage($source, $destination, $width, $height)
             $uniqueListing->resource_img = $resourceImages;
             $uniqueListings->push($uniqueListing);
         }
-        
+
          //consumersell posts
 
         $selllistings = ConsumerPost::leftjoin('consumer_resource_posts', 'consumer_resource_posts.post_id', 'consumer_posts.id')
@@ -3700,7 +3705,7 @@ function resizeImage($source, $destination, $width, $height)
             ->select('consumer_posts.*', 'resources.resource_name', 'consumer_resource_posts.resource_img', 'weights.min_weight', 'weights.min_measure', 'weights.max_weight', 'weights.max_measure')
             ->where('active', 1)
             ->where('sale_giveaway', '!=', 'Buy');
-            
+
 
         if ($user_id) {
             $selllistings->where('consumer_posts.user_id', '!=', $user_id);
@@ -3722,7 +3727,7 @@ function resizeImage($source, $destination, $width, $height)
             $uniqueListing->resource_img = $resourceImages;
             $conuniqueListingsnotbuy->push($uniqueListing);
         }
-        
+
         foreach ($uniqueListings as $listing) {
             $averageRating = DB::table('consumer_reviews')
                 ->where('user_id', $listing->user_id)
@@ -3830,8 +3835,8 @@ function resizeImage($source, $destination, $width, $height)
             ->select('consumer_posts.*', 'resources.resource_name', 'consumer_resource_posts.resource_img', 'weights.min_weight', 'weights.min_measure', 'weights.max_weight', 'weights.max_measure')
             ->where('active', 1)
             ->where('sale_giveaway', '!=', 'Buy');
-            
-            
+
+
              // Apply the filter based on the type if it's present in the request
         if ($request->has('sale_giveaway') && $request->sale_giveaway != '') {
             $selllistings->where(function ($query) use ($request) {
@@ -3871,7 +3876,7 @@ function resizeImage($source, $destination, $width, $height)
             $resources = Resource::whereIn('id', $resourceIds)->get();
             $resourceNames = $resources->pluck('resource_name')->implode(', ');
         }
-        
+
          // Get the filtered results with distinct to avoid duplicates
 
         $sabsellPosts = $selllistings->distinct()->get();
@@ -3898,8 +3903,8 @@ function resizeImage($source, $destination, $width, $height)
             //$uniqueListing->formatted_date = $uniqueListing->created_at->format('d-m-Y');
             $sabuniquesellListings->push($uniqueListing);
         }
-            
-            
+
+
         //  echo "<pre>";
         //  print_r($sabPosts);die;
         $res = Resource::get();
@@ -4002,7 +4007,7 @@ function resizeImage($source, $destination, $width, $height)
             $uniqueListing->formatted_date = date('dS F Y', strtotime($uniqueListing->created_at));
             $sabuniqueListings->push($uniqueListing);
         }
-        
+
           //sell posts
         $selllistings = ConsumerPost::leftjoin('consumer_resource_posts', 'consumer_resource_posts.post_id', 'consumer_posts.id')
             ->leftjoin('resources', 'resources.id', 'consumer_resource_posts.resource_type')
@@ -4011,7 +4016,7 @@ function resizeImage($source, $destination, $width, $height)
             ->select('consumer_posts.*', 'resources.resource_name', 'consumer_resource_posts.resource_img', 'weights.min_weight', 'weights.min_measure', 'weights.max_weight', 'weights.max_measure')
             ->where('active', 1)
             ->where('sale_giveaway', '!=', 'Buy');
-            
+
            // Apply sorting based on the selected criteria
         switch ($sort) {
             case '1':
@@ -4060,9 +4065,9 @@ function resizeImage($source, $destination, $width, $height)
             $uniqueListing->formatted_date = date('dS F Y', strtotime($uniqueListing->created_at));
             $sabuniquesellListings->push($uniqueListing);
         }
-        
-        
-        
+
+
+
         $weightDetails = Weight::select('min_weight', 'max_weight', 'min_measure', 'max_measure')
             ->where('id', $request->weight)
             ->first();
@@ -4334,7 +4339,7 @@ function resizeImage($source, $destination, $width, $height)
             $uniqueListing->resource_img = $resourceImages;
             $busuniqueListings->push($uniqueListing);
         }
-        
+
         //Business posts except sell
         $listingsnotsell = BusinessPost::leftjoin('business_resource_posts', 'business_resource_posts.post_id', 'business_posts.id')
             ->leftjoin('resources', 'resources.id', 'business_resource_posts.resource_type')
@@ -4458,7 +4463,7 @@ function resizeImage($source, $destination, $width, $height)
             $uniqueListing->formatted_date = date('dS F Y', strtotime($uniqueListing->created_at));
             $busuniqueListings->push($uniqueListing);
         }
-        
+
         //business buy posts
         $busbuyQuery = BusinessPost::leftjoin('business_resource_posts', 'business_resource_posts.post_id', '=', 'business_posts.id')
             ->leftjoin('resources', 'resources.id', 'business_resource_posts.resource_type')
@@ -4468,7 +4473,7 @@ function resizeImage($source, $destination, $width, $height)
             ->where('business_posts.user_id', '!=', $user_id)
              ->where('sale_giveaway', '=', 'Buy')
             ->where('active', 1);
-            
+
          // Apply the filter based on the type if it's present in the request
         if ($request->has('sale_giveaway') && $request->sale_giveaway != '') {
             $busbuyQuery->where(function ($query) use ($request) {
@@ -4498,7 +4503,7 @@ function resizeImage($source, $destination, $width, $height)
                 $query->where('business_posts.quantity', $request->weight);
             });
         }
-        
+
          // Apply the filter based on the resources if they are present in the request
         if ($request->has('resource') && !empty($request->resource)) {
             $resourceIds = $request->resource;
