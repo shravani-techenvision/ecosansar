@@ -213,15 +213,24 @@ height:36px;
                         <dd>  {{ $sabposts->pincode }}</dd>
                         <dt>Address: </dt>
                         <dd>  {{ $sabposts->address }}</dd><br>
-                        
+
                     </dl>
                     <br>
+                    @if (session()->has('user_id'))
+                    <a href="https://wa.me/?text={{ urlencode('Check out this post: ' . url('sabs_listing_details/'.$sabposts->id)) }}" target="_blank" class="btn btn-success btn-small btn-rounded icon shadow" style="margin-bottom:10px;">
+                        <i class="fa fa-whatsapp"></i> Share on WhatsApp
+                    </a>
+                @else
+                    <a href="{{ route('consumer_login', ['redirect_wp' => url('sabs_listing_details/' . $sabposts->id)]) }}" target="_blank" class="btn btn-success btn-small btn-rounded icon shadow" style="margin-bottom:10px;">
+                        <i class="fa fa-whatsapp"></i> Share on WhatsApp
+                    </a>
+                @endif
                      <div class="custom-card">
                     <div class="card-body">
                         <div class="mb-3">
                      <span style="float:inline-start;font-size:18px;"> <strong> Posted By:</strong></span> <br><br>
                     <a href="#" data-id="{{ $sabposts->sabid }}" data-toggle="modal" data-target="#sabenquiryModal" class="btn btn-primary btn-small btn-rounded icon shadow sab-connect-listing" style="float:right;">
-                                            
+
         <span>Connect</span>
     </a>
                       <strong>Name:</strong>  {{ $users->name }} <br>
@@ -230,11 +239,11 @@ height:36px;
                        </div>
                        </div>
                        </div>
-                       
-                       
-                      
+
+
+
                 </section>
-                
+
             </div>
             <!--end col-md-7-->
              <div class="col-md-5 col-sm-5">
@@ -420,10 +429,10 @@ height:36px;
             <div class="modal-header">
                  <h2 class="modal-title text-center" id="sabenquiryModalLabel"><strong>Contact Details</strong></h2>
                  <div id="sab-user-details" class="mb-1" style="line-height:1.75">
-                     
+
                     <!-- User details will be appended here -->
                 </div>
-               
+
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -435,7 +444,7 @@ height:36px;
     </div>
             <h2 class="modal-title text-center mt-1" id="sabenquiryModalLabel"><strong>Send Enquiry</strong></h2>
             <div class="modal-body">
-                
+
                <form class="form form-email inputs-underline"  action="{{ route('enquiry.sab_save') }}" method="POST">
                     @csrf
                     <input type="hidden" name="id" id="sabpostid" value="">
@@ -443,7 +452,7 @@ height:36px;
                     <div class="row justify-content-center align-items-center">
                         <div class="col-md-12 col-sm-12">
                             <div class="form-group">
-                                 
+
                                 <input type="text" class="form-control" name="name" id="sabname" placeholder="Enter name">
                                 @if ($errors->has('name'))
                                     <span class="text-danger">{{ $errors->first('name') }}</span>
@@ -454,17 +463,17 @@ height:36px;
                     <div class="row">
                         <div class="col-md-6 col-sm-12">
                             <div class="form-group">
-                                 
+
                                 <input type="email" class="form-control" name="email" id="sabemail" placeholder="Enter email">
                                 @if ($errors->has('email'))
                                     <span class="text-danger">{{ $errors->first('email') }}</span>
                                 @endif
                             </div>
                         </div>
-                    
+
                         <div class="col-md-6 col-sm-12">
                             <div class="form-group">
-                                
+
                                 <input type="text" class="form-control" name="mobile" id="sabmobile" placeholder="Enter mobile">
                                 @if ($errors->has('mobile'))
                                     <span class="text-danger">{{ $errors->first('mobile') }}</span>
@@ -473,7 +482,7 @@ height:36px;
                         </div>
                     </div>
                     <div class="form-group">
-                        
+
                         <textarea class="form-control" id="sabmessage" rows="3" name="message" placeholder="Enter message"></textarea>
                         @if ($errors->has('message'))
                             <span class="text-danger">{{ $errors->first('message') }}</span>
@@ -483,12 +492,12 @@ height:36px;
                         <button type="submit" class="btn btn-primary btn-rounded">Send Message</button>
                     </div>
                 </form>
-                
-                
+
+
             </div>
         </div>
     </div>
-</div>  
+</div>
 
 <!--start map -->
 @include('frontend.include.footer')
@@ -521,7 +530,7 @@ height:36px;
                 const googleMapsUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
                 window.open(googleMapsUrl, '_blank');
             });
-            
+
         }
 
         // Initialize the map when the window loads
@@ -534,10 +543,10 @@ height:36px;
         // Event delegation for .connect-listing elements
         $(document).on('click', '.sab-connect-listing', function(e) {
             e.preventDefault(); // Prevent default anchor tag behavior
-             
+
             var dataId = $(this).attr('data-id'); // Get data-id attribute value
             $('#sabpostid').val(dataId); // Assuming you're setting some value to #postid element
-            
+
             // AJAX request to fetch post details
             $.ajax({
                 url: "{{ url('/get_post_details') }}",
@@ -547,7 +556,7 @@ height:36px;
                     if (response.status === 'success') {
                         var post = response.post;
                         var user = response.user;
-                        
+
                          // Update modal content with post details
                         $('#sabname').val(post.name);
                         $('#sabemail').val(post.email);
@@ -632,11 +641,11 @@ height:36px;
     <!--        .bindPopup('Your Location')-->
     <!--        .openPopup();-->
     <!--</script>-->
-    
+
     <!--end map -->
 
 
- 
+
 
 
 
