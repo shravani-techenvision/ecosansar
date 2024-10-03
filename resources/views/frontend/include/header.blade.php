@@ -18,10 +18,12 @@
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/jquery.nouislider.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/style.css') }}" type="text/css">
    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-   
-   
+
+
 
     <title>EcoSansar</title>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4322110929509521"
+     crossorigin="anonymous"></script>
 
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-CKNH10SE9V"></script>
@@ -52,7 +54,7 @@
                         </li>
                         <li class=" "><a href="{{route('about')}}">About Us</a>
                         </li>
-                        
+
                         <li class=" "><a href="{{route('faq')}}">FAQ</a>
                         </li>
                         <li class=" "><a href="{{route('howitsworks')}}">How it works </a>
@@ -79,7 +81,7 @@
                         <li> @php
                     $user_id = session('user_id');
                     if(null !== $user_id && $user_id != ''){
-                       
+
                     } else {
                     @endphp
                        <li> <a href="{{ route('consumer_login') }}" class="promoted" >Sign In</a> </li>
@@ -89,13 +91,13 @@
                     @endphp
 
                     @php
-                  $user_id = session()->get('user_id'); 
+                  $user_id = session()->get('user_id');
                   $userdet = null;
 
     if(isset($user_id) && !empty($user_id)) {
         $userdet = \App\Models\frontend\EcosansarUsers::where('id', $user_id)->first();
-        
-         $type = $userdet->user_type; 
+
+         $type = $userdet->user_type;
     }
                 if(isset($user_id) && !empty($user_id)) {
             @endphp
@@ -109,7 +111,7 @@
             @php
                 }
             @endphp</li>
-                        
+
                     </ul>
                     <!--end navigation-->
                 </div>

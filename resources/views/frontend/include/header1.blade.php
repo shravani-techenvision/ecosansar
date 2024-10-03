@@ -18,6 +18,8 @@
    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
     <title>EcoSansar</title>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4322110929509521"
+     crossorigin="anonymous"></script>
     <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-CKNH10SE9V"></script>
 <script>
@@ -30,7 +32,7 @@
     </head>
 
 <body>
-    
+
 <div class="page-wrapper">
     <header id="page-header">
         <nav style="height:93px;">
@@ -42,14 +44,14 @@
             <div class="right">
                 <div class="primary-nav has-mega-menu">
                     <ul class="navigation">
-                         
+
                         <li><a href="{{url('/')}}">Home</a></li>
                         <li><a href="{{route('about')}}">About Us</a></li>
-                        
+
                         <li><a href="{{route('faq')}}">FAQ</a></li>
-                        
+
                          <li><a href="{{route('howitsworks')}}">How it works</a></li>
-                          
+
                         <!--<li class="has-child"><a href="#">know more</a>-->
                         <!--    <div class="wrapper">-->
                         <!--        <div id="nav-homepages" class="nav-wrapper">-->
@@ -66,7 +68,7 @@
                         <li> @php
                     $user_id = session('user_id');
                     if(null !== $user_id && $user_id != ''){
-                       
+
                     } else {
                     @endphp
                         <a href="{{ route('consumer_login') }}" class="promoted" >Sign In</a>
@@ -76,21 +78,21 @@
                     @endphp
 
                     @php
-                  $user_id = session()->get('user_id'); 
+                  $user_id = session()->get('user_id');
                   $userdet = null;
 
     if(isset($user_id) && !empty($user_id)) {
         $userdet = \App\Models\frontend\EcosansarUsers::where('id', $user_id)->first();
-        
-         $type = $userdet->user_type; 
+
+         $type = $userdet->user_type;
     }
                 if(isset($user_id) && !empty($user_id)) {
             @endphp
               <a class="  " href="{{ url('profile'). "/".$user_id }}" >  My Profile </a>
               <a href="{{ route('user.user_deactivate') }}" >Deactivate account</a>
               </li>
-              
-               
+
+
         <li>    <a class="  " href="{{ route('user_logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">  {{ __('Logout') }} </a>
             <form id="logout-form" action="{{ route('user_logout') }}"   class="d-none">
                 @csrf
@@ -107,22 +109,22 @@
         <a href="{{ route('sab_details') }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing">Add Your Post</a>
     @elseif ($userType == 'consumer')
         <a href="{{ route('consumer_details') }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing">Add Your Post</a>
-    @else 
+    @else
         <a href="{{ route('business_details') }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing">Add Your Post</a>
-    
+
     @endif
 @else
     @php
         $redirectUrl = '';
         $userType = session('user_type'); // Assuming you have stored the user type in the session
-        
+
         if ($userType == 'sab') {
             $redirectUrl = route('sab_details');
         } elseif ($userType == 'consumer') {
             $redirectUrl = route('consumer_details');
         } else {
             $redirectUrl = route('business_details');
-        }  
+        }
     @endphp
     <a href="{{ route('consumer_login', ['redirect' => request()->fullUrl()]) }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing">Add Your Post</a>
 @endif
@@ -142,22 +144,22 @@
 @else
     <a href="{{ route('consumer_login', ['redirect_list' => request()->fullUrl()]) }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing">Browse Listings</a>
 @endif
-                            
+
                         </li>
-                        
-                        
-                      
-                            
-                         
+
+
+
+
+
                     </ul>
                     <!--end navigation-->
                 </div>
                 <!--end primary-nav-->
                 <!-- <div class="secondary-nav">-->
-                   
+
                 <!--</div>-->
                 <!--end secondary-nav-->
-             
+
 
                 <div class="nav-btn">
                     <i></i>
