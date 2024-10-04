@@ -267,8 +267,8 @@ margin-left: 5px !important;
         <!--<i class="fa fa-share-alt"></i> Share on WhatsApp-->
     </a>
     @else
-    <a href="{{ route('consumer_login', ['redirect_wp' => url('con_listing_details/' . $listing->id)]) }}" target="_blank" class="btn btn-success btn-small btn-rounded icon shadow" style="margin-bottom:10px;">
-        <i class="fa fa-whatsapp"></i> Share on WhatsApp
+    <a href="{{ route('consumer_login', ['redirect_wp' => url('con_listing_details/' . $listing->id)]) }}" target="_blank" class="" style="margin-bottom:10px;">
+        <i class="fa fa-whatsapp"></i>
     </a>
                               <a href="{{ route('consumer_login') }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing">Connect</a>
                             @endif
@@ -355,8 +355,8 @@ margin-left: 5px !important;
         <i class="fa fa-whatsapp"></i>
    </a>
     @else
-    <a href="{{ route('consumer_login', ['redirect_wp' => url('con_listing_details/' . $listing->id)]) }}" target="_blank" class="btn btn-success btn-small btn-rounded icon shadow" style="margin-bottom:10px;">
-        <i class="fa fa-whatsapp"></i> Share on WhatsApp
+    <a href="{{ route('consumer_login', ['redirect_wp' => url('con_listing_details/' . $listing->id)]) }}" target="_blank" class="" style="margin-bottom:10px;">
+        <i class="fa fa-whatsapp"></i>
     </a>
                             <a href="{{ route('consumer_login') }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing">Connect</a>
                             @endif
@@ -441,8 +441,8 @@ margin-left: 5px !important;
         <i class="fa fa-whatsapp"></i>
    </a>
     @else
-    <a href="{{ route('consumer_login', ['redirect_wp' => url('sabs_listing_details/' . $listing->id)]) }}" target="_blank" class="btn btn-success btn-small btn-rounded icon shadow" style="margin-bottom:10px;">
-        <i class="fa fa-whatsapp"></i> Share on WhatsApp
+    <a href="{{ route('consumer_login', ['redirect_wp' => url('sabs_listing_details/' . $listing->id)]) }}" target="_blank" class="" style="margin-bottom:10px;">
+        <i class="fa fa-whatsapp"></i>
     </a>
                                              <a href="{{ route('consumer_login') }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing">Connect</a>
                                             @endif
@@ -535,8 +535,8 @@ margin-left: 5px !important;
         <i class="fa fa-whatsapp"></i>
    </a>
      @else
-     <a href="{{ route('consumer_login', ['redirect_wp' => url('bus_listing_details/' . $listing->id)]) }}" target="_blank" class="btn btn-success btn-small btn-rounded icon shadow" style="margin-bottom:10px;">
-        <i class="fa fa-whatsapp"></i> Share on WhatsApp
+     <a href="{{ route('consumer_login', ['redirect_wp' => url('bus_listing_details/' . $listing->id)]) }}" target="_blank" class="" style="margin-bottom:10px;">
+        <i class="fa fa-whatsapp"></i>
     </a>
                               <a href="{{ route('consumer_login') }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing">Connect</a>
                             @endif
@@ -622,8 +622,8 @@ margin-left: 5px !important;
         <i class="fa fa-whatsapp"></i>
    </a>
      @else
-     <a href="{{ route('consumer_login', ['redirect_wp' => url('bus_listing_details/' . $listing->id)]) }}" target="_blank" class="btn btn-success btn-small btn-rounded icon shadow" style="margin-bottom:10px;">
-        <i class="fa fa-whatsapp"></i> Share on WhatsApp
+     <a href="{{ route('consumer_login', ['redirect_wp' => url('bus_listing_details/' . $listing->id)]) }}" target="_blank" class="" style="margin-bottom:10px;">
+        <i class="fa fa-whatsapp"></i>
     </a>
                               <a href="{{ route('consumer_login') }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing">Connect</a>
                             @endif
