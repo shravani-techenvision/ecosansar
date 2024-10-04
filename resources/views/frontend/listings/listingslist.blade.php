@@ -263,7 +263,7 @@ margin-left: 5px !important;
         <span>Connect</span>
     </a>
     <a href="https://wa.me/?text={{ urlencode('Check out this post: ' . url('con_listing_details/'.$listing->id)) }}" target="_blank" class="btn btn-success btn-small btn-rounded icon shadow" style="margin-bottom:10px;">
-        <i class="fa fa-whatsapp"></i> Share on WhatsApp
+        <i class="fa fa-whatsapp"></i>
         <!--<i class="fa fa-share-alt"></i> Share on WhatsApp-->
     </a>
     @else
