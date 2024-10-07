@@ -975,20 +975,20 @@ $totalMinWeight = $busMinWeightSum->total_min_weight + $conMinWeightSum->total_m
             'phone_no' => 'required',
             'captcha' => 'required'
         ]);
-        echo "<pre>";
-        print_r($req->all());
+        // echo "<pre>";
+        // print_r($req->all());
              // Validate CAPTCHA input
     if (!$this->validateCaptcha($req)) {
-        echo 'req';die;
+
         return redirect()->back()->withErrors(['captcha' => 'CAPTCHA validation failed.'])->withInput();
     }
      // If CAPTCHA validation succeeds, continue processing the contact form submission
     // Retrieve CAPTCHA value from session
-  echo  $captchaNumber = session('captcha');
-   echo $userInput = $req->input('captcha');
+     $captchaNumber = session('captcha');
+     $userInput = $req->input('captcha');
 
     if ($userInput !== $captchaNumber) {
-         echo 'not';die;
+
         // If the user input doesn't match the CAPTCHA value, return an error
         return redirect()->back()->withErrors(['captcha' => 'CAPTCHA validation failed.'])->withInput();
     }
