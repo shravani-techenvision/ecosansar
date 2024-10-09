@@ -834,7 +834,18 @@
             </div>
             <!--end container-->
         </section>
-
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4322110929509521"
+        crossorigin="anonymous"></script>
+   <!-- Sample2 -->
+   <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-4322110929509521"
+        data-ad-slot="2596984657"
+        data-ad-format="auto"
+        data-full-width-responsive="true"></ins>
+   <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+   </script>
 
 <!--        <section class="block background-is-dark" style="background-color: #8eb66f;">-->
 <!--            <div class="container">-->
