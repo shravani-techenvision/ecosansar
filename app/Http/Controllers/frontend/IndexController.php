@@ -869,8 +869,8 @@ $totalMinWeight = $busMinWeightSum->total_min_weight + $conMinWeightSum->total_m
             $userActivity->save();
         }
         // user activity end
-
-        return view('frontend/about');
+        $afterbanner = GoogleAdsense::where('place_of_adsense','After about breadcrumb')->first();
+        return view('frontend/about',compact('afterbanner'));
     }
 
     public function ourteam()

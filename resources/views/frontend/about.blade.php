@@ -1,6 +1,6 @@
 @include('frontend.include.header')
 <style>
- 
+
 p {
     font-size: large;
     line-height: 1.5; /* Adjust this value as needed */
@@ -43,7 +43,7 @@ p {
   padding-right: 50px;
   padding-bottom: 10px;
   padding-left: 50px;
-  
+
 }
 
 .inner-container {
@@ -64,7 +64,7 @@ p {
   font-size: 35px;
   font-weight: 700;
   line-height: 48px;
-  
+
   margin: 0 0 10px 0;
 }
 
@@ -99,7 +99,7 @@ p {
 .name {
   font-size: 24px;
   font-weight: 700;
-  
+
   margin-top: 0px;
   margin-right: 0px;
   margin-bottom: 5px;
@@ -118,7 +118,7 @@ p {
 .position {
   font-size: 16px;
   font-weight: 500;
-  
+
   margin-top: 0px;
   margin-right: 0px;
   margin-bottom: 8px;
@@ -273,7 +273,7 @@ body {
     .section2{
         margin-top: 20px;
     }
-       
+
   .wk-tab-1 {
     width: 8.333333%;
   }
@@ -363,7 +363,7 @@ body {
   .wk-mobile-10 {
     width: 83.333333%;
   }
-  
+
 
   .wk-mobile-11 {
     width: 91.666667%;
@@ -379,8 +379,8 @@ body {
 
 <!--timeline css-->
 <style>
-    
-    
+
+
     .timeline {
   list-style: none;
   padding: 20px 0 20px;
@@ -522,12 +522,12 @@ body {
     font-size:11px;
     opacity:0;
     filter:alpha(opacity=0);
-    
+
 }
 .tooltip.in{
     /*opacity:0;
     filter:alpha(opacity=80);*/
-    
+
 }
 .tooltip.top{
     margin-top:-2px;
@@ -590,7 +590,7 @@ body {
     height:0;
 }
 .timeline > li.timeline-inverted{
-  float: right; 
+  float: right;
   clear: right;
   /*margin-top: 30px;*/
   /*margin-bottom: 30px;*/
@@ -645,9 +645,9 @@ body {
             left: -14px;
             right: auto;
         }
-    
+
 .timeline > li.timeline-inverted{
-  float: left; 
+  float: left;
   clear: left;
   /*margin-top: 30px;*/
   /*margin-bottom: 30px;*/
@@ -663,14 +663,14 @@ body {
     margin: 0px !important;
 }
 }
-    
+
     .timeline-footer22 {
     padding: 15px;
     padding-bottom: 1px;
     background-color: #f4f4f4;
     text-align: center;
    }
-   
+
    img.img-responsive {
     display: block;
     margin-left: auto;
@@ -726,12 +726,34 @@ a.pull-right {
             <!--</div>-->
         </div>
         <!--end row-->
-         
-         
-          
+
+
+
     </div>
     <!--end container-->
-    
+
+    @if(isset($afterbanner))
+    @if(!empty($afterbanner->adsense_script))
+        <!-- Output the entire AdSense Script -->
+        <section class="block">
+            <div class="container">
+                <div class="center">
+        {!! $afterbanner->adsense_script !!}
+                </div>
+            </div>
+        </section>
+    @elseif(!empty($afterbanner->adsense_image))
+        <!-- Output the AdSense Image -->
+        <section class="block">
+            <div class="container">
+                <div class="center">
+                    <img class="center-block img-responsive" src="{{ asset('assets/images/Googleadsense/'.$afterbanner->adsense_image) }}" alt="" height="125" width="1000">
+                </div>
+            </div>
+        </section>
+    @endif
+@endif
+
     <div class="container" style="margin-top:-40px; !important">
     <div class="page-header text-center">
         <h1 id="timeline">Our journey</h1>
@@ -752,17 +774,17 @@ a.pull-right {
             </div>
             <div class="timeline-body">
               <p>A pioneering venture for buying organic groceries without unnecessary packaging. This was made possible by having returnable containers, refundable deposits, encouraging consumers to bring their own packaging, welcoming donations of containers and upcycling packaging from scrap material. <br>
- 
+
                Our innovative approach quickly gained traction among a dedicated community of environmentally conscious consumers, who eagerly embraced our ethos. Beyond mere transactions, our store front became a hub for engaging conversations and shared learning experiences. We take pride in inspiring many individuals at that time, fostering enduring loyalty among our patrons at ecoSansar.</p>
-              
+
             </div>
-            
+
             <div class="timeline-footer">
                 <a class="pull-right">December 2017</a>
             </div>
           </div>
         </li>
-        
+
         <!--<li  class="timeline-inverted" style=" margin-top: 180px;">-->
          <li  class="timeline-inverted secondtimeline" >
           <div class="timeline-badge primary"><a><i class="glyphicon glyphicon-record invert" rel="tooltip" title="11 hours ago via Twitter" id=""></i></a></div>
@@ -770,18 +792,18 @@ a.pull-right {
                <div class="timeline-footer22">
                 <h3 class="">Online Marketplace - Deposit Refund System</h3>
             </div>
-            
+
             <div class="timeline-heading">
               <img class="img-responsive" src="{{ asset('frontend/assets/img/2.png') }}" />
-              
+
             </div>
             <div class="timeline-body">
               <p>As the trend towards online shopping gained momentum, we responded by launching our own marketplace, complete with a first of its kind, integrated deposit refund system for containers. We now had new learnings about logistical challenges, product and logistics based packaging requirements, managing irregular returns and tracking deposits. Every challenge and every interaction were now new learnings.<br><br>
- 
+
 Despite challenges, our system persevered through the pandemic. However, the landscape quickly evolved with the emergence of fast commerce, offering 10 minute deliveries - a level of convenience beyond our capacity as a small business. Consequently, we made the difficult decision to discontinue our grocery arm, recognizing the impossibility of matching such rapid service.</p>
-             
+
             </div>
-            
+
             <div class="timeline-footer">
                 <a class="pull-right">March 2019</a>
             </div>
@@ -796,19 +818,19 @@ Despite challenges, our system persevered through the pandemic. However, the lan
           <div class="timeline-panel">
             <div class="timeline-heading">
               <img class="img-responsive" src="{{ asset('frontend/assets/img/3.png') }}" />
-              
+
             </div>
             <div class="timeline-body">
               <p>One of the primary hurdles in implementing a Circular Economy is prompting behavioural shifts in consumers. Through our diverse donation drives, we’ve gained insights into individual consumer responses and motivations across different segments.<br>
               Contrary to common assumptions, modern consumers are enthusiastic about adopting sustainable options when presented effectively. Our voluntary collection drives consistently yielded positive results, showcasing consumer’s willingness to participate in sustainable practices.</p>
             </div>
-            
+
             <div class="timeline-footer">
                 <a class="pull-right">June 2023</a>
             </div>
           </div>
         </li>
-        
+
         <li  class="timeline-inverted">
           <div class="timeline-badge primary"><a><i class="glyphicon glyphicon-record invert" rel="tooltip" title="11 hours ago via Twitter" id=""></i></a></div>
           <div class="timeline-panel">
@@ -818,15 +840,15 @@ Despite challenges, our system persevered through the pandemic. However, the lan
           <div class="timeline-panel">
               <div class="timeline-heading">
               <img class="img-responsive" src="{{ asset('frontend/assets/img/4.png') }}" />
-              
+
             </div>
             <div class="timeline-body">
               <p>Understanding the operations, mindset, challenges and requirements of DWCCs (Dry Waste Collection Centers) is crucial for designing an inclusive and
-              effective reuse chain. We’ve engaged in open dialogues with them and were pleasantly surprised by their readiness to offer unconditional support and cooperation 
+              effective reuse chain. We’ve engaged in open dialogues with them and were pleasantly surprised by their readiness to offer unconditional support and cooperation
               for the advancement of the reuse chain. This speaks volumes about the significance of effective recycling of household waste for them. Food for thought indeed!</p>
-              
+
             </div>
-            
+
             <div class="timeline-footer">
                 <a class="pull-right">November 2023</a>
             </div>
@@ -841,32 +863,32 @@ Despite challenges, our system persevered through the pandemic. However, the lan
           <div class="timeline-panel">
             <div class="timeline-heading">
               <img class="img-responsive" src="{{ asset('frontend/assets/img/5.png') }}" />
-              
+
             </div>
             <div class="timeline-body">
-              <p>In our efforts to optimize existing resources, we are creating a marketplace for second hand packaging and packaging materials. 
+              <p>In our efforts to optimize existing resources, we are creating a marketplace for second hand packaging and packaging materials.
               This exercise is intended to be a quick fix while gaining perspectives.</p>
             </div>
-            
+
             <div class="timeline-footer">
                 <a></a>
                 <a class="pull-right"> November 2023</a>
             </div>
           </div>
         </li>
-        
+
         <!--<li  class="timeline-inverted">-->
         <!--  <div class="timeline-badge primary"><a><i class="glyphicon glyphicon-record invert" rel="tooltip" title="11 hours ago via Twitter" id=""></i></a></div>-->
         <!--  <div class="timeline-panel">-->
         <!--    <div class="timeline-heading">-->
         <!--      <img class="img-responsive" src="http://lorempixel.com/1600/500/sports/2" />-->
-              
+
         <!--    </div>-->
         <!--    <div class="timeline-body">-->
         <!--      <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.</p>-->
-              
+
         <!--    </div>-->
-            
+
         <!--    <div class="timeline-footer primary">-->
         <!--        <a><i class="glyphicon glyphicon-thumbs-up"></i></a>-->
         <!--        <a><i class="glyphicon glyphicon-share"></i></a>-->
@@ -881,7 +903,7 @@ Despite challenges, our system persevered through the pandemic. However, the lan
         <!--      <p><b>All the credits go to <a href="http://bootsnipp.com/rafamaciel">Rafamaciel</a></b></p>-->
         <!--      <p>I only make it responsive and remove the empty spaces to be more like Facebook timeline!</p>-->
         <!--    </div>-->
-            
+
         <!--    <div class="timeline-footer primary">-->
         <!--        <a><i class="glyphicon glyphicon-thumbs-up"></i></a>-->
         <!--        <a><i class="glyphicon glyphicon-share"></i></a>-->
@@ -889,15 +911,15 @@ Despite challenges, our system persevered through the pandemic. However, the lan
         <!--    </div>-->
         <!--  </div>-->
         <!--</li>-->
-        
+
         <li class="clearfix" style="float: none;"></li>
     </ul>
-    
+
          <div class="row">
             <div class="col-md-12 col-sm-12 section2">
                 <section >
                     <p>We remain steadfast in our commitment to establishing a system for reusing packaging after consumption, as that has always been our primary core value.<br><br>
-                     We've developed specific models tailored to diverse business types, drawing from our experience of implementing DRS (Deposit Refund System) in the grocery marketplace. This expertise enables us to design a comprehensive value chain encompassing logistics, reuse/refill/repurpose strategies and operational requirements. 
+                     We've developed specific models tailored to diverse business types, drawing from our experience of implementing DRS (Deposit Refund System) in the grocery marketplace. This expertise enables us to design a comprehensive value chain encompassing logistics, reuse/refill/repurpose strategies and operational requirements.
                     We're currently seeking funded packaging reuse pilot opportunities from producers to implement the value chain for your unique needs.</p>
                 </section>
             </div>
@@ -905,11 +927,11 @@ Despite challenges, our system persevered through the pandemic. However, the lan
 </div>
 
 
-    
+
 </div>
 
 <div class="row">
-              
+
 
               <div class="responsive-container-block outer-container">
   <div class="responsive-container-block inner-container">
@@ -918,7 +940,7 @@ WHO WE ARE</h3>
    <h1>
      Meet the Team
    </h1>
-     
+
     <div class="responsive-container-block">
       <div class="responsive-cell-block wk-desk-3 wk-ipadp-3 wk-tab-6 wk-mobile-12 team-card-container">
         <div class="team-card">
@@ -935,7 +957,7 @@ WHO WE ARE</h3>
             <a href="https://www.linkedin.com/in/gayatrijoshi/" target="_blank">
               <img src="{{ asset('frontend/assets/img/linkicon.png') }}" alt="image" style="height: 25px;">
             </a>
-             
+
           </div>
         </div>
       </div>
@@ -945,7 +967,7 @@ WHO WE ARE</h3>
                <img src="{{ asset('frontend/assets/img/ourteam/AmodKabade.png') }}" alt="SAB Post">
           </div>
           <p class="text-blk name">
-           
+
 Amod Kabade
           </p>
           <p class="text-blk position">
@@ -955,7 +977,7 @@ Amod Kabade
             <a href="https://www.linkedin.com/in/akabade/" target="_blank">
               <img src="{{ asset('frontend/assets/img/linkicon.png') }}" alt="image" style="height: 25px;">
             </a>
-            
+
           </div>
         </div>
       </div>
@@ -975,14 +997,14 @@ Amod Kabade
             <a href="https://www.linkedin.com/in/saritha-devpunje-50315824/" target="_blank">
               <img src="{{ asset('frontend/assets/img/linkicon.png') }}" alt="image" style="height: 25px;">
             </a>
-            
+
           </div>
         </div>
       </div>
     </div>
-    
-     
-     
+
+
+
       <div class="responsive-container-block">
           <div class="responsive-cell-block wk-desk-3 wk-ipadp-3 wk-tab-6 wk-mobile-12 team-card-container">
         <div class="team-card">
@@ -1011,7 +1033,7 @@ Amod Kabade
              Capt Tapas Majumdar
           </p>
           <p class="text-blk position">
-          Sustainability Practitioner / Advisor / ESG consultant 
+          Sustainability Practitioner / Advisor / ESG consultant
           </p>
           <div class="social-media-links">
             <a href="https://www.linkedin.com/in/capttapasmajumdar/" target="_blank">
@@ -1038,11 +1060,11 @@ Amod Kabade
           </div>
         </div>
       </div>
-       
+
     </div>
-    
+
      <div class="responsive-container-block">
-      
+
       <div class="responsive-cell-block wk-desk-3 wk-ipadp-3 wk-tab-6 wk-mobile-12 team-card-container">
         <div class="team-card">
           <div class="img-wrapper">
@@ -1058,11 +1080,11 @@ Amod Kabade
             <a href="https://www.linkedin.com/in/rohini-ravee-ramanathan/" target="_blank">
               <img src="{{ asset('frontend/assets/img/linkicon.png') }}" alt="image" style="height: 25px;">
             </a>
-            
+
           </div>
         </div>
       </div>
-      
+
          </div>
   </div>
 </div>
@@ -1073,7 +1095,7 @@ Amod Kabade
 
 
 <script>
-    
+
     $(document).ready(function(){
 	var my_posts = $("[rel=tooltip]");
 
@@ -1116,4 +1138,3 @@ Amod Kabade
 
 </script>
 @include('frontend.include.footer')
- 
