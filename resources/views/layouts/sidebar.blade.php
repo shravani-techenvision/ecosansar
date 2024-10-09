@@ -98,7 +98,7 @@
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{ route('resource.list') }}">Resource</a></li>
                        <li><a href="{{ route('weight.list') }}">Weight</a></li>
-
+                       <li><a href="{{ route('googleadsense.list') }}">Google Adsense</a></li>
 
                     </ul>
                 </li>
@@ -173,30 +173,30 @@
                         <span>Contributor</span>
                     </a>
                 </li>
-                
+
                 <li class="menu-title">Reports</li>
-                
+
                 <li>
                     <a href="{{ route('user.businesspostreportlist') }}">
                         <i class="uil-home-alt"></i>
                         <span>Corporate Post Report</span>
                     </a
                 </li>
-                
+
                 <li>
                     <a href="{{ route('user.sabpostreportlist') }}">
                         <i class="uil-home-alt"></i>
                         <span>Resource Post Report</span>
                     </a
                 </li>
-                
+
                 <li>
                     <a href="{{ route('user.consumerpostreportlist') }}">
                         <i class="uil-home-alt"></i>
                         <span>Contributor Post Report</span>
                     </a
                 </li>
-                
+
                 <li>
                     <a href="{{ route('user.activityreportlist') }}">
                         <i class="uil-home-alt"></i>
@@ -210,34 +210,34 @@
                         <span>Contributor Connect </span>
                     </a
                 </li>
-                
+
                 <li>
                     <a href="{{ route('user.sabconnectreportlist') }}">
                         <i class="uil-home-alt"></i>
                         <span>Resource Connect </span>
                     </a
                 </li>
-                
+
                 <li>
                     <a href="{{ route('user.Businessconnectreportlist') }}">
                         <i class="uil-home-alt"></i>
                         <span>Corporate Connect </span>
                     </a
                 </li>
-                
+
                 <!--<li>-->
                 <!--    <a href="{{route('user.sabposts')}}">-->
                 <!--        <i class="uil-home-alt"></i>-->
                 <!--        <span>Resource</span>-->
                 <!--    </a>-->
                 <!--</li>-->
-                <!--<li>--> 
+                <!--<li>-->
                 <!--    <a href="{{route('user.consumerposts')}}">-->
                 <!--        <i class="uil-home-alt"></i>-->
                 <!--        <span>Contributor</span>-->
                 <!--    </a>-->
                 <!--</li>-->
-                       
+
                 {{--
 
                 <li class="menu-title">@lang('translation.Apps')</li>

@@ -11,6 +11,7 @@ use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\admin\ResourceController;
 use App\Http\Controllers\admin\WeightController;
+use App\Http\Controllers\admin\GoogleAdsenseController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -62,12 +63,12 @@ Route::controller(IndexController::class)->group(function(){
     Route::post('/loginsab_send_enquiry', 'loginsabsendEnquiryEmail')->name('loginsab_send_enquiry');
     Route::get('consumer_login', 'consumer_login')->name('consumer_login');
     //Route::post('send_otp','sendOtp')->name('send_otp');
-    
+
     Route::post('resendOtp','resendOtp')->name('resend_Otp');
-    
+
     Route::get('register_otp/{id}', 'register_otp')->name('register_otp');
      Route::get('activate_otp/{id}', 'activate_otp')->name('activate_otp');
-    
+
     Route::get('loginverify_otp/{id}', 'loginverify_otp')->name('loginverify_otp');
 
     Route::post('/verify-otp', 'verifyOtp')->name('verify.otp');
@@ -80,30 +81,30 @@ Route::controller(IndexController::class)->group(function(){
     Route::post('consumer_post_save','consumer_post_save')->name('consumer_post_save');
     Route::get('consumer_listing_details/{id}','consumer_listing_details')->name('consumer_listing_details');
      Route::get('consumer_own_listing_details/{id}','consumer_own_listing_details')->name('consumer_own_listing_details');
-     
+
      Route::post('/consumer-posts/deactivate' ,'con_deactivate')->name('consumer-posts.deactivate');
      Route::post('/consumer-posts/reactivate' ,'con_reactivate')->name('consumer-posts.reactivate');
       Route::post('/sab-posts/deactivate' ,'sab_deactivate')->name('sab-posts.deactivate');
       Route::post('/sab-posts/reactivate' ,'sab_reactivate')->name('sab-posts.reactivate');
        Route::post('/business-posts/deactivate' ,'bus_deactivate')->name('bus-posts.deactivate');
        Route::post('/business-posts/reactivate' ,'bus_reactivate')->name('bus-posts.reactivate');
-      
-     Route::get('con_all_posts','con_all_posts')->name('con_all_posts'); 
-      Route::post('con_all_posts_filter','con_all_posts_filter')->name('con_all_posts_filter'); 
+
+     Route::get('con_all_posts','con_all_posts')->name('con_all_posts');
+      Route::post('con_all_posts_filter','con_all_posts_filter')->name('con_all_posts_filter');
        Route::get('/con_all_posts_sort', 'con_all_posts_sort')->name('con_all_posts_sort');
         Route::get('get_con_post_details','get_con_post_details')->name('get_con_post_details');
       Route::get('sab_all_posts','sab_all_posts')->name('sab_all_posts');
-       Route::post('sab_all_posts_filter','sab_all_posts_filter')->name('sab_all_posts_filter'); 
+       Route::post('sab_all_posts_filter','sab_all_posts_filter')->name('sab_all_posts_filter');
         Route::get('get_post_details','get_post_details')->name('get_post_details');
          Route::get('sab_all_buy_posts','sab_all_buy_posts')->name('sab_all_buy_posts');
-           Route::post('sab_all_buy_posts_filter','sab_all_buy_posts_filter')->name('sab_all_buy_posts_filter'); 
-       Route::get('bus_all_posts','bus_all_posts')->name('bus_all_posts'); 
-        Route::post('bus_all_posts_filter','bus_all_posts_filter')->name('bus_all_posts_filter'); 
-         Route::get('bus_all_buy_posts','bus_all_buy_posts')->name('bus_all_buy_posts'); 
-        Route::post('bus_all_buy_posts_filter','bus_all_buy_posts_filter')->name('bus_all_buy_posts_filter'); 
+           Route::post('sab_all_buy_posts_filter','sab_all_buy_posts_filter')->name('sab_all_buy_posts_filter');
+       Route::get('bus_all_posts','bus_all_posts')->name('bus_all_posts');
+        Route::post('bus_all_posts_filter','bus_all_posts_filter')->name('bus_all_posts_filter');
+         Route::get('bus_all_buy_posts','bus_all_buy_posts')->name('bus_all_buy_posts');
+        Route::post('bus_all_buy_posts_filter','bus_all_buy_posts_filter')->name('bus_all_buy_posts_filter');
         Route::get('get_business_post_details','get_business_post_details')->name('get_business_post_details');
          Route::get('get_consumer_post_details','get_consumer_post_details')->name('get_consumer_post_details');
-         
+
        Route::get('/sab_all_posts_sort', 'sab_all_posts_sort')->name('sab_all_posts_sort');
         Route::get('/business_all_posts_sort', 'bus_all_posts_sort')->name('bus_all_posts_sort');
           Route::get('/terms_conditions', 'terms_conditions')->name('terms_conditions');
@@ -130,17 +131,17 @@ Route::controller(EnquiryController::class)->group(function(){
     Route::post('review/sab_save','sabreviewsave')->name('review.sab_save');
     Route::post('review/consumer_save','consumerreviewsave')->name('review.consumer_save');
     Route::post('review/business_save','businessreviewsave')->name('review.business_save');
-    
+
      Route::get('Consumerconnectreportlist','Consumerconnectreportlist')->name('user.Consumerconnectreportlist');
       Route::post('shortConsumerconnectReportList','shortConsumerconnectReportList')->name('user.shortConsumerconnectReportList');
-      
+
       Route::get('sabconnectreportlist','sabconnectreportlist')->name('user.sabconnectreportlist');
       Route::post('shortsabconnectReportList','shortsabconnectReportList')->name('user.shortsabconnectReportList');
-      
+
       Route::get('Businessconnectreportlist','Businessconnectreportlist')->name('user.Businessconnectreportlist');
        Route::post('shortBusinessconnectReportList','shortBusinessconnectReportList')->name('user.shortBusinessconnectReportList');
-      
-    
+
+
 });
 
 Auth::routes();
@@ -180,19 +181,19 @@ Route::controller(AdminController::class)->group(function(){
      Route::get('user/delete/{id}','deleteuser')->name('user.deleteuser');
      Route::get('user/edit/{id}','edituser')->name('user.edituser');
      Route::post('user/update/{id}','updateuser')->name('user.updateuser');
-     
+
      Route::get('user/consumerpostreportlist','consumerpostreportlist')->name('user.consumerpostreportlist');
      Route::post('shortconsumerReportList','shortconsumerReportList')->name('user.shortconsumerReportList');
-     
+
      Route::get('user/sabpostreportlist','sabpostreportlist')->name('user.sabpostreportlist');
       Route::post('shortsabReportList','shortsabReportList')->name('user.shortsabReportList');
-      
+
      Route::get('user/businesspostreportlist','businesspostreportlist')->name('user.businesspostreportlist');
       Route::post('shortbusinessReportList','shortbusinessReportList')->name('user.shortbusinessReportList');
-     
+
       Route::get('user/activityreportlist','activityreportlist')->name('user.activityreportlist');
       Route::post('shortactivityreportlist','shortactivityreportlist')->name('user.shortactivityreportlist');
-     
+
 });
 
 Route::controller(ContactController::class)->group(function(){
@@ -246,6 +247,15 @@ Route::controller(WeightController::class)->group(function(){
     Route::get('weight/edit/{id}','edit')->name('weight.edit');
     Route::post('weight/update/{id}','update')->name('weight.update');
     Route::get('weight/delete/{id}','delete')->name('weight.delete');
+});
+Route::controller(GoogleAdsenseController::class)->group(function(){
+    Route::get('googleadsense/list','list')->name('googleadsense.list');
+    Route::get('googleadsense/add', 'add')->name('googleadsense.add');
+    Route::post('googleadsense/save','save')->name('googleadsense.save');
+    Route::get('googleadsense/edit/{id}','edit')->name('googleadsense.edit');
+    Route::post('googleadsense/update/{id}','update')->name('googleadsense.update');
+    Route::get('googleadsense/delete/{id}','delete')->name('googleadsense.delete');
+    Route::get('/changeGadsenseStatus','gadsense_status_update')->name('changeGadsenseStatus');
 });
 
 Route::get('/health', function () {

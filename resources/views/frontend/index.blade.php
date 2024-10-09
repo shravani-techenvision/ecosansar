@@ -236,7 +236,15 @@
         <!--end hero-section-->
 
 
-
+        @if(isset($afterbanner) && !empty($afterbanner->adsense_image))
+        <section class="block">
+            <div class="container">
+                <div class="center">
+                    <img class="center-block img-responsive" src="{{ asset('assets/images/Googleadsense/'.$afterbanner->adsense_image) }}" alt="" height="125" width="1000">
+                </div>
+            </div>
+        </section>
+    @endif
 
         <section class="block">
             <div class="container">
@@ -789,7 +797,7 @@
     </div>
 </section>
 
-<section class="block py-5 bg-light">
+<section class=" py-5 bg-light">
     <div class="container">
         <div class="section-title text-center mb-5">
             <h1 class="display-4">Communication Partners</h1>

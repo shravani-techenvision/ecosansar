@@ -581,9 +581,11 @@ $totalMinWeight = $busMinWeightSum->total_min_weight + $conMinWeightSum->total_m
             $Corporatepost = BusinessPost::where('active','1')->count();
 
             $totalpostCount = $Resourcepost + $Contributorpost + $Corporatepost;
-
+            $afterbanner = GoogleAdsense::where('place_of_adsense','After banner image')->first();
+            $beforestatistics = GoogleAdsense::where('place_of_adsense','Before our statistics')->first();
         return view('frontend/index', compact('totalMinWeight','conuniqueListingsnotbuy', 'user_type', 'busuniqueListings', 'sabuniqueListings', 'conuniqueListings', 'blistings', 'slistings', 'clistings',
-        'alllistings', 'res', 'busuniqueListingsnotsell','users','Resourceusers','Contributorusers','Corporateusers','totalpostCount','Resourcepost','Contributorpost','Corporatepost'));
+        'alllistings', 'res', 'busuniqueListingsnotsell','users','Resourceusers','Contributorusers','Corporateusers','totalpostCount',
+        'Resourcepost','Contributorpost','Corporatepost','afterbanner','beforestatistics'));
     }
 
     //   public function filter(Request $request)
