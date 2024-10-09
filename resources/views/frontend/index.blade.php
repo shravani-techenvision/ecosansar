@@ -245,20 +245,27 @@
             </div>
         </section>
     @endif
-    <section class="block">
-        <div class="container">
-
-    <ins class="adsbygoogle"
-    style="display:block"
-    data-ad-client="ca-pub-4322110929509521"
-    data-ad-slot="8759068321"
-    data-ad-format="auto"
-    data-full-width-responsive="true"></ins>
-    <script>
-    (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
-    </div>
-    </section>
+    @if(isset($afterbanner))
+    @if(!empty($afterbanner->adsense_script))
+        <!-- Output the entire AdSense Script -->
+        <section class="block">
+            <div class="container">
+                <div class="center">
+        {!! $afterbanner->adsense_script !!}
+                </div>
+            </div>
+        </section>
+    @elseif(!empty($afterbanner->adsense_image))
+        <!-- Output the AdSense Image -->
+        <section class="block">
+            <div class="container">
+                <div class="center">
+                    <img class="center-block img-responsive" src="{{ asset('assets/images/Googleadsense/'.$afterbanner->adsense_image) }}" alt="" height="125" width="1000">
+                </div>
+            </div>
+        </section>
+    @endif
+@endif
         <section class="block">
             <div class="container">
                 <div class="center">
@@ -757,6 +764,15 @@
 <!--        </div>-->
 <!--    </div>-->
 <!--</section>-->
+@if(!empty($beforestatistics->adsense_image))
+    <section class="block">
+        <div class="container">
+            <div class="center">
+                <img class="center-block img-responsive" src="{{ asset('assets/images/Googleadsense/'.$beforestatistics->adsense_image) }}" alt="Google Adsense Image" height="125" width="1000">
+            </div>
+        </div>
+    </section>
+@endif
 
    <section class="block py-5 bg-light">
     <div class="container">
