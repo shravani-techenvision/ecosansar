@@ -789,7 +789,21 @@
     </div>
 </section>
 
+<section class="block py-5 bg-light">
+    <div class="container">
+        <div class="section-title text-center mb-5">
+            <h1 class="display-4">Communication Partners</h1>
+        </div>
+                <div class="logos">
+                    <div class="logo">
+                        <a href="#"><img src="{{ asset('assets/images/msg91-original_Logo.svg') }}" alt=""></a>
+                    </div>
 
+                </div>
+                <!--/ .logos-->
+            </div>
+            <!--end container-->
+        </section>
 
 
 <!--        <section class="block background-is-dark" style="background-color: #8eb66f;">-->
