@@ -47,6 +47,7 @@ Google Adsense Add
                                                 <option @if(isset($gadsense->place_of_adsense) && ($gadsense->place_of_adsense == "After banner image")) selected @else @endif  value="After banner image">After banner image</option>
                                                 <option @if(isset($gadsense->place_of_adsense) && ($gadsense->place_of_adsense == "Before our statistics")) selected @else @endif  value="Before our statistics">Before our statistics</option>
                                                 <option @if(isset($gadsense->place_of_adsense) && ($gadsense->place_of_adsense == "After search filter")) selected @else @endif  value="After search filter">After search filter</option>
+                                                <option @if(isset($gadsense->place_of_adsense) && ($gadsense->place_of_adsense == "After about breadcrumb")) selected @else @endif  value="After about breadcrumb">After about breadcrumb</option>
                                             </select>
                                             @if ($errors->has('place_of_adsense'))
                                                 <span class="text-danger">{{ $errors->first('place_of_adsense') }}</span>
@@ -81,7 +82,7 @@ Google Adsense Add
                                             @endif
                                         </div>
                                     </div>
-                                     
+
                                 </div>
                                 <div class="row">
                                     <div class="col-md-8">
