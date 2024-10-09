@@ -18,6 +18,7 @@ use App\Models\frontend\SABResourcePost;
 use App\Models\frontend\BusinessResourcePost;
 use App\Models\admin\Resource;
 use App\Models\admin\Weight;
+use App\Models\admin\GoogleAdsense;
 use App\Models\admin\Faq;
 use App\Models\admin\About;
 use App\Models\admin\Category;;
