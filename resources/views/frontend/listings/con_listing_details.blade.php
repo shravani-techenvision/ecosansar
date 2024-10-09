@@ -195,7 +195,7 @@ padding-left:8px;
                     </dl>
                     <br>
                     @if (session()->has('user_id'))
-                    <a href="https://wa.me/?text={{ urlencode('Check out this post: ' . url('con_listing_details/'.$consumerposts->id)) }}" target="_blank" class="btn btn-success btn-small btn-rounded icon shadow" style="margin-bottom:10px;">
+                    <a href="https://wa.me/?text={{ urlencode('This post from The ZeroWaste Community Tool might interest you, check it out : ' . url('con_listing_details/'.$consumerposts->id)) }}" target="_blank" class="btn btn-success btn-small btn-rounded icon shadow" style="margin-bottom:10px;">
                         <i class="fa fa-whatsapp"></i> Share on WhatsApp
                         <!--<i class="fa fa-share-alt"></i> Share on WhatsApp-->
                     </a>

@@ -191,7 +191,7 @@ padding-left:8px;
                     <br>
                     <!-- Update your WhatsApp link generation -->
                      @if (session()->has('user_id'))
-                        <a href="https://wa.me/?text={{ urlencode('Check out this post: ' . url('bus_listing_details/'.$busposts->id)) }}" target="_blank" class="btn btn-success btn-small btn-rounded icon shadow" style="margin-bottom:10px;">
+                        <a href="https://wa.me/?text={{ urlencode('This post from The ZeroWaste Community Tool might interest you, check it out : ' . url('bus_listing_details/'.$busposts->id)) }}" target="_blank" class="btn btn-success btn-small btn-rounded icon shadow" style="margin-bottom:10px;">
                            <i class="fa fa-whatsapp"></i> Share on WhatsApp
                         </a>
                     @else

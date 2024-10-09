@@ -166,6 +166,17 @@ textarea.form-control {
     <a href="#" data-id="{{ $listing->id }}" data-toggle="modal" data-target="#enquiryModal" class="btn btn-primary btn-small btn-rounded icon shadow connect-listing" style="float:right;">
         <span>Connect</span>
     </a>
+    <div class="wp"> <!-- This ensures the WhatsApp button goes below the Connect button -->
+        @if (session()->has('user_id'))
+          Share&nbsp; .&nbsp; <a href="https://wa.me/?text={{ urlencode('This post from The ZeroWaste Community Tool might interest you, check it out : ' . url('bus_listing_details/'.$listing->id)) }}" target="_blank"  style="margin-bottom:10px;">
+                <i class="fa fa-whatsapp"></i>
+            </a>
+        @else
+            <a href="{{ route('consumer_login', ['redirect_wp' => url('bus_listing_details/' . $listing->id)]) }}" target="_blank" class="btn btn-success btn-small btn-rounded icon shadow" style="margin-bottom:10px;">
+                <i class="fa fa-whatsapp"></i> Share on WhatsApp
+            </a>
+        @endif
+    </div>
 </div>
                         <!--end controls-more-->
                     </div>
@@ -375,7 +386,7 @@ function displayStars($rating) {
     </a>
     <div class="wp"> <!-- This ensures the WhatsApp button goes below the Connect button -->
         @if (session()->has('user_id'))
-          Share&nbsp; .&nbsp; <a href="https://wa.me/?text={{ urlencode('Check out this post: ' . url('bus_listing_details/'.$listing->id)) }}" target="_blank"  style="margin-bottom:10px;">
+          Share&nbsp; .&nbsp; <a href="https://wa.me/?text={{ urlencode('This post from The ZeroWaste Community Tool might interest you, check it out : ' . url('bus_listing_details/'.$listing->id)) }}" target="_blank"  style="margin-bottom:10px;">
                 <i class="fa fa-whatsapp"></i>
             </a>
         @else
@@ -427,7 +438,7 @@ function displayStars($rating) {
     </a>
     <div class="wp"> <!-- This ensures the WhatsApp button goes below the Connect button -->
         @if (session()->has('user_id'))
-          Share&nbsp; .&nbsp; <a href="https://wa.me/?text={{ urlencode('Check out this post: ' . url('bus_listing_details/'.$listing->id)) }}" target="_blank"  style="margin-bottom:10px;">
+          Share&nbsp; .&nbsp; <a href="https://wa.me/?text={{ urlencode('This post from The ZeroWaste Community Tool might interest you, check it out : ' . url('bus_listing_details/'.$listing->id)) }}" target="_blank"  style="margin-bottom:10px;">
                 <i class="fa fa-whatsapp"></i>
             </a>
         @else
@@ -683,7 +694,7 @@ function displayStars($rating) {
           // Add WhatsApp Share Button
 html += '<div class="wp">'; // Ensure it goes below the "Connect" button
     if (sessionUserId) { // Assuming you have session user ID in JavaScript (e.g., passed from backend or retrieved via AJAX)
-        html += 'Share&nbsp; .&nbsp;<a href="https://wa.me/?text=' + encodeURIComponent('Check out this post: ' + baseUrl + 'bus_listing_details/' + listing.id) + '" target="_blank" style="margin-bottom:10px;">';
+        html += 'Share&nbsp; .&nbsp;<a href="https://wa.me/?text=' + encodeURIComponent('This post from The ZeroWaste Community Tool might interest you, check it out : ' + baseUrl + 'bus_listing_details/' + listing.id) + '" target="_blank" style="margin-bottom:10px;">';
         html += '<i class="fa fa-whatsapp"></i></a>';
     } else {
         html += '<a href="' + consumerLoginRoute + '?redirect_wp=' + encodeURIComponent(baseUrl + 'bus_listing_details/' + listing.id) + '" target="_blank" class="btn btn-success btn-small btn-rounded icon shadow" style="margin-bottom:10px;">';
@@ -729,7 +740,7 @@ html += '<div class="wp">'; // Ensure it goes below the "Connect" button
          // Add WhatsApp Share Button
 html += '<div class="wp">'; // Ensure it goes below the "Connect" button
     if (sessionUserId) { // Assuming you have session user ID in JavaScript (e.g., passed from backend or retrieved via AJAX)
-        html += 'Share&nbsp; .&nbsp;<a href="https://wa.me/?text=' + encodeURIComponent('Check out this post: ' + baseUrl + 'bus_listing_details/' + listing.id) + '" target="_blank" style="margin-bottom:10px;">';
+        html += 'Share&nbsp; .&nbsp;<a href="https://wa.me/?text=' + encodeURIComponent('This post from The ZeroWaste Community Tool might interest you, check it out : ' + baseUrl + 'bus_listing_details/' + listing.id) + '" target="_blank" style="margin-bottom:10px;">';
         html += '<i class="fa fa-whatsapp"></i></a>';
     } else {
         html += '<a href="' + consumerLoginRoute + '?redirect_wp=' + encodeURIComponent(baseUrl + 'bus_listing_details/' + listing.id) + '" target="_blank" class="btn btn-success btn-small btn-rounded icon shadow" style="margin-bottom:10px;">';

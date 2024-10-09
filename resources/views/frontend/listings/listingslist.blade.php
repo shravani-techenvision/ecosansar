@@ -262,7 +262,7 @@ margin-left: 5px !important;
 
         <span>Connect</span>
     </a>
-    <a href="https://wa.me/?text={{ urlencode('Check out this post: ' . url('con_listing_details/'.$listing->id)) }}" target="_blank" class="btn btn-success btn-small btn-rounded icon shadow" style="margin-bottom:10px;">
+    <a href="https://wa.me/?text={{ urlencode('This post from The ZeroWaste Community Tool might interest you, check it out : ' . url('con_listing_details/'.$listing->id)) }}" target="_blank" class="btn btn-success btn-small btn-rounded icon shadow" style="margin-bottom:10px;">
         <i class="fa fa-whatsapp"></i>
         <!--<i class="fa fa-share-alt"></i> Share on WhatsApp-->
     </a>
@@ -349,7 +349,7 @@ margin-left: 5px !important;
 
         <span>Connect</span>
     </a>
-    <a href="https://wa.me/?text={{ urlencode('Check out this post: ' . url('con_listing_details/'.$listing->id)) }}" target="_blank"  style="float:right">
+    <a href="https://wa.me/?text={{ urlencode('This post from The ZeroWaste Community Tool might interest you, check it out : ' . url('con_listing_details/'.$listing->id)) }}" target="_blank"  style="float:right">
 
         <!--<i class="fa fa-share-alt"></i>  -->
         <i class="fa fa-whatsapp"></i>
@@ -435,7 +435,7 @@ margin-left: 5px !important;
 
         <span>Connect</span>
     </a>
-    <a href="https://wa.me/?text={{ urlencode('Check out this post: ' . url('sabs_listing_details/'.$listing->id)) }}" target="_blank"  style="float:right">
+    <a href="https://wa.me/?text={{ urlencode('This post from The ZeroWaste Community Tool might interest you, check it out : ' . url('sabs_listing_details/'.$listing->id)) }}" target="_blank"  style="float:right">
 
         <!--<i class="fa fa-share-alt"></i>  -->
         <i class="fa fa-whatsapp"></i>
@@ -529,7 +529,7 @@ margin-left: 5px !important;
                                              <a href="#" data-id="{{ $listing->id }}" data-toggle="modal" data-target="#businessenquiryModal" class="btn btn-primary btn-small btn-rounded icon shadow bus-connect-listing" style="float:right;">
         <span>Connect</span>
     </a>
-    <a href="https://wa.me/?text={{ urlencode('Check out this post: ' . url('bus_listing_details/'.$listing->id)) }}" target="_blank"  style="float:right">
+    <a href="https://wa.me/?text={{ urlencode('This post from The ZeroWaste Community Tool might interest you, check it out : ' . url('bus_listing_details/'.$listing->id)) }}" target="_blank"  style="float:right">
 
         <!--<i class="fa fa-share-alt"></i>  -->
         <i class="fa fa-whatsapp"></i>
@@ -616,7 +616,7 @@ margin-left: 5px !important;
                                              <a href="#" data-id="{{ $listing->id }}" data-toggle="modal" data-target="#businessenquiryModal" class="btn btn-primary btn-small btn-rounded icon shadow bus-connect-listing" style="float:right;">
         <span>Connect</span>
     </a>
-    <a href="https://wa.me/?text={{ urlencode('Check out this post: ' . url('bus_listing_details/'.$listing->id)) }}" target="_blank"  style="float:right">
+    <a href="https://wa.me/?text={{ urlencode('This post from The ZeroWaste Community Tool might interest you, check it out :' . url('bus_listing_details/'.$listing->id)) }}" target="_blank"  style="float:right">
 
         <!--<i class="fa fa-share-alt"></i>  -->
         <i class="fa fa-whatsapp"></i>
