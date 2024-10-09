@@ -236,15 +236,7 @@
         <!--end hero-section-->
 
 
-        @if(isset($afterbanner) && !empty($afterbanner->adsense_image))
-        <section class="block">
-            <div class="container">
-                <div class="center">
-                    <img class="center-block img-responsive" src="{{ asset('assets/images/Googleadsense/'.$afterbanner->adsense_image) }}" alt="" height="125" width="1000">
-                </div>
-            </div>
-        </section>
-    @endif
+
     @if(isset($afterbanner))
     @if(!empty($afterbanner->adsense_script))
         <!-- Output the entire AdSense Script -->
