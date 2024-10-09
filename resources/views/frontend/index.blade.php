@@ -744,6 +744,22 @@
 <!--        </div>-->
 <!--    </div>-->
 <!--</section>-->
+<section class="block">
+    <div class="container">
+<!--            <div class="center">-->
+<!--<img class="center-block img-responsive" src="{{ asset('assets/images/Googleadsense/'.$beforestatistics->adsense_image) }}" alt="" height="125" width="1000">-->
+<!--</div>-->
+<ins class="adsbygoogle"
+style="display:block"
+data-ad-client="ca-pub-4322110929509521"
+data-ad-slot="8759068321"
+data-ad-format="auto"
+data-full-width-responsive="true"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+</section>
    <section class="block py-5 bg-light">
     <div class="container">
         <div class="section-title text-center mb-5">
