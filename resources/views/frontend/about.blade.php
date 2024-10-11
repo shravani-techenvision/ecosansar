@@ -732,27 +732,7 @@ a.pull-right {
     </div>
     <!--end container-->
 
-    @if(isset($afterbanner))
-    @if(!empty($afterbanner->adsense_script))
-        <!-- Output the entire AdSense Script -->
-        <section class="block">
-            <div class="container">
-                <div class="center">
-        {!! $afterbanner->adsense_script !!}
-                </div>
-            </div>
-        </section>
-    @elseif(!empty($afterbanner->adsense_image))
-        <!-- Output the AdSense Image -->
-        <section class="block">
-            <div class="container">
-                <div class="center">
-                    <img class="center-block img-responsive" src="{{ asset('assets/images/Googleadsense/'.$afterbanner->adsense_image) }}" alt="" height="125" width="1000">
-                </div>
-            </div>
-        </section>
-    @endif
-@endif
+
 
     <div class="container" style="margin-top:-40px; !important">
     <div class="page-header text-center">

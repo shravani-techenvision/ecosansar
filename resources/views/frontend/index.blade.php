@@ -237,27 +237,7 @@
 
 
 
-    @if(isset($afterbanner))
-    @if(!empty($afterbanner->adsense_script))
-        <!-- Output the entire AdSense Script -->
-        <section class="block">
-            <div class="container">
-                <div class="center">
-        {!! $afterbanner->adsense_script !!}
-                </div>
-            </div>
-        </section>
-    @elseif(!empty($afterbanner->adsense_image))
-        <!-- Output the AdSense Image -->
-        <section class="block">
-            <div class="container">
-                <div class="center">
-                    <img class="center-block img-responsive" src="{{ asset('assets/images/Googleadsense/'.$afterbanner->adsense_image) }}" alt="" height="125" width="1000">
-                </div>
-            </div>
-        </section>
-    @endif
-@endif
+
         <section class="block">
             <div class="container">
                 <div class="center">
@@ -756,15 +736,7 @@
 <!--        </div>-->
 <!--    </div>-->
 <!--</section>-->
-@if(!empty($beforestatistics->adsense_image))
-    <section class="block">
-        <div class="container">
-            <div class="center">
-                <img class="center-block img-responsive" src="{{ asset('assets/images/Googleadsense/'.$beforestatistics->adsense_image) }}" alt="Google Adsense Image" height="125" width="1000">
-            </div>
-        </div>
-    </section>
-@endif
+
 
    <section class="block py-5 bg-light">
     <div class="container">
@@ -834,18 +806,7 @@
             </div>
             <!--end container-->
         </section>
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4322110929509521"
-        crossorigin="anonymous"></script>
-   <!-- Sample2 -->
-   <ins class="adsbygoogle"
-        style="display:block"
-        data-ad-client="ca-pub-4322110929509521"
-        data-ad-slot="2596984657"
-        data-ad-format="auto"
-        data-full-width-responsive="true"></ins>
-   <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-   </script>
+
 
 <!--        <section class="block background-is-dark" style="background-color: #8eb66f;">-->
 <!--            <div class="container">-->
