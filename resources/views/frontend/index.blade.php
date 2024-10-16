@@ -791,17 +791,17 @@
     </div>
 </section>
 
-<section class=" py-5 bg-light">
+<section class="block bg-light">
     <div class="container">
-        <div class="section-title text-center mb-5">
-            <h1 class="display-4">Communication Partners</h1>
+        <div class="section-title text-center  col-md-6">
+            <h1 class="display-4 mb-4">Communication Partners</h1>
+             <a href="#"><img height="60" src="{{ asset('assets/images/msg91-original_Logo.svg') }}" alt=""></a>
         </div>
-                <div class="logos">
-                    <div class="logo">
-                        <a href="#"><img src="{{ asset('assets/images/msg91-original_Logo.svg') }}" alt=""></a>
-                    </div>
+         <div class="section-title text-center  col-md-6">
+            <h1 class="display-4 mb-4">Technical Partners</h1>
+             <a href="https://magnetontech.com/" target="_blank"><img src="{{ asset('assets/images/magnetontechlogo.png') }}"  alt=""></a>
+        </div>
 
-                </div>
                 <!--/ .logos-->
             </div>
             <!--end container-->
