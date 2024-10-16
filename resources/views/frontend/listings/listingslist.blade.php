@@ -34,7 +34,7 @@ right: 5px !important;
 a.btn {
 margin-left: 5px !important;
 }
-.fa {
+.controls-more .fa {
     margin-top:6px !important;
     font-size: xx-large !important;
 }
@@ -262,7 +262,7 @@ margin-left: 5px !important;
 
         <span>Connect</span>
     </a>
-    <a href="https://wa.me/?text={{ urlencode('This post from The ZeroWaste Community Tool might interest you, check it out : ' . url('con_listing_details/'.$listing->id)) }}" target="_blank" class="btn btn-success btn-small btn-rounded icon shadow" style="margin-bottom:10px;">
+    <a href="https://wa.me/?text={{ urlencode('This post from The ZeroWaste Community Tool might interest you, check it out : ' . url('con_listing_details/'.$listing->id)) }}" target="_blank"  style="margin-bottom:10px;">
         <i class="fa fa-whatsapp"></i>
         <!--<i class="fa fa-share-alt"></i> Share on WhatsApp-->
     </a>
