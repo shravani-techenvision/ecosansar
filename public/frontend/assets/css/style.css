@@ -8300,7 +8300,8 @@ span.scale-rating label:before
 /*filter page css*/
 .corpimage {
         border-radius: 10px;
-    width: -webkit-fill-available;
+    /* width: -webkit-fill-available; */
+    width:100%;
     aspect-ratio: 4 / 3;
 
 }
@@ -8318,7 +8319,7 @@ span.scale-rating label:before
     padding-left: 0px;
 }
 .corprow .controls-more {
-    top: 62px; 
+    top: 62px;
 }
 .corprow .description {
     padding-top: 15px;
