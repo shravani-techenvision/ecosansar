@@ -112,6 +112,16 @@ textarea.form-control {
     clear: both;
     margin-top: 75px;
 }
+.controls-more {
+right: 5px !important;
+}
+a.btn {
+margin-left: 5px !important;
+}
+.controls-more .fa {
+    margin-top:6px !important;
+    font-size: larger !important;
+}
 @media screen and (max-width: 786px) {
 .wp{
     margin-top: 50px !important;
@@ -159,24 +169,26 @@ textarea.form-control {
 @endif
 
 
-                            <h4>{{ $listing->address }}</h4>
+<h4 style="word-wrap: break-word !important;white-space: normal; max-width: 200px;">{{ Str::limit($listing->address, 50) }} </h4>
 
 
                          <div class="controls-more">
     <a href="#" data-id="{{ $listing->id }}" data-toggle="modal" data-target="#enquiryModal" class="btn btn-primary btn-small btn-rounded icon shadow connect-listing" style="float:right;">
         <span>Connect</span>
     </a>
-    <div class="wp"> <!-- This ensures the WhatsApp button goes below the Connect button -->
+
         @if (session()->has('user_id'))
-          Share&nbsp; .&nbsp; <a href="https://wa.me/?text={{ urlencode('This post from The ZeroWaste Community Tool might interest you, check it out : ' . url('bus_listing_details/'.$listing->id)) }}" target="_blank"  style="margin-bottom:10px;">
-                <i class="fa fa-whatsapp"></i>
-            </a>
+        <a href="https://wa.me/?text={{ urlencode('This post from The ZeroWaste Community Tool might interest you, check it out : ' . url('bus_listing_details/'.$listing->id)) }}" target="_blank"  style="float:right">
+
+            <!--<i class="fa fa-share-alt"></i>  -->
+            <i class="fa fa-whatsapp"></i>
+       </a>
         @else
             <a href="{{ route('consumer_login', ['redirect_wp' => url('bus_listing_details/' . $listing->id)]) }}" target="_blank" class="btn btn-success btn-small btn-rounded icon shadow" style="margin-bottom:10px;">
                 <i class="fa fa-whatsapp"></i> Share on WhatsApp
             </a>
         @endif
-    </div>
+
 </div>
                         <!--end controls-more-->
                     </div>
@@ -386,7 +398,7 @@ function displayStars($rating) {
     </a>
     <div class="wp"> <!-- This ensures the WhatsApp button goes below the Connect button -->
         @if (session()->has('user_id'))
-          Share&nbsp; .&nbsp; <a href="https://wa.me/?text={{ urlencode('This post from The ZeroWaste Community Tool might interest you, check it out : ' . url('bus_listing_details/'.$listing->id)) }}" target="_blank"  style="margin-bottom:10px;">
+          Share on:&nbsp; <a href="https://wa.me/?text={{ urlencode('This post from The ZeroWaste Community Tool might interest you, check it out : ' . url('bus_listing_details/'.$listing->id)) }}" target="_blank"  style="margin-bottom:10px;">
                 <i class="fa fa-whatsapp"></i>
             </a>
         @else
@@ -438,7 +450,7 @@ function displayStars($rating) {
     </a>
     <div class="wp"> <!-- This ensures the WhatsApp button goes below the Connect button -->
         @if (session()->has('user_id'))
-          Share&nbsp; .&nbsp; <a href="https://wa.me/?text={{ urlencode('This post from The ZeroWaste Community Tool might interest you, check it out : ' . url('bus_listing_details/'.$listing->id)) }}" target="_blank"  style="margin-bottom:10px;">
+          Share on:&nbsp; <a href="https://wa.me/?text={{ urlencode('This post from The ZeroWaste Community Tool might interest you, check it out : ' . url('bus_listing_details/'.$listing->id)) }}" target="_blank"  style="margin-bottom:10px;">
                 <i class="fa fa-whatsapp"></i>
             </a>
         @else

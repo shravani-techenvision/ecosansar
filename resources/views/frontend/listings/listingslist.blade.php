@@ -36,7 +36,7 @@ margin-left: 5px !important;
 }
 .controls-more .fa {
     margin-top:6px !important;
-    font-size: xx-large !important;
+    font-size: larger !important;
 }
 </style>
 

@@ -113,7 +113,7 @@ margin-left: 5px !important;
 }
 .controls-more .fa {
     margin-top:6px !important;
-    font-size: xx-large !important;
+    font-size: larger !important;
 }
 @media screen and (max-width: 786px) {
 .wp{
@@ -599,7 +599,7 @@ function displayStars($rating) {
     <!-- WhatsApp share button -->
     <div class="wp"> <!-- This ensures the WhatsApp button goes below the Connect button -->
         @if (session()->has('user_id'))
-          Share&nbsp; .&nbsp; <a href="https://wa.me/?text={{ urlencode('This post from The ZeroWaste Community Tool might interest you, check it out : ' . url('con_listing_details/'.$listing->id)) }}" target="_blank"  style="margin-bottom:10px;">
+          Share on:&nbsp; <a href="https://wa.me/?text={{ urlencode('This post from The ZeroWaste Community Tool might interest you, check it out : ' . url('con_listing_details/'.$listing->id)) }}" target="_blank"  style="margin-bottom:10px;">
                 <i class="fa fa-whatsapp"></i>
             </a>
         @else
@@ -652,7 +652,7 @@ function displayStars($rating) {
     <!-- WhatsApp share button -->
     <div class="wp"> <!-- This ensures the WhatsApp button goes below the Connect button -->
         @if (session()->has('user_id'))
-          Share&nbsp; .&nbsp; <a href="https://wa.me/?text={{ urlencode('This post from The ZeroWaste Community Tool might interest you, check it out : ' . url('con_listing_details/'.$listing->id)) }}" target="_blank"  style="margin-bottom:10px;">
+          Share on:&nbsp; <a href="https://wa.me/?text={{ urlencode('This post from The ZeroWaste Community Tool might interest you, check it out : ' . url('con_listing_details/'.$listing->id)) }}" target="_blank"  style="margin-bottom:10px;">
                 <i class="fa fa-whatsapp"></i>
             </a>
         @else
