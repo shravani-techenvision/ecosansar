@@ -697,7 +697,7 @@ a.pull-right {
             </div>
             <div class="col-md-6 col-sm-12 section2">
                 <section >
-                <h1 style="font-weight:500 !important">OUR STORY</h1>
+                <h1 >Our Story</h1>
                     <p>As a social enterprise, we have always focused on REDUCING waste in the urban context through a zero waste store for groceries and cleaners. The rapid increase in household waste due to shifting consumer lifestyles made it clear that this issue requires more than just a service, it demands an inclusive system intervention.</p>
                     <p>The ZeroWaste Community Tool aims to be just that, a ground zero intervention that connects the consumer with the system via the local workforce to create a resilient, scalable, inclusive, and a strong backbone for the Circular Economy.</p>
                 </section>
@@ -906,7 +906,7 @@ Despite challenges, our system persevered through the pandemic. However, the lan
               <div class="responsive-container-block outer-container">
   <div class="responsive-container-block inner-container">
       <h3>
-WHO WE ARE</h3>
+Who We Are</h3>
    <h1>
      Meet the Team
    </h1>
