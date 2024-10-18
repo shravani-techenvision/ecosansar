@@ -1,7 +1,40 @@
 @include('frontend.include.header')
 <style>
 
+    .bann {
+        background-image: url('frontend/assets/img/bannerindex.jpg');
+        background-size: cover;
+        background-position: center;
+        width: 100%;
+        height: 250px; /* You can adjust the height */
+        position: relative; /* Ensure this is set for absolute positioning of text */
+    }
 
+    /* Style for the text that appears on top of the banner */
+    .banner-text {
+        position: absolute;
+        right: 20px; /* Distance from the right edge */
+        top: 170px; /* Distance from the top edge */
+        font-size: 24px; /* Adjust as needed */
+        color: white; /* Change color based on your banner's image */
+        font-weight: bold;
+        background-color: rgba(0, 0, 0, 0.5); /* Optional: Semi-transparent background */
+        padding: 10px 20px;
+        border-radius: 5px; /* Optional: Rounded corners */
+    }
+    .banner-text a {
+        color:white;
+    }
+    /* Media query for devices with a screen width of 768px or less (tablets and smaller) */
+    @media (max-width: 768px) {
+        .bann {
+            height: 200px; /* Reduce height for tablets */
+        }
+        .banner-text {
+            font-size: 16px; /* Reduce font size for tablets */
+            top: 88px; /* Adjust positioning */
+        }
+    }
 
 .text-blk {
   margin-top: 0px;
@@ -419,6 +452,16 @@ body {
                 <!--<li><a href="#">Pages</a></li>-->
                 <!--<li class="active">Faq</li>-->
             </ol>
+        </div>
+        <section>
+            <div class="bann height-400px" id="map-contact">
+                 <div class="banner-text">
+            <a href="{{url('/')}}" class="breadcrumb-link">Home</a> /
+            <a href="{{route('faq')}}" class="breadcrumb-link">FAQ</a>
+        </div>
+            </div>
+            <!--end map-->
+        </section>
             <!--<div class="row">-->
             <!--    <div class="col-md-12 col-sm-12">-->
 
@@ -455,12 +498,13 @@ body {
             <!--end row-->
 
 
-            <div class="row">
-                <div class="container" >
-            <div class="col-md-12 col-sm-12">
-                <section class="page-title">
-                    <h1>Frequently Asked Questions</h1>
-                </section>
+            <section class="block">
+                <div class="container">
+                <div class="row">
+
+                <div class="col-md-12 col-sm-12">
+
+                        <h1>Frequently Asked Questions</h1>
                 <!--end section-title-->
                 <section>
                     @foreach ($faqs as $faq)
@@ -486,12 +530,12 @@ body {
             </div>
         </div>
         <!--end row-->
-
+            </section>
 
 
         </div>
         <!--end container-->
-    </div>
+
 <script>
     function toggleAnswer(element) {
         // Find the closest .faq-item div
