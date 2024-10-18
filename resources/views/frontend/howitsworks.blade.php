@@ -1,7 +1,40 @@
 @include('frontend.include.header')
 <style>
 
+.bann {
+    background-image: url('frontend/assets/img/bannerindex.jpg');
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 250px; /* You can adjust the height */
+    position: relative; /* Ensure this is set for absolute positioning of text */
+}
 
+/* Style for the text that appears on top of the banner */
+.banner-text {
+    position: absolute;
+    right: 20px; /* Distance from the right edge */
+    top: 170px; /* Distance from the top edge */
+    font-size: 24px; /* Adjust as needed */
+    color: white; /* Change color based on your banner's image */
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.5); /* Optional: Semi-transparent background */
+    padding: 10px 20px;
+    border-radius: 5px; /* Optional: Rounded corners */
+}
+.banner-text a {
+    color:white;
+}
+/* Media query for devices with a screen width of 768px or less (tablets and smaller) */
+@media (max-width: 768px) {
+    .bann {
+        height: 200px; /* Reduce height for tablets */
+    }
+    .banner-text {
+        font-size: 16px; /* Reduce font size for tablets */
+        top: 88px; /* Adjust positioning */
+    }
+}
 
 .text-blk {
   margin-top: 0px;
@@ -368,12 +401,21 @@ body {
       <!--<div class="">-->
       <!--     <img src="{{asset('public/assets/images/eco/ewm.png')}}" alt="Image" width="100%"  height="250" style="background: rgba(15, 23, 43, 0.7) !important" >-->
       <!--</div>-->
-    <div class="container" style="margin-top: 25px !important;">
+      <section>
+        <div class="bann height-400px" id="map-contact">
+             <div class="banner-text">
+        <a href="{{url('/')}}" class="breadcrumb-link">Home</a> /
+        <a href="{{route('howitsworks')}}" class="breadcrumb-link">How it works</a>
+    </div>
+        </div>
+        <!--end map-->
+    </section>
+     <section class="block">
+    <div class="container">
 
          <div class="row">
-     <div class="responsive-container-block outer-container">
-     <div class="responsive-container-block inner-container">
-             <section>
+            <h1>How it works</h1>
+
                 <!--<h2 style="font-weight:500 !important">How Its Works</h2>-->
                 <!--    <p> <b>Step 1: List Your Waste </b><br>-->
                 <!--    If you have waste that can be turned into a valuable resource, start by listing it on our-->
@@ -418,9 +460,8 @@ body {
                             @endforeach
 
 
-            </section>
-     </div>
-     </div>
+
+
                 <!--end col-md-9-->
             </div>
 
@@ -428,7 +469,7 @@ body {
 
     </div>
     <!--end container-->
-
+     </section>
 </div>
 
 <script>
