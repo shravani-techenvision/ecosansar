@@ -1,17 +1,7 @@
 @include('frontend.include.header')
 <style>
 
-p {
-    font-size: large;
-    line-height: 1.5; /* Adjust this value as needed */
-    word-spacing: 0.1em; /* Adjust this value as needed */
-    color: #000 !important;
-    opacity: 1 !important;
-}
 
-    * {
-  font-family: Nunito, sans-serif;
-}
 
 .text-blk {
   margin-top: 0px;

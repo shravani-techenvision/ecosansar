@@ -1,17 +1,7 @@
 @include('frontend.include.header')
 <style>
- 
-p {
-    font-size: large;
-    line-height: 1.5; /* Adjust this value as needed */
-    word-spacing: 0.1em; /* Adjust this value as needed */
-    color: #000 !important;
-    opacity: 1 !important;
-}
 
-    * {
-  font-family: Nunito, sans-serif;
-}
+
 
 .text-blk {
   margin-top: 0px;
@@ -43,7 +33,7 @@ p {
   padding-right: 50px;
   padding-bottom: 10px;
   padding-left: 50px;
-  
+
 }
 
 .inner-container {
@@ -64,7 +54,7 @@ p {
   font-size: 35px;
   font-weight: 700;
   line-height: 48px;
-  
+
   margin: 0 0 10px 0;
 }
 
@@ -99,7 +89,7 @@ p {
 .name {
   font-size: 24px;
   font-weight: 700;
-  
+
   margin-top: 0px;
   margin-right: 0px;
   margin-bottom: 5px;
@@ -118,7 +108,7 @@ p {
 .position {
   font-size: 16px;
   font-weight: 500;
-  
+
   margin-top: 0px;
   margin-right: 0px;
   margin-bottom: 8px;
@@ -273,7 +263,7 @@ body {
     .section2{
         margin-top: 20px;
     }
-       
+
   .wk-tab-1 {
     width: 8.333333%;
   }
@@ -363,7 +353,7 @@ body {
   .wk-mobile-10 {
     width: 83.333333%;
   }
-  
+
 
   .wk-mobile-11 {
     width: 91.666667%;
@@ -372,7 +362,7 @@ body {
   .wk-mobile-12 {
     width: 100%;
   }
-  
+
 }
 
 
@@ -408,7 +398,7 @@ body {
     font-size: 18px;
 }
  .question-header {
-       /* display: flex;           Use flexbox layout 
+       /* display: flex;           Use flexbox layout
         align-items: center;    /* Align items vertically */
     }
 
@@ -437,14 +427,14 @@ body {
             <!--        </section>-->
                     <!--end section-title-->
             <!--        <section>-->
-                        
+
             <!--        </section>-->
             <!--        <section>-->
             <!--            @foreach ($faqs as $faq)-->
-            
+
             <!--            <div class="answer">-->
             <!--                <div class="box">-->
-                               
+
             <!--                    <h4>Category : {{ $faq['category_name'] }}</h4>-->
             <!--                    <h3>{{ $faq['question'] }}</h3>-->
             <!--                    <p>{{ $faq['answer'] }}-->
@@ -452,19 +442,19 @@ body {
             <!--                </div>-->
                             <!--<figure>Was this answer helpful? <a href="#">Yes<i class="fa fa-thumbs-up"></i></a> <a href="#">No<i class="fa fa-thumbs-down"></i></a></figure>-->
             <!--            </div>-->
-                        
+
             <!--             @endforeach-->
                         <!--end answer-->
-                        
+
                         <!--end answer-->
             <!--        </section>-->
-                   
+
             <!--    </div>-->
-               
+
             <!--</div>-->
             <!--end row-->
-            
-            
+
+
             <div class="row">
                 <div class="container" >
             <div class="col-md-12 col-sm-12">
@@ -480,7 +470,7 @@ body {
                             <h4>Category : {{ $faq['category_name'] }}</h4>
                             <div class="question-header">
                 <!-- Icon in front of the question -->
-                
+
                 <h3><strong>{{ $faq['question'] }}</strong></h3>
                 <i style="float:right; margin-top: -35px;" class="fa fa-plus"></i>
             </div>
@@ -496,9 +486,9 @@ body {
             </div>
         </div>
         <!--end row-->
-            
-            
-            
+
+
+
         </div>
         <!--end container-->
     </div>
@@ -564,4 +554,3 @@ body {
 
 </script>
 @include('frontend.include.footer')
- 

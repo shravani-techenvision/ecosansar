@@ -1,17 +1,7 @@
 @include('frontend.include.header')
 <style>
- 
-p {
-    font-size: large;
-    line-height: 1.5; /* Adjust this value as needed */
-    word-spacing: 0.1em; /* Adjust this value as needed */
-    color: #000 !important;
-    opacity: 1 !important;
-}
 
-    * {
-  font-family: Nunito, sans-serif;
-}
+
 
 .text-blk {
   margin-top: 0px;
@@ -43,7 +33,7 @@ p {
   padding-right: 50px;
   padding-bottom: 10px;
   padding-left: 50px;
-  
+
 }
 
 .inner-container {
@@ -64,7 +54,7 @@ p {
   font-size: 35px;
   font-weight: 700;
   line-height: 48px;
-  
+
   margin: 0 0 10px 0;
 }
 
@@ -99,7 +89,7 @@ p {
 .name {
   font-size: 24px;
   font-weight: 700;
-  
+
   margin-top: 0px;
   margin-right: 0px;
   margin-bottom: 5px;
@@ -118,7 +108,7 @@ p {
 .position {
   font-size: 16px;
   font-weight: 500;
-  
+
   margin-top: 0px;
   margin-right: 0px;
   margin-bottom: 8px;
@@ -269,7 +259,7 @@ body {
     .section2{
         margin-top: 20px;
     }
-       
+
   .wk-tab-1 {
     width: 8.333333%;
   }
@@ -359,7 +349,7 @@ body {
   .wk-mobile-10 {
     width: 83.333333%;
   }
-  
+
 
   .wk-mobile-11 {
     width: 91.666667%;
@@ -379,7 +369,7 @@ body {
       <!--     <img src="{{asset('public/assets/images/eco/ewm.png')}}" alt="Image" width="100%"  height="250" style="background: rgba(15, 23, 43, 0.7) !important" >-->
       <!--</div>-->
     <div class="container" style="margin-top: 25px !important;">
-         
+
          <div class="row">
      <div class="responsive-container-block outer-container">
      <div class="responsive-container-block inner-container">
@@ -398,7 +388,7 @@ body {
                 <!--        chain to sell / giveaway / buy as per your requirement. You could also be reached by-->
                 <!--        someone looking for a requirement fit.<br>-->
                 <!--      </p> <hr>-->
-                    
+
                 <!--    <p><b>Step 3:-->
                 <!--      Reactivate or Deactivate Your Post</b> <br>-->
                 <!--        If you have successfully established a connection and your request has been fulfilled, you-->
@@ -407,7 +397,7 @@ body {
                 <!--        The listing will automatically deactivate after 7 days. You will receive 2 reminder messages-->
                 <!--        regarding the same. If you wish to renew it, simply click on Reactivate on the listing from-->
                 <!--        your profile page.</p> <hr>-->
-                     
+
                 <!--     <p><b>Other Services : <br>-->
                 <!--        Collection Campaigns </b> -->
                 <!--        If you need a particular type of resource in bulk, we can organize collection campaigns to-->
@@ -419,26 +409,26 @@ body {
                 <!--        3. Route Planning: We will chart out an optimal route for you to collect the resources.</p> <hr>-->
                               @php
                                 use App\Models\admin\About; // Import the About model
-                                
+
                                 $howitwork = About::get();
                              @endphp
-                
+
                             @foreach($howitwork as $item)
                                 {!! $item->content !!}
                             @endforeach
 
-                    
+
             </section>
      </div>
      </div>
                 <!--end col-md-9-->
             </div>
-         
-         
-         
+
+
+
     </div>
     <!--end container-->
-    
+
 </div>
 
 <script>
@@ -465,4 +455,3 @@ body {
 
 </script>
 @include('frontend.include.footer')
- 

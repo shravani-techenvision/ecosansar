@@ -1,17 +1,7 @@
 @include('frontend.include.header')
 <style>
- 
-p {
-    font-size: large;
-    line-height: 1.5; /* Adjust this value as needed */
-    word-spacing: 0.1em; /* Adjust this value as needed */
-    color: #000 !important;
-    opacity: 1 !important;
-}
 
-    * {
-  font-family: Nunito, sans-serif;
-}
+
 
 .text-blk {
   margin-top: 0px;
@@ -43,7 +33,7 @@ p {
   padding-right: 50px;
   padding-bottom: 10px;
   padding-left: 50px;
-  
+
 }
 
 .inner-container {
@@ -64,7 +54,7 @@ p {
   font-size: 35px;
   font-weight: 700;
   line-height: 48px;
-  
+
   margin: 0 0 10px 0;
 }
 
@@ -99,7 +89,7 @@ p {
 .name {
   font-size: 24px;
   font-weight: 700;
-  
+
   margin-top: 0px;
   margin-right: 0px;
   margin-bottom: 5px;
@@ -118,7 +108,7 @@ p {
 .position {
   font-size: 16px;
   font-weight: 500;
-  
+
   margin-top: 0px;
   margin-right: 0px;
   margin-bottom: 8px;
@@ -273,7 +263,7 @@ body {
     .section2{
         margin-top: 20px;
     }
-       
+
   .wk-tab-1 {
     width: 8.333333%;
   }
@@ -363,7 +353,7 @@ body {
   .wk-mobile-10 {
     width: 83.333333%;
   }
-  
+
 
   .wk-mobile-11 {
     width: 91.666667%;
@@ -383,7 +373,7 @@ body {
       <!--     <img src="{{asset('public/assets/images/eco/ewm.png')}}" alt="Image" width="100%"  height="250" style="background: rgba(15, 23, 43, 0.7) !important" >-->
       <!--</div>-->
     <div class="container" style="margin-top: 25px !important;">
-         
+
          <div class="row">
      <div class="responsive-container-block outer-container">
      <div class="responsive-container-block inner-container">
@@ -402,13 +392,13 @@ body {
                     Website.<br>
                     1.4 "Corporate" refers to a User who is an aggregator or recycler interested in buying or
                     selling waste materials listed on the Website.</p> <hr>
-                    
-                    
+
+
                     <p>2. Eligibility <br>
                       2.1 You must be at least 18 years old to use the Website. <br>
                       2.2 By using the Website, you represent and warrant that you have the legal capacity to
                      enter into these Terms.</p> <hr>
-                     
+
                      <p>3. User Accounts <br>
                         3.1 To access certain features of the Website, you will need to create an account. We call
                         the platform The ZeroWaste Community Tool. <br>
@@ -418,7 +408,7 @@ body {
                         emails from ecoSansar and for all activities that occur under your account. <br>
                         3.4 You agree to notify us immediately of any unauthorized use of your account or any other
                         breach of security.</p> <hr>
-                        
+
                     <p>4. Listings and Transactions <br>
                         4.1 All registered users on the Tool may list waste materials for sale, giveaway, or purchase
                         on the Website. <br>
@@ -428,8 +418,8 @@ body {
                         between the Users involved. <br>
                         4.4 We do not guarantee the quality, safety, or legality of the materials listed, the truth or
                         accuracy of listings, or the ability of Users to complete transactions.</p> <hr>
-                        
-                        
+
+
                     <p>5. Content and Conduct <br>
                         5.1 You are responsible for all content that you post, upload, or otherwise make available on
                         the Website. <br>
@@ -439,19 +429,19 @@ body {
                         5.3 You agree not to use the Website for any illegal or unauthorized purpose.
                         5.4 We reserve the right to remove any content that violates these Terms or is otherwise
                         objectionable.</p> <hr>
-                        
+
                    <p>6. Intellectual Property <br>
                         6.1 The Website and its original content, features, and functionality are and will remain the
                         exclusive property of ecoSansar and its licensors.<br>
                         6.2 You agree not to reproduce, duplicate, copy, sell, resell, or exploit any portion of the
                         Website without our express written permission.</p> <hr>
-                        
+
                     <p>7. Termination <br>
                      7.1 We may terminate or suspend your account and bar access to the Website immediately,
                        without prior notice or liability, for any reason whatsoever, including, without limitation, if you
                     breach these Terms.<br>
                     7.2 Upon termination, your right to use the Website will immediately cease.</p> <hr>
-                    
+
                      <p>8. Limitation of Liability <br>
                     8.1 To the maximum extent permitted by law, ecoSansar shall not be liable for any indirect,
                     incidental, special, consequential, or punitive damages, or any loss of profits or revenues,
@@ -463,38 +453,38 @@ body {
                     any errors or omissions in any content or for any loss or damage incurred as a result of your
                     use of any content posted, emailed, transmitted, or otherwise made available through the
                     Website; and/or (vi) the defamatory, offensive, or illegal conduct of any third party.</p> <hr>
-                    
+
                      <p>9. Governing Law <br>
                         9.1 These Terms shall be governed and construed in accordance with the laws of Karnataka,
                         India, without regard to its conflict of law provisions. <br>
                         9.2 Our failure to enforce any right or provision of these Terms will not be considered a
                         waiver of those rights.</p> <hr>
-                        
+
                     <p>10. Changes to Terms <br>
                         10.1 We reserve the right, at our sole discretion, to modify or replace these Terms at any
                         time. If a revision is material, we will provide at least 30 days' notice prior to any new terms
                         taking effect. What constitutes a material change will be determined at our sole discretion. <br>
                         10.2 By continuing to access or use our Website after those revisions become effective, you
                         agree to be bound by the revised terms.</p> <hr>
-                        
+
                     <p>11. Contact Us <br>
                     11.1 If you have any questions about these Terms, please contact us at
                     <a href="mailto:support@ecosansar.com">support@ecosansar.com</a> </p> <hr>
-                    
+
                    <p> By using the Website, you acknowledge that you have read, understood, and agree to be
                     bound by these Terms and Conditions. </p>
-                    
+
             </section>
      </div>
      </div>
                 <!--end col-md-9-->
             </div>
-         
-         
-         
+
+
+
     </div>
     <!--end container-->
-    
+
 </div>
 
 <script>
@@ -521,4 +511,3 @@ body {
 
 </script>
 @include('frontend.include.footer')
- 
