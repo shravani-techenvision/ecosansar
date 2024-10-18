@@ -48,22 +48,24 @@
                         <li><a href="{{url('/')}}">Home</a></li>
                         <li><a href="{{route('about')}}">About Us</a></li>
 
-                        <li><a href="{{route('faq')}}">FAQ</a></li>
 
-                         <li><a href="{{route('howitsworks')}}">How it works</a></li>
 
-                        <!--<li class="has-child"><a href="#">know more</a>-->
-                        <!--    <div class="wrapper">-->
-                        <!--        <div id="nav-homepages" class="nav-wrapper">-->
-                        <!--            <ul>-->
-                        <!--                <li class=" "><a href="{{route('faq')}}"></a></li>-->
-                        <!--            </ul>-->
-                        <!--             <ul>-->
-                        <!--                <li class=" "><a href="{{route('howitsworks')}}">How it works</a></li>-->
-                        <!--            </ul>-->
-                        <!--        </div>-->
-                        <!--    </div>-->
-                        <!--</li>-->
+                        <li class="has-child"><a href="{{route('about')}}">About</a>
+                            <div class="wrapper">
+                                <div id="nav-homepages" class="nav-wrapper">
+                                    <ul>
+                                        <li class=" "><a href="{{route('howitsworks')}}">How it works </a>
+                        </li>
+                                    </ul>
+                                     <ul>
+                                        <li class=" "><a href="{{route('faq')}}">FAQ</a>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class=" "><a href="{{route('service')}}">Service </a>
+                        </li>
                         <li><a href="{{route('contact')}}">Contact Us</a></li>
                         <li> @php
                     $user_id = session('user_id');

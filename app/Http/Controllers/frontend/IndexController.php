@@ -21,7 +21,8 @@ use App\Models\admin\Weight;
 use App\Models\admin\GoogleAdsense;
 use App\Models\admin\Faq;
 use App\Models\admin\About;
-use App\Models\admin\Category;;
+use App\Models\admin\Category;
+use App\Models\admin\Service;
 use App\Models\frontend\UserContact;
 use App\Models\frontend\UserActivityLog;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -918,6 +919,22 @@ $totalMinWeight = $busMinWeightSum->total_min_weight + $conMinWeightSum->total_m
         // user activity end
         $howitwork = About::get();
         return view('frontend/howitsworks',compact('howitwork'));
+    }
+    public function service()
+    {
+       // user activity start
+        $userid = session()->get('user_id');
+        if ($userid){
+            $userActivity = new UserActivityLog();
+            $userActivity->user_id = $userid;
+            $userActivity->activity = 'Clicked on how its works page';
+            $userActivity->url = request()->fullUrl();   // Get the full URL of the request
+            $userActivity->ip_address = request()->ip();
+            $userActivity->save();
+        }
+        // user activity end
+        $service = Service::get();
+        return view('frontend/service',compact('service'));
     }
  private function generateCaptcha()
     {

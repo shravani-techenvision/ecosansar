@@ -12,6 +12,8 @@ use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\admin\ResourceController;
 use App\Http\Controllers\admin\WeightController;
 use App\Http\Controllers\admin\GoogleAdsenseController;
+use App\Http\Controllers\admin\ServiceController;
+use App\Http\Controllers\frontend\ServiceEnquiryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -39,6 +41,7 @@ Route::controller(IndexController::class)->group(function(){
     Route::get('listings','listings')->name('listings');
      Route::get('faq','faq')->name('faq');
     Route::get('howitsworks','howitsworks')->name('howitsworks');
+    Route::get('service','service')->name('service');
     Route::get('buy/listings','buy_listings')->name('buy_listings');
     Route::get('con_listing_details/{id}','con_listing_details')->name('con_listing_details');
     Route::get('sabs_listing_details/{id}','sabs_listing_details')->name('sabs_listing_details');
@@ -143,7 +146,10 @@ Route::controller(EnquiryController::class)->group(function(){
 
 
 });
+Route::controller(ServiceEnquiryController::class)->group(function(){
+    Route::post('service_enquiry/save', 'service_enquiry_save')->name('service_enquiry.save');
 
+});
 Auth::routes();
 
 // Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index']);
@@ -221,6 +227,17 @@ Route::controller(AboutController::class)->group(function(){
     Route::get('about/edit/{id}','edit')->name('about.edit');
     Route::post('about/update/{id}','update')->name('about.update');
     Route::get('about/delete/{id}','delete')->name('about.delete');
+});
+
+Route::controller(ServiceController::class)->group(function(){
+    Route::get('service/list','list')->name('service.list');
+    Route::get('service/add', 'add')->name('service.add');
+    Route::post('service/save','save')->name('service.save');
+    Route::get('service/edit/{id}','edit')->name('service.edit');
+    Route::post('service/update/{id}','update')->name('service.update');
+    Route::get('service/delete/{id}','delete')->name('service.delete');
+
+    Route::get('service_enquiry/list','service_enquiry')->name('service_enquiry.list');
 });
 
 Route::controller(CategoryController::class)->group(function(){

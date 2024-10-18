@@ -89,6 +89,13 @@
 
                     </ul>
                 </li>
+                @php
+                use App\Models\admin\Service;
+                // Fetch the first record from the About table
+                $service = Service::first();
+                // Get the ID of the About record, or null if no record exists
+                $serviceId = $service ? $service->id : null;
+            @endphp
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="uil-store"></i>
@@ -99,7 +106,12 @@
                         <li><a href="{{ route('resource.list') }}">Resource</a></li>
                        <li><a href="{{ route('weight.list') }}">Weight</a></li>
                        <li><a href="{{ route('googleadsense.list') }}">Google Adsense</a></li>
-
+                       @if ($serviceId)
+                       <li><a href="{{ url('service/edit/' . $serviceId) }}">Service</a></li>
+                   @else
+                       <li><a href="{{ route('service.add') }}">Service</a></li>
+                   @endif
+                   <li><a href="{{ route('service_enquiry.list') }}">Service Enquiry List</a></li>
                     </ul>
                 </li>
                 {{--  <li>
