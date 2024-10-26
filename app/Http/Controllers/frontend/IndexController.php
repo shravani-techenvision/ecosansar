@@ -1353,9 +1353,7 @@ if ($request->sale_giveaway == 'Buy') {
         'clean_unclean' => 'required',
         'packaged' => 'required',
         'resource_type' => 'required|array|min:1',
-        'resource_img.*' => 'mimes:jpg,jpeg,png,bmp|max:10240', // Adjust mime types and max size as needed
-    ], [
-        'resource_img.*.max' => 'The image must not be greater than 10 MB.',
+       // 'resource_img.*' => 'mimes:jpg,jpeg,png,bmp|max:10240', // Adjust mime types and max size as needed
     ]);
 
 } else {
@@ -1368,19 +1366,17 @@ if ($request->sale_giveaway == 'Buy') {
         'clean_unclean' => 'required',
         'packaged' => 'required',
         'resource_type' => 'required|array|min:1',
-        'resource_img' => 'required|array|min:1',
-        'resource_img.*' => 'required|mimes:jpg,jpeg,png,bmp|max:10240', // Adjust mime types and max size as needed
-    ], [
-         'resource_img.required' => 'Please upload image.',
-        'resource_img.*.max' => 'The image must not be greater than 10 MB.',
+      //  'resource_img' => 'required|array|min:1',
+      //  'resource_img.*' => 'required|mimes:jpg,jpeg,png,bmp|max:10240', // Adjust mime types and max size as needed
+
     ]);
 
     // Check if the number of selected resources matches the number of uploaded images
-     if ($request->sale_giveaway !== 'Buy') {
-    if (count($request->resource_type) !== count($request->resource_img)) {
-        return back()->withErrors(['resource_img' => 'Please upload an image for each resource type.'])->withInput();
-    }
-     }
+    //  if ($request->sale_giveaway !== 'Buy') {
+    // if (count($request->resource_type) !== count($request->resource_img)) {
+    //     return back()->withErrors(['resource_img' => 'Please upload an image for each resource type.'])->withInput();
+    // }
+    //  }
 }
 
 
@@ -1946,31 +1942,31 @@ function resizeImage($source, $destination, $width, $height)
         ];
 
         // Specific validation rules for 'Giveaway'
-        if ($request->sale_giveaway !== 'Buy') {
-            $rules['resource_img'] = 'required|array|min:1';
-            $rules['resource_img.*'] = 'required|mimes:jpg,jpeg,png,bmp|max:10240'; // Adjust mime types and max size as needed
-        }
+        // if ($request->sale_giveaway !== 'Buy') {
+        //     $rules['resource_img'] = 'required|array|min:1';
+        //     $rules['resource_img.*'] = 'required|mimes:jpg,jpeg,png,bmp|max:10240'; // Adjust mime types and max size as needed
+        // }
 
         // Define custom error messages
-    $messages = [
-        'resource_img.*.max' => 'The image must not be greater than 10 MB.',
-    ];
+    // $messages = [
+    //     'resource_img.*.max' => 'The image must not be greater than 10 MB.',
+    // ];
 
 
-     $validator = \Validator::make($request->all(), $rules, $messages);
+    //  $validator = \Validator::make($request->all(), $rules, $messages);
 
-    if ($validator->fails()) {
-        return redirect()->back()
-            ->withErrors($validator)
-            ->withInput();
-    }
+    // if ($validator->fails()) {
+    //     return redirect()->back()
+    //         ->withErrors($validator)
+    //         ->withInput();
+    // }
 
         // Check if the number of selected resources equals the number of uploaded images
-        if ($request->sale_giveaway !== 'Buy') {
-            if (count($request->resource_type) !== count($request->resource_img)) {
-                return back()->withErrors(['resource_img' => 'Please upload image here.'])->withInput();
-            }
-        }
+        // if ($request->sale_giveaway !== 'Buy') {
+        //     if (count($request->resource_type) !== count($request->resource_img)) {
+        //         return back()->withErrors(['resource_img' => 'Please upload image here.'])->withInput();
+        //     }
+        // }
         //to show error message for particular file upload
     //      if ($request->sale_giveaway !== 'Buy') {
     //      $errors = [];
@@ -2628,22 +2624,22 @@ function resizeImage($source, $destination, $width, $height)
                 'clean_unclean' => 'required',
                 'packaged' => 'required',
                 'resource_type' => 'required|array|min:1',
-                'resource_img' => 'required|array|min:1',
+              //  'resource_img' => 'required|array|min:1',
                // 'resource_img.*' => 'required|mimes:jpg,jpeg,png,bmp|max:2048', // Adjust mime types and max size as needed
             ]);
 
-            $request->validate([
-                'resource_img.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:10240', // max size is in KB, so 2048 KB = 2 MB
-            ], [
-                'resource_img.*.max' => 'The image must not be greater than 10 MB.',
-            ]);
+            // $request->validate([
+            //     'resource_img.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:10240', // max size is in KB, so 2048 KB = 2 MB
+            // ], [
+            //     'resource_img.*.max' => 'The image must not be greater than 10 MB.',
+            // ]);
 
             // Check if the number of selected resources matches the number of uploaded images
-             if ($request->sale_giveaway !== 'Buy') {
-            if (count($request->resource_type) !== count($request->resource_img)) {
-                return back()->withErrors(['resource_img' => 'Please upload image here.'])->withInput();
-            }
-             }
+            //  if ($request->sale_giveaway !== 'Buy') {
+            // if (count($request->resource_type) !== count($request->resource_img)) {
+            //     return back()->withErrors(['resource_img' => 'Please upload image here.'])->withInput();
+            // }
+            //  }
         }
 
         $selectedResources = $request->input('resource_type');

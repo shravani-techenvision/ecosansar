@@ -8,17 +8,17 @@
         margin-left: 0px;
     }
     </style>
-    
+
     <!--<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />-->
-    
-    
+
+
     <style>
         #map11 {
             height: 400px;
             width: 100%;
         }
     </style>
-    
+
 </head>
     <div id="page-content">
         <div class="container">
@@ -51,12 +51,12 @@
                             <!--  @endif-->
                             <!--</div>-->
                             <!--</div>-->
-                            
+
                       </div>
-                        
+
 
                         <div class="row">
-                            
+
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="address">Pincode<span style="color:red;">*</span></label>
@@ -66,18 +66,18 @@
                                     @endif
                                 </div>
                             </div>
-                            
-                            
+
+
                             <div class="col-md-6">
                                 <div class="form-check-inline">
 					<label>
-						 
+
 						<input   type="radio" id="sale_giveaway" name="sale_giveaway" value="Giveaway" {{ old('sale_giveaway') == 'Giveaway' ? 'checked' : '' }}><span class="label-text">Giveaway</span>
 					</label>
 				</div>
 				<div class="form-check-inline">
 					<label>
-					 
+
 						 <input  type="radio" id="sale_giveaway" name="sale_giveaway" value="Sale" {{ old('sale_giveaway') == 'Sale' ? 'checked' : '' }}><span class="label-text">For Sell</span>
 					</label>
 				</div>
@@ -124,13 +124,13 @@
                                     <label for="address">Condition  <span style="color:red;">*</span></label>
                                     <div class="form-check">
 					<label>
-					 
+
 						 <input class="form-control" type="radio" id="clean_unclean" name="clean_unclean" value="Clean" {{ old('clean_unclean') == 'Clean' ? 'checked' : '' }}><span class="label-text">Clean</span>
 					</label>
 				</div>
 				<div class="form-check">
 					<label>
-						 
+
 						 <input class="form-control" type="radio" id="clean_unclean" name="clean_unclean" value="Unclean" {{ old('clean_unclean') == 'Unclean' ? 'checked' : '' }}><span class="label-text">Unclean</span>
 					</label>
 				</div>
@@ -149,16 +149,16 @@
                                     <!--    </div>-->
                                 </div>
                                 <div class="col-md-6"><br>
-                                     <label for="address">Packaged<span style="color:red;">*</span></label> 
+                                     <label for="address">Packaged<span style="color:red;">*</span></label>
                                     <div class="form-check">
-                                        
+
 					<label>
 						 <input class="form-control" type="radio" id="packaged" name="packaged" value="Yes" {{ old('packaged') == 'Yes' ? 'checked' : '' }}><span class="label-text">Yes</span>
 					</label>
 				</div>
 				<div class="form-check">
 					<label>
-						 
+
 						 <input class="form-control" type="radio" id="packaged" name="packaged" value="No" {{ old('packaged') == 'No' ? 'checked' : '' }}><span class="label-text">No</span>
 					</label>
 				</div>
@@ -213,10 +213,10 @@
                                     <span class="text-danger">{{ $errors->first('resource_type') }}</span>
                                 @endif
                                     </div>
-                                    <label for="address"><span>(*max upload size 10 mb)</span></label><br>
+                                    {{--  <label for="address"><span>(*max upload size 10 mb)</span></label><br>  --}}
                                 </div>
                             </div>
-                            
+
                             <!--<div class="row">-->
                             <!--    <div id="dynamic-inputs">-->
                             <!--    @foreach(old('resource_type', []) as $index => $resourceId)-->
@@ -232,8 +232,8 @@
                             <!--    @endforeach-->
                             <!--</div>-->
                             <!--</div>-->
-                            
-                            <div class="row">
+
+                            {{--  <div class="row">
                                 <div id="dynamic-inputs">
                                     @foreach(old('resource_type', []) as $index => $resourceId)
                                     <div class="col-md-6">
@@ -243,7 +243,7 @@
                                                 <span class="image-upload-asterisk" style="color:red;">* </span><span></span>
                                             </label><br><br>
                                             <input type="file" class="form-control" name="resource_img[]" id="resource_{{ $resourceId }}">
-                                            
+
                                             <!--@if ($errors->has('resource_img.' . $index))-->
                                             <!--    <span class="text-danger">{{ $errors->first('resource_img.' . $index) }}</span>-->
                                             <!--@endif-->
@@ -265,21 +265,21 @@
     </div>
 @endif
                                         </div>
-                                       
+
                                     </div>
-                                    
+
                                     @endforeach
-                                    
+
                                 </div>
-                                  
-                            </div>
-                            
-                            <label for="address">Select your location</label><br><br>
-                            
+
+                            </div>  --}}
+
+                            {{--  <label for="address">Select your location</label><br><br>  --}}
+
                             <!--    <div id="map" style="height: 400px;"></div>-->
                             <!--<input type="hidden" id="lat" name="latitude">-->
                             <!--<input type="hidden" id="lng" name="longitude"><br>-->
-                             <br>
+
                              <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -295,7 +295,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                             <div id="map11"></div> <br><br>
-                    
+
                             <input type="hidden" id="latitude" name="latitude">
                             <input type="hidden" id="longitude" name="longitude">
   </div></div></div>
@@ -323,11 +323,11 @@
     <!--end page-content-->
 
    @include('frontend.include.footer')
-   
+
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPfLLFN-fT9hed5CBwFZFKBOpoB_KChL0&libraries=places"></script>
 
     <script src="https://ecosansar.com/frontend/assets/js/richmarker-compiled.js"></script>
-    
+
    <script>
     let map11;
     let marker;
@@ -364,9 +364,9 @@
 
     function geocodeAddress() {
         const address = document.getElementById('address').value;
-        
+
        // alert(address);
-        
+
         const geocoder = new google.maps.Geocoder();
 
         geocoder.geocode({ 'address': address }, function(results, status) {
@@ -375,25 +375,25 @@
                 marker.setPosition(results[0].geometry.location);
                 document.getElementById('latitude').value = results[0].geometry.location.lat();
                 document.getElementById('longitude').value = results[0].geometry.location.lng();
-                
+
                 // Check if latitude and longitude are successfully retrieved
                 if (!latitude || !longitude) {
                     alert('Failed to get the latitude and longitude. Please try again.');
                 }
-                
+
             } else {
                 alert('Geocode was not successful for the following reason: ' + status);
             }
         });
     }
-    
-    
+
+
 
     document.addEventListener('DOMContentLoaded', function() {
         initMap();
     });
-    
-    
+
+
     // Check latitude and longitude on form submit
     document.getElementById('locationForm').addEventListener('submit', function(event) {
         const latitude = document.getElementById('latitude').value;
@@ -404,17 +404,17 @@
             alert('Please make sure the location is correctly set on the map. Click on Show on Map button');
         }
     });
-    
+
 </script>
 
-    
-   
+
+
   <script>
-       
+
       function validateFileSize(input) {
     const maxSize = 2 * 1024 * 1024; // 2 MB in bytes
     const files = input.files;
-    
+
     for (let i = 0; i < files.length; i++) {
         if (files[i].size > maxSize) {
             alert(`The file ${files[i].name} exceeds the maximum size of 2 MB.`);
@@ -422,19 +422,19 @@
             return false;
         }
     }
-    
+
     return true;
 }
 
   </script>
-   
+
    <!--start map -->
-   
-  
-   
-   
-   
-   
+
+
+
+
+
+
    <!--<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>-->
    <!-- <script>-->
         <!--var map = L.map('map').setView([51.505, -0.09], 13);-->
@@ -457,10 +457,10 @@
    <!--         document.getElementById('lng').value = lng;-->
    <!--     });-->
    <!-- </script>-->
-    
+
        <!--end map -->
-   
-   
+
+
 
    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
    <script>
@@ -482,24 +482,24 @@
         }
 
         function createInputField(resourceId, resourceName ) {
-            
+
             return '<div class="col-md-6">' +
                         '<div class="form-group">' +
                             '<label for="resource_' + resourceId + '">Upload Image for ' + resourceName + '<span class="image-upload-asterisk" style="color:red;">*</span></label><br><br>' +
                             '<input type="file" class="form-control" name="resource_img[]" id="resource_' + resourceId + '">' +
-                             
+
                         '</div>' +
                     '</div>';
         }
 
         $('#resource_type').change(function() {
             $('#dynamic-inputs').empty(); // Clear existing dynamic inputs
-           
+
 
             $(this).find('option:selected').each(function() {
                 var resourceId = $(this).val();
                 var resourceName = $(this).text();
-                
+
                 var inputField = createInputField(resourceId, resourceName);
                 $('#dynamic-inputs').append(inputField);
             });
@@ -515,6 +515,6 @@
         updateAsterisks();
     });
 </script>
- 
+
 </body>
 
