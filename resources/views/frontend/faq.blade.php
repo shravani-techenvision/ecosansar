@@ -446,13 +446,7 @@ body {
 
 
   <div id="page-content">
-        <div class="container">
-            <ol class="breadcrumb">
-                <!--<li><a href="#">Home</a></li>-->
-                <!--<li><a href="#">Pages</a></li>-->
-                <!--<li class="active">Faq</li>-->
-            </ol>
-        </div>
+
         <section>
             <div class="bann height-400px" id="map-contact">
                  <div class="banner-text">
