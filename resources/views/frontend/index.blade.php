@@ -88,7 +88,25 @@
      margin-left: -1px !important;
   }
 }
-
+@media screen and (max-width: 388px) {
+    .redpadd {
+        padding:9px !important;
+    }
+      .response-messageservicenot {
+    font-size: 18px !important;
+}
+}
+@media screen and (max-width: 361px) {
+  .response-messageservicenot {
+    font-size: 18px !important;
+}
+.btn {
+    font-size: 13px !important;
+}
+.redpadd {
+    padding:6px !important;
+}
+}
 @media screen and (max-width: 767px) {
     .find{
     margin-top: 15px!important;
@@ -1140,12 +1158,12 @@ $(document).ready(function() {
         @endphp
 
         @if ($userType == 'sab' || $userType == 'consumer')
-            browseListingsButton = '<a style="text-transform: capitalize;" href="{{ route('listings') }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing darker">Browse Listings</a>';
+            browseListingsButton = '<a style="text-transform: capitalize;" href="{{ route('listings') }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing darker redpadd">Browse Listings</a>';
         @else
-            browseListingsButton = '<a <a style="text-transform: capitalize;" href="{{ route('listings') }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing darker">Browse Listings</a>';
+            browseListingsButton = '<a <a style="text-transform: capitalize;" href="{{ route('listings') }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing darker redpadd">Browse Listings</a>';
         @endif
     @else
-        browseListingsButton = '<a <a style="text-transform: capitalize;" href="{{ route('consumer_login', ['redirect_list' => request()->fullUrl()]) }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing darker">Browse Listings</a>';
+        browseListingsButton = '<a <a style="text-transform: capitalize;" href="{{ route('consumer_login', ['redirect_list' => request()->fullUrl()]) }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing darker redpadd">Browse Listings</a>';
     @endif
 
         const pincode = $('#pincode').val();
@@ -1166,7 +1184,7 @@ $(document).ready(function() {
                      $('#response-message').html(
                         '<div style="color:white;">Sorry, We’re Not in Your Area Yet! 😔 </div>' +
                         '<div style="color:white;">But don’t worry—we’re expanding, and we prioritize areas with the most interest! 📍</div><br>' +
-                        '<button id="redirect-button" class="btn btn-primary btn-small btn-rounded icon shadow add-listing darker" style=" text-transform: capitalize; ">Register your interest</button>' +  '<span style="display:inline-block; width: 20px;"></span>' +
+                        '<button id="redirect-button" class="btn btn-primary btn-small btn-rounded icon shadow add-listing darker redpadd" style=" text-transform: capitalize; ">Register your interest</button>' +  '<span style="display:inline-block; width: 20px;"></span>' +
             browseListingsButton).addClass('response-messageservicenot').show();
                     $('#showbuttons').hide(); // Hide the div if shown previously
                     // Redirect if service is not available (handled in the controller)
