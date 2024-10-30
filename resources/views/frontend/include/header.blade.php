@@ -50,6 +50,11 @@
            }
 
        }
+       @media (max-width: 375px) {
+        .hide-addlistning{
+            display:none !important;
+        }
+        }
            </style>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4322110929509521"
      crossorigin="anonymous"></script>
@@ -132,7 +137,7 @@
                     </a>
                 @endif
 @else
-    <a href="{{ route('consumer_login') }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing">
+    <a href="{{ route('consumer_login') }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing hide-addlistning">
         <i class="fa fa-sign-in"></i><span>Add listing</span>
     </a>
 @endif
