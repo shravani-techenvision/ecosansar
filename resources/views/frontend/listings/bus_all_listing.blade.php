@@ -139,67 +139,7 @@ margin-left: 5px !important;
                 <!--<li class="active">Contact</li>-->
             </ol>
 
-             @if( $user_type == 'consumer')
 
-            <div class="row">
-        @foreach($busuniqueListings as $listing)
-            <div class="col-md-4 col-sm-4">
-                <div class="item" data-id="{{ $listing->id }}">
-                    <a href="{{ url('bus_listing_details/'.$listing->id) }}">
-                        <div class="description">
-
-                        </div>
-                        <!--end description-->
-                        <div class="image bg-transfer">
-                            <img src="{{ asset('frontend/assets/img/Businessposts/'.$listing->resource_img) }}" alt="abc">
-                        </div>
-                        <!--end image-->
-                    </a>
-                    <div class="additional-info">
-
-                                <!--@foreach(explode(', ', $listing->resource_names) as $resourceName)-->
-                                <!--     {{ $resourceName }} ,-->
-                                <!--@endforeach-->
-                                @php
-    $resourceNames = explode(', ', $listing->resource_names);
-@endphp
-
-@if(!empty($resourceNames))
-    {{ implode(', ', $resourceNames) }}
-@endif
-
-
-<h4 style="word-wrap: break-word !important;white-space: normal; max-width: 200px;">{{ Str::limit($listing->address, 50) }} </h4>
-
-
-                         <div class="controls-more">
-    <a href="#" data-id="{{ $listing->id }}" data-toggle="modal" data-target="#enquiryModal" class="btn btn-primary btn-small btn-rounded icon shadow connect-listing" style="float:right;">
-        <span>Connect</span>
-    </a>
-
-        @if (session()->has('user_id'))
-        <a href="https://wa.me/?text={{ urlencode('This post from The ZeroWaste Community Tool might interest you, check it out : ' . url('bus_listing_details/'.$listing->id)) }}" target="_blank"  style="float:right">
-
-            <!--<i class="fa fa-share-alt"></i>  -->
-            <i class="fa fa-whatsapp"></i>
-       </a>
-        @else
-            <a href="{{ route('consumer_login', ['redirect_wp' => url('bus_listing_details/' . $listing->id)]) }}" target="_blank" class="btn btn-success btn-small btn-rounded icon shadow" style="margin-bottom:10px;">
-                <i class="fa fa-whatsapp"></i> Share on WhatsApp
-            </a>
-        @endif
-
-</div>
-                        <!--end controls-more-->
-                    </div>
-                    <!--end additional-info-->
-                </div>
-                <!--end item-->
-            </div>
-            <!--end col-md-4-->
-        @endforeach
-    </div>
-            @else
             <div class="row">
                 <div class="col-md-3 col-sm-3">
                     <aside class="sidebar">
@@ -472,7 +412,7 @@ function displayStars($rating) {
                 </div>
                 <!--end col-md-9-->
             </div>
-            @endif
+
             <!--end row-->
 
         </div>
