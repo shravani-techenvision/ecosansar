@@ -88,7 +88,7 @@
                                     <ul>
                                                      <li class=" "><a href="{{route('howitsworks')}}">How it works </a></li>
                                                      <li class=" "><a href="{{route('faq')}}">FAQ</a></li>
-                                                    <li class=" "><a href="{{route('service')}}">Service </a></li>
+                                                    <li class=" "><a href="{{route('service')}}">Services </a></li>
 
                                     </ul>
                                 </div>
