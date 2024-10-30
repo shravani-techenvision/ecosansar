@@ -253,7 +253,7 @@
     <form id="pincode-form" method="POST" action="{{ url('/check-pincode') }}" style="display: flex; align-items: center;">
         @csrf
         <input type="text" name="pincode" id="pincode" placeholder="Enter your pincode" onkeypress="return isNumeric(event)" minlength="6" maxlength="6" required style="color: black; margin-right: 10px; padding: 10px; border: 1px solid #ccc; border-radius: 4px; flex: 1;">
-        <button class="btn btn-primary btn-small btn-rounded icon shadow add-listing " type="submit" style=" background-color: #25d366; ">Check</button>
+        <button class="btn btn-primary btn-small btn-rounded icon shadow add-listing darker" type="submit" >Check</button>
     </form>
     <br class="desktop-only">
     <div id="response-message" style="display: none;"></div>
