@@ -24,7 +24,14 @@
 .banner-text a {
     color: white;
 }
-
+.terms-link {
+    color: #8eb66f; /* Change this to your desired color */
+    text-decoration: none;
+}
+.terms-link:hover {
+    text-decoration: underline;
+    color:#8eb66f; /* Optional: Change color on hover */
+}
 /* Media query for devices with a screen width of 768px or less (tablets and smaller) */
 @media (max-width: 768px) {
     .bann {
@@ -45,8 +52,8 @@
     <section>
             <div class="bann height-400px" id="map-contact">
                 <div class="banner-text">
-            <a href="{{url('/')}}" class="breadcrumb-link">Home</a> 
-            
+            <a href="{{url('/')}}" class="breadcrumb-link">Home</a>
+
         </div>
             </div>
             <!--end map-->
@@ -54,7 +61,7 @@
          <section class="block">
             <div class="container">
                 <div class="row">
-                     
+
 <p><b>Want us to reach YOU sooner?</b>
 Share your contact details, and we’ll notify you as soon as we’re available in your area. Plus, your interest will help us prioritize expansion to your community!</p>
 <b>Thank you for your support in building a cleaner, greener world with us! </b>🌿
@@ -66,10 +73,10 @@ Share your contact details, and we’ll notify you as soon as we’re available 
                       <section >
                         <div class="container">
                         <header><h2 class="no-border">Share Your Contact Details</h2></header>
-                      
+
                         <form class="form form-email inputs-underline" action="{{route('check-pincode-save')}}" id="form-hero" method="post">
                             @csrf
-                           
+
                             <div class="row">
                                 <div class="col-md-6 col-sm-4 adj">
                                     <div class="form-group">
@@ -105,7 +112,7 @@ Share your contact details, and we’ll notify you as soon as we’re available 
                                 <!--end col-md-4-->
                                 <div class="col-md-6 col-sm-4">
                                     <div class="form-group">
-                                        <label for="subject">Pincode</label>
+                                        <label for="subject">Pincode<span style="color:red;">*</span></label>
                                         <input required type="text" class="form-control" name="pincode" id="pincode" placeholder="Enter Pincode" onkeypress="return isNumeric(event)" minlength="6" maxlength="6" value={{ old('pincode') }}>
                                          @if ($errors->has('pincode'))
                                     <span class="text-danger">{{ $errors->first('pincode') }}</span>
@@ -116,7 +123,7 @@ Share your contact details, and we’ll notify you as soon as we’re available 
                                 <!--end col-md-4-->
                              <div class="col-md-6">
                             <div class="form-group">
-                                <label for="message">Address</label>
+                                <label for="message">Address<span style="color:red;">*</span></label>
                                 <textarea required class="form-control" id="address" rows="4" name="address" placeholder="Enter Address"></textarea>
                                  @if ($errors->has('address'))
                                     <span class="text-danger">{{ $errors->first('address') }}</span>
@@ -127,10 +134,10 @@ Share your contact details, and we’ll notify you as soon as we’re available 
                             <div class="form-group">
                                 <label for="message">Message</label>
                                 <textarea class="form-control" id="message" rows="4" name="message" placeholder="Enter Message"></textarea>
-                                  
+
                             </div>
                             </div>
-                             
+
                                    </div>
                             <!--end row-->
                             <!--end form-group-->
@@ -139,20 +146,20 @@ Share your contact details, and we’ll notify you as soon as we’re available 
                             </div>
                             <!--end form-group-->
                         </form>
-                     
+
                     </div>
-                    
+
                      </section>
                      <section>
                          <div class="container">
                      <p>
-                         Need more info? Learn <a target="_blank" href="{{route('howitsworks')}}">How It Works</a> or contact us at 8553012812.
+                         Need more info? Learn <a target="_blank" href="{{route('howitsworks')}}" class="terms-link">How It Works</a> or contact us at 8553012812.
                      </p>
                      </div>
                  </section>
-            
-       
-   
+
+
+
 </div>
 
 
@@ -170,7 +177,7 @@ Share your contact details, and we’ll notify you as soon as we’re available 
             });
         @endif
 
-        
+
     });
 </script>
 <script>
@@ -186,6 +193,6 @@ Share your contact details, and we’ll notify you as soon as we’re available 
       }
     }
 
-     
+
 
 </script>
