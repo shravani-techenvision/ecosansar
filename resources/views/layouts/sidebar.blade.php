@@ -171,6 +171,19 @@
                         <span>Contact Us list</span>
                     </a>
                 </li>
+                <li class="menu-title">Pincode</li>
+                <li>
+                  <a href="{{ route('pincode.list') }}">
+                     <img src="{{ URL::asset('/frontend/assets/img/pincode available.png') }}" alt="" height="16">
+                      <span>Available Pincode</span>
+                  </a>
+              </li>
+              <li>
+                  <a href="{{route('pincode.unavaillist')}}">
+                     <img src="{{ URL::asset('/frontend/assets/img/pincode not available.png') }}" alt="" height="16">
+                      <span>Unavailable Pincode</span>
+                  </a>
+              </li>
                 <li class="menu-title">Reviews</li>
 
                 <li>

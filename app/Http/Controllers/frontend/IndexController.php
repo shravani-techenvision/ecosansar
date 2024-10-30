@@ -1347,7 +1347,7 @@ if ($request->sale_giveaway == 'Buy') {
 
     $request->validate([
         'address' => 'required',
-        'pincode' => 'required',
+        'pincode' => 'required|exists:pincodes,pincode',
         'sale_giveaway' => 'required',
         'quantity' => 'required',
         'clean_unclean' => 'required',
@@ -1360,7 +1360,7 @@ if ($request->sale_giveaway == 'Buy') {
 
     $request->validate([
         'address' => 'required',
-        'pincode' => 'required',
+        'pincode' => 'required|exists:pincodes,pincode',
         'sale_giveaway' => 'required',
         'quantity' => 'required',
         'clean_unclean' => 'required',
@@ -1921,9 +1921,6 @@ function resizeImage($source, $destination, $width, $height)
     public function sab_post_save(Request $request)
     {
 
-        //   echo "<pre>";
-        //   print_r($request->all());
-        //   die;
 
         $user_id = session()->get('user_id');
         $user_type = session()->get('user_type');
@@ -1933,7 +1930,7 @@ function resizeImage($source, $destination, $width, $height)
             'name' => 'required',
             'mobile' => 'required',
             'address' => 'required',
-            'pincode' => 'required',
+            'pincode' => 'required|exists:pincodes,pincode',
             'sale_giveaway' => 'required',
             'quantity' => 'required',
             'clean_unclean' => 'required',
@@ -1948,9 +1945,10 @@ function resizeImage($source, $destination, $width, $height)
         // }
 
         // Define custom error messages
-    // $messages = [
-    //     'resource_img.*.max' => 'The image must not be greater than 10 MB.',
-    // ];
+    $messages = [
+       // 'resource_img.*.max' => 'The image must not be greater than 10 MB.',
+        'pincode.exists' => 'Service is not available in this area'
+    ];
 
 
     //  $validator = \Validator::make($request->all(), $rules, $messages);
@@ -2608,7 +2606,7 @@ function resizeImage($source, $destination, $width, $height)
         if ($request->sale_giveaway == 'Buy') {
             $request->validate([
                 'address' => 'required',
-                'pincode' => 'required',
+                'pincode' => 'required|exists:pincodes,pincode',
                 'sale_giveaway' => 'required',
                 'quantity' => 'required',
                 'clean_unclean' => 'required',
@@ -2618,7 +2616,7 @@ function resizeImage($source, $destination, $width, $height)
         } else {
             $request->validate([
                 'address' => 'required',
-                'pincode' => 'required',
+                'pincode' => 'required|exists:pincodes,pincode',
                 'sale_giveaway' => 'required',
                 'quantity' => 'required',
                 'clean_unclean' => 'required',
@@ -3727,7 +3725,7 @@ function resizeImage($source, $destination, $width, $height)
             $selllistings->where('consumer_posts.user_id', '!=', $user_id);
         }
 
-        $listings = $selllistings->latest()->take(3)->get();
+        $listings = $selllistings->latest()->get();
 
         // Extract unique post IDs
         $postIds = $listings->pluck('id')->unique();
@@ -3771,8 +3769,10 @@ function resizeImage($source, $destination, $width, $height)
             ->join('ecosansar_users', 'ecosansar_users.id', '=', 'consumer_posts.user_id')
             ->select('ecosansar_users.name', 'consumer_posts.*', 'resources.resource_name', 'consumer_resource_posts.resource_img', 'weights.min_weight', 'weights.min_measure', 'weights.max_weight', 'weights.max_measure')
             ->where('consumer_posts.user_id', '!=', $user_id)
+
             // ->where('sale_giveaway','!=','Buy')
-            ->where('active', 1);
+            ->where('active', 1);;
+
 
 
         // Apply the filter based on the type if it's present in the request
@@ -3849,6 +3849,7 @@ function resizeImage($source, $destination, $width, $height)
             ->join('weights', 'consumer_posts.quantity', '=', 'weights.id')
             ->join('ecosansar_users', 'ecosansar_users.id', '=', 'consumer_posts.user_id')
             ->select('consumer_posts.*', 'resources.resource_name', 'consumer_resource_posts.resource_img', 'weights.min_weight', 'weights.min_measure', 'weights.max_weight', 'weights.max_measure')
+            ->where('consumer_posts.user_id', '!=', $user_id)
             ->where('active', 1)
             ->where('sale_giveaway', '!=', 'Buy');
 
@@ -3944,6 +3945,7 @@ function resizeImage($source, $destination, $width, $height)
             $minMeasure = null;
             $maxMeasure = null;
         }
+
         return response()->json([
             'sabuniqueListings' => $sabuniqueListings,
             'sabuniquesellListings' => $sabuniquesellListings,

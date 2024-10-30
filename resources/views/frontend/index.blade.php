@@ -1,12 +1,21 @@
 
 @include('frontend.include.header')
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css">
 <style>
+
+#map
+{
+    height: 620px;
+    width:50%;
+}
   .controls-more:after {
     content: none !important;
 }
 
 .btn{
-    font-size: 16px !important;
+    font-size: 15px !important;
 }
     .hero-section {
     background-image: url('frontend/assets/img/new.jpg');
@@ -64,17 +73,26 @@
 .hero-section.has-background h1{
     color: black !important;
 }
+@media screen and (min-width: 320px) and (max-width: 331px) {
+      #showbuttons .section-title {
+        margin: 0px 0px;
+    }
+}
+@media screen and (min-width: 331px) and (max-width: 767px) {
+ #showbuttons  .section-title {
+    margin: 14px 20px;
+}
+}
 @media screen and (max-width: 600px) {
   .hide-mob {
      margin-left: -1px !important;
   }
 }
-@media (max-width: 767px) {
-.find{
+
+@media screen and (max-width: 767px) {
+    .find{
     margin-top: 15px!important;
 }
-}
-@media (max-width: 767px) {
 .mobheight{
     height: 343px !important;
 
@@ -82,6 +100,14 @@
 .connect{
   margin-top: 0px !important;
 }
+.section-titlepincode{
+   margin-top: 0px !important;
+    margin-bottom: 0px !important;
+}
+ .desktop-only {
+            display: none;
+        }
+
 .findcenter{
     padding-left: 12px;
 }
@@ -121,9 +147,75 @@
 .mb-4 {
     margin-bottom: 30px;
 }
+ /* Custom popup styling for Leaflet */
+    .custom-leaflet-popup .leaflet-popup-content {
+        font-size: 16px; /* Adjust the font size */
+        line-height: 1.4; /* Adjust the line spacing if needed */
+    }
+
+    .custom-leaflet-popup .leaflet-popup-content-wrapper {
+        padding: 10px; /* Adjust the padding for better readability */
+    }
+
+    .custom-leaflet-popup .leaflet-popup-tip {
+        background: #fff; /* Customize the popup arrow background if needed */
+    }
+    .leaflet-marker-icon span{
+        font-size:30px !important;
+        background-color: #8eb66f;
+        padding: 5px;
+    }
+    select{
+        padding: 3px 9px;
+    }
+
+
+#pincode-form {
+    display: flex;
+    align-items: center; /* Align items vertically in the center */
+}
+
+#pincode {
+    padding: 10px; /* Add some padding for better usability */
+    border: 1px solid #ccc; /* Border styling */
+    border-radius: 4px; /* Rounded corners */
+    flex: 1; /* Make the input take the remaining space */
+}
+/*@keyframes blink {*/
+/*    0%, 100% {*/
+/*        opacity: 1;*/
+/*    }*/
+/*    50% {*/
+/*        opacity: 0;*/
+/*    }*/
+/*}*/
+.response-message {
+    /*  animation: blink 1s infinite; 1 second for each blink cycle, adjust as needed */
+    font-size: 20px; /* Change to your desired size */
+
+    /* Add other styling as needed */
+}
+.response-messageservicenot {
+
+    font-size: 20px; /* Change to your desired size */
+
+    /* Add other styling as needed */
+}
+.section-titlepincode{
+   margin-top: 102px;
+    margin-left: 20px;
+    margin-right: 20px;
+    text-align: center;
+    margin-bottom: 50px;
+}
+#showbuttons .btn.btn-small{
+    padding:10px;
+}
 
 </style>
+</head>
     <div id="page-content">
+
         <div class="row">
         <div class="col-md-8" style="padding-right: 0px;">
         <div class="hero-section has-background height-570px">
@@ -134,11 +226,13 @@
                         <div class="page-title" style="margin-bottom:224px;">
                             <h1>The ZeroWaste Community Tool</h1>
 
-                             <h2 class="headcolor">It’s not waste until it’s wasted! Most of what we think is waste can be Reused or Recycled
-                            </h2>
-                            <h2 class="hcolor">GIVE it clean, don’t THROW it dirty.</h2>
+                            <!-- <h2 class="headcolor">It’s not waste until it’s wasted! Most of what we think is waste can be Reused or Recycled-->
+                            <!--</h2>-->
+                            <!--<h2 class="hcolor">GIVE it clean, don’t THROW it dirty.</h2>-->
                             <!--<h2>That’s how you can Use longer and Reduce waste</h2>-->
-                            <h2 class="hcolor">It just makes everything better</h2>
+                            <!--<h2 class="hcolor">It just makes everything better</h2>-->
+                            <h2 class="headcolor">Join a network of Contributors, Resource(waste) Collectors and Waste Professionals working together to reduce waste and uplift the unorganised sector. Whether you want to give away recyclable materials or find waste as raw materials, we connect you with the right people easily!🤝</h2>
+                            <h2 class="hcolor">Waste here is seen as a Resource.<br> Give It Clean, Don’t Throw It Dirty! It just makes everything better! ♻️</h2>
                         </div>
                     </div>
                 </div>
@@ -154,13 +248,22 @@
              <section class="block background-is-dark mobheight" style="background-color: #8eb66f;">
             <div class="form search-form">
 
-                    <div class="section-title connect" >
-                        <!--<h2 class="center">Find and Connect with your local workforce here!</h2>-->
-                        <h2 class="findcenter"><b>FIND and CONNECT with your Local Waste Warriors</b></h2>
-                    </div>
+                   <div class="section-titlepincode">
+    <h2 class="findcenter"><b>Is your pincode serviceable by us?</b></h2>
+    <form id="pincode-form" method="POST" action="{{ url('/check-pincode') }}" style="display: flex; align-items: center;">
+        @csrf
+        <input type="text" name="pincode" id="pincode" placeholder="Enter your pincode" onkeypress="return isNumeric(event)" minlength="6" maxlength="6" required style="color: black; margin-right: 10px; padding: 10px; border: 1px solid #ccc; border-radius: 4px; flex: 1;">
+        <button class="btn btn-primary btn-small btn-rounded icon shadow add-listing " type="submit" style=" background-color: #25d366; ">Check</button>
+    </form>
+    <br class="desktop-only">
+    <div id="response-message" style="display: none;"></div>
+</div>
+</div>
+
                    <form action="{{route('filter.waste')}}" method="post" >
                         @csrf
-                         <div class="row">
+                         <div class="row" id="showbuttons" style="display:none;">
+                             <h2 class="section-title">👉 <b>Get Started Now:</b> </h2>
                              <div class="col-md-1"></div>
                              <div class="col-md-5">
                          <div class="text-center">
@@ -171,11 +274,11 @@
     @endphp
 
     @if ($userType == 'sab')
-        <a href="{{ route('sab_details') }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing darker">Add Your Post</a>
+        <a href="{{ route('sab_details') }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing darker">List Your Resources </a>
     @elseif ($userType == 'consumer')
-        <a href="{{ route('consumer_details') }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing darker">Add Your Post</a>
+        <a href="{{ route('consumer_details') }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing darker">List Your Resources </a>
     @else
-        <a href="{{ route('business_details') }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing darker">Add Your Post</a>
+        <a href="{{ route('business_details') }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing darker">List Your Resources </a>
 
     @endif
 @else
@@ -191,8 +294,46 @@
             $redirectUrl = route('business_details');
         }
     @endphp
-    <a href="{{ route('consumer_login', ['redirect' => request()->fullUrl()]) }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing darker">Add Your Post</a>
+    <a href="{{ route('consumer_login', ['redirect' => request()->fullUrl()]) }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing darker">List Your Resources </a>
 @endif
+
+
+
+
+                        </div>
+                        </div>
+                         <div class="col-md-5 find">
+                         <div class="text-center">
+                     @if (session()->has('user_id'))
+    @php
+        $userType = session('user_type'); // Assuming you have stored the user type in the session
+    @endphp
+
+    @if ($userType == 'sab')
+        <a href="{{ route('listings') }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing darker">Browse Listings</a>
+    @elseif ($userType == 'consumer')
+        <a href="{{ route('listings') }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing darker">Browse Listings</a>
+    @else
+        <a href="{{ route('listings') }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing darker">Browse Listings</a>
+    @endif
+@else
+    <a href="{{ route('consumer_login', ['redirect_list' => request()->fullUrl()]) }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing darker">Browse Listings</a>
+@endif
+
+                        </div>
+                        </div>
+                        <div class="col-md-1"></div>
+                        </div>
+
+
+
+                         <div class="row" id="showbuttonspincodeunavail" style="display:none;">
+                             <h2 class="section-title">👉 <b>Get Started Now:</b> </h2>
+                             <div class="col-md-1"></div>
+                             <div class="col-md-5">
+                         <div class="text-center">
+
+
 
 
 
@@ -224,7 +365,7 @@
                     </form>
                     <!--end form-hero-->
 
-            </div>
+
             <!--end search-form-->
             <div class="background-wrapper">
                 <div class="background-color background-color-default"></div>
@@ -235,6 +376,26 @@
         </div>
         <!--end hero-section-->
 
+<!--       <div class="adsense-static-container" style="text-align: center;">-->
+<!--    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>-->
+<!--    <ins class="adsbygoogle"-->
+<!--         style="display:inline-block;width:728px;height:90px"-->
+<!--         data-ad-client="ca-pub-3940256099942544" -->
+<!--         data-ad-slot="1234567890"></ins> <!-- You can use any placeholder for the ad-slot -->
+<!--    <script>-->
+<!--         (adsbygoogle = window.adsbygoogle || []).push({});-->
+<!--    </script>-->
+<!--</div>-->
+
+@if(isset($afterbanner) && !empty($afterbanner->adsense_image))
+    <section class="block">
+        <div class="container">
+            <div class="center">
+                <img class="center-block img-responsive" src="{{ asset('assets/images/Googleadsense/'.$afterbanner->adsense_image) }}" alt="" height="125" width="1000">
+            </div>
+        </div>
+    </section>
+@endif
 
 
 
@@ -737,7 +898,6 @@
 <!--    </div>-->
 <!--</section>-->
 
-
    <section class="block py-5 bg-light">
     <div class="container">
         <div class="section-title text-center mb-5">
@@ -790,8 +950,7 @@
         </div>
     </div>
 </section>
-
-<section class="block bg-light">
+ <section class="block bg-light">
     <div class="container">
         <div class="section-title text-center  col-md-6">
             <h1 class="display-4 mb-4">Communication Partners</h1>
@@ -806,6 +965,18 @@
             </div>
             <!--end container-->
         </section>
+<!--<section>-->
+<!--<iframe src="https://www.google.com/maps/d/u/0/embed?mid=1vi6XBXzVq1CeWN2ljchFH-U5zy9JD9I&ehbc=2E312F" width="640" height="480"></iframe>-->
+<!--</section>-->
+  <!--<section>-->
+
+
+        <!--<div id="map"></div>-->
+
+        <!-- Buttons to control map actions -->
+
+  <!--</section>      -->
+
 
 
 <!--        <section class="block background-is-dark" style="background-color: #8eb66f;">-->
@@ -933,58 +1104,109 @@
     <!--end page-content-->
 
 
-<script>
+      <!-- Load jQuery before any other script -->
+    @include('frontend.include.footer')
+    <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
 
-// public/js/app.js
-document.addEventListener('DOMContentLoaded', function() {
-    const messages = [
-        "Convert Waste into a Resource",
-        "Empower Waste Pickers to become Resource Collectors",
-        "Reduce your waste",
-        "Support Local"
-    ];
-    let currentIndex = 0;
-    const rotatingElement = document.getElementById('rotating-messages');
+ <script>
+        // Declare the map variable outside of the initMap function
+        let map;
+        let markers = [];
 
-    function typeMessage(message) {
-        rotatingElement.innerHTML = ''; // Clear existing content
-        const characters = message.split('');
-        characters.forEach((char, index) => {
-            setTimeout(() => {
-                rotatingElement.innerHTML += char;
-            }, 50 * index); // Adjust the speed of typing
+        function initMap() {
+            // Initialize the map
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 28.6139, lng: 77.2090 }, // Center the map
+                zoom: 8 // Zoom level
+            });
+
+            // Add click event to place markers
+            map.addListener('click', function(event) {
+                addMarker(event.latLng);
+            });
+        }
+
+        function addMarker(location) {
+            const marker = new google.maps.Marker({
+                position: location,
+                map: map // Attach to map
+            });
+            markers.push(marker); // Save marker for future reference
+        }
+    </script>
+    <script>
+$(document).ready(function() {
+    $('#pincode-form').on('submit', function(e) {
+        e.preventDefault(); // Prevent the default form submission
+
+         // Initialize a variable to hold the button HTML
+    var browseListingsButton = '';
+
+    @if (session()->has('user_id'))
+        @php
+            $userType = session('user_type'); // Assuming you have stored the user type in the session
+        @endphp
+
+        @if ($userType == 'sab' || $userType == 'consumer')
+            browseListingsButton = '<a style="text-transform: capitalize;" href="{{ route('listings') }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing darker">Browse Listings</a>';
+        @else
+            browseListingsButton = '<a <a style="text-transform: capitalize;" href="{{ route('listings') }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing darker">Browse Listings</a>';
+        @endif
+    @else
+        browseListingsButton = '<a <a style="text-transform: capitalize;" href="{{ route('consumer_login', ['redirect_list' => request()->fullUrl()]) }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing darker">Browse Listings</a>';
+    @endif
+
+        const pincode = $('#pincode').val();
+
+        $.ajax({
+            url: $(this).attr('action'),
+            method: 'POST',
+            data: {
+                pincode: pincode,
+                _token: '{{ csrf_token() }}' // Include CSRF token
+            },
+            success: function(response) {
+                if (response.success) {
+                    // Display the message if the service is available
+                    $('#response-message').text(response.message).addClass('response-message').show();
+                    $('#showbuttons').show(); // Show the div
+                } else {
+                     $('#response-message').html(
+                        '<div style="color:white;">Sorry, We’re Not in Your Area Yet! 😔 </div>' +
+                        '<div style="color:white;">But don’t worry—we’re expanding, and we prioritize areas with the most interest! 📍</div><br>' +
+                        '<button id="redirect-button" class="btn btn-primary btn-small btn-rounded icon shadow add-listing darker" style=" text-transform: capitalize; ">Register your interest</button>' +  '<span style="display:inline-block; width: 20px;"></span>' +
+            browseListingsButton).addClass('response-messageservicenot').show();
+                    $('#showbuttons').hide(); // Hide the div if shown previously
+                    // Redirect if service is not available (handled in the controller)
+                   // window.location.href = '{{ route('service-not-available') }}'; // Adjust this to your actual route
+                }
+            },
+            error: function(xhr) {
+                console.error('Error:', xhr);
+                alert('An error occurred while checking the pincode. Please try again.');
+            }
         });
-
-        // After typing, start erasing after a brief pause
-        setTimeout(() => {
-            eraseMessage(message);
-        }, 5000); // Adjust the delay before erasing
-    }
-
-    function eraseMessage(message) {
-        const characters = message.split('');
-        characters.reverse().forEach((char, index) => {
-            setTimeout(() => {
-                rotatingElement.innerHTML = rotatingElement.innerHTML.slice(0, -1);
-            }, 50 * index); // Adjust the speed of erasing
-        });
-
-        // After erasing, proceed to the next message
-        setTimeout(() => {
-            showNextMessage();
-        }, 3000); // Adjust the delay before showing the next message
-    }
-
-    function showNextMessage() {
-        currentIndex = (currentIndex + 1) % messages.length;
-        typeMessage(messages[currentIndex]);
-    }
-
-    typeMessage(messages[currentIndex]);
+    });
+    // Handle the redirect button click
+   $(document).on('click', '#redirect-button', function() {
+    window.open('{{ route('service-not-available') }}', '_blank'); // Open in a new tab
 });
+});
+</script>
+<script>
+    function isNumeric(event) {
+      // Get the key code of the pressed key
+      const keyCode = event.which ? event.which : event.keyCode;
 
+      // Check if the key code corresponds to a numeric character or a special key
+      if (keyCode >= 48 && keyCode <= 57 ) {
+        return true; // Allow input
+      } else {
+        return false; // Prevent input
+      }
+    }
 
 
 
 </script>
- @include('frontend.include.footer')
+

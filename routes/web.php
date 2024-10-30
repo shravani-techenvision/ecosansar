@@ -14,6 +14,8 @@ use App\Http\Controllers\admin\WeightController;
 use App\Http\Controllers\admin\GoogleAdsenseController;
 use App\Http\Controllers\admin\ServiceController;
 use App\Http\Controllers\frontend\ServiceEnquiryController;
+use App\Http\Controllers\admin\PincodeController;
+use App\Http\Controllers\frontend\PincodeCheckController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -150,6 +152,11 @@ Route::controller(ServiceEnquiryController::class)->group(function(){
     Route::post('service_enquiry/save', 'service_enquiry_save')->name('service_enquiry.save');
 
 });
+Route::controller(PincodeCheckController::class)->group(function(){
+    Route::post('/check-pincode', 'checkPincode')->name('check-pincode');
+      Route::get('/service-not-available', 'servicenotavailable')->name('service-not-available');
+       Route::post('/check-pincode-save', 'checkPincodeSave')->name('check-pincode-save');
+  });
 Auth::routes();
 
 // Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index']);
@@ -256,6 +263,16 @@ Route::controller(ResourceController::class)->group(function(){
     Route::get('resource/edit/{id}','edit')->name('resource.edit');
     Route::post('resource/update/{id}','update')->name('resource.update');
     Route::get('resource/delete/{id}','delete')->name('resource.delete');
+});
+Route::controller(PincodeController::class)->group(function(){
+    Route::get('pincode/list','list')->name('pincode.list');
+    Route::get('pincode/add', 'add')->name('pincode.add');
+    Route::post('pincode/save','save')->name('pincode.save');
+    Route::get('pincode/edit/{id}','edit')->name('pincode.edit');
+    Route::post('pincode/update/{id}','update')->name('pincode.update');
+    Route::get('pincode/delete/{id}','delete')->name('pincode.delete');
+
+    Route::get('unavailablepincode/list','unavaillist')->name('pincode.unavaillist');
 });
 Route::controller(WeightController::class)->group(function(){
     Route::get('weight/list','list')->name('weight.list');

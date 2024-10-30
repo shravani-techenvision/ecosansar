@@ -87,9 +87,9 @@ div#phone91 {
                 </div>
             </div>
              <div class="container formobile">
-                
+
                 <div class="text-center">
-                    
+
                     <div class="element width-100  ">
                         <a href="{{url('/')}}">Home</a>
                         <a href="{{route('about')}}">About Us</a>
@@ -99,10 +99,10 @@ div#phone91 {
                         <a href="{{route('contact')}}">Contact Us</a>
                         <a href="{{ route('terms_conditions') }}">Terms and Conditions</a>
                     </div>
-                    
+
                 </div>
                  <div class="text-center">
-                     
+
                     <div class="element width-100 ">
                         <!--<a href="#" class="circle-icon"><i class="social_twitter"></i></a>-->
                         <!--<a href="#" class="circle-icon"><i class="social_facebook"></i></a>-->
@@ -111,18 +111,18 @@ div#phone91 {
                 </div>
                 <div class="text-center">
                     <div class="element width-100 ">(C) <?php echo date('Y');?> EcoSansar, All right reserved</div>
-                     
+
                 </div>
             </div>
         </div>
     </div>
-    
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 <a href="https://api.whatsapp.com/send?phone=8553012812&text=" class="float" target="_blank" style="margin-bottom: 40px;">
 <i class="fa fa-whatsapp my-float"></i>
 </a>
-    
-    
+
+
 </footer>
 <!--end page-footer-->
 </div>
@@ -147,6 +147,16 @@ div#phone91 {
 <script type="text/javascript" src="{{ asset('frontend/assets/js/custom.js') }}"></script>
 <script type="text/javascript" src="{{ asset('frontend/assets/js/maps.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            includedLanguages: 'hi,te,ta,kn,mr,or,bn', // Language codes for Hindi, Telugu, Tamil, Kannada, Marathi, Oriya, Bengali
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+        }, 'google_translate_element');
+    }
+</script>
 
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>

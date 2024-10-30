@@ -22,6 +22,35 @@
 
 
     <title>EcoSansar</title>
+    <style>
+        .dropdown:hover .dropdown-menu {
+           display: block;
+       }
+
+       /* Prevent dropdown from closing when clicking inside */
+       .dropdown-menu {
+           margin-top: 0;
+       }
+       .dropdown-menu-left {
+           right: 0; /* Aligns the right edge of the dropdown to the button */
+           left: auto; /* Ensures the left property doesn't interfere */
+       }
+       @media (max-width: 767px) { /* Mobile view adjustments */
+
+           .goog-te-gadget-simple {
+               display:block !important;
+                background-color:#8eb66f !important;
+           }
+           .goog-te-gadget-simple a {
+               padding:0px !important;
+             color: #fff !important;
+           }
+            .goog-te-gadget-simple span{
+               color: #fff !important;
+           }
+
+       }
+           </style>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4322110929509521"
      crossorigin="anonymous"></script>
 
@@ -53,56 +82,25 @@
                         <li ><a href="{{url('/')}}">Home</a>
                         </li>
 
-                        <li class="has-child"><a href="{{route('about')}}">About</a>
+                        <li class="has-child"><a href="#nav-listing">About</a>
                             <div class="wrapper">
-                                <div id="nav-homepages" class="nav-wrapper">
+                                <div id="nav-listing" class="nav-wrapper">
                                     <ul>
-                                        <li class=" "><a href="{{route('howitsworks')}}">How it works </a>
-                        </li>
-                                    </ul>
-                                     <ul>
-                                        <li class=" "><a href="{{route('faq')}}">FAQ</a>
+                                                     <li class=" "><a href="{{route('howitsworks')}}">How it works </a></li>
+                                                     <li class=" "><a href="{{route('faq')}}">FAQ</a></li>
+                                                    <li class=" "><a href="{{route('service')}}">Service </a></li>
+
                                     </ul>
                                 </div>
                             </div>
                         </li>
 
-                        <li class=" "><a href="{{route('service')}}">Service </a>
-                        </li>
+
                         <li><a href="{{route('contact')}}">Contact Us</a></li>
-                        <li> @php
-                    $user_id = session('user_id');
-                    if(null !== $user_id && $user_id != ''){
+                        <li>
+                            <div id="google_translate_element"></div>
+                       </li>
 
-                    } else {
-                    @endphp
-                       <li> <a href="{{ route('consumer_login') }}" class="promoted" >Sign In</a> </li>
-                      <li>  <a href="{{ route('user_register') }}" class="promoted" >Register</a> </li>
-                    @php
-                    }
-                    @endphp
-
-                    @php
-                  $user_id = session()->get('user_id');
-                  $userdet = null;
-
-    if(isset($user_id) && !empty($user_id)) {
-        $userdet = \App\Models\frontend\EcosansarUsers::where('id', $user_id)->first();
-
-         $type = $userdet->user_type;
-    }
-                if(isset($user_id) && !empty($user_id)) {
-            @endphp
-             <li> <a class="  " href="{{ url('profile'). "/".$user_id }}" >  My Profile </a>
-              </li>
-              <li>
-            <a class="  " href="{{ route('user_logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">  {{ __('Logout') }} </a>
-            <form id="logout-form" action="{{ route('user_logout') }}"   class="d-none">
-                @csrf
-            </form>
-            @php
-                }
-            @endphp</li>
 
                     </ul>
                     <!--end navigation-->
@@ -110,7 +108,16 @@
                 <!--end primary-nav-->
 
                 <!--end secondary-nav-->
-               @if(session()->has('user_id'))
+               @php
+    $user_id = session()->get('user_id');
+    $userdet = null;
+
+    if (isset($user_id) && !empty($user_id)) {
+        $userdet = \App\Models\frontend\EcosansarUsers::where('id', $user_id)->first();
+        $type = $userdet->user_type;
+    }
+@endphp
+ @if(session()->has('user_id'))
                  @if($type == 'consumer')
                     <a href="{{route('consumer_own_posts')}}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing">
                         <i class="fa fa-plus"></i><span>My listings</span>
@@ -128,6 +135,37 @@
     <a href="{{ route('consumer_login') }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing">
         <i class="fa fa-sign-in"></i><span>Add listing</span>
     </a>
+@endif
+ @php
+                    $user_id = session('user_id');
+                    if(null !== $user_id && $user_id != ''){
+
+                    } else {
+                    @endphp
+                        <a href="{{ route('consumer_login') }}" class="promoted btn btn-primary btn-small btn-rounded icon shadow add-listing" >Sign In</a>
+                         <a href="{{ route('user_register') }}" class="promoted btn btn-primary btn-small btn-rounded icon shadow add-listing" >Register</a>
+                    @php
+                    }
+                    @endphp
+@if (isset($user_id) && !empty($user_id))
+    <div class="dropdown" style="display: inline-block;">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+             <img  class="formobile-img" src="{{ URL::asset('frontend/assets/img/user.png') }}" alt="" > <!-- Profile Icon -->
+        </a>
+        <ul class="dropdown-menu dropdown-menu-left" role="menu">
+            <li>
+                <a href="{{ url('profile') . '/' . $user_id }}">My Profile</a>
+            </li>
+            <li>
+                <a href="{{ route('user_logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    {{ __('Logout') }}
+                </a>
+            </li>
+        </ul>
+        <form id="logout-form" action="{{ route('user_logout') }}"  class="d-none">
+            @csrf
+        </form>
+    </div>
 @endif
 
                 <!--<a href="#" class="btn btn-primary btn-small btn-rounded icon shadow add-listing"    ><i class="fa fa-plus"></i><span>Add listing</span></a>-->
