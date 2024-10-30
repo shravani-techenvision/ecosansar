@@ -485,7 +485,7 @@
       const keyCode = event.which ? event.which : event.keyCode;
 
       // Check if the key code corresponds to a numeric character or a special key
-      if (keyCode >= 48 && keyCode <= 57 || keyCode === 8 || keyCode === 9 || keyCode === 37 || keyCode === 39 || keyCode === 46) {
+      if (keyCode >= 48 && keyCode <= 57 ) {
         return true; // Allow input
       } else {
         return false; // Prevent input
