@@ -874,6 +874,8 @@ $totalMinWeight = $busMinWeightSum->total_min_weight + $conMinWeightSum->total_m
         return view('frontend/about',compact('afterbanner'));
     }
 
+
+
     public function ourteam()
     {
         return view('frontend/ourteam');
@@ -1354,6 +1356,9 @@ if ($request->sale_giveaway == 'Buy') {
         'packaged' => 'required',
         'resource_type' => 'required|array|min:1',
        // 'resource_img.*' => 'mimes:jpg,jpeg,png,bmp|max:10240', // Adjust mime types and max size as needed
+    ], [
+
+        'pincode.exists' => 'We are not servicable in this area.'
     ]);
 
 } else {
@@ -1369,6 +1374,9 @@ if ($request->sale_giveaway == 'Buy') {
       //  'resource_img' => 'required|array|min:1',
       //  'resource_img.*' => 'required|mimes:jpg,jpeg,png,bmp|max:10240', // Adjust mime types and max size as needed
 
+    ], [
+
+        'pincode.exists' => 'We are not servicable in this area.'
     ]);
 
     // Check if the number of selected resources matches the number of uploaded images
@@ -1947,17 +1955,17 @@ function resizeImage($source, $destination, $width, $height)
         // Define custom error messages
     $messages = [
        // 'resource_img.*.max' => 'The image must not be greater than 10 MB.',
-        'pincode.exists' => 'Service is not available in this area'
+        'pincode.exists' => 'We are not servicable in this area.'
     ];
 
 
-    //  $validator = \Validator::make($request->all(), $rules, $messages);
+     $validator = \Validator::make($request->all(), $rules, $messages);
 
-    // if ($validator->fails()) {
-    //     return redirect()->back()
-    //         ->withErrors($validator)
-    //         ->withInput();
-    // }
+    if ($validator->fails()) {
+        return redirect()->back()
+            ->withErrors($validator)
+            ->withInput();
+    }
 
         // Check if the number of selected resources equals the number of uploaded images
         // if ($request->sale_giveaway !== 'Buy') {
@@ -2612,6 +2620,8 @@ function resizeImage($source, $destination, $width, $height)
                 'clean_unclean' => 'required',
                 'packaged' => 'required',
                 'resource_type' => 'required|array|min:1'
+            ], [
+                'pincode.exists' => 'We are not servicable in this area.'
             ]);
         } else {
             $request->validate([
@@ -2624,7 +2634,10 @@ function resizeImage($source, $destination, $width, $height)
                 'resource_type' => 'required|array|min:1',
               //  'resource_img' => 'required|array|min:1',
                // 'resource_img.*' => 'required|mimes:jpg,jpeg,png,bmp|max:2048', // Adjust mime types and max size as needed
-            ]);
+            ],[
+
+               'pincode.exists' => 'We are not servicable in this area.'
+           ]);
 
             // $request->validate([
             //     'resource_img.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:10240', // max size is in KB, so 2048 KB = 2 MB
