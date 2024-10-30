@@ -10,6 +10,14 @@
         border:none !important;
         border-bottom: 2px solid #cccccc6e !important;
     }
+    .terms-link {
+        color: #8eb66f; /* Change this to your desired color */
+        text-decoration: none;
+    }
+    .terms-link:hover {
+        text-decoration: underline;
+        color:#8eb66f; /* Optional: Change color on hover */
+    }
  @media (max-width: 767px) {
 .reg{
    font-size: 28px!important;
@@ -165,7 +173,7 @@
                             <!--</div>-->
                             <div class="form-check">
         					<label>
-        						<input type="checkbox" name="terms" id="terms" value="accepted" {{ old('terms') ? 'checked' : '' }}>  <a href="{{ route('terms_conditions') }}">I agree to the Terms and Conditions</a><span style="color:red;">*</span>
+        						<input type="checkbox" name="terms" id="terms" value="accepted" {{ old('terms') ? 'checked' : '' }}>  I have read and agree to the <a href="{{ route('terms_conditions') }}" class="terms-link"> Terms and Condition </a> and <a href="{{ route('privacypolicy') }}" class="terms-link"> Privacy Policy </a> of this website<span style="color:red;">*</span>
         					</label>
 
         				</div>

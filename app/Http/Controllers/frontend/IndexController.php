@@ -874,7 +874,22 @@ $totalMinWeight = $busMinWeightSum->total_min_weight + $conMinWeightSum->total_m
         return view('frontend/about',compact('afterbanner'));
     }
 
+    public function privacypolicy()
+    {
+          // user activity start
+        $userid = session()->get('user_id');
+        if ($userid){
+            $userActivity = new UserActivityLog();
+            $userActivity->user_id = $userid;
+            $userActivity->activity = 'Clicked on about page';
+            $userActivity->url = request()->fullUrl();   // Get the full URL of the request
+            $userActivity->ip_address = request()->ip();
+            $userActivity->save();
+        }
+        // user activity end
 
+        return view('frontend/privacypolicy');
+    }
 
     public function ourteam()
     {

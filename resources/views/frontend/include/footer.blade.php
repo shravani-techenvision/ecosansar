@@ -70,7 +70,7 @@ div#phone91 {
             <div class="container fordesk">
                 <div class="vertical-aligned-elements">
                     <div class="element width-30">(C) <?php echo date('Y');?> EcoSansar, All right reserved</div>
-                    <div class="element width-50 text-align-right">
+                    <div class="element width-60 text-align-right">
                         <a href="{{url('/')}}">Home</a>
                         <a href="{{route('about')}}">About Us</a>
                          <!--<a href="{{route('listings')}}">Browse Sellers</a>-->
@@ -78,8 +78,9 @@ div#phone91 {
                         <a href="{{route('howitsworks')}}">How it Works</a>
                         <a href="{{route('contact')}}">Contact Us</a>
                         <a href="{{ route('terms_conditions') }}">Terms and Conditions</a>
+                        <a href="{{ route('privacypolicy') }}">Privacy Policy</a>
                     </div>
-                    <div class="element width-20 text-align-right">
+                    <div class="element width-10 text-align-right">
                         <!--<a href="#" class="circle-icon"><i class="social_twitter"></i></a>-->
                         <!--<a href="#" class="circle-icon"><i class="social_facebook"></i></a>-->
                         <!--<a href="#" class="circle-icon"><i class="social_youtube"></i></a>-->
@@ -98,6 +99,7 @@ div#phone91 {
                         <a href="{{route('howitsworks')}}">How it Works</a>
                         <a href="{{route('contact')}}">Contact Us</a>
                         <a href="{{ route('terms_conditions') }}">Terms and Conditions</a>
+                        <a href="{{ route('privacypolicy') }}">Privacy Policy</a>
                     </div>
 
                 </div>

@@ -37,6 +37,7 @@ Route::controller(IndexController::class)->group(function(){
     Route::post('profile_update/{id}','profile_update')->name('profile_update');
     Route::post('/filter-waste','filter')->name('filter.waste');
      Route::get('about','about')->name('about');
+     Route::get('privacypolicy','privacypolicy')->name('privacypolicy');
        Route::get('ourteam','ourteam')->name('ourteam');
        Route::get('contact','contact')->name('contact');
         Route::post('contact_store','contact_store')->name('contact_store');
