@@ -260,7 +260,7 @@
                                     <span class="text-danger">{{ $errors->first('resource_type') }}</span>
                                 @endif
                                     </div>
-                                     {{--  <label for="address"><span>(*max upload size 10 mb)</span></label><br>  --}}
+                                     <label for="address"><span>(*max upload size 10 mb)</span></label><br>
                                 </div>
                             </div>
                             <div class="row">
