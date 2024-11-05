@@ -96,6 +96,13 @@
                 // Get the ID of the About record, or null if no record exists
                 $serviceId = $service ? $service->id : null;
             @endphp
+            @php
+            use App\Models\admin\PrivacyPolicy;
+            // Fetch the first record from the About table
+            $policy = PrivacyPolicy::first();
+            // Get the ID of the About record, or null if no record exists
+            $policyId = $policy ? $policy->id : null;
+        @endphp
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="uil-store"></i>
@@ -112,6 +119,11 @@
                        <li><a href="{{ route('service.add') }}">Service</a></li>
                    @endif
                    <li><a href="{{ route('service_enquiry.list') }}">Service Enquiry List</a></li>
+                   @if ($policyId)
+                            <li><a href="{{ url('privacypolicy/edit/' . $policyId) }}">Privacy Policy</a></li>
+                        @else
+                            <li><a href="{{ route('privacypolicy.add') }}">Privacy Policy</a></li>
+                        @endif
                     </ul>
                 </li>
                 {{--  <li>

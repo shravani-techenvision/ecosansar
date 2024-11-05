@@ -220,66 +220,15 @@ body {
          <section class="block">
             <div class="container">
          <div class="row">
-            <p>At ecoSansar, accessible from www.ecosansar.com, we prioritize the privacy of our users. This Privacy Policy document outlines the types of information that we collect and record, how we use it, and the measures we take to safeguard your data.</p>
+            @php
+            use App\Models\admin\PrivacyPolicy; // Import the About model
 
-            1. Information We Collect<br>
-            <p>We may collect and process the following types of information:</p>
+            $howitwork = PrivacyPolicy::get();
+         @endphp
 
-            <p>Personal Information: When you sign up or use our services, we collect data such as your name, email address, phone number, and address. This information is necessary to create your account and provide our services and is retained.<br>
-            Geographic Information: We collect your pincode to check if our services are available in your area.<br>
-            Transaction Data: This includes records of the materials you list, the inquiries you make, and any transactions facilitated through our platform.<br>
-            Usage Data: We collect and retain information about how you use our website, such as pages visited, features used, and time spent on the site. This helps us improve our services and user experience.<br>
-            Communication Data: If you contact us through email, chat, or phone, we may retain details of that communication for quality and training purposes.</p>
-            <p>
-                2. How We Use Your Information<br>
-                We use the information collected in various ways, including:
-            </p>
-            <p>To provide, operate, and maintain our platform and services.<br>
-            To process your inquiries, listings, and transactions related to listed materials.<br>
-            To improve our website, products, and services.<br>
-            To communicate with you, including customer support and providing updates related to your use of our platform.<br>
-            To analyze user behavior and trends to enhance user experience and expand our services to new areas.<br>
-            To notify you of changes to our services, policies, or terms of use.<br></p>
-            <p>3. Data Sharing and Disclosure<br>
-            ecoSansar is committed to keeping your information safe and will not sell or share your personal data with third parties, except in the following circumstances:<br>
-            With Service Providers: We may share information with third-party service providers who assist us in delivering our services (e.g., hosting providers, all registered users on www.ecosansar.com).<br>
-            For Legal Compliance: We may disclose information if required by law, such as in response to a court order or government request.<br>
-            With Your Consent: We will share your data with third parties if you give us explicit consent to do so.<br>
-            For advertising services : To ensure appropriate and relevant ads are displayed to you by third party service providers like Google AdSense </p>
-            <p>4. Data Security<br>
-            We implement appropriate technical and organizational measures to protect your data from unauthorized access, alteration, disclosure, or destruction. However, please note that no method of transmission over the internet or method of electronic storage is 100% secure, and we cannot guarantee absolute security.<br>
-            Built-in protections against common vulnerabilities like SQL injection and XSS.<br>
-            Application supports SSL certificates or HTTPS, which encrypts communication between the client and server. Application uses the Form Classes Token Method (CSRF token), which is enabled by default. <br>
-            Application offers CSRF protection and session management.</p>
-            <p>
-                5. Your Data Rights<br>
-                Depending on your location, you may have the following rights regarding your personal data:
-            </p>
-            <p>
-                Access: You have the right to access the personal data we hold about you.<br>
-                Correction: You can request the correction of inaccurate or incomplete data.<br>
-                Deletion: You can request the deletion of your personal data under certain circumstances.<br>
-                Objection: You can object to the processing of your personal data.<br>
-                To exercise these rights, please contact us at ecosansar@yahoo.com
-            </p>
-            <p>6. Cookies and Tracking Technologies<br>
-            ecoSansar uses cookies and similar tracking technologies to analyze trends, administer the website, track user movements, and gather demographic information about our user base. You can choose to disable cookies through your browser settings, but this may affect the functionality of our website.</p>
-            <p>
-                7. Third-Party Links<br>
-                Our website may contain links to other websites or services that are not operated by ecoSansar. We are not responsible for the privacy practices or the content of these third-party sites. We recommend that you review their privacy policies before providing them with your personal information.
-            </p>
-            <p>
-                8. Changes to This Privacy Policy<br>
-                We may update our Privacy Policy from time to time to reflect changes in our practices or legal requirements. Any changes will be posted on this page, and we encourage you to review it periodically. If the changes are significant, we will notify you via email or through a prominent notice on our website.
-            </p>
-            <p>
-                9. Contact Us<br>
-                If you have any questions or concerns about this Privacy Policy or our data practices, please contact us at:
-            </p>
-            <p>ecoSansar<br>
-            Email: ecosansar@yahoo.com<br>
-            Phone: +91 8553012812<br>
-            Address: Bengaluru, India</p>
+        @foreach($howitwork as $item)
+            {!! $item->content !!}
+        @endforeach
      </div>
      </div>
      </section>
