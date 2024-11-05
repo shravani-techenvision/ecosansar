@@ -15,6 +15,7 @@ use App\Http\Controllers\admin\GoogleAdsenseController;
 use App\Http\Controllers\admin\ServiceController;
 use App\Http\Controllers\frontend\ServiceEnquiryController;
 use App\Http\Controllers\admin\PincodeController;
+use App\Http\Controllers\admin\PrivacyPolicyController;
 use App\Http\Controllers\frontend\PincodeCheckController;
 /*
 |--------------------------------------------------------------------------
@@ -274,6 +275,12 @@ Route::controller(PincodeController::class)->group(function(){
     Route::get('pincode/delete/{id}','delete')->name('pincode.delete');
 
     Route::get('unavailablepincode/list','unavaillist')->name('pincode.unavaillist');
+});
+Route::controller(PrivacyPolicyController::class)->group(function(){
+    Route::get('privacypolicy/add', 'add')->name('privacypolicy.add');
+    Route::post('privacypolicy/save','save')->name('privacypolicy.save');
+    Route::get('privacypolicy/edit/{id}','edit')->name('privacypolicy.edit');
+    Route::post('privacypolicy/update/{id}','update')->name('privacypolicy.update');
 });
 Route::controller(WeightController::class)->group(function(){
     Route::get('weight/list','list')->name('weight.list');
