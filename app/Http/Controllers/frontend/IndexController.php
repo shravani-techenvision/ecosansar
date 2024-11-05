@@ -37,6 +37,7 @@ use Craftsys\Msg91\Facade\Msg91;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Storage;
 
 
 class IndexController extends Controller
@@ -1961,15 +1962,20 @@ function resizeImage($source, $destination, $width, $height)
             'resource_type' => 'required|array|min:1',
         ];
 
-        // Specific validation rules for 'Giveaway'
-        // if ($request->sale_giveaway !== 'Buy') {
-        //     $rules['resource_img'] = 'required|array|min:1';
-        //     $rules['resource_img.*'] = 'required|mimes:jpg,jpeg,png,bmp|max:10240'; // Adjust mime types and max size as needed
-        // }
+           // Apply different rules based on the value of 'sale_giveaway'
+if ($request->sale_giveaway === 'Buy') {
+    // For 'Buy', make images optional but still enforce size limit if images are uploaded
+    $rules['resource_img'] = 'array'; // Optional array for Buy
+    $rules['resource_img.*'] = 'mimes:jpg,jpeg,png,bmp|max:10240'; // Optional but size restricted
+} else {
+    // For 'Sale' and 'Giveaway', images are required
+    $rules['resource_img'] = 'required|array|min:1';
+    $rules['resource_img.*'] = 'required|mimes:jpg,jpeg,png,bmp|max:10240';
+}
 
         // Define custom error messages
     $messages = [
-       // 'resource_img.*.max' => 'The image must not be greater than 10 MB.',
+       'resource_img.*.max' => 'The image must not be greater than 10 MB.',
         'pincode.exists' => 'We are not servicable in this area.'
     ];
 
@@ -1983,20 +1989,20 @@ function resizeImage($source, $destination, $width, $height)
     }
 
         // Check if the number of selected resources equals the number of uploaded images
-        // if ($request->sale_giveaway !== 'Buy') {
-        //     if (count($request->resource_type) !== count($request->resource_img)) {
-        //         return back()->withErrors(['resource_img' => 'Please upload image here.'])->withInput();
-        //     }
-        // }
-        //to show error message for particular file upload
-    //      if ($request->sale_giveaway !== 'Buy') {
-    //      $errors = [];
-    // foreach ($request->resource_type as $index => $resourceId) {
-    //     if (!isset($request->resource_img[$index])) {
-    //         $errors["resource_img.$index"] = 'Please upload an image for this resource type.';
-    //     }
-    // }
-    //      }
+        if ($request->sale_giveaway !== 'Buy') {
+            if (count($request->resource_type) !== count($request->resource_img)) {
+                return back()->withErrors(['resource_img' => 'Please upload image here.'])->withInput();
+            }
+        }
+       // to show error message for particular file upload
+         if ($request->sale_giveaway !== 'Buy') {
+         $errors = [];
+    foreach ($request->resource_type as $index => $resourceId) {
+        if (!isset($request->resource_img[$index])) {
+            $errors["resource_img.$index"] = 'Please upload an image for this resource type.';
+        }
+    }
+         }
 
     // If there are any errors, redirect back with errors
     if (!empty($errors)) {
@@ -2022,12 +2028,12 @@ function resizeImage($source, $destination, $width, $height)
 
 
 // Function to resize an image using the GD library
-function resizeImage($source, $destination, $width, $height)
+function resizeImage($source, $width, $height)
 {
     // Get the original image dimensions and type
     list($originalWidth, $originalHeight, $type) = getimagesize($source);
 
-    // Calculate the new dimensions while maintaining aspect ratio
+    // Calculate the new dimensions while maintaining the aspect ratio
     $ratio = $originalWidth / $originalHeight;
     if ($width / $height > $ratio) {
         $width = $height * $ratio;
@@ -2056,22 +2062,26 @@ function resizeImage($source, $destination, $width, $height)
     // Resize the image
     imagecopyresampled($newImage, $sourceImage, 0, 0, 0, 0, $width, $height, $originalWidth, $originalHeight);
 
-    // Save the resized image to the destination path
+    // Start output buffering to capture the image content
+    ob_start();
     switch ($type) {
         case IMAGETYPE_JPEG:
-            imagejpeg($newImage, $destination);
+            imagejpeg($newImage);
             break;
         case IMAGETYPE_PNG:
-            imagepng($newImage, $destination);
+            imagepng($newImage);
             break;
         case IMAGETYPE_GIF:
-            imagegif($newImage, $destination);
+            imagegif($newImage);
             break;
     }
+    $imageContent = ob_get_clean(); // Get the image content from the buffer
 
     // Free up memory
     imagedestroy($newImage);
     imagedestroy($sourceImage);
+
+    return $imageContent; // Return the resized image content as a binary string
 }
 
         // Save resources and images
@@ -2083,19 +2093,45 @@ function resizeImage($source, $destination, $width, $height)
                 $resource->resource_type = $resourceId;
 
                 if (isset($request->resource_img[$index])) {
-                $image = $request->file('resource_img')[$index];
-                $imageName = $user_id . '_' . $user->id . '_' . $resourceId . '.' . $image->extension();
-                 // Temporary path for uploaded file
-        $tempPath = $image->getRealPath();
-        // Destination path for resized image
-        $destinationPath = base_path('frontend/assets/img/SABposts/' . $imageName);
+                    $image = $request->file('resource_img')[$index];
+                    $imageName = $user_id . '_' . $user->id . '_' . $resourceId . '.' . $image->getClientOriginalExtension();
 
-        // Resize the image using GD library
-        resizeImage($tempPath, $destinationPath, 800, 600); // Resize to 800x600 (or your preferred size)
-               // $image->move('frontend/assets/img/SABposts', $imageName);
-                $resource->resource_img = $imageName;
+                    try {
+                         // Resize the image
+                        $resizedImageContent = resizeImage($image->getRealPath(), 800, 600); // Adjust width and height as needed
 
-            }
+                        // Convert resized image content to a stream for S3 upload
+                        $resizedImageStream = fopen('php://memory', 'r+');
+                        fwrite($resizedImageStream, $resizedImageContent);
+                        rewind($resizedImageStream);
+
+                        // Define the S3 path where the file will be stored
+                        $s3Directory = 'SABposts';
+                        $s3Path = $s3Directory . '/' . $imageName;
+
+                        // Upload the file to S3 in the specified directory
+                       // Upload the resized image to S3
+                        $uploaded = Storage::disk('s3')->put($s3Path, $resizedImageStream);
+
+                        if (!$uploaded) {
+                            throw new \Exception('Image upload returned false');
+                        }
+                        fclose($resizedImageStream);
+
+                     // Get the public URL of the uploaded image
+                $imageUrl = Storage::disk('s3')->url($s3Path);
+
+
+                        // Save the S3 path in the database
+                        $resource->resource_img = $imageName;
+                        $resource->resource_img_url = $imageUrl;
+                        $resource->save();
+
+                    } catch (\Exception $e) {
+                        Log::error('S3 Upload Error: ' . $e->getMessage());
+                        return response()->json(['error' => 'Image upload to S3 failed: ' . $e->getMessage()], 500);
+                    }
+                }
              $resource->save();
             }
         }

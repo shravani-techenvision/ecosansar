@@ -263,7 +263,59 @@
                                      {{--  <label for="address"><span>(*max upload size 10 mb)</span></label><br>  --}}
                                 </div>
                             </div>
+                            <div class="row">
+                                <div id="dynamic-inputs">
+     @foreach(old('resource_type', []) as $index => $resourceId)
+         <div class="col-md-6">
+             <div class="form-group">
+                 <label for="resource_{{ $resourceId }}">Upload Image for {{ $resources->find($resourceId)->resource_name }}<span class="image-upload-asterisk" style="color:red;">*</span></label><br><br>
+                 <input type="file" class="form-control" name="resource_img[]" id="resource_{{ $resourceId }}">
 
+              @if ($errors->has('resource_img'))
+     <div class="text-danger">
+         {{-- Display general 'resource_img' errors if any --}}
+         @foreach ($errors->get('resource_img') as $error)
+             <p style="color:red;">{{ $error }}</p>
+         @endforeach
+     </div>
+ @endif
+
+ {{-- Track if we've displayed the specific size or format error to avoid duplicates --}}
+ @php
+     $sizeErrorDisplayed = false;
+     $formatErrorDisplayed = false;
+ @endphp
+
+ {{-- Loop through each file-specific error --}}
+ @foreach ($errors->get('resource_img.*') as $fileErrors)
+     @foreach ($fileErrors as $msg)
+         {{-- Display the size error message only once --}}
+         @if (str_contains($msg, 'must not be greater than') && !$sizeErrorDisplayed)
+             <div class="text-danger">
+                 <p style="color:red;">The image must not be greater than 10 MB.</p>
+             </div>
+             @php
+                 $sizeErrorDisplayed = true;
+             @endphp
+         @endif
+
+         {{-- Display the format error message only once --}}
+         @if (str_contains($msg, 'must be a file of type') && !$formatErrorDisplayed)
+             <div class="text-danger">
+                 <p style="color:red;">The image must be a valid format (jpg, jpeg, png).</p>
+             </div>
+             @php
+                 $formatErrorDisplayed = true;
+             @endphp
+         @endif
+     @endforeach
+ @endforeach
+</div>
+</div>
+@endforeach
+</div>
+
+                    </div>
 
                             <!-- <label for="address">Select your location</label><br><br>-->
                             <!--    <div id="map" style="height: 400px;"></div>-->
