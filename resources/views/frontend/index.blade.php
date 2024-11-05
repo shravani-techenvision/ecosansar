@@ -249,7 +249,7 @@
                             <!--<h2 class="hcolor">GIVE it clean, don’t THROW it dirty.</h2>-->
                             <!--<h2>That’s how you can Use longer and Reduce waste</h2>-->
                             <!--<h2 class="hcolor">It just makes everything better</h2>-->
-                            <h2 class="headcolor">Join a network of Contributors, Resource(waste) Collectors and Waste Professionals working together to reduce waste and uplift the unorganised sector. Whether you want to give away recyclable materials or find waste as raw materials, we connect you with the right people easily!🤝</h2>
+                            <h2 class="headcolor"><b>Join a network of Contributors, Resource(waste) Collectors and Waste Professionals working together to reduce waste and uplift the unorganised sector. Whether you want to give away recyclable materials or find waste as raw materials, we connect you with the right people easily!🤝</b></h2>
                             <h2 class="hcolor">Waste here is seen as a Resource.<br> Give It Clean, Don’t Throw It Dirty! It just makes everything better! ♻️</h2>
                         </div>
                     </div>
