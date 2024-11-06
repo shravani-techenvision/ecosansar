@@ -1978,7 +1978,6 @@ function resizeImage($source, $width, $height)
         $user_id = session()->get('user_id');
         $user_type = session()->get('user_type');
 
-        // Common validation rules
         $rules = [
             'name' => 'required',
             'mobile' => 'required',
@@ -1991,7 +1990,13 @@ function resizeImage($source, $width, $height)
             'resource_type' => 'required|array|min:1',
         ];
 
-           // Apply different rules based on the value of 'sale_giveaway'
+        // // Specific validation rules for 'Giveaway'
+        // if ($request->sale_giveaway !== 'Buy') {
+        //     $rules['resource_img'] = 'required|array|min:1';
+        //     $rules['resource_img.*'] = 'required|mimes:jpg,jpeg,png,bmp|max:10240'; // Adjust mime types and max size as needed
+        // }
+
+        // Apply different rules based on the value of 'sale_giveaway'
 if ($request->sale_giveaway === 'Buy') {
     // For 'Buy', make images optional but still enforce size limit if images are uploaded
     $rules['resource_img'] = 'array'; // Optional array for Buy
@@ -2004,8 +2009,8 @@ if ($request->sale_giveaway === 'Buy') {
 
         // Define custom error messages
     $messages = [
-       'resource_img.*.max' => 'The image must not be greater than 10 MB.',
-        'pincode.exists' => 'We are not servicable in this area.'
+        'resource_img.*.max' => 'The image must not be greater than 10 MB.',
+        'pincode.exists' => 'Service is not available in this area'
     ];
 
 
@@ -2035,6 +2040,7 @@ if ($request->sale_giveaway === 'Buy') {
             // You can add more custom logic here based on file size
         }
         }
+
 
     // If there are any errors, redirect back with errors
     if (!empty($errors)) {
@@ -2116,57 +2122,59 @@ function resizeImage($source, $width, $height)
     return $imageContent; // Return the resized image content as a binary string
 }
 
-        // Save resources and images
-        foreach ($request->resource_type as $index => $resourceId) {
-            if (!empty($resourceId)) {
-                $resource = new SABResourcePost();
-                $resource->user_id = $user_id;
-                $resource->post_id = $user->id;
-                $resource->resource_type = $resourceId;
 
-                if (isset($request->resource_img[$index])) {
-                    $image = $request->file('resource_img')[$index];
-                    $imageName = $user_id . '_' . $user->id . '_' . $resourceId . '.' . $image->getClientOriginalExtension();
+       foreach ($request->resource_type as $index => $resourceId) {
+    if (!empty($resourceId)) {
+        $resource = new SABResourcePost();
+        $resource->user_id = $user_id;
+        $resource->post_id = $user->id;
+        $resource->resource_type = $resourceId;
 
-                    try {
-                         // Resize the image
-                        $resizedImageContent = resizeImage($image->getRealPath(), 800, 600); // Adjust width and height as needed
+        if (isset($request->resource_img[$index])) {
+            $image = $request->file('resource_img')[$index];
+            $imageName = $user_id . '_' . $user->id . '_' . $resourceId . '.' . $image->getClientOriginalExtension();
 
-                        // Convert resized image content to a stream for S3 upload
-                        $resizedImageStream = fopen('php://memory', 'r+');
-                        fwrite($resizedImageStream, $resizedImageContent);
-                        rewind($resizedImageStream);
+            try {
+                 // Resize the image
+                $resizedImageContent = resizeImage($image->getRealPath(), 800, 600); // Adjust width and height as needed
 
-                        // Define the S3 path where the file will be stored
-                        $s3Directory = 'SABposts';
-                        $s3Path = $s3Directory . '/' . $imageName;
+                // Convert resized image content to a stream for S3 upload
+                $resizedImageStream = fopen('php://memory', 'r+');
+                fwrite($resizedImageStream, $resizedImageContent);
+                rewind($resizedImageStream);
 
-                        // Upload the file to S3 in the specified directory
-                       // Upload the resized image to S3
-                        $uploaded = Storage::disk('s3')->put($s3Path, $resizedImageStream);
+                // Define the S3 path where the file will be stored
+                $s3Directory = 'SABposts';
+                $s3Path = $s3Directory . '/' . $imageName;
 
-                        if (!$uploaded) {
-                            throw new \Exception('Image upload returned false');
-                        }
-                        fclose($resizedImageStream);
+                // Upload the file to S3 in the specified directory
+               // Upload the resized image to S3
+                $uploaded = Storage::disk('s3')->put($s3Path, $resizedImageStream);
 
-                     // Get the public URL of the uploaded image
-                $imageUrl = Storage::disk('s3')->url($s3Path);
-
-
-                        // Save the S3 path in the database
-                        $resource->resource_img = $imageName;
-                        // $resource->resource_img_url = $imageUrl;
-                        $resource->save();
-
-                    } catch (\Exception $e) {
-                        Log::error('S3 Upload Error: ' . $e->getMessage());
-                        return response()->json(['error' => 'Image upload to S3 failed: ' . $e->getMessage()], 500);
-                    }
+                if (!$uploaded) {
+                    throw new \Exception('Image upload returned false');
                 }
-             $resource->save();
+                fclose($resizedImageStream);
+
+             // Get the public URL of the uploaded image
+        $imageUrl = Storage::disk('s3')->url($s3Path);
+
+
+                // Save the S3 path in the database
+                $resource->resource_img = $imageName;
+                // $resource->resource_img_url = $imageUrl;
+                $resource->save();
+
+            } catch (\Exception $e) {
+                Log::error('S3 Upload Error: ' . $e->getMessage());
+                return response()->json(['error' => 'Image upload to S3 failed: ' . $e->getMessage()], 500);
             }
         }
+
+        $resource->save();
+    }
+}
+
 
               // user activity start
         $userid = session()->get('user_id');

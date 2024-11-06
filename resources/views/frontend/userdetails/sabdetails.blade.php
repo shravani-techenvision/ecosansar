@@ -123,7 +123,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="address">Pincode<span style="color:red;">*</span></label>
-                                    <input type="text" class="form-control" name="pincode" id="pincode" onkeypress="return isNumeric(event)" minlength="6" maxlength="6" placeholder="Pincode" value={{ old('pincode') }} >
+                                    <input type="text" class="form-control" name="pincode" id="pincode" minlength="6" maxlength="6" placeholder="Pincode" value={{ old('pincode') }} >
                                     @if ($errors->has('pincode'))
                                                 <span class="text-danger">{{ $errors->first('pincode') }}</span>
                                             @endif
@@ -264,58 +264,137 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div id="dynamic-inputs">
-     @foreach(old('resource_type', []) as $index => $resourceId)
-         <div class="col-md-6">
-             <div class="form-group">
-                 <label for="resource_{{ $resourceId }}">Upload Image for {{ $resources->find($resourceId)->resource_name }}<span class="image-upload-asterisk" style="color:red;">*</span></label><br><br>
-                 <input type="file" class="form-control" name="resource_img[]" id="resource_{{ $resourceId }}">
+                               <div id="dynamic-inputs">
+    @foreach(old('resource_type', []) as $index => $resourceId)
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="resource_{{ $resourceId }}">Upload Image for {{ $resources->find($resourceId)->resource_name }}<span class="image-upload-asterisk" style="color:red;">*</span></label><br><br>
+                <input type="file" class="form-control" name="resource_img[]" id="resource_{{ $resourceId }}">
 
-              @if ($errors->has('resource_img'))
-     <div class="text-danger">
-         {{-- Display general 'resource_img' errors if any --}}
-         @foreach ($errors->get('resource_img') as $error)
-             <p style="color:red;">{{ $error }}</p>
-         @endforeach
-     </div>
- @endif
+             @if ($errors->has('resource_img'))
+    <div class="text-danger">
+        {{-- Display general 'resource_img' errors if any --}}
+        @foreach ($errors->get('resource_img') as $error)
+            <p style="color:red;">{{ $error }}</p>
+        @endforeach
+    </div>
+@endif
 
- {{-- Track if we've displayed the specific size or format error to avoid duplicates --}}
- @php
-     $sizeErrorDisplayed = false;
-     $formatErrorDisplayed = false;
- @endphp
+{{-- Track if we've displayed the specific size or format error to avoid duplicates --}}
+@php
+    $sizeErrorDisplayed = false;
+    $formatErrorDisplayed = false;
+@endphp
 
- {{-- Loop through each file-specific error --}}
- @foreach ($errors->get('resource_img.*') as $fileErrors)
-     @foreach ($fileErrors as $msg)
-         {{-- Display the size error message only once --}}
-         @if (str_contains($msg, 'must not be greater than') && !$sizeErrorDisplayed)
-             <div class="text-danger">
-                 <p style="color:red;">The image must not be greater than 10 MB.</p>
-             </div>
-             @php
-                 $sizeErrorDisplayed = true;
-             @endphp
-         @endif
+{{-- Loop through each file-specific error --}}
+@foreach ($errors->get('resource_img.*') as $fileErrors)
+    @foreach ($fileErrors as $msg)
+        {{-- Display the size error message only once --}}
+        @if (str_contains($msg, 'must not be greater than') && !$sizeErrorDisplayed)
+            <div class="text-danger">
+                <p style="color:red;">The image must not be greater than 10 MB.</p>
+            </div>
+            @php
+                $sizeErrorDisplayed = true;
+            @endphp
+        @endif
 
-         {{-- Display the format error message only once --}}
-         @if (str_contains($msg, 'must be a file of type') && !$formatErrorDisplayed)
-             <div class="text-danger">
-                 <p style="color:red;">The image must be a valid format (jpg, jpeg, png).</p>
-             </div>
-             @php
-                 $formatErrorDisplayed = true;
-             @endphp
-         @endif
-     @endforeach
- @endforeach
-</div>
-</div>
+        {{-- Display the format error message only once --}}
+        @if (str_contains($msg, 'must be a file of type') && !$formatErrorDisplayed)
+            <div class="text-danger">
+                <p style="color:red;">The image must be a valid format (jpg, jpeg, png).</p>
+            </div>
+            @php
+                $formatErrorDisplayed = true;
+            @endphp
+        @endif
+    @endforeach
 @endforeach
+
+
+
+<!--            @if ($errors->has('resource_img'))-->
+<!--    <div class="text-danger">-->
+<!--        @foreach ($errors->get('resource_img') as $error)-->
+<!--            <p style="color:red;">{{ $error }}</p>-->
+<!--        @endforeach-->
+<!--    </div>-->
+<!--@endif-->
+
+<!--{{-- Display the size error message only once --}}-->
+<!--@php-->
+<!--    $sizeErrorDisplayed = false;-->
+<!--@endphp-->
+
+<!--@foreach ($errors->get('resource_img.*') as $fileErrors)-->
+<!--    @foreach ($fileErrors as $msg)-->
+<!--        @if (str_contains($msg, 'The image must not be greater than') && !$sizeErrorDisplayed)-->
+<!--            <div class="text-danger">-->
+<!--                <p style="color:red;">The image must not be greater than 10 MB.</p>-->
+<!--            </div>-->
+<!--            @php-->
+<!--                $sizeErrorDisplayed = true;-->
+<!--            @endphp-->
+<!--        @endif-->
+<!--    @endforeach-->
+<!--@endforeach-->
+
+
+
+<!--                @if ($errors->has('resource_img') || $errors->has('resource_img.*'))-->
+<!--    <div class="text-danger">-->
+<!--        <p style="color:red;">-->
+<!--            {{-- Display a single error message --}}-->
+<!--            The image must not be greater than 10 MB.-->
+<!--        </p>-->
+<!--    </div>-->
+<!--@endif-->
+
+
+                <!--seperate error message display-->
+<!--               @if ($errors->has('resource_img'))-->
+<!--    <div class="text-danger">-->
+<!--        @foreach ($errors->get('resource_img') as $error)-->
+<!--            <p style="color:red;">{{ $error }}</p>-->
+<!--        @endforeach-->
+<!--    </div>-->
+<!--@endif-->
+
+<!--@if ($errors->has('resource_img.*'))-->
+<!--    <div class="text-danger">-->
+<!--        @foreach ($errors->get('resource_img.*') as $error)-->
+<!--            @foreach ($error as $msg)-->
+<!--                <p style="color:red;">{{ $msg }}</p>-->
+<!--            @endforeach-->
+<!--        @endforeach-->
+<!--    </div>-->
+<!--@endif-->
+
+<!--to give error for specific input-->
+ <!--@if ($errors->has("resource_img.$index"))-->
+ <!--               <div class="text-danger">-->
+ <!--                   @foreach ($errors->get("resource_img.$index") as $msg)-->
+ <!--                       <p>{{ $msg }}</p>-->
+ <!--                   @endforeach-->
+ <!--               </div>-->
+ <!--           @endif-->
+
+ <!--           {{-- Check for errors related to all files (required field) --}}-->
+ <!--           @if ($errors->has('resource_img'))-->
+ <!--               <div class="text-danger">-->
+ <!--                   @foreach ($errors->get('resource_img') as $msg)-->
+ <!--                       <p>{{ $msg }}</p>-->
+ <!--                   @endforeach-->
+ <!--               </div>-->
+ <!--           @endif-->
+
+
+            </div>
+        </div>
+    @endforeach
 </div>
 
-                    </div>
+                            </div>
 
                             <!-- <label for="address">Select your location</label><br><br>-->
                             <!--    <div id="map" style="height: 400px;"></div>-->
@@ -326,7 +405,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                              <label for="address">Enter Address/Nearest Landmark<span style="color:red;">* </span>:</label>
-                            <input type="text" id="address" name="address" required >
+                            <input type="text" id="address" name="address" required value="{{ old('address') }}">
                             </div></div></div>
                             <div class="row">
                             <div class="col-md-6">
@@ -531,22 +610,7 @@
     });
 </script>
 
-<script>
-    function isNumeric(event) {
-      // Get the key code of the pressed key
-      const keyCode = event.which ? event.which : event.keyCode;
 
-      // Check if the key code corresponds to a numeric character or a special key
-      if (keyCode >= 48 && keyCode <= 57 ) {
-        return true; // Allow input
-      } else {
-        return false; // Prevent input
-      }
-    }
-
-
-
-</script>
 
 
 </body>
