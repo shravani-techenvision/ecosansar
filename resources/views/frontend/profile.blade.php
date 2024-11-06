@@ -7,7 +7,7 @@
     <style>
     .btn.btn-small{
         padding: 7px 10px !important;
-        
+
     }
      .row{
         margin-right: 0px;
@@ -28,7 +28,7 @@
                         <br>
                         <h1>Profile Details</h1>
                     </section
-                    
+
                     <!--end page-title-->
                     <section id="business">
                         <form class="form inputs-underline" action="{{ $url }}" method="post" enctype="multipart/form-data">
@@ -53,7 +53,7 @@
                                     <!--            @endif-->
                                     <!--    </div>-->
                                     <!--    </div>-->
-                                        
+
                                          <div class="col-md-6">
                                    <div class="form-group" id="contact-group">
                                         <label for="contact">Phone<span style="color:red;">*</span></label><br>
@@ -70,9 +70,9 @@
                                             <!-- Error message -->
                                         </div>
                                     </div>
-                                    
+
                                     </div>
-                                        
+
                                         <!--end form-group-->
                             </div>
                             <div class="row">
@@ -91,12 +91,12 @@
                                   <label for="address">
                                     Address<span class="text-danger">*</span>
                                   </label>
-                                  <textarea 
-                                    class="form-control" 
-                                    rows="4" 
-                                    cols="50" 
-                                    name="address" 
-                                    id="address" 
+                                  <textarea
+                                    class="form-control"
+                                    rows="4"
+                                    cols="50"
+                                    name="address"
+                                    id="address"
                                     placeholder="Address">{{ old('address', $users->address ?? '') }}</textarea>
                                   @if ($errors->has('address'))
                                     <span class="text-danger">{{ $errors->first('address') }}</span>
@@ -134,12 +134,12 @@
             </div>
              <!--<div class="row" style="margin-right:-9px !important; margin-left:-3px !important;">-->
                                     <!--end col-md-6-->
-                                     
-         
+
+
              <!--                   <button type="submit" class="btn btn-primary btn-small btn-rounded icon shadow add-listing ">Add your post  </button>-->
-                                
+
              <!--                   <a href="{{url('/')}}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing " style="padding: 13px;margin-top: -2px;margin-left:40px">Browse listings</a>-->
-                               
+
              <!--                    </div>-->
                @if (session()->has('user_id'))
     @php
@@ -171,7 +171,7 @@
     <div class="formob">
         <a href="{{ route('consumer_login', ['redirect' => request()->fullUrl()]) }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing">Add Your Post</a>
     </div>
-    
+
 @endif
 
 @if (session()->has('user_id'))
@@ -222,10 +222,10 @@
                                         <!--    <span class="reviews">{{ $listing->reviews_count }}</span>-->
                                         <!--</div>-->
                                          <a href="#" class="con-deactivate-post btn btn-primary btn-small btn-rounded icon shadow add-listing" data-post-id="{{ $listing->id }}">Deactivate</a>
-                                          <a href="#" class="con-reactivate-post btn btn-primary btn-small btn-rounded icon shadow add-listing pull-right" data-post-id="{{ $listing->id }}">Reactivate</a> 
+                                          <a href="#" class="con-reactivate-post btn btn-primary btn-small btn-rounded icon shadow add-listing pull-right" data-post-id="{{ $listing->id }}">Reactivate</a>
                                                 <!--<li><a href="#">Add to watchlist</a></li>-->
                                                 <!--<li><a href="#" class="quick-detail">Quick detail</a></li>-->
-                                             
+
                                         <!--end controls-more-->
                                     </div>
                                     <!--end additional-info-->
@@ -234,10 +234,10 @@
                             </div>
                             <!--end col-md-4-->
                         @endforeach
-                    </div> 
-                    
-                    
-                    
+                    </div>
+
+
+
                      <h2>Contributor Deactive Listings </h2>
                     <div class="row">
                         @foreach($deactiveuniqueListings as $listing)
@@ -268,10 +268,10 @@
                                         <!--    <span class="reviews">{{ $listing->reviews_count }}</span>-->
                                         <!--</div>-->
                                          <!--<a href="#" class="con-deactivate-post btn btn-primary btn-small btn-rounded icon shadow add-listing" data-post-id="{{ $listing->id }}">Deactivate</a>-->
-                                          <a href="#" class="con-reactivate-post btn btn-primary btn-small btn-rounded icon shadow add-listing  " data-post-id="{{ $listing->id }}">Reactivate</a> 
+                                          <a href="#" class="con-reactivate-post btn btn-primary btn-small btn-rounded icon shadow add-listing  " data-post-id="{{ $listing->id }}">Reactivate</a>
                                                 <!--<li><a href="#">Add to watchlist</a></li>-->
                                                 <!--<li><a href="#" class="quick-detail">Quick detail</a></li>-->
-                                             
+
                                         <!--end controls-more-->
                                     </div>
                                     <!--end additional-info-->
@@ -280,7 +280,7 @@
                             </div>
                             <!--end col-md-4-->
                         @endforeach
-                    </div> 
+                    </div>
 
                     <!--end row-->
                 </section>
@@ -306,7 +306,8 @@
                                         </div>
                                         <!--end description-->
                                         <div class="image bg-transfer">
-                                            <img src="{{ asset('frontend/assets/img/SABposts/'.$listing->resource_img) }}" alt="abc">
+                                            <img src="{{ Storage::disk('s3')->url('SABposts/' . $listing->resource_img) }}" alt="abc">
+
                                         </div>
                                         <!--end image-->
                                     </a>
@@ -315,11 +316,11 @@
                                         <!--    <span class="stars"></span>-->
                                         <!--    <span class="reviews">{{ $listing->reviews_count }}</span>-->
                                         <!--</div>-->
-                                         <a href="#" class="sab-deactivate-post btn btn-primary btn-small btn-rounded icon shadow add-listing" data-post-id="{{ $listing->id }}">Deactivate</a> 
-                                          <a href="#" class="sab-reactivate-post btn btn-primary btn-small btn-rounded icon shadow add-listing pull-right" data-post-id="{{ $listing->id }}">Reactivate</a> 
+                                         <a href="#" class="sab-deactivate-post btn btn-primary btn-small btn-rounded icon shadow add-listing" data-post-id="{{ $listing->id }}">Deactivate</a>
+                                          <a href="#" class="sab-reactivate-post btn btn-primary btn-small btn-rounded icon shadow add-listing pull-right" data-post-id="{{ $listing->id }}">Reactivate</a>
                                                 <!--<li><a href="#">Add to watchlist</a></li>-->
                                                 <!--<li><a href="#" class="quick-detail">Quick detail</a></li>-->
-                                             
+
                                         <!--end controls-more-->
                                     </div>
                                     <!--end additional-info-->
@@ -329,7 +330,7 @@
                             <!--end col-md-4-->
                         @endforeach
                     </div>
-                    
+
                                          <h2>Resource Collector Deactive Listings</h2>
                     <div class="row">
                         @foreach($deactivesabuniqueListings as $listing)
@@ -350,7 +351,8 @@
                                         </div>
                                         <!--end description-->
                                         <div class="image bg-transfer">
-                                            <img src="{{ asset('frontend/assets/img/SABposts/'.$listing->resource_img) }}" alt="abc">
+                                            <img src="{{ Storage::disk('s3')->url('SABposts/' . $listing->resource_img) }}" alt="abc">
+
                                         </div>
                                         <!--end image-->
                                     </a>
@@ -360,10 +362,10 @@
                                         <!--    <span class="reviews">{{ $listing->reviews_count }}</span>-->
                                         <!--</div>-->
                                          <!--<a href="#" class="sab-deactivate-post btn btn-primary btn-small btn-rounded icon shadow add-listing" data-post-id="{{ $listing->id }}">Deactivate</a> -->
-                                          <a href="#" class="sab-reactivate-post btn btn-primary btn-small btn-rounded icon shadow add-listing " data-post-id="{{ $listing->id }}">Reactivate</a> 
+                                          <a href="#" class="sab-reactivate-post btn btn-primary btn-small btn-rounded icon shadow add-listing " data-post-id="{{ $listing->id }}">Reactivate</a>
                                                 <!--<li><a href="#">Add to watchlist</a></li>-->
                                                 <!--<li><a href="#" class="quick-detail">Quick detail</a></li>-->
-                                             
+
                                         <!--end controls-more-->
                                     </div>
                                     <!--end additional-info-->
@@ -408,11 +410,11 @@
                                         <!--    <span class="reviews">{{ $listing->reviews_count }}</span>-->
                                         <!--</div>-->
                                         <!--<h4>{{ $listing->active }}</h4>-->
-                                        <a href="#" class="bus-deactivate-post btn btn-primary btn-small btn-rounded icon shadow add-listing" data-post-id="{{ $listing->id }}">Deactivate</a> 
-                                         <a href="#" class="bus-reactivate-post btn btn-primary btn-small btn-rounded icon shadow add-listing pull-right" data-post-id="{{ $listing->id }}">Reactivate</a> 
+                                        <a href="#" class="bus-deactivate-post btn btn-primary btn-small btn-rounded icon shadow add-listing" data-post-id="{{ $listing->id }}">Deactivate</a>
+                                         <a href="#" class="bus-reactivate-post btn btn-primary btn-small btn-rounded icon shadow add-listing pull-right" data-post-id="{{ $listing->id }}">Reactivate</a>
                                                 <!--<li><a href="#">Add to watchlist</a></li>-->
                                                 <!--<li><a href="#" class="quick-detail">Quick detail</a></li>-->
-                                             
+
                                         <!--end controls-more-->
                                     </div>
                                     <!--end additional-info-->
@@ -422,8 +424,8 @@
                             <!--end col-md-4-->
                         @endforeach
                     </div>
-                    
-                    
+
+
                      <h2>Corporate Deactive Listings </h2>
                     <div class="row">
                         @foreach($deactivebusuniqueListings as $listing)
@@ -454,10 +456,10 @@
                                         <!--    <span class="reviews">{{ $listing->reviews_count }}</span>-->
                                         <!--</div>-->
                                         <!--<a href="#" class="bus-deactivate-post btn btn-primary btn-small btn-rounded icon shadow add-listing" data-post-id="{{ $listing->id }}">Deactivate</a> -->
-                                         <a href="#" class="bus-reactivate-post btn btn-primary btn-small btn-rounded icon shadow add-listing " data-post-id="{{ $listing->id }}">Reactivate</a> 
+                                         <a href="#" class="bus-reactivate-post btn btn-primary btn-small btn-rounded icon shadow add-listing " data-post-id="{{ $listing->id }}">Reactivate</a>
                                                 <!--<li><a href="#">Add to watchlist</a></li>-->
                                                 <!--<li><a href="#" class="quick-detail">Quick detail</a></li>-->
-                                             
+
                                         <!--end controls-more-->
                                     </div>
                                     <!--end additional-info-->
@@ -475,7 +477,7 @@
 
 
                 <!--<section>-->
-                   
+
                 <!--    @if( $utype == 'consumer')-->
                 <!--     <h2>Reviews</h2>-->
                 <!--    <div class="review">-->
@@ -524,7 +526,7 @@
     </div>
     <!--end page-content-->
 
-  
+
  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -559,14 +561,14 @@
             });
         });
     </script>
-    
+
        <script>
         $(document).ready(function() {
             $('.sab-deactivate-post').on('click', function(e) {
                // e.preventDefault();
 
                 var postId = $(this).data('post-id');
- 
+
                 if (confirm('Are you sure you want to deactivate this post?')) {
                     $.ajax({
                         url: '{{ route('sab-posts.deactivate') }}',
@@ -591,7 +593,7 @@
             });
         });
     </script>
-    
+
            <script>
         $(document).ready(function() {
             $('.bus-deactivate-post').on('click', function(e) {
