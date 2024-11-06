@@ -312,7 +312,8 @@ function displayStars($rating) {
                             <div class="col-md-3">
                             <a href="{{ url('sabs_listing_details/'.$listing->id) }}">
                                 <div>
-                                     <img class="corpimage" src="{{ asset('frontend/assets/img/SABposts/'.$listing->resource_img) }}" alt="abc">
+                                    <img class="corpimage" src="{{ Storage::disk('s3')->url('SABposts/' . $listing->resource_img) }}" alt="abc">
+
                                 </div>
                                  </a>
                                 </div>
@@ -525,7 +526,7 @@ function displayStars($rating) {
         html += '<div class="col-md-3">';
         html += '<a href="{{ url('sabs_listing_details/') }}/' + listing.id + '">';
         html += '<div >';
-        html += '<img class="corpimage" src="{{ asset('frontend/assets/img/SABposts/') }}/' + listing.resource_img + '" alt="abc">';
+        html += '<img class="corpimage" src="{{ Storage::disk('s3')->url('SABposts') }}/' + listing.resource_img + '" alt="abc">';
         html += '</div>';
         html += '</a>';
          html += '</div>';
@@ -663,7 +664,7 @@ $(document).ready(function() {
                     html += '<div class="col-md-3">';
                     html += '<a href="{{ url('sabs_listing_details/') }}/' + listing.id + '">';
                     html += '<div>';
-                    html += '<img class="corpimage" src="{{ asset('frontend/assets/img/SABposts/') }}/' + listing.resource_img + '" alt="abc">';
+                    html += '<img class="corpimage" src="{{ Storage::disk('s3')->url('SABposts') }}/' + listing.resource_img + '" alt="abc">';
                     html += '</div>';
                       html += '</a>';
                      html += '</div>';

@@ -212,7 +212,8 @@
                                         </div>
                                         <!--end description-->
                                         <div class="image bg-transfer">
-                                            <img src="{{ asset('frontend/assets/img/Consumerposts/'.$listing->resource_img) }}" alt="abc">
+                                            <img src="{{ Storage::disk('s3')->url('Consumerposts/' . $listing->resource_img) }}" alt="abc">
+
                                         </div>
                                         <!--end image-->
                                     </a>
@@ -258,7 +259,8 @@
                                         </div>
                                         <!--end description-->
                                         <div class="image bg-transfer">
-                                            <img src="{{ asset('frontend/assets/img/Consumerposts/'.$listing->resource_img) }}" alt="abc">
+                                            <img src="{{ Storage::disk('s3')->url('Consumerposts/' . $listing->resource_img) }}" alt="abc">
+
                                         </div>
                                         <!--end image-->
                                     </a>
@@ -400,7 +402,8 @@
                                         </div>
                                         <!--end description-->
                                         <div class="image bg-transfer">
-                                            <img src="{{ asset('frontend/assets/img/Businessposts/'.$listing->resource_img) }}" alt="abc">
+                                            <img src="{{ Storage::disk('s3')->url('Businessposts/' . $listing->resource_img) }}" alt="abc">
+
                                         </div>
                                         <!--end image-->
                                     </a>
@@ -446,7 +449,8 @@
                                         </div>
                                         <!--end description-->
                                         <div class="image bg-transfer">
-                                            <img src="{{ asset('frontend/assets/img/Businessposts/'.$listing->resource_img) }}" alt="abc">
+                                            <img src="{{ Storage::disk('s3')->url('Businessposts/' . $listing->resource_img) }}" alt="abc">
+
                                         </div>
                                         <!--end image-->
                                     </a>

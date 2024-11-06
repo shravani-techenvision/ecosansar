@@ -157,7 +157,10 @@ padding-left:8px;
             <div class="owl-carousel" data-owl-items="3" data-owl-loop="1" data-owl-auto-width="1" data-owl-nav="1" data-owl-dots="0" data-owl-margin="2" data-owl-nav-container="#gallery-nav">
                 @foreach($consumerpostsres as $consumerpost)
                 <div class="image">
-                    <div class="bg-transfer"><img src="{{ asset('frontend/assets/img/Consumerposts/'.$consumerpost->resource_img) }}" alt=""></div>
+                    <div class="bg-transfer">
+                        <img src="{{ Storage::disk('s3')->url('Consumerposts/' . $consumerpost->resource_img) }}" alt="abc">
+
+                    </div>
                 </div>
             @endforeach
 

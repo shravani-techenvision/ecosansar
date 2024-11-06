@@ -59,7 +59,7 @@
     /*       display: unset !important;*/
     /*   } */
     /*}*/
-  
+
 </style>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
 
@@ -83,7 +83,10 @@
             <div class="owl-carousel" data-owl-items="3" data-owl-loop="1" data-owl-auto-width="1" data-owl-nav="1" data-owl-dots="0" data-owl-margin="2" data-owl-nav-container="#gallery-nav">
                 @foreach($consumerpostsres as $consumerpost)
                 <div class="image">
-                    <div class="bg-transfer"><img src="{{ asset('frontend/assets/img/Consumerposts/'.$consumerpost->resource_img) }}" alt=""></div>
+                    <div class="bg-transfer">
+                        <img src="{{ Storage::disk('s3')->url('Consumerposts/' . $consumerpost->resource_img) }}" alt="abc">
+
+                    </div>
                 </div>
             @endforeach
             </div>
@@ -115,14 +118,14 @@
                         <dt>Address: </dt>
                         <dd>  {{ $consumerposts->address }}</dd>
                     </dl>
-                    
+
                     <br><br><br>
-                    
+
                     <span><strong>Posted On: </strong>{{ \Carbon\Carbon::parse($consumerposts->post_date)->format('F j, Y \a\t g:i A') }}</span>
-                     
-                    
+
+
                 </section>
-                
+
                 <!--<section>-->
                 <!--    <h2>Reviews</h2>-->
                 <!--    <div class="review">-->
@@ -206,7 +209,7 @@
                  <strong><h2>Location</h2> </strong>
                   <div id="map" style="height: 400px; width: 100%;"></div>
             </div>
-            
+
             <!--end col-md-5-->
         </div>
         <!--end row-->
@@ -215,7 +218,7 @@
 </div>
 
 <!--start map -->
-      @include('frontend.include.footer')  
+      @include('frontend.include.footer')
       <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPfLLFN-fT9hed5CBwFZFKBOpoB_KChL0"></script>
     <script>
         function initMap() {
@@ -237,14 +240,14 @@
                 position: location,
                 map: map
             });
-            
+
             // Add a click event listener to the map
             map.addListener('click', function(event) {
                 const clickedLatLng = event.latLng;
                 const googleMapsUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
                 window.open(googleMapsUrl, '_blank');
             });
-            
+
         }
 
         // Initialize the map when the window loads

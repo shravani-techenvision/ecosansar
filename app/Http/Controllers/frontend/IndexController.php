@@ -1371,9 +1371,9 @@ if ($request->sale_giveaway == 'Buy') {
         'clean_unclean' => 'required',
         'packaged' => 'required',
         'resource_type' => 'required|array|min:1',
-      // 'resource_img.*' => 'mimes:jpg,jpeg,png,bmp|max:10240', // Adjust mime types and max size as needed
+       'resource_img.*' => 'mimes:jpg,jpeg,png,bmp|max:10240', // Adjust mime types and max size as needed
     ], [
-//'resource_img.*.max' => 'The image must not be greater than 10 MB.',
+'resource_img.*.max' => 'The image must not be greater than 10 MB.',
         'pincode.exists' => 'We are not servicable in this area.'
     ]);
 
@@ -1387,20 +1387,20 @@ if ($request->sale_giveaway == 'Buy') {
         'clean_unclean' => 'required',
         'packaged' => 'required',
         'resource_type' => 'required|array|min:1',
-   // 'resource_img' => 'required|array|min:1',
-    //   'resource_img.*' => 'required|mimes:jpg,jpeg,png,bmp|max:10240', // Adjust mime types and max size as needed
+    'resource_img' => 'required|array|min:1',
+       'resource_img.*' => 'required|mimes:jpg,jpeg,png,bmp|max:10240', // Adjust mime types and max size as needed
 
     ], [
-//'resource_img.*.max' => 'The image must not be greater than 10 MB.',
+'resource_img.*.max' => 'The image must not be greater than 10 MB.',
         'pincode.exists' => 'We are not servicable in this area.'
     ]);
 
     // Check if the number of selected resources matches the number of uploaded images
-    //  if ($request->sale_giveaway !== 'Buy') {
-    // if (count($request->resource_type) !== count($request->resource_img)) {
-    //     return back()->withErrors(['resource_img' => 'Please upload an image for each resource type.'])->withInput();
-    // }
-    //  }
+     if ($request->sale_giveaway !== 'Buy') {
+    if (count($request->resource_type) !== count($request->resource_img)) {
+        return back()->withErrors(['resource_img' => 'Please upload an image for each resource type.'])->withInput();
+    }
+     }
 }
 
 
@@ -2700,9 +2700,9 @@ function resizeImage($source, $width, $height)
                 'clean_unclean' => 'required',
                 'packaged' => 'required',
                 'resource_type' => 'required|array|min:1',
-              //  'resource_img.*' => 'mimes:jpg,jpeg,png,bmp|max:10240', // Adjust mime types and max size as needed
+                'resource_img.*' => 'mimes:jpg,jpeg,png,bmp|max:10240', // Adjust mime types and max size as needed
             ], [
-              //  'resource_img.*.max' => 'The image must not be greater than 10 MB.',
+                'resource_img.*.max' => 'The image must not be greater than 10 MB.',
                 'pincode.exists' => 'We are not servicable in this area.'
             ]);
         } else {
@@ -2714,10 +2714,10 @@ function resizeImage($source, $width, $height)
                 'clean_unclean' => 'required',
                 'packaged' => 'required',
                 'resource_type' => 'required|array|min:1',
-             //  'resource_img' => 'required|array|min:1',
-             //  'resource_img.*' => 'required|mimes:jpg,jpeg,png,bmp|max:2048', // Adjust mime types and max size as needed
+               'resource_img' => 'required|array|min:1',
+               'resource_img.*' => 'required|mimes:jpg,jpeg,png,bmp|max:2048', // Adjust mime types and max size as needed
             ],[
-//'resource_img.*.max' => 'The image must not be greater than 10 MB.',
+'resource_img.*.max' => 'The image must not be greater than 10 MB.',
                'pincode.exists' => 'We are not servicable in this area.'
            ]);
 
@@ -2728,11 +2728,11 @@ function resizeImage($source, $width, $height)
             // ]);
 
             // Check if the number of selected resources matches the number of uploaded images
-            //  if ($request->sale_giveaway !== 'Buy') {
-            // if (count($request->resource_type) !== count($request->resource_img)) {
-            //     return back()->withErrors(['resource_img' => 'Please upload image here.'])->withInput();
-            // }
-            //  }
+             if ($request->sale_giveaway !== 'Buy') {
+            if (count($request->resource_type) !== count($request->resource_img)) {
+                return back()->withErrors(['resource_img' => 'Please upload image here.'])->withInput();
+            }
+             }
         }
 
         $selectedResources = $request->input('resource_type');

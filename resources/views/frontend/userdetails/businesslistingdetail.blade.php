@@ -76,7 +76,10 @@
             <div class="owl-carousel" data-owl-items="3" data-owl-loop="1" data-owl-auto-width="1" data-owl-nav="1" data-owl-dots="0" data-owl-margin="2" data-owl-nav-container="#gallery-nav">
                 @foreach($businesspostsres as $businposts)
                 <div class="image">
-                    <div class="bg-transfer"><img src="{{ asset('frontend/assets/img/Businessposts/'.$businposts->resource_img) }}" alt=""></div>
+                    <div class="bg-transfer">
+                        <img src="{{ Storage::disk('s3')->url('Businessposts/' . $businposts->resource_img) }}" alt="abc">
+
+                    </div>
                 </div>
             @endforeach
             </div>
@@ -107,13 +110,13 @@
                         <dd>  {{ $businessposts->pincode }}</dd>
                         <dt>Address: </dt>
                         <dd>  {{ $businessposts->address }}</dd>
-                        
-                        
+
+
                     </dl>
                     <br><br><br>
-                    
+
                     <span><strong>Posted On: </strong>{{ \Carbon\Carbon::parse($businessposts->post_date)->format('F j, Y \a\t g:i A') }}</span>
-                     
+
                 </section>
                 {{--  <section>
                     <h2>Features</h2>
@@ -321,7 +324,7 @@
                 const googleMapsUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
                 window.open(googleMapsUrl, '_blank');
             });
-            
+
         }
 
         // Initialize the map when the window loads
@@ -353,10 +356,10 @@
 
     //     // Initialize the map when the window loads
     //     window.onload = initMap;
-        
+
 
      </script>
-    
+
 
 
 
@@ -364,7 +367,7 @@
 
     <!-- <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>-->
     <!--<script>-->
-    
+
          <!--Get latitude and longitude from the Blade file-->
     <!--    var lat = {{ $businessposts->latitude }};-->
     <!--    var lng = {{ $businessposts->longitude }};-->
@@ -378,12 +381,12 @@
     <!--    }).addTo(map);-->
 
          <!--Add a marker to the map at the given coordinates-->
-         
+
     <!--    L.marker([lat, lng]).addTo(map)-->
     <!--        .bindPopup('Your Location')-->
     <!--        .openPopup();-->
-            
+
     <!--</script>-->
-    
+
     <!--end map -->
 @include('frontend.include.footer')

@@ -181,7 +181,10 @@ height:36px;
             <div class="owl-carousel" data-owl-items="3" data-owl-loop="1" data-owl-auto-width="1" data-owl-nav="1" data-owl-dots="0" data-owl-margin="2" data-owl-nav-container="#gallery-nav">
                 @foreach($sabpostsres as $consumerpost)
                 <div class="image">
-                    <div class="bg-transfer"><img src="{{ asset('frontend/assets/img/SABposts/'.$consumerpost->resource_img) }}" alt=""></div>
+                    <div class="bg-transfer">
+                        <img src="{{ Storage::disk('s3')->url('SABposts/' . $consumerpost->resource_img) }}" alt="abc">
+
+                    </div>
                 </div>
             @endforeach
 

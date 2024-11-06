@@ -1,7 +1,7 @@
 <style>
     .btn.btn-small{
         padding: 7px 10px !important;
-        
+
     }
 </style>
 @include('frontend.include.header')
@@ -143,7 +143,7 @@
             <!--end col-md-3-->
 
             <div class="col-md-12 col-sm-12">
-                
+
 
                 <section>
                     <div class="search-results-controls clearfix">
@@ -174,9 +174,9 @@
           <div class="col-md-4">
                <a href="{{ route('sab_details') }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing" style="float:right;" ><i class="fa fa-plus"></i><span>Add listing</span></a>
          </div>
-         
+
      </div>
-                    
+
                     <div class="row">
                         @foreach($uniqueListings as $listing)
                             <div class="col-md-4 col-sm-4">
@@ -195,7 +195,8 @@
                                         </div>
                                         <!--end description-->
                                         <div class="image bg-transfer">
-                                            <img src="{{ asset('frontend/assets/img/SABposts/'.$listing->resource_img) }}" alt="abc">
+                                            <img src="{{ Storage::disk('s3')->url('SABposts/' . $listing->resource_img) }}" alt="abc">
+
                                         </div>
                                         <!--end image-->
                                     </a>
@@ -204,10 +205,10 @@
                                             <span class="stars"></span>
                                             <span class="reviews">{{ $listing->reviews_count }}</span>
                                         </div>  --}}
-                                           <a href="#" class="sab-deactivate-post btn btn-primary btn-small btn-rounded icon shadow add-listing" data-post-id="{{ $listing->id }}">Deactivate</a> 
+                                           <a href="#" class="sab-deactivate-post btn btn-primary btn-small btn-rounded icon shadow add-listing" data-post-id="{{ $listing->id }}">Deactivate</a>
                                                 <!--<li><a href="#">Add to watchlist</a></li>-->
                                                 <!--<li><a href="#" class="quick-detail">Quick detail</a></li>-->
-                                             
+
                                         <!--end controls-more-->
                                     </div>
                                     <!--end additional-info-->
@@ -220,9 +221,9 @@
 
                     <!--end row-->
                 </section>
-             
-                
-  
+
+
+
                 <section>
                     {{--  <div class="center">
                         <nav aria-label="Page navigation">

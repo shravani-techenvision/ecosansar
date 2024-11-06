@@ -1,6 +1,6 @@
- 
 
- 
+
+
 @include('frontend.include.header')
 @include('sweetalert::alert')
     <style>
@@ -128,7 +128,10 @@
             <div class="owl-carousel" data-owl-items="3" data-owl-loop="1" data-owl-auto-width="1" data-owl-nav="1" data-owl-dots="0" data-owl-margin="2" data-owl-nav-container="#gallery-nav">
                 @foreach($sabpostsres as $consumerpost)
                 <div class="image">
-                    <div class="bg-transfer"><img src="{{ asset('frontend/assets/img/SABposts/'.$consumerpost->resource_img) }}" alt=""></div>
+                    <div class="bg-transfer">
+                        <img src="{{ Storage::disk('s3')->url('SABposts/' . $consumerpost->resource_img) }}" alt="abc">
+
+                    </div>
                 </div>
             @endforeach
             </div>
@@ -161,10 +164,10 @@
                         <dd>  {{ $sabposts->address }}</dd>
                     </dl>
                       <br><br><br>
-                    
+
                     <span><strong>Posted On: </strong>{{ \Carbon\Carbon::parse($sabposts->post_date)->format('F j, Y \a\t g:i A') }}</span>
-                                        
-                     
+
+
                 </section>
                 <!--<section>-->
                 <!--    <h2>Reviews</h2>-->
@@ -189,7 +192,7 @@
                 <!--</section>-->
 
             </div>
-            <!--end col-md-7--> 
+            <!--end col-md-7-->
             <div class="col-md-5 col-sm-5">
                  <strong><h2>Location</h2> </strong>
                   <div id="map" style="height: 400px; width: 100%;"></div>
@@ -363,7 +366,7 @@
 @include('frontend.include.footer')
 
 <!--start map -->
-    
+
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPfLLFN-fT9hed5CBwFZFKBOpoB_KChL0"></script>
     <script>
         function initMap() {
@@ -385,31 +388,31 @@
                 position: location,
                 map: map
             });
-            
+
             // Add a click event listener to the map
             map.addListener('click', function(event) {
                 const clickedLatLng = event.latLng;
                 const googleMapsUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
                 window.open(googleMapsUrl, '_blank');
             });
-            
+
         }
 
         // Initialize the map when the window loads
         window.onload = initMap;
     </script>
-    
+
     <!--end map -->
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const reviewItems = document.querySelectorAll('.review-item');
-    
+
             reviewItems.forEach(item => {
                 item.addEventListener('click', function () {
                     reviewItems.forEach(i => i.classList.add('hidden'));
                     this.classList.remove('hidden');
-    
+
                     const details = this.querySelector('.additional-details');
                     if (details) {
                         details.classList.remove('hidden');
@@ -418,4 +421,4 @@
             });
         });
     </script>
-    
+

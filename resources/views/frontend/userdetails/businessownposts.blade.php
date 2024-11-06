@@ -1,7 +1,7 @@
 <style>
     .btn.btn-small{
         padding: 7px 10px !important;
-        
+
     }
 </style>
 @include('frontend.include.header')
@@ -143,7 +143,7 @@
             <!--end col-md-3-->
 
             <div class="col-md-12 col-sm-12">
-                 
+
 
                 <section>
                     <div class="search-results-controls clearfix">
@@ -194,7 +194,8 @@
                                         </div>
                                         <!--end description-->
                                         <div class="image bg-transfer">
-                                            <img src="{{ asset('frontend/assets/img/Businessposts/'.$listing->resource_img) }}" alt="abc">
+                                            <img src="{{ Storage::disk('s3')->url('Businessposts/' . $listing->resource_img) }}" alt="abc">
+
                                         </div>
                                         <!--end image-->
                                     </a>
@@ -203,17 +204,17 @@
                                             <span class="stars"></span>
                                             <span class="reviews">{{ $listing->reviews_count }}</span>
                                         </div>  --}}
-                                           <a href="#" class="bus-deactivate-post btn btn-primary btn-small btn-rounded icon shadow add-listing" data-post-id="{{ $listing->id }}">Deactivate</a>  
+                                           <a href="#" class="bus-deactivate-post btn btn-primary btn-small btn-rounded icon shadow add-listing" data-post-id="{{ $listing->id }}">Deactivate</a>
                                                 <!--<li><a href="#">Add to watchlist</a></li>-->
                                                 <!--<li><a href="#" class="quick-detail">Quick detail</a></li>-->
-                                            
-                                        </div>  
+
+                                        </div>
                                         <!--end controls-more-->
                                     </div>
                                     <!--end additional-info-->
                                 </div>
                                 <!--end item-->
-                            
+
                         @endforeach
                     </div>
 
