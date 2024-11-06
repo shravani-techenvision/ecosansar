@@ -1371,9 +1371,9 @@ if ($request->sale_giveaway == 'Buy') {
         'clean_unclean' => 'required',
         'packaged' => 'required',
         'resource_type' => 'required|array|min:1',
-       // 'resource_img.*' => 'mimes:jpg,jpeg,png,bmp|max:10240', // Adjust mime types and max size as needed
+      // 'resource_img.*' => 'mimes:jpg,jpeg,png,bmp|max:10240', // Adjust mime types and max size as needed
     ], [
-
+//'resource_img.*.max' => 'The image must not be greater than 10 MB.',
         'pincode.exists' => 'We are not servicable in this area.'
     ]);
 
@@ -1387,11 +1387,11 @@ if ($request->sale_giveaway == 'Buy') {
         'clean_unclean' => 'required',
         'packaged' => 'required',
         'resource_type' => 'required|array|min:1',
-      //  'resource_img' => 'required|array|min:1',
-      //  'resource_img.*' => 'required|mimes:jpg,jpeg,png,bmp|max:10240', // Adjust mime types and max size as needed
+   // 'resource_img' => 'required|array|min:1',
+    //   'resource_img.*' => 'required|mimes:jpg,jpeg,png,bmp|max:10240', // Adjust mime types and max size as needed
 
     ], [
-
+//'resource_img.*.max' => 'The image must not be greater than 10 MB.',
         'pincode.exists' => 'We are not servicable in this area.'
     ]);
 
@@ -1425,7 +1425,7 @@ if ($request->sale_giveaway == 'Buy') {
         $user->save();
 
         // Function to resize an image using the GD library
-function resizeImage($source, $destination, $width, $height)
+function resizeImage($source, $width, $height)
 {
     // Get the original image dimensions and type
     list($originalWidth, $originalHeight, $type) = getimagesize($source);
@@ -1459,27 +1459,32 @@ function resizeImage($source, $destination, $width, $height)
     // Resize the image
     imagecopyresampled($newImage, $sourceImage, 0, 0, 0, 0, $width, $height, $originalWidth, $originalHeight);
 
-    // Save the resized image to the destination path
+    // Start output buffering to capture the image content
+    ob_start();
     switch ($type) {
         case IMAGETYPE_JPEG:
-            imagejpeg($newImage, $destination);
+            imagejpeg($newImage);
             break;
         case IMAGETYPE_PNG:
-            imagepng($newImage, $destination);
+            imagepng($newImage);
             break;
         case IMAGETYPE_GIF:
-            imagegif($newImage, $destination);
+            imagegif($newImage);
             break;
     }
+    $imageContent = ob_get_clean(); // Get the image content from the buffer
 
     // Free up memory
     imagedestroy($newImage);
     imagedestroy($sourceImage);
+
+    return $imageContent; // Return the resized image content as a binary string
 }
 
 
         // Save resources and images
         foreach ($request->resource_type as $index => $resourceId) {
+            if (!empty($resourceId)) {
             $resource = new BusinessResourcePost();
             $resource->user_id = $user_id;
             $resource->post_id = $user->id;
@@ -1488,23 +1493,47 @@ function resizeImage($source, $destination, $width, $height)
             // Check if the corresponding image exists
             if (isset($request->resource_img[$index])) {
                 $image = $request->file('resource_img')[$index];
-                $imageName = $user_id . '_' . $user->id . '_' . $resourceId . '.' . $image->extension();
+                $imageName = $user_id . '_' . $user->id . '_' . $resourceId . '.' . $image->getClientOriginalExtension();
 
-                // Temporary path for the uploaded file
-        $tempPath = $image->getRealPath();
-        // Destination path for resized image
-        $destinationPath = base_path('frontend/assets/img/Businessposts/' . $imageName);
+                // Upload the original image file to S3
 
-        // Resize the image using GD library before moving
-        resizeImage($tempPath, $destinationPath, 800, 600); // Resize to 800x600 (or your preferred size)
+               try {
+                   // Resize the image
+                            $resizedImageContent = resizeImage($image->getRealPath(), 800, 600); // Adjust width and height as needed
 
-               // $image->move('frontend/assets/img/Businessposts', $imageName);
+                            // Convert resized image content to a stream for S3 upload
+                            $resizedImageStream = fopen('php://memory', 'r+');
+                            fwrite($resizedImageStream, $resizedImageContent);
+                            rewind($resizedImageStream);
+
+                   // Define the S3 path where the file will be stored
+                    $s3Directory = 'Businessposts';
+                    $s3Path = $s3Directory . '/' . $imageName;
+
+                    // Upload the file to S3 in the specified directory
+                  //  $uploaded = Storage::disk('s3')->putFileAs($s3Directory, $image, $imageName);
+                  $uploaded = Storage::disk('s3')->put($s3Path, $resizedImageStream);
+
+
+                if (!$uploaded) {
+                    throw new \Exception('Image upload returned false');
+                }
+                fclose($resizedImageStream);
+            } catch (\Exception $e) {
+                Log::error('S3 Upload Error: ' . $e->getMessage());
+                return response()->json(['error' => 'Image upload to S3 failed: ' . $e->getMessage()], 500);
+            }
+
+
+
+                // Save the S3 path in the database
                 $resource->resource_img = $imageName;
+                $resource->save();
             }
 
             $resource->save();
         }
-
+    }
                 // user activity start
         $userid = session()->get('user_id');
         if ($userid){
@@ -2124,7 +2153,7 @@ function resizeImage($source, $width, $height)
 
                         // Save the S3 path in the database
                         $resource->resource_img = $imageName;
-                        $resource->resource_img_url = $imageUrl;
+                        // $resource->resource_img_url = $imageUrl;
                         $resource->save();
 
                     } catch (\Exception $e) {
@@ -2670,8 +2699,10 @@ function resizeImage($source, $width, $height)
                 'quantity' => 'required',
                 'clean_unclean' => 'required',
                 'packaged' => 'required',
-                'resource_type' => 'required|array|min:1'
+                'resource_type' => 'required|array|min:1',
+              //  'resource_img.*' => 'mimes:jpg,jpeg,png,bmp|max:10240', // Adjust mime types and max size as needed
             ], [
+              //  'resource_img.*.max' => 'The image must not be greater than 10 MB.',
                 'pincode.exists' => 'We are not servicable in this area.'
             ]);
         } else {
@@ -2683,10 +2714,10 @@ function resizeImage($source, $width, $height)
                 'clean_unclean' => 'required',
                 'packaged' => 'required',
                 'resource_type' => 'required|array|min:1',
-              //  'resource_img' => 'required|array|min:1',
-               // 'resource_img.*' => 'required|mimes:jpg,jpeg,png,bmp|max:2048', // Adjust mime types and max size as needed
+             //  'resource_img' => 'required|array|min:1',
+             //  'resource_img.*' => 'required|mimes:jpg,jpeg,png,bmp|max:2048', // Adjust mime types and max size as needed
             ],[
-
+//'resource_img.*.max' => 'The image must not be greater than 10 MB.',
                'pincode.exists' => 'We are not servicable in this area.'
            ]);
 
@@ -2732,57 +2763,61 @@ function resizeImage($source, $width, $height)
         $user->save();
 
         // Function to resize an image using the GD library
-function resizeImage($source, $destination, $width, $height)
-{
-    // Get the original image dimensions and type
-    list($originalWidth, $originalHeight, $type) = getimagesize($source);
+        function resizeImage($source, $width, $height)
+        {
+            // Get the original image dimensions and type
+            list($originalWidth, $originalHeight, $type) = getimagesize($source);
 
-    // Calculate the new dimensions while maintaining the aspect ratio
-    $ratio = $originalWidth / $originalHeight;
-    if ($width / $height > $ratio) {
-        $width = $height * $ratio;
-    } else {
-        $height = $width / $ratio;
-    }
+            // Calculate the new dimensions while maintaining the aspect ratio
+            $ratio = $originalWidth / $originalHeight;
+            if ($width / $height > $ratio) {
+                $width = $height * $ratio;
+            } else {
+                $height = $width / $ratio;
+            }
 
-    // Create a new blank image with the calculated dimensions
-    $newImage = imagecreatetruecolor($width, $height);
+            // Create a new blank image with the calculated dimensions
+            $newImage = imagecreatetruecolor($width, $height);
 
-    // Load the source image based on its type
-    switch ($type) {
-        case IMAGETYPE_JPEG:
-            $sourceImage = imagecreatefromjpeg($source);
-            break;
-        case IMAGETYPE_PNG:
-            $sourceImage = imagecreatefrompng($source);
-            break;
-        case IMAGETYPE_GIF:
-            $sourceImage = imagecreatefromgif($source);
-            break;
-        default:
-            throw new Exception('Unsupported image type');
-    }
+            // Load the source image based on its type
+            switch ($type) {
+                case IMAGETYPE_JPEG:
+                    $sourceImage = imagecreatefromjpeg($source);
+                    break;
+                case IMAGETYPE_PNG:
+                    $sourceImage = imagecreatefrompng($source);
+                    break;
+                case IMAGETYPE_GIF:
+                    $sourceImage = imagecreatefromgif($source);
+                    break;
+                default:
+                    throw new Exception('Unsupported image type');
+            }
 
-    // Resize the image
-    imagecopyresampled($newImage, $sourceImage, 0, 0, 0, 0, $width, $height, $originalWidth, $originalHeight);
+            // Resize the image
+            imagecopyresampled($newImage, $sourceImage, 0, 0, 0, 0, $width, $height, $originalWidth, $originalHeight);
 
-    // Save the resized image to the destination path
-    switch ($type) {
-        case IMAGETYPE_JPEG:
-            imagejpeg($newImage, $destination);
-            break;
-        case IMAGETYPE_PNG:
-            imagepng($newImage, $destination);
-            break;
-        case IMAGETYPE_GIF:
-            imagegif($newImage, $destination);
-            break;
-    }
+            // Start output buffering to capture the image content
+            ob_start();
+            switch ($type) {
+                case IMAGETYPE_JPEG:
+                    imagejpeg($newImage);
+                    break;
+                case IMAGETYPE_PNG:
+                    imagepng($newImage);
+                    break;
+                case IMAGETYPE_GIF:
+                    imagegif($newImage);
+                    break;
+            }
+            $imageContent = ob_get_clean(); // Get the image content from the buffer
 
-    // Free up memory
-    imagedestroy($newImage);
-    imagedestroy($sourceImage);
-}
+            // Free up memory
+            imagedestroy($newImage);
+            imagedestroy($sourceImage);
+
+            return $imageContent; // Return the resized image content as a binary string
+        }
 
         // Loop through each resource type and its associated image
         foreach ($request->resource_type as $index => $resourceId) {
@@ -2794,18 +2829,42 @@ function resizeImage($source, $destination, $width, $height)
 
             if (isset($request->resource_img[$index])) {
                 $image = $request->file('resource_img')[$index];
-                $imageName = $user_id . '_' . $user->id . '_' . $resourceId . '.' . $image->extension();
+                $imageName = $user_id . '_' . $user->id . '_' . $resourceId . '.' . $image->getClientOriginalExtension();
 
-                // Temporary path for the uploaded file
-        $tempPath = $image->getRealPath();
-        // Destination path for resized image
-        $destinationPath = base_path('frontend/assets/img/Consumerposts/' . $imageName);
+                // Upload the original image file to S3
 
-        // Resize the image using GD library before moving
-        resizeImage($tempPath, $destinationPath, 800, 600); // Resize to 800x600 (or your preferred size)
+               try {
+                   // Resize the image
+                            $resizedImageContent = resizeImage($image->getRealPath(), 800, 600); // Adjust width and height as needed
 
-               // $image->move('frontend/assets/img/Consumerposts', $imageName); // Move image to storage, adjust path as needed
+                            // Convert resized image content to a stream for S3 upload
+                            $resizedImageStream = fopen('php://memory', 'r+');
+                            fwrite($resizedImageStream, $resizedImageContent);
+                            rewind($resizedImageStream);
+
+                   // Define the S3 path where the file will be stored
+                    $s3Directory = 'Consumerposts';
+                    $s3Path = $s3Directory . '/' . $imageName;
+
+                    // Upload the file to S3 in the specified directory
+                  //  $uploaded = Storage::disk('s3')->putFileAs($s3Directory, $image, $imageName);
+                 $uploaded = Storage::disk('s3')->put($s3Path, $resizedImageStream);
+
+
+                if (!$uploaded) {
+                    throw new \Exception('Image upload returned false');
+                }
+                fclose($resizedImageStream);
+            } catch (\Exception $e) {
+                Log::error('S3 Upload Error: ' . $e->getMessage());
+                return response()->json(['error' => 'Image upload to S3 failed: ' . $e->getMessage()], 500);
+            }
+
+
+
+                // Save the S3 path in the database
                 $resource->resource_img = $imageName;
+                $resource->save();
             }
             $resource->save();
         }
