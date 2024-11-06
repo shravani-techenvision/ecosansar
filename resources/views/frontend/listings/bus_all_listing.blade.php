@@ -124,7 +124,8 @@ margin-left: 5px !important;
 }
 @media screen and (max-width: 786px) {
 .wp{
-    margin-top: 50px !important;
+    display:flex;
+    margin-top: 7px !important;
 }
 }
 </style>

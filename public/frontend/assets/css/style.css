@@ -8369,6 +8369,19 @@ span.scale-rating label:before
         font-size: 20px; /* Reduce font size for tablets */
         top: 140px; /* Adjust positioning */
     }
+    .controls-more {
+        font-size: 18px;
+        padding: 1px 5px;
+        cursor: pointer;
+        position: initial;
+        height:auto;
+        display:flex;
+            justify-content: space-between;
+            margin-bottom:8px;
+        }
+        .controls-more a {
+            float:left !important;
+        }
 
 }
 
