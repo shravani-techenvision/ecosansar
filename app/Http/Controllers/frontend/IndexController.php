@@ -2022,16 +2022,19 @@ if ($request->sale_giveaway === 'Buy') {
             if (count($request->resource_type) !== count($request->resource_img)) {
                 return back()->withErrors(['resource_img' => 'Please upload image here.'])->withInput();
             }
+            // Get the size of each uploaded file and perform custom checks if needed
+        foreach ($request->file('resource_img') as $file) {
+            $fileSize = $file->getSize(); // Get file size in bytes
+            $fileSizeInMB = $fileSize / 1024 / 1024; // Convert bytes to MB
+
+            // Example: Check if the file size exceeds 10 MB
+            if ($fileSizeInMB > 10) {
+                return back()->withErrors(['resource_img' => 'One or more files exceed the maximum allowed size of 10 MB.'])->withInput();
+            }
+
+            // You can add more custom logic here based on file size
         }
-       // to show error message for particular file upload
-         if ($request->sale_giveaway !== 'Buy') {
-         $errors = [];
-    foreach ($request->resource_type as $index => $resourceId) {
-        if (!isset($request->resource_img[$index])) {
-            $errors["resource_img.$index"] = 'Please upload an image for this resource type.';
         }
-    }
-         }
 
     // If there are any errors, redirect back with errors
     if (!empty($errors)) {
