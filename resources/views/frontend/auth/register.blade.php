@@ -18,10 +18,145 @@
         text-decoration: underline;
         color:#8eb66f; /* Optional: Change color on hover */
     }
+    /* Center-align the section heading */
+.reg {
+    text-align: center;
+}
+  /* Style for the role grid */
+.role-grid {
+    margin-top: 20px; /* Space above the grid */
+}
+
+/* Style for each role item with margin for gaps */
+.role-grid .role-item {
+   display: flex;
+    flex-direction: column; /* Arrange children vertically */
+    justify-content: center; /* Vertically center content */
+    align-items: center; /* Center content horizontally */
+    padding: 10px; /* Space inside each role item */
+    border: 1px solid #ddd; /* Border for each item */
+    border-radius: 5px; /* Rounded corners */
+   background-color: #98c079; /* Light blue background color */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+     transition: box-shadow 0.3s ease; /* Smooth transition on hover */
+    text-align: center; /* Center-align the text */
+    margin: 10px; /* Add margin to create gaps between items */
+    height:140px;
+}
+
+/* Adjust font styles */
+.role-grid .role-item b {
+    font-size: 18px; /* Bold role titles */
+    color: #fff; /* Dark color for titles */
+}
+
+.role-grid .role-item p {
+    font-size: 15px;
+    color: #fff; /* Lighter color for descriptions */
+    margin: 5px 0; /* Space above and below text */
+}
+.desk-show {
+    display: flex;
+    justify-content: center;
+}
+.mob-show{
+    display:none;
+}
+
+
+
+
+
  @media (max-width: 767px) {
-.reg{
-   font-size: 28px!important;
-   font-weight: 500!important;
+/*.reg{*/
+/*   font-size: 28px!important;*/
+/*   font-weight: 500!important;*/
+/*}*/
+.role-grid .role-item1   b {
+
+    color: #fff; /* Dark color for titles */
+}
+.role-grid .role-item2   b {
+
+    color: #fff; /* Dark color for titles */
+}
+.role-grid .role-item3   b {
+
+    color: #fff; /* Dark color for titles */
+}
+
+.role-grid .role-item1 p {
+    font-size: 15px;
+    color: #fff; /* Lighter color for descriptions */
+    margin: 5px 0; /* Space above and below text */
+}
+.role-grid  .role-item2  p {
+
+    color: #fff; /* Lighter color for descriptions */
+
+}
+.role-grid  .role-item3 p {
+
+    color: #fff; /* Lighter color for descriptions */
+
+}
+.mob-show {
+    display:block;
+}
+.desk-show {
+    display:none;
+}
+.mob-show p {
+    font-size: 13px !important;
+}
+.mob-show .role-item1 {
+     display: flex;
+    flex-direction: column; /* Arrange children vertically */
+    justify-content: center; /* Vertically center content */
+    align-items: center; /* Center content horizontally */
+    padding: 10px; /* Space inside each role item */
+    border: 1px solid #ddd; /* Border for each item */
+    border-radius: 5px; /* Rounded corners */
+   background-color: #98c079; /* Light blue background color */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+     transition: box-shadow 0.3s ease; /* Smooth transition on hover */
+    text-align: center; /* Center-align the text */
+    margin: 10px; /* Add margin to create gaps between items */
+    height:75px !important;
+}
+.mob-show .role-item2 {
+     display: flex;
+    flex-direction: column; /* Arrange children vertically */
+    justify-content: center; /* Vertically center content */
+    align-items: center; /* Center content horizontally */
+    padding: 10px; /* Space inside each role item */
+    border: 1px solid #ddd; /* Border for each item */
+    border-radius: 5px; /* Rounded corners */
+   background-color: #98c079; /* Light blue background color */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+     transition: box-shadow 0.3s ease; /* Smooth transition on hover */
+    text-align: center; /* Center-align the text */
+    margin: 10px; /* Add margin to create gaps between items */
+    height:52px !important;
+}
+.mob-show .role-item3 {
+     display: flex;
+    flex-direction: column; /* Arrange children vertically */
+    justify-content: center; /* Vertically center content */
+    align-items: center; /* Center content horizontally */
+    padding: 10px; /* Space inside each role item */
+    border: 1px solid #ddd; /* Border for each item */
+    border-radius: 5px; /* Rounded corners */
+   background-color: #98c079; /* Light blue background color */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+     transition: box-shadow 0.3s ease; /* Smooth transition on hover */
+    text-align: center; /* Center-align the text */
+    margin: 10px; /* Add margin to create gaps between items */
+    height:90px !important;
+}
+.col-md-12 {
+    padding-right: 0px !important;
+    padding-left: 0px !important;
 }
 }
 </style>
@@ -32,22 +167,55 @@
                 <!-- <li><a  href="{{ route('sab_add') }}"><span class="ultext">Resource Collector </span></a></li>-->
                 <!--<li  ><a   href="{{ route('business_add') }}"><span class="ultext">Corporate</span></a></li>-->
            </ul>
-            <div class="row" >
-                <div class="col-md-5 col-sm-5 col-md-offset-4 col-sm-offset-4">
-                    <section class="">
-                        <div class="col-md-12">
-                             <h1 class="reg" style ="margin-top: -6px;"><a href="{{route('consumer_login')}}">Sign In</a>  <span> |  <u style="color: #8eb66f;">Register</u></span></h1>
-                             <p style="font-size: 17px;"><b>Welcome! We're thrilled to have you here.</b></p>
+           <div class="row">
+            <div class="col-md-12 col-md-offset-0   col-sm-offset-4  ">
+                <section>
+                    <div class="col-md-12">
+                        <h1 class="reg" style="margin-top: -6px;">
+                            <a href="{{ route('consumer_login') }}">Sign In</a>
+                            <span> | <u style="color: #8eb66f;">Register</u></span>
+                        </h1>
+                        <p class="reg" style="font-size: 17px; margin-top: 8px;"><b>Welcome! We're thrilled to have you here.</b></p>
 
-                               <p style="font-size: 17px;"> Choose your role to register :<br><br>
-                                <b>Contributor</b> – For Waste / Resource Generators (consumers)<br>
-                                <b>Resource Collector</b> – Resource Pickup Agents <br>
-                                <b>Corporate</b> – Brands / Waste Management Companies / Recyclers / businesses dealing in bulk quantities</p>
+                        <p class="reg" style="font-size: 17px;"><b>Choose your role to register:</b></p>
 
-                                <p style="font-size: 17px;" ><b>Join your community by registering here</b></p>
+                        <div class="row role-grid text-center desk-show" style="font-size: 17px;">
+                            <div class="col-md-3 col-sm-4 role-item">
+                                <b><u>Contributor</u></b>
+                                <p>For Waste / Resource Generators (consumers)</p>
+                            </div>
+                            <div class="col-md-3 col-sm-4 role-item">
+                                <b><u>Resource Collector</u></b>
+                                <p>Resource Pickup Agents</p>
+                            </div>
+                            <div class="col-md-3 col-sm-4 role-item">
+                                <b><u>Corporate</u></b>
+                                <p>Brands / Waste Management Companies / Recyclers / businesses dealing in bulk quantities</p>
+                            </div>
                         </div>
-                    </section
+                        <div class="row role-grid text-center mob-show" style="font-size: 17px;">
+                            <div class="col-md-3 col-sm-4 role-item1">
+                                <b><u>Contributor</u></b>
+                                <p>For Waste / Resource Generators (consumers)</p>
+                            </div>
+                            <div class="col-md-3 col-sm-4 role-item2">
+                                <b><u>Resource Collector</u></b>
+                                <p>Resource Pickup Agents</p>
+                            </div>
+                            <div class="col-md-3 col-sm-4 role-item3">
+                                <b><u>Corporate</u></b>
+                                <p>Brands / Waste Management Companies / Recyclers / businesses dealing in bulk quantities</p>
+                            </div>
+                        </div>
+
+                        <p class="reg" style="font-size: 20px;"><b>Join your community by registering here</b></p>
+                    </div>
+                </section>
+            </div>
+            </div>
                     <!--end page-title-->
+                    <div class="row">
+                     <div class="col-md-5 col-sm-5 col-md-offset-4 col-sm-offset-4">
                     <section id="consumer" >
                         <!--<form id="submit-contact" class="form inputs-underline" action="{{ route('consumer.save') }}" method="post">-->
 
