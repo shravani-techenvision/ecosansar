@@ -270,7 +270,7 @@
     <h2 class="findcenter"><b>Is your pincode serviceable by us?</b></h2>
     <form id="pincode-form" method="POST" action="{{ url('/check-pincode') }}" style="display: flex; align-items: center;">
         @csrf
-        <input type="text" name="pincode" id="pincode" placeholder="Enter your pincode" onkeypress="return isNumeric(event)" minlength="6" maxlength="6" required style="color: black; margin-right: 10px; padding: 10px; border: 1px solid #ccc; border-radius: 4px; flex: 1;">
+        <input type="text" name="pincode" id="pincode" placeholder="Enter your pincode" onkeypress="return isNumeric(event)" minlength="6" maxlength="6" required style="color: black; margin-right: 10px; padding: 10px; border: 1px solid #ccc; border-radius: 4px; flex: 1;margin-left: 11px">
         <button class="btn btn-primary btn-small btn-rounded icon shadow add-listing darker" type="submit" >Check</button>
     </form>
     <br class="desktop-only">

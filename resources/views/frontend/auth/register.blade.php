@@ -23,9 +23,6 @@
     text-align: center;
 }
   /* Style for the role grid */
-.role-grid {
-    margin-top: 20px; /* Space above the grid */
-}
 
 /* Style for each role item with margin for gaps */
 .role-grid .role-item {
