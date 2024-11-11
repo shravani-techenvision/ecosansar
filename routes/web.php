@@ -28,7 +28,17 @@ use App\Http\Controllers\frontend\PincodeCheckController;
 |
 */
 Route::get('/', [App\Http\Controllers\frontend\IndexController::class, 'index']);
+Route::get('/ads.txt', function () {
+    $path = base_path('ads.txt');
 
+    if (file_exists($path)) {
+        return Response::file($path, [
+            'Content-Type' => 'text/plain',
+        ]);
+    }
+
+    abort(404);
+});
 Route::controller(IndexController::class)->group(function(){
     Route::get('/','index');
      Route::get('profile/{id}','profile')->middleware('auth.user')->name('profile');
