@@ -135,9 +135,9 @@ textarea.form-control {
 
     <div id="page-content">
 
-
+{{--
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4322110929509521"
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous"></script>  --}}
    <!-- test add -->
    <ins class="adsbygoogle"
         style="display:block"
