@@ -5244,4 +5244,7 @@ function resizeImage($source, $width, $height)
             'busuniqueListings' => $busuniqueListings,
         ]);
     }
+    public function gadsense(){
+        return view('gadsense');
+    }
 }

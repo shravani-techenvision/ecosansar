@@ -128,6 +128,9 @@ Route::post('/check-contact', 'checkContact')->name('check.contact');
     Route::get('/user_logout', 'signOut')->name('user_logout');
      Route::get('user_deactivate', 'user_deactivate')->name('user.user_deactivate');
       Route::get('user_activate/{id}', 'user_activate')->name('user.user_activate');
+
+
+      Route::get('gadsense','gadsense')->name('gadsense');
 });
 
 Route::controller(EnquiryController::class)->group(function(){
