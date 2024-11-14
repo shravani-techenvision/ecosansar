@@ -1371,9 +1371,9 @@ if ($request->sale_giveaway == 'Buy') {
         'clean_unclean' => 'required',
         'packaged' => 'required',
         'resource_type' => 'required|array|min:1',
-       'resource_img.*' => 'mimes:jpg,jpeg,png,bmp|max:10240', // Adjust mime types and max size as needed
+       'resource_img.*' => 'mimes:jpg,jpeg,png,bmp', // Adjust mime types and max size as needed
     ], [
-'resource_img.*.max' => 'The image must not be greater than 10 MB.',
+
         'pincode.exists' => 'We are not servicable in this area.'
     ]);
 
@@ -1388,10 +1388,10 @@ if ($request->sale_giveaway == 'Buy') {
         'packaged' => 'required',
         'resource_type' => 'required|array|min:1',
     'resource_img' => 'required|array|min:1',
-       'resource_img.*' => 'required|mimes:jpg,jpeg,png,bmp|max:10240', // Adjust mime types and max size as needed
+       'resource_img.*' => 'required|mimes:jpg,jpeg,png,bmp', // Adjust mime types and max size as needed
 
     ], [
-'resource_img.*.max' => 'The image must not be greater than 10 MB.',
+
         'pincode.exists' => 'We are not servicable in this area.'
     ]);
 
@@ -5247,4 +5247,5 @@ function resizeImage($source, $width, $height)
     public function gadsense(){
         return view('gadsense');
     }
+
 }
