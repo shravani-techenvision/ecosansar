@@ -2000,16 +2000,16 @@ function resizeImage($source, $width, $height)
 if ($request->sale_giveaway === 'Buy') {
     // For 'Buy', make images optional but still enforce size limit if images are uploaded
     $rules['resource_img'] = 'array'; // Optional array for Buy
-    $rules['resource_img.*'] = 'mimes:jpg,jpeg,png,bmp|max:10240'; // Optional but size restricted
+    $rules['resource_img.*'] = 'mimes:jpg,jpeg,png,bmp'; // Optional but size restricted
 } else {
     // For 'Sale' and 'Giveaway', images are required
     $rules['resource_img'] = 'required|array|min:1';
-    $rules['resource_img.*'] = 'required|mimes:jpg,jpeg,png,bmp|max:10240';
+    $rules['resource_img.*'] = 'required|mimes:jpg,jpeg,png,bmp';
 }
 
         // Define custom error messages
     $messages = [
-        'resource_img.*.max' => 'The image must not be greater than 10 MB.',
+
         'pincode.exists' => 'Service is not available in this area'
     ];
 
@@ -2027,18 +2027,6 @@ if ($request->sale_giveaway === 'Buy') {
             if (count($request->resource_type) !== count($request->resource_img)) {
                 return back()->withErrors(['resource_img' => 'Please upload image here.'])->withInput();
             }
-            // Get the size of each uploaded file and perform custom checks if needed
-        foreach ($request->file('resource_img') as $file) {
-            $fileSize = $file->getSize(); // Get file size in bytes
-            $fileSizeInMB = $fileSize / 1024 / 1024; // Convert bytes to MB
-
-            // Example: Check if the file size exceeds 10 MB
-            if ($fileSizeInMB > 10) {
-                return back()->withErrors(['resource_img' => 'One or more files exceed the maximum allowed size of 10 MB.'])->withInput();
-            }
-
-            // You can add more custom logic here based on file size
-        }
         }
 
 
@@ -2711,9 +2699,9 @@ function resizeImage($source, $width, $height)
                 'clean_unclean' => 'required',
                 'packaged' => 'required',
                 'resource_type' => 'required|array|min:1',
-                'resource_img.*' => 'mimes:jpg,jpeg,png,bmp|max:10240', // Adjust mime types and max size as needed
+                'resource_img.*' => 'mimes:jpg,jpeg,png,bmp', // Adjust mime types and max size as needed
             ], [
-                'resource_img.*.max' => 'The image must not be greater than 10 MB.',
+
                 'pincode.exists' => 'We are not servicable in this area.'
             ]);
         } else {
@@ -2726,9 +2714,9 @@ function resizeImage($source, $width, $height)
                 'packaged' => 'required',
                 'resource_type' => 'required|array|min:1',
                'resource_img' => 'required|array|min:1',
-               'resource_img.*' => 'required|mimes:jpg,jpeg,png,bmp|max:2048', // Adjust mime types and max size as needed
+               'resource_img.*' => 'required|mimes:jpg,jpeg,png,bmp', // Adjust mime types and max size as needed
             ],[
-'resource_img.*.max' => 'The image must not be greater than 10 MB.',
+
                'pincode.exists' => 'We are not servicable in this area.'
            ]);
 
