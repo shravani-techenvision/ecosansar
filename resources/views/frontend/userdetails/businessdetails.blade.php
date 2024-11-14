@@ -253,36 +253,7 @@
                                             </div>
                                         @endif
 
-                                        {{-- Track if we've displayed the specific size or format error to avoid duplicates --}}
-                                        @php
-                                            $sizeErrorDisplayed = false;
-                                            $formatErrorDisplayed = false;
-                                        @endphp
 
-                                        {{-- Loop through each file-specific error --}}
-                                        @foreach ($errors->get('resource_img.*') as $fileErrors)
-                                            @foreach ($fileErrors as $msg)
-                                                {{-- Display the size error message only once --}}
-                                                @if (str_contains($msg, 'must not be greater than') && !$sizeErrorDisplayed)
-                                                    <div class="text-danger">
-                                                        <p style="color:red;">The image must not be greater than 10 MB.</p>
-                                                    </div>
-                                                    @php
-                                                        $sizeErrorDisplayed = true;
-                                                    @endphp
-                                                @endif
-
-                                                {{-- Display the format error message only once --}}
-                                                @if (str_contains($msg, 'must be a file of type') && !$formatErrorDisplayed)
-                                                    <div class="text-danger">
-                                                        <p style="color:red;">The image must be a valid format (jpg, jpeg, png).</p>
-                                                    </div>
-                                                    @php
-                                                        $formatErrorDisplayed = true;
-                                                    @endphp
-                                                @endif
-                                            @endforeach
-                                        @endforeach
 
                                         </div>
 
