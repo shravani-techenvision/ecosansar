@@ -1596,7 +1596,7 @@ function resizeImage($source, $width, $height)
         foreach ($postIds as $postId) {
             $postListings = $listings->where('id', $postId);
             $resourceNames = $postListings->pluck('resource_name')->implode(', ');
-            $resourceImages = $postListings->pluck('resource_img')->implode(', ');
+            $resourceImages = $postListings->pluck('resource_img')->first();
             $uniqueListing = $postListings->first();
             $uniqueListing->resource_names = $resourceNames;
             $uniqueListing->resource_img = $resourceImages;
@@ -1928,7 +1928,7 @@ function resizeImage($source, $width, $height)
         foreach ($postIds as $postId) {
             $postListings = $listings->where('id', $postId);
             $resourceNames = $postListings->pluck('resource_name')->implode(', ');
-            $resourceImages = $postListings->pluck('resource_img')->implode(', ');
+            $resourceImages = $postListings->pluck('resource_img')->first();
             $uniqueListing = $postListings->first();
             $uniqueListing->resource_names = $resourceNames;
             $uniqueListing->resource_img = $resourceImages;
@@ -2638,7 +2638,7 @@ function resizeImage($source, $width, $height)
         foreach ($postIds as $postId) {
             $postListings = $listings->where('id', $postId);
             $resourceNames = $postListings->pluck('resource_name')->implode(', ');
-            $resourceImages = $postListings->pluck('resource_img')->implode(', ');
+            $resourceImages = $postListings->pluck('resource_img')->first();
             $uniqueListing = $postListings->first();
             $uniqueListing->resource_names = $resourceNames;
             $uniqueListing->resource_img = $resourceImages;
