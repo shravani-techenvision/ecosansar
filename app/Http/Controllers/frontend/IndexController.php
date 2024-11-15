@@ -2261,8 +2261,12 @@ function resizeImage($source, $width, $height)
                 $userActivity->save();
             }
             // user activity end
-
-
+            //check for whatsapp url
+            if (session()->has('redirect_wp')) {
+                $redirect_wpto = session()->pull('redirect_wp');
+                Log::info('Redirecting to WhatsApp share URL', ['redirect_url' => $redirect_wpto]);
+                return redirect($redirect_wpto);
+            }
 
             // Check if there is a redirect URL
             if (session()->has('redirect_to')) {
