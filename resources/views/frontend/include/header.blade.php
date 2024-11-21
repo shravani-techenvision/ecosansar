@@ -87,7 +87,7 @@
                         <li ><a href="{{url('/')}}">Home</a>
                         </li>
 
-                        <li class="has-child"><a href="#nav-listing">About</a>
+                        <li class="has-child"><a href="{{ route('about') }}">About</a>
                             <div class="wrapper">
                                 <div id="nav-listing" class="nav-wrapper">
                                     <ul>
