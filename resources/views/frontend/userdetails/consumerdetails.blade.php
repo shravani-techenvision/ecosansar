@@ -29,7 +29,7 @@
                     </section
                     <!--end page-title-->
                     <section id="business">
-                        <form id="location-form" class="form inputs-underline" action="{{ route('consumer_post_save') }}" method="post" enctype="multipart/form-data">
+                        <form id="locationForm" class="form inputs-underline" action="{{ route('consumer_post_save') }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" name="user_id" value="{{ $user_id }}">
                             <div class="row">
