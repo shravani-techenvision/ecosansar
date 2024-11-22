@@ -80,11 +80,11 @@
 
 
 
-                        <li class="has-child"><a href="{{ route('about') }}">About</a>
+                        <li class="has-child"><a href="#nav-listing">About</a>
                             <div class="wrapper">
                                 <div id="nav-listing" class="nav-wrapper">
                                     <ul>
-
+                                        <li class=" "><a href="{{route('about')}}">About Us</a></li>
                                                      <li class=" "><a href="{{route('howitsworks')}}">How it works </a></li>
                                                      <li class=" "><a href="{{route('faq')}}">FAQ</a></li>
                                                     <li class=" "><a href="{{route('service')}}">Services </a></li>
