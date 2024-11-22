@@ -5,8 +5,8 @@
 <head>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <style>
-    .btn.btn-small{
-        padding: 7px 10px !important;
+        .formob .btn.btn-small{
+        padding: 7px 7px !important;
 
     }
      .row{
@@ -179,7 +179,7 @@
         $userType = session('user_type'); // Assuming you have stored the user type in the session
     @endphp
 
-    <div class="formob" style="float: inline-end; margin-top: -31px !important;">
+    <div class="formob" style="float: inline-end; margin-top: -35px !important;">
         <a href="{{ route('listings') }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing">Browse Listings</a>
     </div>
 @else

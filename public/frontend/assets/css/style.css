@@ -4619,7 +4619,7 @@ section:not(.block) h2 {
     display: flex !important;          /* Enables flexbox */
     /*justify-content: center !important;  Centers content horizontally */
    /* margin-bottom: 15px !important;*/
-    margin-left:30px !important;
+    /* margin-left:30px !important; */
 }
 .fordes {
     display: none !important;
