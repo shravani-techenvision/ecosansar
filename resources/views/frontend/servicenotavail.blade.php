@@ -153,7 +153,8 @@ Share your contact details, and we’ll notify you as soon as we’re available 
                      <section>
                          <div class="container">
                      <p>
-                         Need more info? Learn <a target="_blank" href="{{route('howitsworks')}}" class="terms-link">How It Works</a> or contact us at 8553012812.
+                         Need more info? Learn <a target="_blank" href="{{route('howitsworks')}}" class="terms-link">How It Works</a> or contact us at
+                          <a href="mailto:support@ecosansar.com" class="terms-link">support@ecosansar.com</a>.
                      </p>
                      </div>
                  </section>

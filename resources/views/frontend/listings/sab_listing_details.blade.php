@@ -169,6 +169,10 @@ height:36px;
             <!--<li class="active">Contact</li>-->
         </ol>
         <section class="page-title pull-left">
+            <a href="{{route('listings')}}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing">Browse Listings</a>
+
+        </section>
+        <section class="page-title pull-right">
             <h1>{{ $sabposts->name }}</h1>
 
         </section>

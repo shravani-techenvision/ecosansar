@@ -145,6 +145,10 @@ padding-left:8px;
 
         </ol>
         <section class="page-title pull-left">
+            <a href="{{route('listings')}}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing">Browse Listings</a>
+
+        </section>
+        <section class="page-title pull-right">
             <h1>{{ $consumerposts->name }}</h1>
 
         </section>

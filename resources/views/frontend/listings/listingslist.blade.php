@@ -38,6 +38,27 @@ margin-left: 5px !important;
     margin-top:6px !important;
     font-size: larger !important;
 }
+.wp-dis {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    margin-top: 25px;
+}
+.hide-show {
+display:grid;
+}
+.controls-more {
+    margin: 20px 0;
+}
+@media screen and (max-width: 786px) {
+    .hide-show {
+        display:flex;
+        margin-top: 7px !important;
+    }
+    .additional-info .btn.btn-small {
+        padding: 10px 9px !important;
+    }
+    }
 </style>
 
 
@@ -255,18 +276,49 @@ margin-left: 5px !important;
                                             @else
                                             <h4>{{ $listing->sale_giveaway }}</h4>
                                             @endif
+ <!-- Display the average rating as stars -->
+    @if(isset($listing->average_rating))
+        <div class="rating">
+            @php
+                $roundedRating = round($listing->average_rating);
+            @endphp
 
+            @for ($i = 1; $i <= 5; $i++)
+                @if($i <= $roundedRating)
+                    <i class="fa fa-star text-warning"></i> <!-- Filled star -->
+                @else
+                    <i class="fa fa-star-o text-muted"></i> <!-- Empty star -->
+                @endif
+            @endfor
 
-                        <div class="controls-more">
+            <!-- Optionally, display the average rating value -->
+            <!--<span>({{ number_format($listing->average_rating, 1) }})</span>-->
+        </div>
+        @else
+    <div class="rating">
+        @for ($i = 1; $i <= 5; $i++)
+            <i class="fa fa-star-o text-muted"></i> <!-- Empty star -->
+        @endfor
+    </div>
+    @endif
+
+                        <div class="controls-more hide-show">
                              @if (session()->has('user_id'))
                              <a href="#" data-id="{{ $listing->id }}" data-toggle="modal" data-target="#enquiryModal" class="btn btn-primary btn-small btn-rounded icon shadow consumer-connect-listing" style="float:right;">
 
         <span>Connect</span>
     </a>
-    <a href="https://wa.me/?text={{ urlencode('This post from The ZeroWaste Community Tool might interest you, check it out : ' . url('con_listing_details/'.$listing->id)) }}" target="_blank"  style="margin-bottom:10px;">
+    {{--  <a href="https://wa.me/?text={{ urlencode('This post from The ZeroWaste Community Tool might interest you, check it out : ' . url('con_listing_details/'.$listing->id)) }}" target="_blank"  style="margin-bottom:10px;">
         <i class="fa fa-whatsapp"></i>
         <!--<i class="fa fa-share-alt"></i> Share on WhatsApp-->
-    </a>
+    </a>  --}}
+    <span class="wp-dis">Share on:
+        <a class=" " href="https://wa.me/?text={{ urlencode('This post from The ZeroWaste Community Tool might interest you, check it out : ' . url('con_listing_details/'.$listing->id)) }}" target="_blank" class="btn btn-success btn-small btn-rounded icon shadow" style="">
+
+                                <!--<i class="fa fa-share-alt"></i> Share on WhatsApp-->
+                                  <i class="fa fa-whatsapp" style="color: #25d366; font-size: 30px;"></i>
+
+                            </a></span>
     @else
     <a href="{{ route('consumer_login', ['redirect_wp' => url('con_listing_details/' . $listing->id)]) }}" target="_blank" class="" style="margin-bottom:10px;">
         <i class="fa fa-whatsapp"></i>
@@ -284,10 +336,11 @@ margin-left: 5px !important;
         @endforeach
          </div>
                         <div class="row">
-        <div class="col-md-4 col-sm-4">
+        <div class="col-md-12 col-sm-12 text-center">
              @if (session()->has('user_id'))
          <a href="{{route('con_all_posts')}}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing">Browse More</a>
-          @else
+        <hr>
+         @else
         <a href="{{ route('consumer_login') }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing">Browse More</a>
     @endif
             </div>
@@ -343,19 +396,45 @@ margin-left: 5px !important;
                                             @else
                                             <h4>{{ $listing->sale_giveaway }}</h4>
                                             @endif
+ <!-- Display the average rating as stars -->
+    @if(isset($listing->average_rating))
+        <div class="rating">
+            @php
+                $roundedRating = round($listing->average_rating);
+            @endphp
 
+            @for ($i = 1; $i <= 5; $i++)
+                @if($i <= $roundedRating)
+                    <i class="fa fa-star text-warning"></i> <!-- Filled star -->
+                @else
+                    <i class="fa fa-star-o text-muted"></i> <!-- Empty star -->
+                @endif
+            @endfor
 
-                        <div class="controls-more">
+            <!-- Optionally, display the average rating value -->
+            <!--<span>({{ number_format($listing->average_rating, 1) }})</span>-->
+        </div>
+        @else
+    <div class="rating">
+        @for ($i = 1; $i <= 5; $i++)
+            <i class="fa fa-star-o text-muted"></i> <!-- Empty star -->
+        @endfor
+    </div>
+    @endif
+
+                        <div class="controls-more hide-show">
                              @if (session()->has('user_id'))
                              <a href="#" data-id="{{ $listing->id }}" data-toggle="modal" data-target="#enquiryModal" class="btn btn-primary btn-small btn-rounded icon shadow consumer-connect-listing" style="float:right;">
 
         <span>Connect</span>
     </a>
-    <a href="https://wa.me/?text={{ urlencode('This post from The ZeroWaste Community Tool might interest you, check it out : ' . url('con_listing_details/'.$listing->id)) }}" target="_blank"  style="float:right">
+    <span class="wp-dis">Share on:
+        <a class=" " href="https://wa.me/?text={{ urlencode('This post from The ZeroWaste Community Tool might interest you, check it out : ' . url('con_listing_details/'.$listing->id)) }}" target="_blank" class="btn btn-success btn-small btn-rounded icon shadow" style=" ">
 
-        <!--<i class="fa fa-share-alt"></i>  -->
-        <i class="fa fa-whatsapp"></i>
-   </a>
+                                <!--<i class="fa fa-share-alt"></i> Share on WhatsApp-->
+                                  <i class="fa fa-whatsapp" style="color: #25d366; font-size: 30px;"></i>
+
+                            </a></span>
     @else
     <a href="{{ route('consumer_login', ['redirect_wp' => url('con_listing_details/' . $listing->id)]) }}" target="_blank" class="" style="margin-bottom:10px;">
         <i class="fa fa-whatsapp"></i>
@@ -373,10 +452,11 @@ margin-left: 5px !important;
         @endforeach
          </div>
                         <div class="row">
-        <div class="col-md-4 col-sm-4">
+        <div class="col-md-12 col-sm-12 text-center">
              @if (session()->has('user_id'))
          <a href="{{route('con_all_posts')}}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing">Browse More</a>
-          @else
+        <hr>
+         @else
         <a href="{{ route('consumer_login') }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing">Browse More</a>
     @endif
             </div>
@@ -430,19 +510,45 @@ margin-left: 5px !important;
                                             @else
                                             <h4>{{ $listing->sale_giveaway }}</h4>
                                             @endif
+                                            <!-- Display the average rating as stars -->
+                                            @if(isset($listing->average_rating))
+                                                <div class="rating">
+                                                    @php
+                                                        $roundedRating = round($listing->average_rating);
+                                                    @endphp
 
+                                                    @for ($i = 1; $i <= 5; $i++)
+                                                        @if($i <= $roundedRating)
+                                                            <i class="fa fa-star text-warning"></i> <!-- Filled star -->
+                                                        @else
+                                                            <i class="fa fa-star-o text-muted"></i> <!-- Empty star -->
+                                                        @endif
+                                                    @endfor
 
-                                        <div class="controls-more">
+                                                    <!-- Optionally, display the average rating value -->
+                                                    <!--<span>({{ number_format($listing->average_rating, 1) }})</span>-->
+                                                </div>
+                                                @else
+                                            <div class="rating">
+                                                @for ($i = 1; $i <= 5; $i++)
+                                                    <i class="fa fa-star-o text-muted"></i> <!-- Empty star -->
+                                                @endfor
+                                            </div>
+                                            @endif
+
+                                        <div class="controls-more  hide-show">
                                              @if (session()->has('user_id'))
                                             <a href="#" data-id="{{ $listing->id }}" data-toggle="modal" data-target="#sabenquiryModal" class="btn btn-primary btn-small btn-rounded icon shadow sab-connect-listing" style="float:right;">
 
         <span>Connect</span>
     </a>
-    <a href="https://wa.me/?text={{ urlencode('This post from The ZeroWaste Community Tool might interest you, check it out : ' . url('sabs_listing_details/'.$listing->id)) }}" target="_blank"  style="float:right">
+    <span class="wp-dis">Share on:
+        <a class=" " href="https://wa.me/?text={{ urlencode('This post from The ZeroWaste Community Tool might interest you, check it out : ' . url('sabs_listing_details/'.$listing->id)) }}" target="_blank"  style="float:right">
 
-        <!--<i class="fa fa-share-alt"></i>  -->
-        <i class="fa fa-whatsapp"></i>
-   </a>
+                                 <!--<i class="fa fa-share-alt"></i>  -->
+                                  <i class="fa fa-whatsapp" style="color: #25d366; font-size: 30px;"></i>
+
+                            </a> </span>
     @else
     <a href="{{ route('consumer_login', ['redirect_wp' => url('sabs_listing_details/' . $listing->id)]) }}" target="_blank" class="" style="margin-bottom:10px;">
         <i class="fa fa-whatsapp"></i>
@@ -460,10 +566,11 @@ margin-left: 5px !important;
                         @endforeach
                         </div>
                         <div class="row">
-<div class="col-md-4 col-sm-4">
+<div class="col-md-12 col-sm-12 text-center">
     @if (session()->has('user_id'))
         <a href="{{ route('sab_all_posts') }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing">Browse More</a>
-    @else
+   <hr>
+        @else
         <a href="{{ route('consumer_login') }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing">Browse More</a>
     @endif
 </div>
@@ -526,18 +633,44 @@ margin-left: 5px !important;
                                             @else
                                             <h4>{{ $listing->sale_giveaway }}</h4>
                                             @endif
+                                            <!-- Display the average rating as stars -->
+                                            @if(isset($listing->average_rating))
+                                                <div class="rating">
+                                                    @php
+                                                        $roundedRating = round($listing->average_rating);
+                                                    @endphp
 
+                                                    @for ($i = 1; $i <= 5; $i++)
+                                                        @if($i <= $roundedRating)
+                                                            <i class="fa fa-star text-warning"></i> <!-- Filled star -->
+                                                        @else
+                                                            <i class="fa fa-star-o text-muted"></i> <!-- Empty star -->
+                                                        @endif
+                                                    @endfor
 
-                                        <div class="controls-more">
+                                                    <!-- Optionally, display the average rating value -->
+                                                    <!--<span>({{ number_format($listing->average_rating, 1) }})</span>-->
+                                                </div>
+                                                @else
+                                            <div class="rating">
+                                                @for ($i = 1; $i <= 5; $i++)
+                                                    <i class="fa fa-star-o text-muted"></i> <!-- Empty star -->
+                                                @endfor
+                                            </div>
+                                            @endif
+
+                                        <div class="controls-more hide-show">
                                              @if (session()->has('user_id'))
                                              <a href="#" data-id="{{ $listing->id }}" data-toggle="modal" data-target="#businessenquiryModal" class="btn btn-primary btn-small btn-rounded icon shadow bus-connect-listing" style="float:right;">
         <span>Connect</span>
     </a>
-    <a href="https://wa.me/?text={{ urlencode('This post from The ZeroWaste Community Tool might interest you, check it out : ' . url('bus_listing_details/'.$listing->id)) }}" target="_blank"  style="float:right">
+    <span class="wp-dis">Share on:
+        <a class=" " href="https://wa.me/?text={{ urlencode('This post from The ZeroWaste Community Tool might interest you, check it out : ' . url('bus_listing_details/'.$listing->id)) }}" target="_blank"  style="float:right">
 
-        <!--<i class="fa fa-share-alt"></i>  -->
-        <i class="fa fa-whatsapp"></i>
-   </a>
+                               <!--<i class="fa fa-share-alt"></i>  -->
+                              <i class="fa fa-whatsapp" style="color: #25d366; font-size: 30px;"></i>
+
+                          </a> </span>
      @else
      <a href="{{ route('consumer_login', ['redirect_wp' => url('bus_listing_details/' . $listing->id)]) }}" target="_blank" class="" style="margin-bottom:10px;">
         <i class="fa fa-whatsapp"></i>
@@ -555,7 +688,7 @@ margin-left: 5px !important;
                         @endforeach
                          </div>
                         <div class="row">
-  <div class="col-md-4 col-sm-4">
+  <div class="col-md-12 col-sm-12 text-center">
        @if (session()->has('user_id'))
          <a href="{{route('bus_all_posts')}}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing">Browse More</a>
          @else
@@ -614,18 +747,44 @@ margin-left: 5px !important;
                                             @else
                                             <h4>{{ $listing->sale_giveaway }}</h4>
                                             @endif
+                                            <!-- Display the average rating as stars -->
+                                            @if(isset($listing->average_rating))
+                                                <div class="rating">
+                                                    @php
+                                                        $roundedRating = round($listing->average_rating);
+                                                    @endphp
 
+                                                    @for ($i = 1; $i <= 5; $i++)
+                                                        @if($i <= $roundedRating)
+                                                            <i class="fa fa-star text-warning"></i> <!-- Filled star -->
+                                                        @else
+                                                            <i class="fa fa-star-o text-muted"></i> <!-- Empty star -->
+                                                        @endif
+                                                    @endfor
 
-                                        <div class="controls-more">
+                                                    <!-- Optionally, display the average rating value -->
+                                                    <!--<span>({{ number_format($listing->average_rating, 1) }})</span>-->
+                                                </div>
+                                                @else
+                                            <div class="rating">
+                                                @for ($i = 1; $i <= 5; $i++)
+                                                    <i class="fa fa-star-o text-muted"></i> <!-- Empty star -->
+                                                @endfor
+                                            </div>
+                                            @endif
+
+                                        <div class="controls-more hide-show">
                                                 @if (session()->has('user_id'))
                                              <a href="#" data-id="{{ $listing->id }}" data-toggle="modal" data-target="#businessenquiryModal" class="btn btn-primary btn-small btn-rounded icon shadow bus-connect-listing" style="float:right;">
         <span>Connect</span>
     </a>
-    <a href="https://wa.me/?text={{ urlencode('This post from The ZeroWaste Community Tool might interest you, check it out :' . url('bus_listing_details/'.$listing->id)) }}" target="_blank"  style="float:right">
+    <span class="wp-dis">Share on:
+        <a class=" " href="https://wa.me/?text={{ urlencode('This post from The ZeroWaste Community Tool might interest you, check it out : ' . url('bus_listing_details/'.$listing->id)) }}" target="_blank"  style="float:right">
 
-        <!--<i class="fa fa-share-alt"></i>  -->
-        <i class="fa fa-whatsapp"></i>
-   </a>
+                                <!--<i class="fa fa-share-alt"></i>  -->
+                             <i class="fa fa-whatsapp" style="color: #25d366; font-size: 30px;"></i>
+
+                           </a> </span>
      @else
      <a href="{{ route('consumer_login', ['redirect_wp' => url('bus_listing_details/' . $listing->id)]) }}" target="_blank" class="" style="margin-bottom:10px;">
         <i class="fa fa-whatsapp"></i>
@@ -643,7 +802,7 @@ margin-left: 5px !important;
                         @endforeach
                          </div>
                         <div class="row">
-  <div class="col-md-4 col-sm-4">
+  <div class="col-md-12 col-sm-12 text-center">
        @if (session()->has('user_id'))
          <a href="{{route('bus_all_posts')}}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing">Browse More</a>
          @else
