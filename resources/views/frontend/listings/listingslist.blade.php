@@ -266,7 +266,8 @@ display:grid;
                             @endphp
 
                             @if(!empty($resourceNames))
-                                {{ implode(', ', $resourceNames) }}
+                                {{--  {{ implode(', ', $resourceNames) }}  --}}
+                                {{ $resourceNames[0] }}
                             @endif
 
                             <!--<h4>{{ $listing->address }}</h4>-->
@@ -385,7 +386,8 @@ display:grid;
 @endphp
 
 @if(!empty($resourceNames))
-    {{ implode(', ', $resourceNames) }}
+    {{--  {{ implode(', ', $resourceNames) }}  --}}
+    {{ $resourceNames[0] }}
 @endif
 
 
@@ -501,7 +503,8 @@ display:grid;
 @endphp
 
 @if(!empty($resourceNames))
-    {{ implode(', ', $resourceNames) }}
+    {{--  {{ implode(', ', $resourceNames) }}  --}}
+    {{ $resourceNames[0] }}
 @endif
 
 
@@ -624,7 +627,8 @@ display:grid;
 @endphp
 
 @if(!empty($resourceNames))
-    {{ implode(', ', $resourceNames) }}
+    {{--  {{ implode(', ', $resourceNames) }}  --}}
+    {{ $resourceNames[0] }}
 @endif
 
 
@@ -738,7 +742,8 @@ display:grid;
 @endphp
 
 @if(!empty($resourceNames))
-    {{ implode(', ', $resourceNames) }}
+    {{--  {{ implode(', ', $resourceNames) }}  --}}
+    {{ $resourceNames[0] }}
 @endif
 
 
