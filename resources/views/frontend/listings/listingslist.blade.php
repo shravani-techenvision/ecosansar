@@ -392,7 +392,7 @@ display:grid;
                             <!--<h4>{{ $listing->address }}</h4>-->
 
                              @if (session()->has('user_id'))
-                                            <h4 style="word-wrap: break-word !important;white-space: normal; max-width: 200px;">{{ Str::limit($listing->address, 50) }} </h4>
+                                            <h4 style="word-wrap: break-word !important;white-space: normal; max-width: 200px;">{{ Str::limit($listing->address, 35) }} </h4>
                                             @else
                                             <h4>{{ $listing->sale_giveaway }}</h4>
                                             @endif
