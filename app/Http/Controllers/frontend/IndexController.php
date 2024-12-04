@@ -31,17 +31,25 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
 use Auth;
 use DB;
-use Mail;
+use Illuminate\Support\Facades\Mail;
 use Carbon\Carbon;
 use Craftsys\Msg91\Facade\Msg91;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Storage;
-
+use App\Services\PHPMailerService;
+use Illuminate\Support\Facades\View;
 
 class IndexController extends Controller
 {
+    protected $mailerService;
+    public function __construct(PHPMailerService $mailerService)
+    {
+        $this->mailerService = $mailerService;
+    }
+
+
     public function sendOtp(Request $request)
     {
         // print_r($request->all());
@@ -1054,10 +1062,15 @@ $totalMinWeight = $busMinWeightSum->total_min_weight + $conMinWeightSum->total_m
             // $data["title"] = "IIV India Registered Valuers Foundation | Payment Success | Thank you";
             $data["title"] =  "New contact from ". $req->name;
             // Mail::to(Auth::user()->email)->send(new Payment_done_mail($data));
-            Mail::send('frontend.mail.contactmail', $data, function($message)use($data){
-                $message->to($data["email"], $data["email"])
-                        ->subject($data["title"]);
-            });
+            // Mail::send('frontend.mail.contactmail', $data, function($message)use($data){
+            //     $message->to($data["email"], $data["email"])
+            //             ->subject($data["title"]);
+            // });
+
+            // Render the email body using the Blade view
+            $body = view('frontend.mail.contactmail', $data)->render();
+            // Call your mailer service to send the email
+            $this->mailerService->sendEmail($data['email'], $data['title'], $body, $data);
 
          Session::flash('success', 'Contact Details Sent Successfully');
        return redirect()->back();
@@ -2401,10 +2414,15 @@ function resizeImage($source, $width, $height)
             // $data["title"] = "IIV India Registered Valuers Foundation | Payment Success | Thank you";
             $data["title"] =  "Welcome to The ZeroWaste Community Tool";
             // Mail::to(Auth::user()->email)->send(new Payment_done_mail($data));
-            Mail::send('frontend.mail.userregistrationemail', $data, function ($message) use ($data) {
-                $message->to($data["email"], $data["email"])
-                    ->subject($data["title"]);
-            });
+            // Mail::send('frontend.mail.userregistrationemail', $data, function ($message) use ($data) {
+            //     $message->to($data["email"], $data["email"])
+            //         ->subject($data["title"]);
+            // });3
+
+            // Render the email body using the Blade view
+            $body = view('frontend.mail.userregistrationemail', $data)->render();
+            // Call your mailer service to send the email
+            $this->mailerService->sendEmail($data['email'], $data['title'], $body, $data);
         }
 
 
@@ -2507,10 +2525,15 @@ function resizeImage($source, $width, $height)
             // $data["title"] = "IIV India Registered Valuers Foundation | Payment Success | Thank you";
             $data["title"] =  "Welcome to The ZeroWaste Community Tool";
             // Mail::to(Auth::user()->email)->send(new Payment_done_mail($data));
-            Mail::send('frontend.mail.userregistrationemail', $data, function ($message) use ($data) {
-                $message->to($data["email"], $data["email"])
-                    ->subject($data["title"]);
-            });
+            // Mail::send('frontend.mail.userregistrationemail', $data, function ($message) use ($data) {
+            //     $message->to($data["email"], $data["email"])
+            //         ->subject($data["title"]);
+            // });
+
+            // Render the email body using the Blade view
+            $body = view('frontend.mail.userregistrationemail', $data)->render();
+            // Call your mailer service to send the email
+            $this->mailerService->sendEmail($data['email'], $data['title'], $body, $data);
         }
 
 
@@ -3046,10 +3069,16 @@ function resizeImage($source, $width, $height)
             'messageContent' => $messageContent,
             'title' => 'Response to your enquiry'
         ];
-        Mail::send('frontend.mail.sabenquirymail', $data, function ($message) use ($data) {
-            $message->to($data["email"], $data["email"])
-                ->subject($data["title"]);
-        });
+        // Mail::send('frontend.mail.sabenquirymail', $data, function ($message) use ($data) {
+        //     $message->to($data["email"], $data["email"])
+        //         ->subject($data["title"]);
+        // });
+
+        // Render the email body using the Blade view
+        $body = view('frontend.mail.sabenquirymail', $data)->render();
+        // Call your mailer service to send the email
+        $this->mailerService->sendEmail($data['email'], $data['title'], $body, $data);
+
         Alert::success('success', 'Mail Send Successfully');
         return redirect()->back();
     }
