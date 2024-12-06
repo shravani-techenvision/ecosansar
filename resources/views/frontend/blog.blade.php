@@ -15,7 +15,7 @@
     padding: 15px; /* Spacing inside the widget */
     margin-bottom: 20px; /* Spacing between widgets */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-   
+
 }
 
 .widget h3 {
@@ -129,7 +129,7 @@
              <section>
             <div class="bann height-400px" id="map-contact">
                 <div class="banner-text">
-            <a href="{{url('/')}}" class="breadcrumb-link">Home</a> / 
+            <a href="{{url('/')}}" class="breadcrumb-link">Home</a> /
             <a href="{{route('blog')}}" class="breadcrumb-link">Blog</a>
         </div>
             </div>
@@ -138,7 +138,7 @@
          <section class="block">
             <div class="container">
             <div class="row">
-                
+
                 <div class="col-md-9 col-sm-9">
                     <!--<section class="page-title">-->
                     <!--    <h1>Blog</h1>-->
@@ -148,16 +148,16 @@
     @foreach($blogs as $blog)
     <article class="blog-post">
         <!-- Display the blog featured image, blog name, date, and categories dynamically -->
-        
-        
+
+
         <header>
-            
+
                 <h2>{{ $blog->blog_name }}</h2>
-            
+
         </header>
         <figure class="meta">
              <i class="fa fa-user"></i> {{ $blog->posted_by_name }} &emsp;
-             <i class="fa fa-calendar"></i> {{ $blog->created_at->format('d/m/Y') }} 
+             <i class="fa fa-calendar"></i> {{ $blog->created_at->format('d/m/Y') }}
             <div class="tags">
                 <!-- Display all categories associated with the blog -->
                 @foreach(explode(',', $blog->category) as $categoryId)
@@ -181,13 +181,13 @@
 
 </section>
 
-                    
+
                 </div>
                 <!--end col-md-9-->
 
                <div class="col-md-3 col-sm-3 ">
                     <div class="form-group clearfix ">
-                                 <a style="margin-left: 75px !important;" href="{{ route('user_blog_add') }}"  class="btn  btn-primary btn-small btn-rounded icon shadow add-listing text-center" id="form-blog-reply-submit">Add Post</a>
+                                 {{--  <a style="margin-left: 75px !important;" href="{{ route('user_blog_add') }}"  class="btn  btn-primary btn-small btn-rounded icon shadow add-listing text-center" id="form-blog-reply-submit">Add Post</a>  --}}
                             </div><!-- /.form-group -->
     <!-- Categories Section -->
     <section class="widget categories-widget">
@@ -225,4 +225,3 @@
     </div>
 @include('frontend.include.footer')
 
-  
