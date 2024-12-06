@@ -414,7 +414,7 @@ class EnquiryController extends Controller
 
         $req->validate([
             'name' => 'required',
-            'email' => 'required',
+          //  'email' => 'required',
             'mobile' => 'required',
             'message' => 'required'
         ]);
