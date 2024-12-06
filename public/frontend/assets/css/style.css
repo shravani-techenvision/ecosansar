@@ -5459,7 +5459,7 @@ section:not(.block) h2 {
 .rating-passive .stars figure.active {
   filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
   opacity: 1;
-  color: #4611a7;
+  color: #8eb66f;
 }
 .rating-passive .reviews {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
@@ -5495,7 +5495,7 @@ section:not(.block) h2 {
   height: 80px;
 }
 .review .description {
-  padding-left: 100px;
+  padding-left: 0px;
 }
 .review .description .rating-passive {
   display: inline-block;

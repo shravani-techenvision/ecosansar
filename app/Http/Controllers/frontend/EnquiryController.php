@@ -311,6 +311,7 @@ class EnquiryController extends Controller
 
 
     public function sab_save(Request $req){
+
         $req->validate([
             'name' => 'required',
             //'email' => 'required',
@@ -333,7 +334,7 @@ class EnquiryController extends Controller
         $enquiry->mobile = $req->mobile;
         $enquiry->message = $req->message;
 
-       // $enquiry->save();
+       $enquiry->save();
 
         $post = SABPost::where('id',$req->id)->first();
         // echo "<pre>";
