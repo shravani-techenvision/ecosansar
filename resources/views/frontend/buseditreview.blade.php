@@ -1,0 +1,247 @@
+<style>
+    /* Style for star ratings */
+    .star-rating1 {
+        unicode-bidi: bidi-override;
+        direction: ltr; /* Set to left-to-right */
+        text-align: center;
+    }
+
+    .star-rating1 span {
+        display: inline-block;
+        position: relative;
+        width: 1.1em;
+        font-size: 31px;
+        cursor: pointer;
+        color:transparent;
+    }
+
+    .star-rating1 span:before {
+       content: "\2606";
+        position: absolute;
+        color: #FFD700;
+    }
+
+    .star-rating1 span.highlight {
+
+        color: #FFD700; /* Yellow */
+    }
+    .logoimg{
+        width : auto ;
+height:36px;
+    }
+    input{
+        font-family: sans-serif !important;
+    }
+    textarea {
+width: -webkit-fill-available !important;
+padding-left:8px;
+}
+
+
+@media (max-width:767px){
+.rt-container {
+    padding-left:2px;
+    padding-right:2px;
+}
+.ScriptHeader{
+    padding-top: 2px;
+}
+
+
+}
+</style>
+@include('frontend.include.header')
+@include('sweetalert::alert')
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+</head>
+    <div id="page-content">
+        <div class="container">
+
+            <div class="row" >
+                <div class=" ">
+                    <section class="page-title">
+                        <h1>Profile Details</h1>
+                    </section
+                    <!--end page-title-->
+                    <section >
+
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <span class="mb-0"><strong> Name:</strong>
+                                    <span>@isset($users->name){{ $users->name }}@endisset</span>
+                                </div>
+                                <div class="col-md-6">
+                                    <span class="mb-0"><strong> Phone number:</strong>
+                                    <span>@isset($users->mobile){{ $users->mobile }}@endisset</span>
+                                </div>
+                                <div class="col-md-6">
+                                    <span class="mb-0"><strong> Email id:</strong>
+                                    <span>@isset($users->email){{ $users->email }}@endisset</span>
+                                </div>
+                                <div class="col-md-6">
+                                    <span class="mb-0"><strong> Address:</strong>
+                                    <span>@isset($users->address){{ $users->address }}@endisset</span>
+                                </div>
+                                    <!--end form-group-->
+
+                            </div>
+                            <!--enr row-->
+                        {{--  <hr>
+
+                        <p class="center">By clicking on “Register Now” button you are accepting the <a href="terms-conditions.html">Terms & Conditions</a></p>  --}}
+                    </section>
+                 
+                    <section id="write-a-review">
+                        <h2>Write a Review</h2>
+                        <form class="clearfix form inputs-underline" action="{{ route('review.business_save') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="user_id" value="{{ $id }}">
+                            <input type="hidden" name="post_id" value="{{ $post_id }}">
+                            <div class="box">
+                                <div class="comment">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <div class="comment-title">
+                                                <h4>Review your experience</h4>
+                                            </div>
+                                            <!--end title-->
+                                            <div class="form-group">
+                                                <label for="name">Title of your review<em>*</em></label>
+                                                <input type="text" class="form-control" id="title" name="title" value="{{ $review->title }}">
+                                                @if ($errors->has('title'))
+                                                    <span class="text-danger">{{ $errors->first('title') }}</span>
+                                                @endif
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="message">Your Message<em>*</em></label>
+                                                <textarea class="form-control" id="message" rows="8" name="message"  =""  >{{ $review->message }}</textarea>
+                                                @if ($errors->has('message'))
+                                                <span class="text-danger">{{ $errors->first('message') }}</span>
+                                            @endif
+                                            </div>
+                                            <!--end form-group-->
+                                        </div>
+                                        <!--end col-md-8-->
+                                       <div class="col-md-4">
+                                            <div class="comment-title">
+                                                <label for="name">Rating<em>*</em></label>
+                                            </div>
+                                            <!-- Editable star rating container -->
+                                           <!-- Star rating container -->
+<div id="star-rating" data-rating="{{ $review->rating }}"></div> <!-- Default rating is 3 (optional) -->
+                                            <!-- Hidden input to store the selected rating value -->
+                                            <input type="hidden" name="rating" id="rating-input" value="{{ $review->rating }}">
+                                            @if ($errors->has('rating'))
+                                                <span class="text-danger">{{ $errors->first('rating') }}</span>
+                                            @endif
+                                        </div>
+                                        <!--end col-md-4-->
+                                    </div>
+                                    <!--end row-->
+                                    <br>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary btn-rounded">Send Review</button>
+                                    </div>
+                                    <!--end form-group-->
+                                </div>
+                                <!--end comment-->
+                            </div>
+                            <!--end review-->
+                        </form>
+
+                        <!--end form-->
+                    </section>
+
+                </div>
+                <!--col-md-4-->
+            </div>
+            <!--end ro-->
+        </div>
+        <!--end container-->
+    </div>
+    <!--end page-content-->
+
+   @include('frontend.include.footer')
+
+
+
+
+  <script>
+   document.addEventListener('DOMContentLoaded', function () {
+    // Function to generate star ratings for display and editing
+    function generateStarRating(element, rating) {
+        element.innerHTML = ''; // Clear existing stars
+        for (let i = 1; i <= 5; i++) {
+            const star = document.createElement('i');
+            star.classList.add('fa', 'fa-star');
+            star.style.cursor = 'pointer';
+            star.style.color = i <= rating ? '#FFD700' : '#CCCCCC'; // Highlight based on rating
+
+            // Handle star click for setting rating
+            star.addEventListener('click', function () {
+                setStarRating(element, i); // Update rating on click
+            });
+
+            // Optional: add hover effect for better UX
+            star.addEventListener('mouseover', function () {
+                highlightStars(element, i);
+            });
+
+            star.addEventListener('mouseout', function () {
+                highlightStars(element, rating); // Revert to current rating on mouseout
+            });
+
+            element.appendChild(star);
+        }
+    }
+
+    // Function to set star rating
+    function setStarRating(element, rating) {
+        element.setAttribute('data-rating', rating);
+
+        // Update the hidden input field with the new rating value
+        document.getElementById('rating-input').value = rating;
+
+        // Refresh stars with the new rating
+        generateStarRating(element, rating);
+    }
+
+    // Function to highlight stars on hover
+    function highlightStars(element, highlightIndex) {
+        const stars = element.querySelectorAll('.fa-star');
+        stars.forEach((star, index) => {
+            star.style.color = index < highlightIndex ? '#FFD700' : '#CCCCCC';
+        });
+    }
+
+    // Get the star rating container element
+    const starRatingElement = document.getElementById('star-rating');
+    const initialRating = parseInt(starRatingElement.getAttribute('data-rating'), 10) || 0;
+
+    // Generate the initial star rating display
+    generateStarRating(starRatingElement, initialRating);
+});
+
+
+
+  </script>
+     <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        
+
+        @if(Session::has('error'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: "{{ Session::get('error') }}",
+                showConfirmButton: false,
+                timer: 3000
+            });
+        @endif
+
+       
+    });
+</script>
+
