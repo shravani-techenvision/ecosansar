@@ -1136,7 +1136,7 @@ data-id="{{ $data->id }}"
       $('.review').on('click', '.change-review', function() {
           // Get the review ID from the closest description div
           var reviewId = $(this).closest('.description').data('id');
-  alert(reviewId);
+
           // Send AJAX request
           $.ajax({
               url: '{{ url('change-con-review-request') }}/' + reviewId,  // URL of the route with reviewId
@@ -1169,7 +1169,7 @@ data-id="{{ $data->id }}"
       $('.sabrev').on('click', '.sab-change-review', function() {
           // Get the review ID from the closest description div
           var reviewId = $(this).closest('.sabdes').data('id');
-  alert(reviewId);
+
           // Send AJAX request
           $.ajax({
               url: '{{ url('change-sab-review-request') }}/' + reviewId,  // URL of the route with reviewId
@@ -1202,7 +1202,7 @@ data-id="{{ $data->id }}"
       $('.busrev').on('click', '.bus-change-review', function() {
           // Get the review ID from the closest description div
           var reviewId = $(this).closest('.busdes').data('id');
-  alert(reviewId);
+
           // Send AJAX request
           $.ajax({
               url: '{{ url('change-bus-review-request') }}/' + reviewId,  // URL of the route with reviewId
