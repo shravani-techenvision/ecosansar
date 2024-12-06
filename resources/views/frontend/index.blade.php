@@ -1121,6 +1121,8 @@
 
       <!-- Load jQuery before any other script -->
     @include('frontend.include.footer')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
 
  <script>
@@ -1225,3 +1227,29 @@ $(document).ready(function() {
 
 </script>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+
+       @if(Session::has('success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: "{{ Session::get('success') }}",
+                showConfirmButton: false,
+                timer: 5000
+            });
+        @endif
+ @if(Session::has('warning'))
+            Swal.fire({
+                icon: 'warning',
+                title: 'Warning',
+                text: "{{ Session::get('warning') }}",
+                showConfirmButton: false,
+                timer: 3000
+            });
+        @endif
+
+
+    });
+</script>

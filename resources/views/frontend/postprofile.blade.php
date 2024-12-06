@@ -222,4 +222,20 @@ padding-left:8px;
         });
     });
     </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
 
+
+            @if(Session::has('error'))
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: "{{ Session::get('error') }}",
+                    showConfirmButton: false,
+                    timer: 3000
+                });
+            @endif
+
+
+        });
+    </script>

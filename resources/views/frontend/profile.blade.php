@@ -478,7 +478,300 @@
                 </section>
 @endif
 
+<section>
 
+    @if( $utype == 'consumer')
+
+     <h2>What Others Say About Me</h2>
+
+     <div class="row">
+         <div class="col-12"  >
+             <div class="review-container">
+    <div class="review">
+         @if($conrev->isEmpty())
+        <p>No reviews available.</p>
+        @else
+        @foreach($conrev as $review)
+        <div class="description" data-id="{{ $review->id }}">
+            <figure>
+                <div class="rating-passive" data-rating="{{ $review->rating }}">
+                     <span class="name">{{ $review->name }}</span>  <a class="btn btn-primary   btn-rounded icon shadow add-listing change-review">change review</a>    <br>
+                    <span class=" ">{{ $review->title }}</span>
+                    <span class="stars"></span>
+
+                </div>
+            </figure>
+            <span>{{ $review->message }}</span> <!-- Assuming content is your review content -->
+        </div>
+        <hr>
+        @endforeach
+        @endif
+    </div>
+    </div>
+    </div>
+    </div>
+    <hr>
+
+    <div class="row">
+    <div class="col-12" style="">
+         <div class="review-container">
+         <div class="table-section">
+<!-- Your Table Code Goes Here -->
+<h2>People I Know</h2>
+     <table id="example" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <th>Sr. No</th>
+                <th>Name</th>
+                <th>Mobile</th>
+                <th>Action</th>
+
+            </tr>
+        </thead>
+        <tbody><span hidden>{{ $i=1; }}</span>
+                     @foreach($conenq as $data)
+                        <tr>
+                             <td>{{ $i++ }}</td>
+                            <td>{{ $data->name }}</td>
+                            <td>{{ $data->mobile }}</td>
+                            <td>
+                                <a
+                                    class="btn btn-primary btn-small btn-rounded icon shadow add-listing conreview @if($data->flag == 'asked') disabled @endif"
+                                    data-id="{{ $data->id }}"
+                                    @if($data->flag == 'asked') data-disabled="true" @endif
+                                >
+                                    <strong>{{ $data->flag == 'asked' ? 'Asked for review' : 'Ask for review' }}</strong>
+                                </a>
+                            </td>
+
+                        </tr>
+                     @endforeach
+         </tbody>
+     </table>
+
+</div>
+</div>
+</div>
+</div>
+    @elseif( $utype == 'business' )
+    <h2>What Others Say About Me</h2>
+    <div class="row">
+         <div class="col-12" style="" >
+             <div class="review-container">
+    <div class="review busrev">
+         @if($busrev->isEmpty())
+        <p>No reviews available.</p>
+        @else
+        @foreach($busrev as $review)
+        <div class="description  busdes" data-id="{{ $review->id }}">
+            <figure>
+                <div class="rating-passive" data-rating="{{ $review->rating }}">
+                      <span class="name">{{ $review->name }}</span> <a class="btn btn-primary   btn-rounded icon shadow add-listing bus-change-review">change review</a> <br>
+                    <span class=" ">{{ $review->title }}</span>
+                    <span class="stars"></span>
+
+                </div>
+            </figure>
+            <p>{{ $review->message }}</p> <!-- Assuming content is your review content -->
+        </div>
+        @endforeach
+        @endif
+    </div>
+    </div>
+    </div>
+    </div>
+    <hr>
+    <div class="row">
+    <div class="col-12" style="">
+         <div class="review-container">
+              <div class="table-section">
+<!-- Your Table Code Goes Here -->
+<h2>People I Know</h2>
+<table id="example" class="table table-striped table-bordered" style="width:100%">
+<thead>
+<tr>
+<th>Sr. No</th>
+<th>Name</th>
+<th>Mobile</th>
+<th>Action</th>
+
+</tr>
+</thead>
+<tbody><span hidden>{{ $i=1; }}</span>
+@foreach($busenq as $data)
+        <tr>
+             <td>{{ $i++ }}</td>
+            <td>{{ $data->name }}</td>
+            <td>{{ $data->mobile }}</td>
+            <td>
+<a
+class="btn btn-primary btn-small btn-rounded icon shadow add-listing busreview @if($data->flag == 'asked') disabled @endif"
+data-id="{{ $data->id }}"
+@if($data->flag == 'asked') data-disabled="true" @endif
+>
+<strong>{{ $data->flag == 'asked' ? 'Asked for review' : 'Ask for review' }}</strong>
+</a>
+</td>
+
+        </tr>
+        @endforeach
+</tbody>
+
+</table>
+
+
+
+
+</div>
+        </div>
+    </div>
+    </div>
+    @else
+     <h2  >What Others Say About Me</h2>
+    <div class="row">
+
+
+
+
+         <div class="col-12" style="" >
+
+             <div class="review-container">
+    <div class="review sabrev">
+         @if($sabrev->isEmpty())
+        <p>No reviews available.</p>
+        @else
+        @foreach($sabrev as $review)
+        <div class="description sabdes" data-id="{{ $review->id }}">
+            <figure>
+                <div class="rating-passive" data-rating="{{ $review->rating }}">
+                      <span class="name">{{ $review->name }}</span> <a class="btn btn-primary   btn-rounded icon shadow add-listing sab-change-review">change review</a>   <br>
+                    <span class=" ">{{ $review->title }}</span>
+                    <span class="stars"></span>
+
+                </div>
+            </figure>
+            <p>{{ $review->message }}</p> <!-- Assuming content is your review content -->
+        </div>
+        @endforeach
+        @endif
+    </div>
+    </div>
+    </div>
+    </div>
+    <hr>
+
+<div class="row">
+    <div class="col-12" style="">
+
+         <div class="review-container">
+              <div class="table-section">
+<!-- Your Table Code Goes Here -->
+<h2  > People I Know</h2>
+<table id="example" class="table table-striped table-bordered" style="width:100%">
+<thead>
+<tr>
+<th>Sr. No</th>
+<th>Name</th>
+<th>Mobile</th>
+<th>Action</th>
+
+</tr>
+</thead>
+<tbody><span hidden>{{ $i=1; }}</span>
+@foreach($sabenq as $data)
+        <tr>
+             <td>{{ $i++ }}</td>
+            <td>{{ $data->name }}</td>
+            <td>{{ $data->mobile }}</td>
+            <td>
+<a
+class="btn btn-primary btn-small btn-rounded icon shadow add-listing sabreview @if($data->flag == 'asked') disabled @endif"
+data-id="{{ $data->id }}"
+@if($data->flag == 'asked') data-disabled="true" @endif
+>
+<strong>{{ $data->flag == 'asked' ? 'Asked for review' : 'Ask for review' }}</strong>
+</a>
+</td>
+
+        </tr>
+        @endforeach
+</tbody>
+
+</table>
+
+
+
+
+</div>
+        </div>
+    </div>
+    </div>
+    @endif
+    <!--end review-->
+
+
+</section>
+<hr>
+<section>
+
+  <div class="row"  >
+      <div class="col-12">
+         <div class="table-section">
+<!-- Your Table Code Goes Here -->
+<h2>What I Say About Others</h2><br>
+  <div class="table-responsive">
+     <table id="example1" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <th>Sr. No</th>
+                <th style="word-wrap: break-word !important;white-space: normal; word-break: break-word">Title</th>
+                <th>Ratings</th>
+                <th>Review</th>
+                <th>Action</th>
+
+            </tr>
+        </thead>
+        <tbody><span hidden>{{ $i=1; }}</span>
+                     @foreach($reviews as $data)
+                        <tr data-source="{{ $data->type }}" data-id="{{ $data->id }}">
+                             <td>{{ $i++ }}</td>
+                             <td>
+    <!-- Make the title editable on click -->
+    <span style="word-wrap: break-word !important;white-space: normal; word-break: break-word" class="editable-title" data-id="{{ $data->id }}">{{ $data->title }}</span>
+     <textarea class="edit-title-textarea" style="display: none;"></textarea>
+</td>
+<td>
+    <!-- Display rating as stars, initially visible -->
+    <div class="editable-rating" data-id="{{ $data->id }}" data-rating="{{ $data->rating }}">
+        <!-- Stars will be dynamically generated here -->
+    </div>
+</td>
+<td>
+    <!-- Use a textarea for editing the review -->
+    <span style="word-wrap: break-word !important;white-space: normal; word-break: break-word" class="editable-review" data-id="{{ $data->id }}">{{ $data->message }}</span>
+    <textarea class="edit-review-textarea" style="display:none;"></textarea>
+</td>
+
+<!-- Action Column -->
+<td>
+<!-- Action buttons for editing the review -->
+<i class="fa fa-pencil edit-review" style="cursor: pointer; color: #8eb66f;"></i>
+    <i class="fa fa-check save-review" style="cursor: pointer; color: #8eb66f; display: none;"></i>
+    <i class="fa fa-times cancel-edit" style="cursor: pointer; color: #dc3545; display: none;"></i>
+
+</td>
+
+                        </tr>
+                     @endforeach
+         </tbody>
+     </table>
+</div>
+</div>
+</div>
+
+</div>
+
+</section>
 
                 <!--<section>-->
 
@@ -722,6 +1015,219 @@
             });
         });
     </script>
+    <!--consumer ask review start-->
+    <script>
+      $(document).on('click', '.conreview', function(event) {
+          var button = $(this);  // Reference to the clicked button
+
+          // Prevent click event if the button is already disabled
+          if (button.is(':disabled')) {
+              alert('in');
+              event.preventDefault();  // Prevent default click behavior
+              return;  // Exit the function, so no AJAX request is sent
+          }
+
+          var id = button.data('id');  // Get the ID of the record
+
+          // Send AJAX request
+          $.ajax({
+              url: '{{ url('send-review-request') }}/' + id,  // The URL of the route with ID
+              type: 'POST',
+              data: {
+                  _token: '{{ csrf_token() }}'  // CSRF Token for security
+              },
+              success: function(response) {
+                  if (response.status === 'success') {
+                      alert('Review request sent successfully!');
+                      button.html('<strong>Asked for review</strong>'); // Change button text
+                      button.prop('disabled', true); // Disable button after sending request
+                  } else {
+                      alert('Error sending review request.');
+                  }
+              },
+              error: function() {
+                  alert('Something went wrong. Please try again later.');
+              }
+          });
+      });
+  </script>
+   <!--consumer ask review end-->
+
+   <!--business ask review start-->
+    <script>
+      $(document).on('click', '.busreview', function(event) {
+          var button = $(this);  // Reference to the clicked button
+
+          // Prevent click event if the button is already disabled
+          if (button.is(':disabled')) {
+              alert('in');
+              event.preventDefault();  // Prevent default click behavior
+              return;  // Exit the function, so no AJAX request is sent
+          }
+
+          var id = button.data('id');  // Get the ID of the record
+
+          // Send AJAX request
+          $.ajax({
+              url: '{{ url('bus-send-review-request') }}/' + id,  // The URL of the route with ID
+              type: 'POST',
+              data: {
+                  _token: '{{ csrf_token() }}'  // CSRF Token for security
+              },
+              success: function(response) {
+                  if (response.status === 'success') {
+                      alert('Review request sent successfully!');
+                      button.html('<strong>Asked for review</strong>'); // Change button text
+                      button.prop('disabled', true); // Disable button after sending request
+                  } else {
+                      alert('Error sending review request.');
+                  }
+              },
+              error: function() {
+                  alert('Something went wrong. Please try again later.');
+              }
+          });
+      });
+  </script>
+  <!--business ask review end-->
+
+  <!--sab ask review start-->
+   <script>
+      $(document).on('click', '.sabreview', function(event) {
+          var button = $(this);  // Reference to the clicked button
+
+          // Prevent click event if the button is already disabled
+          if (button.is(':disabled')) {
+              alert('in');
+              event.preventDefault();  // Prevent default click behavior
+              return;  // Exit the function, so no AJAX request is sent
+          }
+
+          var id = button.data('id');  // Get the ID of the record
+
+          // Send AJAX request
+          $.ajax({
+              url: '{{ url('sab-send-review-request') }}/' + id,  // The URL of the route with ID
+              type: 'POST',
+              data: {
+                  _token: '{{ csrf_token() }}'  // CSRF Token for security
+              },
+              success: function(response) {
+                  if (response.status === 'success') {
+                      alert('Review request sent successfully!');
+                      button.html('<strong>Asked for review</strong>'); // Change button text
+                      button.prop('disabled', true); // Disable button after sending request
+                  } else {
+                      alert('Error sending review request.');
+                  }
+              },
+              error: function() {
+                  alert('Something went wrong. Please try again later.');
+              }
+          });
+      });
+  </script>
+  <!--sab ask review end-->
+
+  <!--consumer change review start-->
+  <script>
+  $(document).ready(function() {
+      // Delegate the click event to dynamically bind the "Change Review" button
+      $('.review').on('click', '.change-review', function() {
+          // Get the review ID from the closest description div
+          var reviewId = $(this).closest('.description').data('id');
+  alert(reviewId);
+          // Send AJAX request
+          $.ajax({
+              url: '{{ url('change-con-review-request') }}/' + reviewId,  // URL of the route with reviewId
+              type: 'POST',
+              data: {
+                  _token: '{{ csrf_token() }}'  // CSRF Token for security
+              },
+              success: function(response) {
+                  if (response.status === 'success') {
+                      alert('Review request sent successfully!');
+                  } else {
+                      alert('Error sending review request.');
+                  }
+              },
+              error: function() {
+                  alert('Something went wrong. Please try again later.');
+              }
+          });
+      });
+  });
+
+
+
+  </script>
+  <!--consumer change review end-->
+  <!--sab review chnage start-->
+  <script>
+  $(document).ready(function() {
+      // Delegate the click event to dynamically bind the "Change Review" button
+      $('.sabrev').on('click', '.sab-change-review', function() {
+          // Get the review ID from the closest description div
+          var reviewId = $(this).closest('.sabdes').data('id');
+  alert(reviewId);
+          // Send AJAX request
+          $.ajax({
+              url: '{{ url('change-sab-review-request') }}/' + reviewId,  // URL of the route with reviewId
+              type: 'POST',
+              data: {
+                  _token: '{{ csrf_token() }}'  // CSRF Token for security
+              },
+              success: function(response) {
+                  if (response.status === 'success') {
+                      alert('Review request sent successfully!');
+                  } else {
+                      alert('Error sending review request.');
+                  }
+              },
+              error: function() {
+                  alert('Something went wrong. Please try again later.');
+              }
+          });
+      });
+  });
+
+
+
+  </script>
+  <!--sab review change end-->
+  <!--business review chnage start-->
+  <script>
+  $(document).ready(function() {
+      // Delegate the click event to dynamically bind the "Change Review" button
+      $('.busrev').on('click', '.bus-change-review', function() {
+          // Get the review ID from the closest description div
+          var reviewId = $(this).closest('.busdes').data('id');
+  alert(reviewId);
+          // Send AJAX request
+          $.ajax({
+              url: '{{ url('change-bus-review-request') }}/' + reviewId,  // URL of the route with reviewId
+              type: 'POST',
+              data: {
+                  _token: '{{ csrf_token() }}'  // CSRF Token for security
+              },
+              success: function(response) {
+                  if (response.status === 'success') {
+                      alert('Review request sent successfully!');
+                  } else {
+                      alert('Error sending review request.');
+                  }
+              },
+              error: function() {
+                  alert('Something went wrong. Please try again later.');
+              }
+          });
+      });
+  });
+
+
+
+  </script>
+  <!--business review chnage end-->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         @if(Session::has('success'))
@@ -737,6 +1243,157 @@
         @endif
     });
 </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const editIcons = document.querySelectorAll('.edit-review');
 
+        // Display initial star ratings for all rows
+        document.querySelectorAll('.editable-rating').forEach(ratingElement => {
+            const rating = ratingElement.getAttribute('data-rating');
+            generateStarRating(ratingElement, rating);
+        });
+
+        // Attach event listener to each edit icon
+        editIcons.forEach(function (editIcon) {
+            editIcon.addEventListener('click', function () {
+                const row = this.closest('tr');
+                const titleElement = row.querySelector('.editable-title');
+                const titleTextarea = row.querySelector('.edit-title-textarea');
+                const ratingElement = row.querySelector('.editable-rating');
+                const reviewElement = row.querySelector('.editable-review');
+                const reviewTextarea = row.querySelector('.edit-review-textarea');
+
+                // Store original text in case of cancellation
+                const originalTitle = titleElement.textContent;
+                const originalRating = ratingElement.getAttribute('data-rating');
+                const originalReview = reviewElement.textContent;
+
+                // Make the title editable with a textarea
+                titleTextarea.value = originalTitle;
+                titleTextarea.style.display = 'block';
+                titleElement.style.display = 'none';
+
+                // Switch to textarea for review editing
+                reviewTextarea.value = originalReview;
+                reviewTextarea.style.display = 'block';
+                reviewElement.style.display = 'none';
+
+                // Generate star ratings for editing
+                generateStarRating(ratingElement, originalRating);
+
+                // Show Save and Cancel icons, hide the Edit icon
+                const saveIcon = row.querySelector('.save-review');
+                const cancelIcon = row.querySelector('.cancel-edit');
+                editIcon.style.display = 'none'; // Hide the Edit icon
+                saveIcon.style.display = 'inline-block';
+                cancelIcon.style.display = 'inline-block';
+
+                // Handle Save Icon Click
+                saveIcon.addEventListener('click', () => {
+                    // Get the updated text
+                    const updatedTitle = titleTextarea.value;
+                    const updatedRating = ratingElement.getAttribute('data-rating');
+                    const updatedReview = reviewTextarea.value;
+                    const reviewId = reviewElement.getAttribute('data-id');
+
+                    // AJAX to save the updated data
+                    saveReview(reviewId, updatedTitle, updatedRating, updatedReview, saveIcon, cancelIcon, editIcon);
+                });
+
+                // Handle Cancel Icon Click
+                cancelIcon.addEventListener('click', () => {
+                    // Revert back to original text
+                    titleElement.textContent = originalTitle;
+                    reviewElement.textContent = originalReview;
+
+                    // Hide textareas and display original spans
+                    titleTextarea.style.display = 'none';
+                    titleElement.style.display = 'block';
+                    reviewTextarea.style.display = 'none';
+                    reviewElement.style.display = 'block';
+
+                    // Hide Save and Cancel icons, show the Edit icon
+                    saveIcon.style.display = 'none';
+                    cancelIcon.style.display = 'none';
+                    editIcon.style.display = 'inline-block';
+                });
+            });
+        });
+
+        // Function to generate star ratings for display and editing
+        function generateStarRating(element, rating) {
+            element.innerHTML = ''; // Clear existing stars
+            for (let i = 1; i <= 5; i++) {
+                const star = document.createElement('i');
+                star.classList.add('fa', 'fa-star');
+                star.style.cursor = 'pointer';
+                star.style.color = i <= rating ? '#FFD700' : '#CCCCCC'; // Highlight based on rating
+
+                // Handle star click for setting rating
+                star.addEventListener('click', function () {
+                    setStarRating(element, i);
+                });
+
+                element.appendChild(star);
+            }
+        }
+
+        // Function to set star rating
+        function setStarRating(element, rating) {
+            element.setAttribute('data-rating', rating);
+            generateStarRating(element, rating); // Refresh stars
+        }
+
+        // AJAX Function to save the review, title, and rating
+        function saveReview(reviewId, updatedTitle, updatedRating, updatedReview, saveIcon, cancelIcon, editIcon) {
+            const source = saveIcon.closest('tr').getAttribute('data-source');
+            fetch('{{ route('update.review') }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({
+                    review_id: reviewId,
+                      source: source,
+                    title: updatedTitle,
+                    rating: updatedRating,
+                    message: updatedReview
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Success: update the UI with the new data
+                    const row = saveIcon.closest('tr');
+                    const reviewElement = row.querySelector('.editable-review');
+                    const reviewTextarea = row.querySelector('.edit-review-textarea');
+                    const titleElement = row.querySelector('.editable-title');
+                    const titleTextarea = row.querySelector('.edit-title-textarea');
+
+                    titleElement.textContent = updatedTitle;
+                    reviewElement.textContent = updatedReview;
+
+                    // Hide textareas and display spans
+                    titleTextarea.style.display = 'none';
+                    titleElement.style.display = 'block';
+                    reviewTextarea.style.display = 'none';
+                    reviewElement.style.display = 'block';
+
+                    // Hide Save and Cancel icons, show the Edit icon
+                    saveIcon.style.display = 'none';
+                    cancelIcon.style.display = 'none';
+                    editIcon.style.display = 'inline-block';
+                } else {
+                    alert('Error saving data. Please try again.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error saving data. Please try again.');
+            });
+        }
+    });
+    </script>
  @include('frontend.include.footer')
 

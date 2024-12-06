@@ -191,7 +191,8 @@ padding-left:8px;
    @include('frontend.include.footer')
 
 
-
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
    <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -223,3 +224,20 @@ padding-left:8px;
     });
     </script>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+
+            @if(Session::has('error'))
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: "{{ Session::get('error') }}",
+                    showConfirmButton: false,
+                    timer: 3000
+                });
+            @endif
+
+
+        });
+    </script>

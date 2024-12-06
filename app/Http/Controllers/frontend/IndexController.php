@@ -40,6 +40,14 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Storage;
 use App\Services\PHPMailerService;
 use Illuminate\Support\Facades\View;
+use App\Models\admin\Blog;
+use App\Models\admin\BlogCategory;
+use App\Models\admin\BlogTag;
+use App\Models\admin\Volunteer;
+use App\Models\frontend\Comment;
+use App\Models\frontend\ConsumerEnquiry;
+use App\Models\frontend\ConsumerAskReview;
+use App\Models\frontend\BusinessEnquiry;
 
 class IndexController extends Controller
 {
@@ -644,11 +652,60 @@ $totalMinWeight = $busMinWeightSum->total_min_weight + $conMinWeightSum->total_m
 
     public function profile($id)
     {
-
+        $userid = session()->get('user_id');
         $users = EcosansarUsers::where('id', $id)->first();
         $utype = $users->user_type;
-        $conrev = ConsumerReview::where('user_id', $id)->get();
-        $sabrev = SABReview::where('user_id', $id)->get();
+        $conrev = ConsumerReview::join('ecosansar_users','ecosansar_users.id','=','consumer_reviews.login_user_id')
+        ->select('consumer_reviews.*','ecosansar_users.name')
+        ->where('consumer_reviews.user_id', $id)->orderBy('id','desc')->get();
+
+        $sabrev = SABReview::join('ecosansar_users','ecosansar_users.id','=','s_a_b_reviews.login_user_id')
+        ->select('s_a_b_reviews.*','ecosansar_users.name')
+            ->where('s_a_b_reviews.user_id', $id)->orderBy('id','desc')->get();
+        $busrev = BusinessReview::join('ecosansar_users','ecosansar_users.id','=','business_reviews.login_user_id')
+        ->select('business_reviews.*','ecosansar_users.name')
+            ->where('business_reviews.user_id', $id)->orderBy('id','desc')->get();
+
+            $conenq = ConsumerEnquiry::where('user_id', $id)
+            ->orderBy('id')
+            ->get()
+            ->unique(function ($item) {
+                return $item->user_id . '-' . $item->login_user_id;
+            });
+
+
+               $busenq = BusinessEnquiry::where('user_id', $id)
+            ->orderBy('id')
+            ->get()
+            ->unique(function ($item) {
+                return $item->user_id . '-' . $item->login_user_id;
+            });
+
+        $sabenq = SABEnquiry::where('user_id', $id)
+            ->orderBy('id')
+            ->get()
+            ->unique(function ($item) {
+                return $item->user_id . '-' . $item->login_id;
+            });
+
+        // Initialize collections for the different types of reviews
+$consumerReviews = ConsumerReview::where('login_user_id', $userid)->get()->map(function ($review) {
+    $review->type = 'consumer';
+    return $review;
+});
+
+$businessReviews = BusinessReview::where('login_user_id', $userid)->get()->map(function ($review) {
+    $review->type = 'business';
+    return $review;
+});
+
+$sabReviews = SABReview::where('login_user_id', $userid)->get()->map(function ($review) {
+    $review->type = 'sab';
+    return $review;
+});
+
+// Combine all reviews
+$reviews = $consumerReviews->merge($businessReviews)->merge($sabReviews);
 
         $listings = ConsumerPost::leftjoin('consumer_resource_posts', 'consumer_resource_posts.post_id', 'consumer_posts.id')
             ->leftjoin('resources', 'resources.id', 'consumer_resource_posts.resource_type')
@@ -809,7 +866,9 @@ $totalMinWeight = $busMinWeightSum->total_min_weight + $conMinWeightSum->total_m
 
 
         $url = route('profile_update', $id);
-        return view('frontend/profile', compact('users', 'url', 'utype', 'conrev', 'sabrev', 'uniqueListings','deactiveuniqueListings','sabuniqueListings','deactivesabuniqueListings', 'busuniqueListings','deactivebusuniqueListings'));
+        return view('frontend/profile', compact('users', 'url', 'utype', 'conrev', 'sabrev', 'uniqueListings',
+        'deactiveuniqueListings','sabuniqueListings','deactivesabuniqueListings',
+        'busuniqueListings','deactivebusuniqueListings','conenq','busenq','sabenq','busrev','reviews'));
     }
     public function profile_update(Request $req, $id)
     {
@@ -824,43 +883,138 @@ $totalMinWeight = $busMinWeightSum->total_min_weight + $conMinWeightSum->total_m
         Alert::success('success', 'Profile Updated Successfully');
         return redirect()->back();
     }
-    public function conpostprofile($id)
+
+    public function conpostprofile($u_id)
     {
+     // Retrieve the review_id from the query string
+     $review_id = request()->query('review_id');
+    $user_id = session()->get('user_id');
+    $user_type = session()->get('user_type');
 
-        $conpost = ConsumerPost::where('id', $id)->first();
+    // Check if user is logged in; if not, redirect to login
+     if (null === $user_id || $user_id === '') {
+            // User is not logged in, redirect to the login page
+             $redirectUrl = route('conpostprofile', ['id' => $u_id]) . ($review_id ? '?review_id=' . $review_id : '');
+             session()->put('redirect_askrev', $redirectUrl);
+            //  session()->put('redirect_askrev', route('conpostprofile', $u_id));
+            return redirect()->route('consumer_login');
+        }
 
-        $post_id = $conpost->id;
-        $u_id = $conpost->user_id;
-        $conlistreviews = ConsumerReview::where('post_id', $id)->where('user_id', $u_id)->get();
-        $users = EcosansarUsers::where('id', $u_id)->first();
 
-        return view('frontend/postprofile', compact('users', 'conlistreviews', 'u_id', 'post_id'));
+    // Retrieve the ConsumerPost for the provided $u_id
+    $conpost = ConsumerPost::where('user_id', $u_id)->first();
+
+    // Check if $conpost exists; if not, redirect to home with an error message
+    if (!$conpost) {
+        Session::flash('error', 'Post not found.');
+        return redirect('/');
     }
-    public function sabpostprofile($id)
-    {
 
-        $conpost = SABPost::where('id', $id)->first();
+    $post_id = $conpost->id;
+
+    // Retrieve the review request based only on user_id
+     $reviewRequest = ConsumerAskReview::where('id', $review_id)->where('user_id', $user_id)->first();
+      //$reviewRequest = ConsumerAskReview::where('id', $review_id)->first();
+
+    // Check if the review request has already been submitted (status is 'read')
+    // if ($reviewRequest && $reviewRequest->status === 'read') {
+    //     Session::flash('success', 'You have already given a review.');
+    //     return redirect('/');
+    // }
+
+    // Check if the review request exists and belongs to the logged-in user
+    if (!$reviewRequest) {
+        Session::flash('warning', 'Unauthorized access to this review request.');
+        return redirect('/');
+    }
+
+    // Retrieve reviews and user details for the post profile view
+    $conlistreviews = ConsumerReview::where('post_id', $post_id)
+                        ->where('user_id', $u_id)
+                        ->get();
+    $users = EcosansarUsers::where('id', $u_id)->first();
+
+    return view('frontend/postprofile', compact('users', 'conlistreviews', 'u_id', 'post_id'));
+}
+
+    public function sabpostprofile($u_id)
+    {
+         // Retrieve the review_id from the query string
+     $review_id = request()->query('review_id');
+         $user_id = session()->get('user_id');
+        $conpost = SABPost::where('user_id', $u_id)->first();
         $post_id = $conpost->id;
         $u_id = $conpost->user_id;
-        $conlistreviews = SABReview::where('post_id', $id)->where('user_id', $u_id)->get();
+         $user_type = session()->get('user_type');
+        if (null === $user_id || $user_id === '') {
+            // User is not logged in, redirect to the login page
+             $redirectUrl = route('sabpostprofile', ['id' => $u_id]) . ($review_id ? '?review_id=' . $review_id : '');
+             session()->put('redirect_askrev', $redirectUrl);
+
+            return redirect()->route('consumer_login');
+        }
+
+
+         // Retrieve the review request and check if it has already been read
+    $reviewRequest = ConsumerAskReview::where('id', $review_id)->where('user_id', $user_id)
+                        ->first();
+
+
+    if ($reviewRequest && $reviewRequest->status === 'read') {
+        // Redirect to home with a message indicating the review has already been submitted
+         Session::flash('error', 'Error');
+       return redirect('/');
+    }
+     // Check if the review request exists and belongs to the logged-in user
+    if (!$reviewRequest) {
+        Session::flash('warning', 'Unauthorized access to this review request.');
+        return redirect('/');
+    }
+
+        $conlistreviews = SABReview::where('post_id', $post_id)->where('user_id', $u_id)->get();
         $users = EcosansarUsers::where('id', $u_id)->first();
 
         return view('frontend/sabpostprofile', compact('users', 'conlistreviews', 'u_id', 'post_id'));
     }
-    public function buspostprofile($id)
+    public function buspostprofile($u_id)
     {
-
-        $conpost = BusinessPost::where('id', $id)->first();
+         // Retrieve the review_id from the query string
+     $review_id = request()->query('review_id');
+          $user_id = session()->get('user_id');
+        $conpost = BusinessPost::where('user_id', $u_id)->first();
         $post_id = $conpost->id;
         $u_id = $conpost->user_id;
-        $conlistreviews = BusinessReview::where('post_id', $id)->where('user_id', $u_id)->get();
+
+         $user_type = session()->get('user_type');
+        if (null === $user_id || $user_id === '') {
+            // User is not logged in, redirect to the login page
+             $redirectUrl = route('buspostprofile', ['id' => $u_id]) . ($review_id ? '?review_id=' . $review_id : '');
+             session()->put('redirect_askrev', $redirectUrl);
+
+            return redirect()->route('consumer_login');
+        }
+
+         // Retrieve the review request and check if it has already been read
+    $reviewRequest = ConsumerAskReview::where('id', $review_id)->where('user_id', $user_id)
+                        ->first();
+
+
+    if ($reviewRequest && $reviewRequest->status === 'read') {
+        // Redirect to home with a message indicating the review has already been submitted
+         Session::flash('error', 'Error');
+       return redirect('/');
+    }
+    // Check if the review request exists and belongs to the logged-in user
+    if (!$reviewRequest) {
+        Session::flash('warning', 'Unauthorized access to this review request.');
+        return redirect('/');
+    }
+
+        $conlistreviews = BusinessReview::where('post_id', $post_id)->where('user_id', $u_id)->get();
         $users = EcosansarUsers::where('id', $u_id)->first();
 
         return view('frontend/buspostprofile', compact('users', 'conlistreviews', 'u_id', 'post_id'));
     }
-
-
-
     public function filter()
     {
         return view('frontend/auth/consumerlogin');
@@ -898,6 +1052,146 @@ $totalMinWeight = $busMinWeightSum->total_min_weight + $conMinWeightSum->total_m
         // user activity end
 
         return view('frontend/privacypolicy');
+    }
+
+    public function blog()
+    {
+        // Fetch all blogs where active = 1
+        // $blogs = Blog::where('active', 1)->orderBy('id','desc')->get();
+        $blogs = Blog::where('active', 1)
+        ->orderBy('id', 'desc')
+        ->get()
+        ->map(function ($blog) {
+            // Check if posted_by is 'admin', 'user', or an ID
+            if ($blog->posted_by === 'admin') {
+                $blog->posted_by_name = 'Admin';
+            } elseif ($blog->posted_by === 'user') {
+                $blog->posted_by_name = 'User';
+            } elseif (is_numeric($blog->posted_by)) {
+                // If it's a numeric value, fetch the volunteer name
+                $volunteer = Volunteer::find($blog->posted_by);
+                $blog->posted_by_name = $volunteer ? $volunteer->name : 'Unknown Volunteer';
+            }
+
+            return $blog;
+        });
+
+        // Fetch all categories and tags for the sidebar
+        $categories = BlogCategory::all();
+        $tags = BlogTag::all();
+
+        return view('frontend.blog', compact('blogs', 'categories', 'tags'));
+    }
+
+    public function blog_detail($id){
+     // Fetch the blog by ID
+    $blog = Blog::findOrFail($id);
+    // Resolve posted_by_name
+    if ($blog->posted_by === 'admin') {
+        $blog->posted_by_name = 'Admin';
+    } elseif ($blog->posted_by === 'user') {
+        $blog->posted_by_name = 'User';
+    } else {
+        // Assuming the value is a volunteer ID, fetch the volunteer's name
+        $volunteer = Volunteer::find($blog->posted_by);
+        $blog->posted_by_name = $volunteer ? $volunteer->name : 'Unknown Volunteer';
+    }
+    $userid = session()->get('user_id');
+    // Split the category and tag fields and fetch their names from the database
+    $categoryIds = explode(',', $blog->category);
+    $tagIds = explode(',', $blog->tag);
+
+   // Fetch category and tag models based on the IDs
+    $categories = BlogCategory::whereIn('id', $categoryIds)->get(); // Get models instead of names
+    $tags = BlogTag::whereIn('id', $tagIds)->get(); // Get models instead of names
+
+     // Fetch all categories and tags to show in the sidebar
+        $categoriesall = BlogCategory::all();
+        $tagsall = BlogTag::all();
+    // Fetch comments associated with this blog post
+    $comments = Comment::with('replies')->where('blog_id', $id)->where('active',1)->get();
+  // Generate CAPTCHA
+        $captcha = $this->generateCaptcha();
+         // Store CAPTCHA value in session
+        session(['captcha' => $captcha]);
+    // Return the view with the blog data
+    return view('frontend.blog-detail', compact('blog','categories','tags','categoriesall','tagsall','id','userid','comments','captcha'));
+    }
+    public function categoryBlogs($id)
+    {
+        // Fetch the category by ID
+        $category = BlogCategory::findOrFail($id);
+
+        // Fetch blogs related to the category
+        $blogs = Blog::where('active', 1)
+            ->where(function ($query) use ($id) {
+                $query->where('category', $id) // Check for exact match
+                      ->orWhere('category', 'LIKE', "%,$id,%") // Match in the middle
+                      ->orWhere('category', 'LIKE', "$id,%")   // Match at the start
+                      ->orWhere('category', 'LIKE', "%,$id");  // Match at the end
+            })
+             ->orderBy('id', 'DESC') // Fetch in descending order
+            ->get();
+        $blogs->each(function ($blog) {
+    if ($blog->posted_by == 'admin') {
+        $blog->posted_by_name = 'Admin'; // Static name for admin
+    } elseif ($blog->posted_by == 'user') {
+        $blog->posted_by_name = 'User'; // Static name for user
+    } else {
+        // Assuming posted_by is the Volunteer ID
+        $volunteer = \App\Models\admin\Volunteer::find($blog->posted_by); // Find the volunteer by ID
+        if ($volunteer) {
+            $blog->posted_by_name = $volunteer->name; // Set the volunteer name
+        } else {
+            $blog->posted_by_name = 'Unknown'; // In case the volunteer ID doesn't exist
+        }
+    }
+});
+
+        // Fetch all categories and tags to show in the sidebar
+        $categories = BlogCategory::all();
+        $tags = BlogTag::all();
+
+        // Return the view with the filtered blogs
+        return view('frontend.blog', compact('blogs', 'categories', 'tags', 'category'));
+    }
+
+    public function tagBlogs($id)
+    {
+        // Fetch the tag by ID
+        $tag = BlogTag::findOrFail($id);
+
+        // Fetch blogs related to the tag
+        $blogs = Blog::where('active', 1)
+        ->where(function ($query) use ($id) {
+            $query->where('tag', $id) // Check for exact match
+                  ->orWhere('tag', 'LIKE', "%,$id,%") // Match in the middle
+                  ->orWhere('tag', 'LIKE', "$id,%")   // Match at the start
+                  ->orWhere('tag', 'LIKE', "%,$id");  // Match at the end
+        })
+         ->orderBy('id', 'DESC') // Fetch in descending order
+        ->get();
+    $blogs->each(function ($blog) {
+    if ($blog->posted_by == 'admin') {
+        $blog->posted_by_name = 'Admin'; // Static name for admin
+    } elseif ($blog->posted_by == 'user') {
+        $blog->posted_by_name = 'User'; // Static name for user
+    } else {
+        // Assuming posted_by is the Volunteer ID
+        $volunteer = \App\Models\admin\Volunteer::find($blog->posted_by); // Find the volunteer by ID
+        if ($volunteer) {
+            $blog->posted_by_name = $volunteer->name; // Set the volunteer name
+        } else {
+            $blog->posted_by_name = 'Unknown'; // In case the volunteer ID doesn't exist
+        }
+    }
+});
+        // Fetch all categories and tags to show in the sidebar
+        $categories = BlogCategory::all();
+        $tags = BlogTag::all();
+
+        // Return the view with the filtered blogs
+        return view('frontend/blog', compact('blogs', 'categories', 'tags', 'tag'));
     }
 
     public function ourteam()
@@ -2274,6 +2568,19 @@ function resizeImage($source, $width, $height)
                 $userActivity->save();
             }
             // user activity end
+            //Check for review redirect
+         if (session()->has('redirect_askrev')) {
+            $redirect_askrevto = session()->pull('redirect_askrev');
+            Log::info('Redirecting to WhatsApp share URL', ['redirect_revurl' => $redirect_askrevto]);
+            return redirect($redirect_askrevto);
+        }
+         //Check for change review
+         if (session()->has('redirect_changerev')) {
+
+            $redirect_changerevto = session()->pull('redirect_changerev');
+           Log::info('Redirecting to WhatsApp share URL', ['redirect_chrevurl' => $redirect_changerevto]);
+           return redirect($redirect_changerevto);
+       }
             //check for whatsapp url
             if (session()->has('redirect_wp')) {
                 $redirect_wpto = session()->pull('redirect_wp');

@@ -17,6 +17,8 @@ use App\Http\Controllers\frontend\ServiceEnquiryController;
 use App\Http\Controllers\admin\PincodeController;
 use App\Http\Controllers\admin\PrivacyPolicyController;
 use App\Http\Controllers\frontend\PincodeCheckController;
+use App\Http\Controllers\admin\BlogController;
+use App\Http\Controllers\frontend\BlogDetailController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -49,6 +51,10 @@ Route::controller(IndexController::class)->group(function(){
     Route::post('/filter-waste','filter')->name('filter.waste');
      Route::get('about','about')->name('about');
      Route::get('privacypolicy','privacypolicy')->name('privacypolicy');
+     Route::get('blog','blog')->name('blog');
+     Route::get('blog-detail/{id}','blog_detail')->name('blog.detail');
+     Route::get('/blog/category/{id}', 'categoryBlogs')->name('blog.category');
+Route::get('/blog/tag/{id}', 'tagBlogs')->name('blog.tag');
        Route::get('ourteam','ourteam')->name('ourteam');
        Route::get('contact','contact')->name('contact');
         Route::post('contact_store','contact_store')->name('contact_store');
@@ -161,7 +167,29 @@ Route::controller(EnquiryController::class)->group(function(){
       Route::get('Businessconnectreportlist','Businessconnectreportlist')->name('user.Businessconnectreportlist');
        Route::post('shortBusinessconnectReportList','shortBusinessconnectReportList')->name('user.shortBusinessconnectReportList');
 
+       Route::post('/send-review-request/{id}',  'sendReviewRequest')->name('sendReviewRequest');
+       Route::post('/con-mark-read/{id}', 'conmarkAsRead')->name('con.mark-read');
+       Route::post('/bus-send-review-request/{id}',  'bussendReviewRequest')->name('bussendReviewRequest');
+       Route::post('/bus-mark-read/{id}', 'busmarkAsRead')->name('bus.mark-read');
+       Route::post('/sab-send-review-request/{id}',  'sabsendReviewRequest')->name('sabsendReviewRequest');
+       Route::post('/sab-mark-read/{id}', 'sabmarkAsRead')->name('sab.mark-read');
 
+     Route::post('/update-review', 'updateReview')->name('update.review');
+     Route::post('/change-con-review-request/{id}',  'changeconReviewRequest')->name('changeReviewRequest');
+     Route::get('/edit-con-review/{id}/{rid}', 'editconReview')->name('edit.conreview');
+      Route::post('/change-sab-review-request/{id}',  'changesabReviewRequest')->name('changesabReviewRequest');
+ Route::get('/edit-sab-review/{id}/{rid}', 'editsabReview')->name('edit.sabreview');
+  Route::post('/change-bus-review-request/{id}',  'changebusReviewRequest')->name('changebusReviewRequest');
+ Route::get('/edit-bus-review/{id}/{rid}', 'editbusReview')->name('edit.busreview');
+
+
+});
+Route::controller(BlogDetailController::class)->group(function(){
+    Route::post('comment/save', 'save')->name('comment.save');
+    Route::post('/comment/reply', 'saveReply')->name('comment.savereply');
+
+    Route::get('user_blog_add', 'user_blog_add')->name('user_blog_add');
+    Route::post('user_blog/save', 'user_blog_save')->name('user_blog.save');
 });
 Route::controller(ServiceEnquiryController::class)->group(function(){
     Route::post('service_enquiry/save', 'service_enquiry_save')->name('service_enquiry.save');
@@ -221,6 +249,13 @@ Route::controller(AdminController::class)->group(function(){
 
       Route::get('user/activityreportlist','activityreportlist')->name('user.activityreportlist');
       Route::post('shortactivityreportlist','shortactivityreportlist')->name('user.shortactivityreportlist');
+
+      Route::get('volunteer/list','volunteerlist')->name('volunteer.list');
+      Route::get('volunteer/add', 'volunteeradd')->name('volunteer.add');
+      Route::post('volunteer/save','volunteersave')->name('volunteer.save');
+      Route::get('volunteer/edit/{id}', 'volunteeredit')->name('volunteer.edit');
+      Route::post('volunteer/update/{id}','volunteerupdate')->name('volunteer.update');
+      Route::get('volunteer/delete/{id}','volunteerdelete')->name('volunteer.delete');
 
 });
 
@@ -311,6 +346,35 @@ Route::controller(GoogleAdsenseController::class)->group(function(){
     Route::post('googleadsense/update/{id}','update')->name('googleadsense.update');
     Route::get('googleadsense/delete/{id}','delete')->name('googleadsense.delete');
     Route::get('/changeGadsenseStatus','gadsense_status_update')->name('changeGadsenseStatus');
+});
+Route::controller(BlogController::class)->group(function(){
+    Route::get('blog_category_list','blog_category_list')->name('blog.blog_category_list');
+    Route::get('blog_category_add','blog_category_add')->name('blog.blog_category_add');
+    Route::post('blog_category_save','blog_category_save')->name('blog.blog_category_save');
+    Route::get('blog_category_edit/{id}','blog_category_edit')->name('blog.blog_category_edit');
+    Route::post('blog_category_update/{id}','blog_category_update')->name('blog.blog_category_update');
+    Route::get('blog_category_delete/{id}','blog_category_delete')->name('blog.blog_category_delete');
+
+    Route::get('blog_tag_list','blog_tag_list')->name('blog.blog_tag_list');
+    Route::get('blog_tag_add','blog_tag_add')->name('blog.blog_tag_add');
+    Route::post('blog_tag_save','blog_tag_save')->name('blog.blog_tag_save');
+    Route::get('blog_tag_edit/{id}','blog_tag_edit')->name('blog.blog_tag_edit');
+    Route::post('blog_tag_update/{id}','blog_tag_update')->name('blog.blog_tag_update');
+    Route::get('blog_tag_delete/{id}','blog_tag_delete')->name('blog.blog_tag_delete');
+
+    Route::get('blog_list','blog_list')->name('blog.blog_list');
+    Route::get('blog_add','blog_add')->name('blog.blog_add');
+    Route::post('blog_save','blog_save')->name('blog.blog_save');
+    Route::get('blog_edit/{id}','blog_edit')->name('blog.blog_edit');
+    Route::post('blog_update/{id}','blog_update')->name('blog.blog_update');
+    Route::get('blog_delete/{id}','blog_delete')->name('blog.blog_delete');
+    Route::get('/changeBlogStatus','changeBlogStatus')->name('changeBlogStatus');
+
+    Route::get('comment_list','comment_list')->name('blog.comment_list');
+    Route::get('/changeCommentStatus','comment_status_update')->name('changeCommentStatus');
+    Route::get('comment_reply_list','comment_reply_list')->name('blog.comment_reply_list');
+    Route::get('/changeCommentReplyStatus','commentreply_status_update')->name('changeCommentReplyStatus');
+
 });
 
 Route::get('/health', function () {

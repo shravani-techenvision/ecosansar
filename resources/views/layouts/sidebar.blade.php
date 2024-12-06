@@ -89,6 +89,20 @@
 
                     </ul>
                 </li>
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                       <img src="{{ URL::asset('/frontend/assets/img/blog.png') }}" alt="" height="16">
+                        <span>Blogs</span>
+                    </a>
+
+                    <ul class="sub-menu" aria-expanded="false">
+                         <li><a href="{{ route('blog.blog_list') }}">Post</a></li>
+                        <li><a href="{{ route('blog.blog_category_list') }}">Category</a></li>
+                       <li><a href="{{ route('blog.blog_tag_list') }}">Tag</a></li>
+                        <li><a href="{{ route('blog.comment_list') }}">Comment</a></li>
+                         <li><a href="{{ route('blog.comment_reply_list') }}">Comment Reply</a></li>
+                    </ul>
+                </li>
                 @php
                 use App\Models\admin\Service;
                 // Fetch the first record from the About table
@@ -140,6 +154,12 @@
                 </li>  --}}
 
                 <li class="menu-title">Users</li>
+                <li>
+                    <a href="{{route('volunteer.list')}}">
+                        <i class="fas fa-envelope"></i>
+                        <span>Volunteers</span>
+                    </a>
+                </li>
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="uil-store"></i>

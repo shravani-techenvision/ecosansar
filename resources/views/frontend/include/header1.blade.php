@@ -94,7 +94,8 @@
                                 </div>
                             </div>
                         </li>
-
+                        <li class=" "><a href="{{route('blog')}}">Blog</a>
+                        </li>
 
                         <li><a href="{{route('contact')}}">Contact Us</a></li>
                         <li>
@@ -171,6 +172,83 @@
 
                 <!--</div>-->
                 <!--end secondary-nav-->
+                <!--notification display start-->
+                                               @php
+                  use App\Models\frontend\ConsumerAskReview;
+                   use App\Models\frontend\ConsumerPost;
+                   use App\Models\frontend\ConsumerReview;
+                     use App\Models\frontend\SABReview;
+                     use App\Models\frontend\BusinessReview;
+     $userId = session()->get('user_id');
+    $notifications = [];
+    $notificationCount = 0;
+$conreviews = ConsumerReview::where('login_user_id',$userId)->first();
+$sabreviews = SABReview::where('login_user_id',$userId)->first();
+$busreviews = BusinessReview::where('login_user_id',$userId)->first();
+    if ($userId) {
+    $userinfo = ConsumerPost::find($userId);
+     $notifications = ConsumerAskReview::where('user_id', $userId)
+                        ->where(function($query) {
+                            $query->where('flag', 'asked')
+                                  ->whereNull('status')
+                                  ->orWhere('change_review', 'changereview');
+                        })
+                        ->get();
+        $notificationCount = $notifications->count();
+    }
+@endphp
+ <div class="secondary-nav">
+     @if(session()->has('user_id'))
+     @else
+<div class="nav-item dropdown notification-icon" >
+    <a href="#" id="notificationToggle" class="nav-link">
+        <img src="{{asset('frontend/assets/img/Notification icon.png')}}" style="height: 33px;">
+        @if($notificationCount > 0)
+            <span class="badge badge-danger" style="position: absolute; top: 0; right: 0;">
+                {{ $notificationCount }}
+            </span>
+        @endif
+    </a>
+
+    <div id="notificationDropdown" class="dropdown-menu dropdown-menu-left p-3 shadow-lg" style="display: none; position: absolute; right: 0; top: 100%; width: 300px; border-radius: 8px;">
+    <span class="dropdown-header font-weight-bold text-primary">Review Requests</span>
+
+    @if($notificationCount > 0)
+        <ul class="list-group list-group-flush">
+            @foreach($notifications as $notification)
+                <li class="list-group-item d-flex justify-content-between align-items-start notification-item">
+                    <div class="media">
+                        <!-- Optional icon or avatar for a better UI -->
+                        <div class="media-body">
+                            <span class="mt-0 mb-1">
+                                 @if (is_null($notification->status))
+                                <a href="{{ url(($notification->type == 'consumer' ? 'conpostprofile' : ($notification->type == 'business' ? 'buspostprofile' : 'sabpostprofile')) . '/' . $notification->login_user_id. '?review_id=' . $notification->id) }}" class="text-dark" data-id="{{ $notification->id }}">
+                                    {{ $notification->name }}
+                                </a> <small class="text-muted"  >asked for a review</small>
+                                 @elseif ($notification->change_review == 'changereview')
+
+                           <a href="{{ url(($notification->type == 'consumer' ? 'edit-con-review/' . $notification->login_user_id . '/'. $conreviews->id : ($notification->type == 'business' ? 'edit-bus-review/' . $notification->login_user_id . '/'. $busreviews->id : 'edit-sab-review/' . $notification->login_user_id . '/'. $sabreviews->id)) . '?review_id=' . $notification->id) }}" class="text-dark" data-id="{{ $notification->id }}">
+                           {{ $notification->name }}
+                            </a>
+                            <small class="text-muted">asked to change review</small>
+                        @endif
+                            </span>
+
+                        </div>
+                    </div>
+                </li>
+            @endforeach
+        </ul>
+    @else
+        <div class="text-center py-3">
+            <span class="text-muted">No new requests</span>
+        </div>
+    @endif
+</div>
+</div>
+@endif
+</div>
+<!--notification display end-->
                 @php
                 $user_id = session('user_id');
                 if(null !== $user_id && $user_id != ''){
