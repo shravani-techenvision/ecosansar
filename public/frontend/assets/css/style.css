@@ -8328,7 +8328,7 @@ span.scale-rating label:before
     padding-left: 0px;
 }
 .corprow .controls-more {
-    top: 62px;
+    top: 70px;
 }
 .corprow .description {
     padding-top: 15px;
@@ -8360,7 +8360,9 @@ span.scale-rating label:before
 .formobile-img{
         height:40px;
     }
-
+    .mobcon{
+        margin-top: 30px;
+        }
 /* Media query for devices with a screen width of 768px or less (tablets and smaller) */
 @media (max-width: 768px) {
     .bann {
@@ -8383,7 +8385,10 @@ span.scale-rating label:before
         .controls-more a {
             float:left !important;
         }
-
+        .mobcon{
+            margin-top: 30px;
+            margin-left:-217px !important;
+            }
 }
 
 /* Media query for devices with a screen width of 480px or less (mobile devices) */

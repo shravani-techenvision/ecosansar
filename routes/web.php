@@ -62,6 +62,7 @@ Route::get('/blog/tag/{id}', 'tagBlogs')->name('blog.tag');
      Route::get('faq','faq')->name('faq');
     Route::get('howitsworks','howitsworks')->name('howitsworks');
     Route::get('service','service')->name('service');
+    Route::get('repairmap','repairmap')->name('repairmap');
     Route::get('buy/listings','buy_listings')->name('buy_listings');
     Route::get('con_listing_details/{id}','con_listing_details')->name('con_listing_details');
     Route::get('sabs_listing_details/{id}','sabs_listing_details')->name('sabs_listing_details');

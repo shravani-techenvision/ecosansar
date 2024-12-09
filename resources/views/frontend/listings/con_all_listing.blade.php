@@ -1,127 +1,125 @@
 @include('frontend.include.header')
 @include('sweetalert::alert')
 <style>
-.mt-1 {
-  margin-top: .25rem;
-}
-
-.mb-1 {
-  margin-bottom: .25rem;
-}
-input[type="text"],input[type="email"]{
-    padding:5px;
-}
-textarea.form-control {
-    padding:5px;
-}
-
-  .item.item-row > a .image{
-        width:239px !important;
-        border-radius: 10px !important;
-    }
-    .item.item-row > a .description {
-    padding-left:80px !important;
-         color:black !important;
+    .mt-1 {
+      margin-top: .25rem;
     }
 
-    .btn-dropdown {
-    width: 100% !important;
-    text-align: left !important;
-    margin-top:16px !important;
-    background-color: white;
-    border-color: #f0f0f0;
-    color: rgba(0, 0, 0, 0.3);
-    text-transform: none !important;
-    font-size:14px !important;
-}
- .btn-dropdown:hover{
-     color: rgba(0, 0, 0, 0.3);
- }
+    .mb-1 {
+      margin-bottom: .25rem;
+    }
+    input[type="text"],input[type="email"]{
+        padding:5px;
+    }
+    textarea.form-control {
+        padding:5px;
+    }
 
-/* Style for the dropdown caret icon */
-.btn-dropdown .caret {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    margin-top: -2px;
-    margin-bottom: 2px solid rgba(0, 0, 0, 0.08);
-}
+      .item.item-row > a .image{
+            width:239px !important;
+            border-radius: 10px !important;
+        }
+        .item.item-row > a .description {
+        padding-left:80px !important;
+             color:black !important;
+        }
 
-/* Style for the dropdown menu */
-.checkbox-menu {
-    padding: 5px 10px !important;
-    max-height: 200px !important; /* Adjust height as needed */
-    overflow-y: auto !important;;
-}
+        .btn-dropdown {
+        width: 100% !important;
+        text-align: left !important;
+        margin-top:16px !important;
+        background-color: white;
+        border-color: #f0f0f0;
+        color: rgba(0, 0, 0, 0.3);
+        text-transform: none !important;
+        font-size:14px !important;
+    }
+     .btn-dropdown:hover{
+         color: rgba(0, 0, 0, 0.3);
+     }
 
-.checkbox-menu li {
-    list-style: none;
-    margin-bottom: 5px;
-}
+    /* Style for the dropdown caret icon */
+    .btn-dropdown .caret {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        margin-top: -2px;
+        margin-bottom: 2px solid rgba(0, 0, 0, 0.08);
+    }
 
-.checkbox-menu label {
-    display: block;
-    cursor: pointer;
-}
+    /* Style for the dropdown menu */
+    .checkbox-menu {
+        padding: 5px 10px !important;
+        max-height: 200px !important; /* Adjust height as needed */
+        overflow-y: auto !important;;
+    }
 
-.checkbox-menu label:hover {
-    background-color: #f5f5f5;
-}
+    .checkbox-menu li {
+        list-style: none;
+        margin-bottom: 5px;
+    }
 
-.checkbox-menu input[type="checkbox"] {
-    margin-right: 5px;
-}
-.controls-more:after {
-    content: none !important;
-}
-.modal-header {
-    position: relative;
+    .checkbox-menu label {
+        display: block;
+        cursor: pointer;
+    }
 
-}
+    .checkbox-menu label:hover {
+        background-color: #f5f5f5;
+    }
 
-.hr-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-}
+    .checkbox-menu input[type="checkbox"] {
+        margin-right: 5px;
+    }
+    .controls-more{
+        height:135px;
+    }
+    .controls-more:after {
+        content: none !important;
+    }
+    .modal-header {
+        position: relative;
 
-.hr-wrapper hr {
-    flex: 1;
-    border: none;
-    border-top: 1px solid #ccc;
-    margin: 0 10px; /* Adjust margin as needed */
-}
+    }
 
-.hr-wrapper h2 {
-    margin: 0;
-    padding: 0 10px;
-    white-space: nowrap;
-}
-.star-ratings1 i{
-    margin-right: 5px;
-}
-.wp{
-    clear: both;
-    margin-top: 75px;
-}
-.controls-more {
-right: 5px !important;
-}
-a.btn {
-margin-left: 5px !important;
-}
-.controls-more .fa {
-    margin-top:6px !important;
-    font-size: larger !important;
-}
-@media screen and (max-width: 786px) {
-.wp{
-    display:flex;
-    margin-top: 7px !important;
-}
-}
-</style>
+    .hr-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .hr-wrapper hr {
+        flex: 1;
+        border: none;
+        border-top: 1px solid #ccc;
+        margin: 0 10px; /* Adjust margin as needed */
+    }
+
+    .hr-wrapper h2 {
+        margin: 0;
+        padding: 0 10px;
+        white-space: nowrap;
+    }
+    .star-ratings1 i{
+        margin-right: 5px;
+    }
+    .wp{
+        clear: both;
+        margin-top: 98px;
+    }
+    .after-filter{
+        margin-top:60px;
+    }
+
+    @media screen and (max-width: 786px) {
+    .wp{
+        display:flex;
+        margin-top: 7px !important;
+    }
+
+    }
+    </style>
 <div id="page-content">
     <div class="container">
         <ol class="breadcrumb">
@@ -468,7 +466,27 @@ function displayStars($rating) {
 
                             <div class="col-md-3">
                         <div class="controls-more">
-    <a href="#" data-id="{{ $listing->id }}" data-toggle="modal" data-target="#enquiryModal" class="btn btn-primary btn-small btn-rounded icon shadow connect-listing" style="float:right;">
+                            <!-- Display the average rating as stars -->
+
+    @if(isset($listing->average_rating))
+        <div class="rating">
+            @php
+                $roundedRating = round($listing->average_rating);
+            @endphp
+
+            @for ($i = 1; $i <= 5; $i++)
+                @if($i <= $roundedRating)
+                    <i class="fa fa-star text-warning"></i> <!-- Filled star -->
+                @else
+                    <i class="fa fa-star-o text-muted"></i> <!-- Empty star -->
+                @endif
+            @endfor
+
+            <!-- Optionally, display the average rating value -->
+            <!--<span>({{ number_format($listing->average_rating, 1) }})</span>-->
+        </div>
+    @endif
+    <a href="#" data-id="{{ $listing->id }}" data-toggle="modal" data-target="#enquiryModal" class="btn btn-primary btn-small btn-rounded icon shadow connect-listing mobcon" style="float:right;">
         <span>Connect</span>
     </a>
     <!-- WhatsApp share button -->
@@ -522,7 +540,27 @@ function displayStars($rating) {
 
                             <div class="col-md-3">
                         <div class="controls-more">
-    <a href="#" data-id="{{ $listing->id }}" data-toggle="modal" data-target="#enquiryModal" class="btn btn-primary btn-small btn-rounded icon shadow connect-listing" style="float:right;">
+                            <!-- Display the average rating as stars -->
+
+    @if(isset($listing->average_rating))
+        <div class="rating">
+            @php
+                $roundedRating = round($listing->average_rating);
+            @endphp
+
+            @for ($i = 1; $i <= 5; $i++)
+                @if($i <= $roundedRating)
+                    <i class="fa fa-star text-warning"></i> <!-- Filled star -->
+                @else
+                    <i class="fa fa-star-o text-muted"></i> <!-- Empty star -->
+                @endif
+            @endfor
+
+            <!-- Optionally, display the average rating value -->
+            <!--<span>({{ number_format($listing->average_rating, 1) }})</span>-->
+        </div>
+    @endif
+    <a href="#" data-id="{{ $listing->id }}" data-toggle="modal" data-target="#enquiryModal" class="btn btn-primary btn-small btn-rounded icon shadow connect-listing mobcon" style="float:right;">
         <span>Connect</span>
     </a>
     <!-- WhatsApp share button -->
@@ -778,7 +816,25 @@ function displayStars($rating) {
          html += '</div>';
          html += '<div class="col-md-3">';
         html += '<div class="controls-more">';
-        html += '<a href="#" data-id="' + listing.id + '" data-toggle="modal" data-target="#enquiryModal" class="btn btn-primary btn-small btn-rounded icon shadow connect-listing" style="float:right;">';
+             // Adding the rating after the address
+    if (listing.average_rating) {
+        var roundedRating = Math.round(listing.average_rating); // Round the rating
+        html += '<div class="rating">';
+
+        // Generate star ratings based on the rounded value
+        for (var i = 1; i <= 5; i++) {
+            if (i <= roundedRating) {
+                html += '<i class="fa fa-star text-warning"></i>'; // Filled star
+            } else {
+                html += '<i class="fa fa-star-o text-muted"></i>'; // Empty star
+            }
+        }
+
+        // Optionally, display the average rating value
+        // html += '<span>(' + parseFloat(listing.average_rating).toFixed(1) + ')</span>';
+        html += '</div>';
+    }
+        html += '<a href="#" data-id="' + listing.id + '" data-toggle="modal" data-target="#enquiryModal" class="btn btn-primary btn-small btn-rounded icon shadow connect-listing mobcon" style="float:right;">';
         html += '<span>Connect</span>';
         html += '</a>';
          // Add WhatsApp Share Button
@@ -823,7 +879,25 @@ function displayStars($rating) {
          html += '</div>';
          html += '<div class="col-md-3">';
         html += '<div class="controls-more">';
-        html += '<a href="#" data-id="' + listing.id + '" data-toggle="modal" data-target="#enquiryModal" class="btn btn-primary btn-small btn-rounded icon shadow connect-listing" style="float:right;">';
+             // Adding the rating after the address
+    if (listing.average_rating) {
+        var roundedRating = Math.round(listing.average_rating); // Round the rating
+        html += '<div class="rating">';
+
+        // Generate star ratings based on the rounded value
+        for (var i = 1; i <= 5; i++) {
+            if (i <= roundedRating) {
+                html += '<i class="fa fa-star text-warning"></i>'; // Filled star
+            } else {
+                html += '<i class="fa fa-star-o text-muted"></i>'; // Empty star
+            }
+        }
+
+        // Optionally, display the average rating value
+        // html += '<span>(' + parseFloat(listing.average_rating).toFixed(1) + ')</span>';
+        html += '</div>';
+    }
+        html += '<a href="#" data-id="' + listing.id + '" data-toggle="modal" data-target="#enquiryModal" class="btn btn-primary btn-small btn-rounded icon shadow connect-listing mobcon" style="float:right;">';
         html += '<span>Connect</span>';
         html += '</a>';
          // Add WhatsApp Share Button
@@ -961,7 +1035,25 @@ $(document).ready(function() {
                      html += '</div>';
                    html += '<div class="col-md-3">';
                     html += '<div class="controls-more">';
-                    html += '<a href="#" data-id="' + listing.id + '" data-toggle="modal" data-target="#enquiryModal" class="btn btn-primary btn-small btn-rounded icon shadow connect-listing" style="float:right;">';
+                        // Adding the rating after the address
+    if (listing.average_rating) {
+        var roundedRating = Math.round(listing.average_rating); // Round the rating
+        html += '<div class="rating">';
+
+        // Generate star ratings based on the rounded value
+        for (var i = 1; i <= 5; i++) {
+            if (i <= roundedRating) {
+                html += '<i class="fa fa-star text-warning"></i>'; // Filled star
+            } else {
+                html += '<i class="fa fa-star-o text-muted"></i>'; // Empty star
+            }
+        }
+
+        // Optionally, display the average rating value
+        // html += '<span>(' + parseFloat(listing.average_rating).toFixed(1) + ')</span>';
+        html += '</div>';
+    }
+                    html += '<a href="#" data-id="' + listing.id + '" data-toggle="modal" data-target="#enquiryModal" class="btn btn-primary btn-small btn-rounded icon shadow connect-listing mobcon" style="float:right;">';
                     html += '<span>Connect</span>';
                     html += '</a>';
                     html += '</div>';
@@ -992,7 +1084,25 @@ $(document).ready(function() {
                      html += '</div>';
                    html += '<div class="col-md-3">';
                     html += '<div class="controls-more">';
-                    html += '<a href="#" data-id="' + listing.id + '" data-toggle="modal" data-target="#enquiryModal" class="btn btn-primary btn-small btn-rounded icon shadow connect-listing" style="float:right;">';
+                        // Adding the rating after the address
+    if (listing.average_rating) {
+        var roundedRating = Math.round(listing.average_rating); // Round the rating
+        html += '<div class="rating">';
+
+        // Generate star ratings based on the rounded value
+        for (var i = 1; i <= 5; i++) {
+            if (i <= roundedRating) {
+                html += '<i class="fa fa-star text-warning"></i>'; // Filled star
+            } else {
+                html += '<i class="fa fa-star-o text-muted"></i>'; // Empty star
+            }
+        }
+
+        // Optionally, display the average rating value
+        // html += '<span>(' + parseFloat(listing.average_rating).toFixed(1) + ')</span>';
+        html += '</div>';
+    }
+                    html += '<a href="#" data-id="' + listing.id + '" data-toggle="modal" data-target="#enquiryModal" class="btn btn-primary btn-small btn-rounded icon shadow connect-listing mobcon" style="float:right;">';
                     html += '<span>Connect</span>';
                     html += '</a>';
                     html += '</div>';

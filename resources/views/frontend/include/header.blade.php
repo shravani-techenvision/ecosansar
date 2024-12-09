@@ -93,8 +93,9 @@
                                     <ul>
                                         <li class=" "><a href="{{route('about')}}">About Us</a></li>
                                                      <li class=" "><a href="{{route('howitsworks')}}">How it works </a></li>
-                                                     <li class=" "><a href="{{route('faq')}}">FAQ</a></li>
+                                                     <li class=" "><a href="{{route('repairmap')}}">The Repair Map </a></li>
                                                     <li class=" "><a href="{{route('service')}}">Services </a></li>
+                                                    <li class=" "><a href="{{route('faq')}}">FAQ</a></li>
 
                                     </ul>
                                 </div>
