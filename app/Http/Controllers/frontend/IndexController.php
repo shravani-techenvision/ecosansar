@@ -4679,6 +4679,13 @@ function resizeImage($source, $width, $height)
             ->leftjoin('resources', 'resources.id', 's_a_b_resource_posts.resource_type')
             ->join('weights', 's_a_b_posts.quantity', '=', 'weights.id')
             ->join('ecosansar_users', 'ecosansar_users.id', '=', 's_a_b_posts.user_id')
+            ->leftJoin(
+                // Subquery to calculate the average rating for each user
+                DB::raw('(SELECT user_id, AVG(rating) as average_rating FROM s_a_b_reviews GROUP BY user_id) as user_ratings'),
+                'ecosansar_users.id',
+                '=',
+                'user_ratings.user_id'
+            )
             ->select('ecosansar_users.name', 's_a_b_posts.*', 'resources.resource_name', 's_a_b_resource_posts.resource_img',
             'weights.min_weight', 'weights.min_measure', 'weights.max_weight', 'weights.max_measure','user_ratings.average_rating')
             ->where('active', 1)
