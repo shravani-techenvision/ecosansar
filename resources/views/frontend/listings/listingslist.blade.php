@@ -592,7 +592,7 @@ display:grid;
                                 // Check if the image exists in the S3 bucket or fallback to default
                                 $imageUrl = $imagePath && Storage::disk('s3')->exists($imagePath)
                                             ? Storage::disk('s3')->url($imagePath)
-                                            : asset('public/frontend/assets/img/ecosansar.png');
+                                            : url('frontend/assets/img/ecosansar.png');
                             @endphp
                             <img src="{{ $imageUrl }}" alt="abc">
                         </div>
