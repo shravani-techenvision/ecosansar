@@ -71,165 +71,371 @@ display:grid;
             <li class="active">Contact</li>  --}}
         </ol>
         <div class="row">
-            {{--  <div class="col-md-3 col-sm-3">
-                <aside class="sidebar">
-                    <section>
-                        <h2>Search Filter</h2>
-                        <form class="form inputs-underline">
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="keyword" placeholder="Enter keyword">
-                            </div>
-                            <!--end form-group-->
-                            <div class="form-group">
-                                <select class="form-control selectpicker" name="location">
-                                    <option value="">Location</option>
-                                        <option value="1">New York</option>
-                                        <option value="2">Washington</option>
-                                        <option value="3">London</option>
-                                        <option value="4">Paris</option>
-                                </select>
-                            </div>
-                            <!--end form-group-->
-                            <div class="form-group">
-                                <select class="form-control selectpicker" name="category">
-                                    <option value="">Category</option>
-                                        <option value="1">Restaurant</option>
-                                        <option value="2">Event</option>
-                                        <option value="3">Adrenaline</option>
-                                        <option value="4">Sport</option>
-                                        <option value="5">Wellness</option>
-                                </select>
-                            </div>
-                            <!--end form-group-->
-                            <div class="form-group">
-                                <input type="text" class="form-control date-picker" name="min-price" placeholder="Event Date">
-                            </div>
-                            <!--end form-group-->
-                            <div class="form-group">
-                                <div class="ui-slider" id="price-slider" data-value-min="10" data-value-max="400" data-value-type="price" data-currency="$" data-currency-placement="before">
-                                    <div class="values clearfix">
-                                        <input class="value-min" name="value-min[]" readonly>
-                                        <input class="value-max" name="value-max[]" readonly>
-                                    </div>
-                                    <div class="element"></div>
-                                </div>
-                                <!--end price-slider-->
-                            </div>
-                            <!--end form-group-->
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-primary pull-right">Search Now<i class="fa fa-search"></i></button>
-                            </div>
-                            <!--end form-group-->
-                        </form>
-                    </section>
-                    <section>
-                        <h2>Recent Items</h2>
-                        <div class="item" data-id="1">
-                            <a href="detail.html">
-                                <div class="description">
-                                    <figure>Average Price: $8 - $30</figure>
-                                    <div class="label label-default">Restaurant</div>
-                                    <h3>Marky’s Restaurant</h3>
-                                    <h4>63 Birch Street</h4>
-                                </div>
-                                <!--end description-->
-                                <div class="image bg-transfer">
-                                    <img src="assets/img/items/1.jpg" alt="">
-                                </div>
-                                <!--end image-->
-                            </a>
-                            <div class="controls-more">
-                                <ul>
-                                    <li><a href="#">Add to favorites</a></li>
-                                    <li><a href="#">Add to watchlist</a></li>
-                                    <li><a href="#" class="quick-detail">Quick detail</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!--end item-->
-                        <div class="item" data-id="2">
-                            <a href="detail.html">
-                                <div class="description">
-                                    <div class="label label-default">Restaurant</div>
-                                    <h3>Ironapple</h3>
-                                    <h4>4209 Glenview Drive</h4>
-                                </div>
-                                <!--end description-->
-                                <div class="image bg-transfer">
-                                    <img src="assets/img/items/2.jpg" alt="">
-                                </div>
-                                <!--end image-->
-                            </a>
-                            <div class="controls-more">
-                                <ul>
-                                    <li><a href="#">Add to favorites</a></li>
-                                    <li><a href="#">Add to watchlist</a></li>
-                                    <li><a href="#" class="quick-detail">Quick detail</a></li>
-                                </ul>
-                            </div>
-                            <!--end controls-more-->
-                        </div>
-                        <!--end item-->
-                        <div class="item" data-id="15">
-                            <figure class="ribbon">Top</figure>
-                            <a href="detail.html">
-                                <div class="description">
-                                    <figure>Happy hour: 18:00 - 19:00</figure>
-                                    <div class="label label-default">Bar & Grill</div>
-                                    <h3>Bambi Planet Houseboat Bar& Grill </h3>
-                                    <h4>3857 Losh Lane</h4>
-                                </div>
-                                <!--end description-->
-                                <div class="image bg-transfer">
-                                    <img src="assets/img/items/3.jpg" alt="">
-                                </div>
-                                <!--end image-->
-                            </a>
-                            <div class="controls-more">
-                                <ul>
-                                    <li><a href="#">Add to favorites</a></li>
-                                    <li><a href="#">Add to watchlist</a></li>
-                                    <li><a href="#" class="quick-detail">Quick detail</a></li>
-                                </ul>
-                            </div>
-                            <!--end controls-more-->
-                        </div>
-                        <!--end item-->
-                    </section>
-                </aside>
-                <!--end sidebar-->
-            </div>  --}}
-            <!--end col-md-3-->
 
             <div class="col-md-12 col-sm-12">
-                <section class="page-title">
+                <!--Consumer own posts  start     -->
+                @if( $user_type == 'consumer')
+                <h1>Contributor Own Posts</h1>
+               <div class="row">
+                       @foreach($ownuniqueListings as $listing)
+                           <div class="col-md-4 col-sm-4">
+                               <div class="item" data-id="{{ $listing->id }}">
+                                   <a href="{{ url('con_listing_details/'.$listing->id) }}">
+                                       <div class="description">
 
-                </section>
-                <!--end section-title-->
+                                       </div>
+                                       <!--end description-->
+                                       <!--<div class="image bg-transfer">-->
+                                       <!--     <img src="{{ Storage::disk('s3')->url('Consumerposts/' . $listing->resource_img) }}" alt="abc">-->
 
-                <section>
-                    <div class="search-results-controls clearfix">
-                        {{--  <div class="pull-left">
-                            <a href="listing-grid-right-sidebar.html" class="circle-icon active"><i class="fa fa-th"></i></a>
-                            <a href="listing-row-right-sidebar.html" class="circle-icon"><i class="fa fa-bars"></i></a>
-                        </div>  --}}
-                        <!--end left-->
-                        {{--  <div class="pull-right">
-                            <div class="input-group inputs-underline min-width-150px">
-                                <select class="form-control selectpicker" name="sort">
-                                    <option value="">Sort by</option>
-                                    <option value="1">Price</option>
-                                    <option value="2">Distance</option>
-                                    <option value="3">Title</option>
-                                </select>
-                            </div>
-                        </div>  --}}
-                        <!--end right-->
-                    </div>
-                    <!--end search-results-controls-->
-                </section>
+                                       <!--</div>-->
+                                        <div class="image bg-transfer">
+                   @php
+                       // Check if $listing->resource_img is set and not empty
+                       $imagePath = !empty($listing->resource_img) ? 'Consumerposts/' . $listing->resource_img : null;
+
+                       // Check if the image exists in the S3 bucket or fallback to default
+                       $imageUrl = $imagePath && Storage::disk('s3')->exists($imagePath)
+                                   ? Storage::disk('s3')->url($imagePath)
+                                   : asset('frontend/assets/img/ecosansar.png');
+                   @endphp
+                   <img src="{{ $imageUrl }}" alt="abc">
+               </div>
+
+                                       <!--end image-->
+                                   </a>
+                                   <div class="additional-info">
+
+                                               <!--@foreach(explode(', ', $listing->resource_names) as $resourceName)-->
+                                               <!--     {{ $resourceName }} ,-->
+                                               <!--@endforeach-->
+                                               @php
+                                               $resourceNames = explode(', ', $listing->resource_names);
+                                           @endphp
+
+                                           @if(!empty($resourceNames))
+                                               {{ implode(', ', $resourceNames) }}
+                                           @endif
+
+                                           <!--<h4>{{ $listing->address }}</h4>-->
+
+                                                       @if (session()->has('user_id'))
+                                                           <h4 style="word-wrap: break-word !important;white-space: normal; max-width: 200px;">{{ Str::limit($listing->address, 30) }} </h4>
+                                                           @else
+                                                           <h4>{{ $listing->sale_giveaway }}</h4>
+                                                           @endif
+
+                                         <!-- Display the average rating as stars -->
+                   @if(isset($listing->average_rating))
+                       <div class="rating">
+                           @php
+                               $roundedRating = round($listing->average_rating);
+                           @endphp
+
+                           @for ($i = 1; $i <= 5; $i++)
+                               @if($i <= $roundedRating)
+                                   <i class="fa fa-star text-warning"></i> <!-- Filled star -->
+                               @else
+                                   <i class="fa fa-star-o text-muted"></i> <!-- Empty star -->
+                               @endif
+                           @endfor
+
+                           <!-- Optionally, display the average rating value -->
+                           <!--<span>({{ number_format($listing->average_rating, 1) }})</span>-->
+                       </div>
+                       @else
+                   <div class="rating">
+                       @for ($i = 1; $i <= 5; $i++)
+                           <i class="fa fa-star-o text-muted"></i> <!-- Empty star -->
+                       @endfor
+                   </div>
+                   @endif
+                                       <div class="controls-more hide-show"  >
+                                            @if (session()->has('user_id'))
+                                           <!-- <a href="#" data-id="{{ $listing->id }}" data-toggle="modal" data-target="#enquiryModal" class="btn btn-primary btn-small btn-rounded icon shadow consumer-connect-listing" style="float:right;">-->
+
+                                           <!--    <span>Connect</span>-->
+                                           <!--</a> -->
+                                          <span class="wp-dis-own">Share on:
+                                           <a class=" " href="https://wa.me/?text={{ urlencode('This post from The ZeroWaste Community Tool might interest you, check it out : ' . url('con_listing_details/'.$listing->id)) }}" target="_blank" class="btn btn-success btn-small btn-rounded icon shadow" style="margin-bottom:10px;">
+
+                                                                   <!--<i class="fa fa-share-alt"></i> Share on WhatsApp-->
+                                                                     <i class="fa fa-whatsapp" style="color: #25d366; font-size: 30px;"></i>
+
+                                                               </a></span>
+                                       @else
+                                        <a href="{{ route('consumer_login', ['redirect_wp' => url('con_listing_details/' . $listing->id)]) }}" target="_blank" class="btn btn-success btn-small btn-rounded icon shadow" style="margin-bottom:10px;">
+                                                               <i class="fa fa-whatsapp"></i> Share on WhatsApp
+                                                           </a>
+                                                                 <a href="{{ route('consumer_login') }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing">Connect</a>
+                                                               @endif
+                                                           </div>
+                                                           <!--end controls-more-->
+                                                       </div>
+                                                       <!--end additional-info-->
+                                                   </div>
+                                                   <!--end item-->
+                                               </div>
+                                               <!--end col-md-4-->
+                                           @endforeach
+                                            </div>
+                <div class="row">
+                                           <div class="col-md-12 col-sm-12 text-center">
+                                                @if (session()->has('user_id'))
+                                            <a href="{{route('consumer_own_posts')}}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing">Browse More</a>
+                                            <hr>
+                                             @else
+                                           <a href="{{ route('consumer_login') }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing">Browse More</a>
+                                       @endif
+                                               </div>
+                                       </div>
+
+               @endif
+
+               <!--Consumer own post end -->
+               <!--Resource Collector own post start -->
+                @if( $user_type == 'sab')
+               <h1>Resource Collector Own Posts</h1>
+                                   <div class="row">
+
+                                       @foreach($ownsabuniqueListings as $listing)
+                                           <div class="col-md-4 col-sm-4">
+                                               <div class="item" data-id="{{ $listing->id }}">
+                                                   <a href="{{ url('sabs_listing_details/'.$listing->id) }}">
+                                                       <div class="description">
+
+                                                       </div>
+                                                       <!--end description-->
+                                                       <!--<div class="image bg-transfer">-->
+                                                       <!--     <img src="{{ Storage::disk('s3')->url('SABposts/' . $listing->resource_img) }}" alt="abc">-->
+
+                                                       <!--</div>-->
+                                                        <div class="image bg-transfer">
+                   @php
+                       // Check if $listing->resource_img is set and not empty
+                       $imagePath = !empty($listing->resource_img) ? 'SABposts/' . $listing->resource_img : null;
+
+                       // Check if the image exists in the S3 bucket or fallback to default
+                       $imageUrl = $imagePath && Storage::disk('s3')->exists($imagePath)
+                                   ? Storage::disk('s3')->url($imagePath)
+                                   : asset('frontend/assets/img/ecosansar.png');
+                   @endphp
+                   <img src="{{ $imageUrl }}" alt="abc">
+               </div>
+                                                       <!--end image-->
+                                                   </a>
+                                                   <div class="additional-info">
+
+                                                               <!--@foreach(explode(', ', $listing->resource_names) as $resourceName)-->
+                                                               <!--     {{ $resourceName }} ,-->
+                                                               <!--@endforeach-->
+                                                               @php
+                   $resourceNames = explode(', ', $listing->resource_names);
+               @endphp
+
+               @if(!empty($resourceNames))
+                   {{ implode(', ', $resourceNames) }}
+               @endif
 
 
+                                                      @if (session()->has('user_id'))
+                                                           <h4 style="word-wrap: break-word !important;white-space: normal; max-width: 200px;">{{ Str::limit($listing->address, 30) }}  </h4>
+                                                           @else
+                                                           <h4>{{ $listing->sale_giveaway }}</h4>
+                                                           @endif
+
+                                                         <!-- Display the average rating as stars -->
+                   @if(isset($listing->average_rating))
+                       <div class="rating">
+                           @php
+                               $roundedRating = round($listing->average_rating);
+                           @endphp
+
+                           @for ($i = 1; $i <= 5; $i++)
+                               @if($i <= $roundedRating)
+                                   <i class="fa fa-star text-warning"></i> <!-- Filled star -->
+                               @else
+                                   <i class="fa fa-star-o text-muted"></i> <!-- Empty star -->
+                               @endif
+                           @endfor
+
+                           <!-- Optionally, display the average rating value -->
+                           <!--<span>({{ number_format($listing->average_rating, 1) }})</span>-->
+                       </div>
+                       @else
+                   <div class="rating">
+                       @for ($i = 1; $i <= 5; $i++)
+                           <i class="fa fa-star-o text-muted"></i> <!-- Empty star -->
+                       @endfor
+                   </div>
+                   @endif
+                                                       <div class="controls-more hide-show" >
+                                                            @if (session()->has('user_id'))
+                   <!--                                        <a href="#" data-id="{{ $listing->id }}" data-toggle="modal" data-target="#sabenquiryModal" class="btn btn-primary btn-small btn-rounded icon shadow sab-connect-listing" style="float:right;">-->
+
+                   <!--    <span>Connect</span>-->
+                   <!--</a>-->
+                    <span class="wp-dis-own">Share on:
+                   <a class=" " href="https://wa.me/?text={{ urlencode('This post from The ZeroWaste Community Tool might interest you, check it out : ' . url('sabs_listing_details/'.$listing->id)) }}" target="_blank"  style="float:right">
+
+                                            <!--<i class="fa fa-share-alt"></i>  -->
+                                             <i class="fa fa-whatsapp" style="color: #25d366; font-size: 30px;"></i>
+
+                                       </a> </span>
+                   @else
+                    <a href="{{ route('consumer_login', ['redirect_wp' => url('sabs_listing_details/' . $listing->id)]) }}" target="_blank" class="btn btn-success btn-small btn-rounded icon shadow" style="margin-bottom:10px;">
+                                           <i class="fa fa-whatsapp"></i> Share on WhatsApp
+                                       </a>
+
+                                                            <a href="{{ route('consumer_login') }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing">Connect</a>
+                                                           @endif
+
+                                                       </div>
+                                                       <!--end controls-more-->
+                                                   </div>
+                                                   <!--end additional-info-->
+                                               </div>
+                                               <!--end item-->
+                                           </div>
+                                           <!--end col-md-4-->
+                                       @endforeach
+                                       </div>
+               <div class="row">
+                                           <div class="col-md-12 col-sm-12 text-center">
+                                                @if (session()->has('user_id'))
+                                            <a href="{{route('sab_own_posts')}}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing">Browse More</a>
+                                            <hr>
+                                             @else
+                                           <a href="{{ route('consumer_login') }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing">Browse More</a>
+                                       @endif
+                                               </div>
+                                       </div>
+
+                                       @endif
+               <!--Resource Collector own post end -->
+               <!--Corporate own post start -->
+                 @if( $user_type == 'business')
+               <h1>Corporate Own Posts</h1>
+                <div class="row">
+
+                                       @foreach($ownbusuniqueListings as $listing)
+                                           <div class="col-md-4 col-sm-4">
+                                               <div class="item" data-id="{{ $listing->id }}">
+                                                   <a href="{{ url('bus_listing_details/'.$listing->id) }}">
+                                                       <div class="description">
+
+
+                                                       </div>
+                                                       <!--end description-->
+                                                       <!--<div class="image bg-transfer">-->
+                                                       <!--     <img src="{{ Storage::disk('s3')->url('Businessposts/' . $listing->resource_img) }}" alt="abc">-->
+
+                                                       <!--</div>-->
+                                                       <div class="image bg-transfer">
+                   @php
+                       // Check if $listing->resource_img is set and not empty
+                       $imagePath = !empty($listing->resource_img) ? 'Businessposts/' . $listing->resource_img : null;
+
+                       // Check if the image exists in the S3 bucket or fallback to default
+                       $imageUrl = $imagePath && Storage::disk('s3')->exists($imagePath)
+                                   ? Storage::disk('s3')->url($imagePath)
+                                   : asset('frontend/assets/img/ecosansar.png');
+                   @endphp
+                   <img src="{{ $imageUrl }}" alt="abc">
+               </div>
+                                                       <!--end image-->
+                                                   </a>
+                                                   <div class="additional-info">
+
+                                                           <!--@foreach(explode(', ', $listing->resource_names) as $index => $resourceName)-->
+                                                           <!--    @if($index < 2)-->
+                                                           <!--         {{ $resourceName }} ,-->
+                                                           <!--    @else-->
+                                                           <!--        @break-->
+                                                           <!--    @endif-->
+                                                           <!--@endforeach-->
+                                                       @php
+                   $resourceNames = explode(', ', $listing->resource_names);
+               @endphp
+
+               @if(!empty($resourceNames))
+                   {{ implode(', ', $resourceNames) }}
+               @endif
+
+
+                                                             @if (session()->has('user_id'))
+                                                           <h4 style="word-wrap: break-word !important;white-space: normal; max-width: 200px;">{{ Str::limit($listing->address, 30) }}  </h4>
+                                                           @else
+                                                           <h4>{{ $listing->sale_giveaway }}</h4>
+                                                           @endif
+
+                                                         <!-- Display the average rating as stars -->
+                   @if(isset($listing->average_rating))
+                       <div class="rating">
+                           @php
+                               $roundedRating = round($listing->average_rating);
+                           @endphp
+
+                           @for ($i = 1; $i <= 5; $i++)
+                               @if($i <= $roundedRating)
+                                   <i class="fa fa-star text-warning"></i> <!-- Filled star -->
+                               @else
+                                   <i class="fa fa-star-o text-muted"></i> <!-- Empty star -->
+                               @endif
+                           @endfor
+
+                           <!-- Optionally, display the average rating value -->
+                           <!--<span>({{ number_format($listing->average_rating, 1) }})</span>-->
+                       </div>
+                       @else
+                   <div class="rating">
+                       @for ($i = 1; $i <= 5; $i++)
+                           <i class="fa fa-star-o text-muted"></i> <!-- Empty star -->
+                       @endfor
+                   </div>
+                   @endif
+                                                       <div class="controls-more hide-show" >
+                                                            @if (session()->has('user_id'))
+                   <!--                                         <a href="#" data-id="{{ $listing->id }}" data-toggle="modal" data-target="#businessenquiryModal" class="btn btn-primary btn-small btn-rounded icon shadow bus-connect-listing" style="float:right;">-->
+                   <!--    <span>Connect</span>-->
+                   <!--</a>-->
+                   <span class="wp-dis-own">Share on:
+                     <a class=" " href="https://wa.me/?text={{ urlencode('This post from The ZeroWaste Community Tool might interest you, check it out : ' . url('bus_listing_details/'.$listing->id)) }}" target="_blank"  style="float:right">
+
+                                            <!--<i class="fa fa-share-alt"></i>  -->
+                                           <i class="fa fa-whatsapp" style="color: #25d366; font-size: 30px;"></i>
+
+                                       </a> </span>
+                    @else
+                     <a href="{{ route('consumer_login', ['redirect_wp' => url('bus_listing_details/' . $listing->id)]) }}" target="_blank" class="btn btn-success btn-small btn-rounded icon shadow" style="margin-bottom:10px;">
+                                           <i class="fa fa-whatsapp"></i> Share on WhatsApp
+                                       </a>
+
+                                             <a href="{{ route('consumer_login') }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing">Connect</a>
+                                           @endif
+                                                       </div>
+                                                       <!--end controls-more-->
+                                                   </div>
+                                                   <!--end additional-info-->
+                                               </div>
+                                               <!--end item-->
+                                           </div>
+                                           <!--end col-md-4-->
+                                       @endforeach
+                                        </div>
+               <div class="row">
+                                           <div class="col-md-12 col-sm-12 text-center">
+                                                @if (session()->has('user_id'))
+                                            <a href="{{route('business_own_posts')}}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing">Browse More</a>
+                                            <hr>
+                                             @else
+                                           <a href="{{ route('consumer_login') }}" class="btn btn-primary btn-small btn-rounded icon shadow add-listing">Browse More</a>
+                                       @endif
+                                               </div>
+                                       </div>
+
+                @endif
+               <!--Corporate own post end -->
 {{--  Consumer posts section start  --}}
 <section>
      @if( $user_type !== 'business' && $user_type !== 'sab')

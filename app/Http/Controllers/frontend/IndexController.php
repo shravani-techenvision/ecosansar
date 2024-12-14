@@ -3493,8 +3493,8 @@ function resizeImage($source, $width, $height)
             ->select('consumer_posts.*', 'resources.resource_name', 'consumer_resource_posts.resource_img')
             ->where('consumer_posts.user_id', $user_id)
             ->where('consumer_posts.active', '=', 1)
-            ->orderBy('consumer_posts.created_at', 'asc')
-            ->get();
+            ->orderBy('consumer_posts.created_at', 'desc')
+            ->latest()->take(3)->get();
 
         // Extract unique post IDs
         $postIds = $listings->pluck('id')->unique();
@@ -3504,7 +3504,7 @@ function resizeImage($source, $width, $height)
         foreach ($postIds as $postId) {
             $postListings = $listings->where('id', $postId);
             $resourceNames = $postListings->pluck('resource_name')->implode(', ');
-            $resourceImages = $postListings->pluck('resource_img')->implode(', ');
+            $resourceImages = $postListings->pluck('resource_img')->first();
             $uniqueListing = $postListings->first();
             $uniqueListing->resource_names = $resourceNames;
             $uniqueListing->resource_img = $resourceImages;
@@ -3516,8 +3516,8 @@ function resizeImage($source, $width, $height)
             ->select('s_a_b_posts.*', 'resources.resource_name', 's_a_b_resource_posts.resource_img')
             ->where('s_a_b_posts.user_id',  $user_id)
             ->where('s_a_b_posts.active', '=', 1)
-            ->orderBy('s_a_b_posts.created_at', 'asc')
-            ->get();
+            ->orderBy('s_a_b_posts.created_at', 'desc')
+            ->latest()->take(3)->get();
 
         // Extract unique post IDs
         $sabpostIds = $sablistings->pluck('id')->unique();
@@ -3527,7 +3527,7 @@ function resizeImage($source, $width, $height)
         foreach ($sabpostIds as $postId) {
             $sabpostListings = $sablistings->where('id', $postId);
             $resourceNames = $sabpostListings->pluck('resource_name')->implode(', ');
-            $resourceImages = $sabpostListings->pluck('resource_img')->implode(', ');
+            $resourceImages = $sabpostListings->pluck('resource_img')->first();
             $sabuniqueListing = $sabpostListings->first();
             $sabuniqueListing->resource_names = $resourceNames;
             $sabuniqueListing->resource_img = $resourceImages;
@@ -3539,8 +3539,8 @@ function resizeImage($source, $width, $height)
             ->select('business_posts.*', 'resources.resource_name', 'business_resource_posts.resource_img')
             ->where('business_posts.user_id',  $user_id)
             ->where('business_posts.active', '=', 1)
-            ->orderBy('business_posts.created_at', 'asc')
-            ->get();
+            ->orderBy('business_posts.created_at', 'desc')
+            ->latest()->take(3)->get();
 
         // Extract unique post IDs
         $buspostIds = $buslistings->pluck('id')->unique();
@@ -3550,7 +3550,7 @@ function resizeImage($source, $width, $height)
         foreach ($buspostIds as $postId) {
             $buspostListings = $buslistings->where('id', $postId);
             $resourceNames = $buspostListings->pluck('resource_name')->implode(', ');
-            $resourceImages = $buspostListings->pluck('resource_img')->implode(', ');
+            $resourceImages = $buspostListings->pluck('resource_img')->first();
             $busuniqueListing = $buspostListings->first();
             $busuniqueListing->resource_names = $resourceNames;
             $busuniqueListing->resource_img = $resourceImages;
