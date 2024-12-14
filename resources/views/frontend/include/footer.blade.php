@@ -153,7 +153,7 @@ div#phone91 {
     function googleTranslateElementInit() {
         new google.translate.TranslateElement({
             pageLanguage: 'en',
-            includedLanguages: 'hi,te,ta,kn,mr,or,bn', // Language codes for Hindi, Telugu, Tamil, Kannada, Marathi, Oriya, Bengali
+            includedLanguages: 'hi,te,ta,kn,mr,or,bn,en', // Language codes for Hindi, Telugu, Tamil, Kannada, Marathi, Oriya, Bengali
             layout: google.translate.TranslateElement.InlineLayout.SIMPLE
         }, 'google_translate_element');
     }

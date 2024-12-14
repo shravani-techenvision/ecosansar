@@ -52,17 +52,6 @@
                         </div>
                     </div>
 
-                     <!--<div class="form-group">-->
-                     <!--            <label for="last_name">Phone number<span style="color:red;">*</span> </label><br><br>-->
-                     <!--           <div class="input-group">-->
-                     <!--               <span class="input-group-addon">+91</span>-->
-                     <!--                   <input onkeydown="return (event.keyCode >= 48 && event.keyCode <= 57) || event.keyCode == 8" type="text" class="form-control" name="mobile" id="contact" placeholder="Please enter digit mobile number" minlength="10" maxlength="10" value={{ old('mobile') }}>-->
-                     <!--                   @if ($errors->has('mobile'))-->
-                     <!--                   <span class="text-danger">{{ $errors->first('mobile') }}</span>-->
-                     <!--                @endif-->
-                     <!--               </div>-->
-                     <!--             </div>-->
-                    <!--end form-group-->
 
                     <div class="form-group" id="otp-group" style="display: none;">
                         <label for="otp">OTP</label>
@@ -73,12 +62,12 @@
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
-                        <button type="button" id="resend-otp" class="btn btn-primary btn-small btn-rounded icon shadow add-listing" style="margin-top:17px; float:inline-end;">Resend OTP</button>
+                        <button type="button" id="resend-otp" class="btn btn-primary btn-small btn-rounded icon shadow add-listing" style="margin-top:17px; ">Resend OTP</button>
                     </div>
                     <!--end form-group-->
 
                     <button type="button" class="btn btn-primary btn-small btn-rounded icon shadow add-listing" id="submit-contact">Submit</button>
-                    <button type="button" class="btn btn-primary btn-small btn-rounded icon shadow add-listing" id="submit-otp" style="display: none;">Verify OTP</button>
+                    <button type="button" class="btn btn-primary btn-small btn-rounded icon shadow add-listing" id="submit-otp" style="display: none;float:inline-end; margin-top:-55px;">Verify OTP</button>
                 </form>
 
                     {{--  <hr>  --}}
