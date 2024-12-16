@@ -302,8 +302,16 @@ function displayStars($rating) {
                             <!--<figure class="ribbon">Sale</figure>-->
                             <a href="{{ url('bus_listing_details/'.$listing->id) }}">
                                 <div>
-                                    <img class="corpimage" src="{{ Storage::disk('s3')->url('Businessposts/' . $listing->resource_img) }}" alt="abc">
+                                    @php
+                                        // Check if $listing->resource_img is set and not empty
+                                        $imagePath = !empty($listing->resource_img) ? 'Businessposts/' . $listing->resource_img : null;
 
+                                        // Check if the image exists in the S3 bucket or fallback to default
+                                        $imageUrl = $imagePath && Storage::disk('s3')->exists($imagePath)
+                                                    ? Storage::disk('s3')->url($imagePath)
+                                                    : asset('frontend/assets/img/ecosansar.png');
+                                    @endphp
+                                    <img class="corpimage" src="{{ $imageUrl }}" alt="abc">
                                 </div>
                                  </a>
                                 </div>
@@ -375,8 +383,16 @@ function displayStars($rating) {
                             <!--<figure class="ribbon">Sale</figure>-->
                             <a href="{{ url('bus_listing_details/'.$listing->id) }}">
                                 <div>
-                                    <img class="corpimage" src="{{ Storage::disk('s3')->url('Businessposts/' . $listing->resource_img) }}" alt="abc">
+                                    @php
+                                        // Check if $listing->resource_img is set and not empty
+                                        $imagePath = !empty($listing->resource_img) ? 'Businessposts/' . $listing->resource_img : null;
 
+                                        // Check if the image exists in the S3 bucket or fallback to default
+                                        $imageUrl = $imagePath && Storage::disk('s3')->exists($imagePath)
+                                                    ? Storage::disk('s3')->url($imagePath)
+                                                    : asset('frontend/assets/img/ecosansar.png');
+                                    @endphp
+                                    <img class="corpimage" src="{{ $imageUrl }}" alt="abc">
                                 </div>
                                  </a>
                                 </div>
@@ -656,9 +672,9 @@ function displayStars($rating) {
         var html = '<div class="row corprow" data-latitude="40.71447628" data-longitude="-73.8821125">';
           html += '<div class="col-md-3">';
         html += '<a href="{{ url('bus_listing_details/') }}/' + listing.id + '">';
-        html += '<div>';
-        html += '<img class="corpimage" src="{{ Storage::disk('s3')->url('Businessposts') }}/' + listing.resource_img + '" alt="abc">';
-        html += '</div>';
+            html += '<div>';
+                 html += '<img class="corpimage" src="' + listing.image_url + '" alt="abc">';
+                html += '</div>';
          html += '</a>';
          html += '</div>';
           html += '<div class="col-md-6">';
@@ -720,9 +736,9 @@ html += '<div class="wp">'; // Ensure it goes below the "Connect" button
         var html = '<div class="row corprow" data-latitude="40.71447628" data-longitude="-73.8821125">';
           html += '<div class="col-md-3">';
         html += '<a href="{{ url('bus_listing_details/') }}/' + listing.id + '">';
-        html += '<div>';
-        html += '<img class="corpimage" src="{{ Storage::disk('s3')->url('Businessposts') }}/' + listing.resource_img + '" alt="abc">';
-        html += '</div>';
+            html += '<div>';
+                 html += '<img class="corpimage" src="' + listing.image_url + '" alt="abc">';
+                html += '</div>';
          html += '</a>';
          html += '</div>';
           html += '<div class="col-md-6">';
@@ -870,6 +886,7 @@ $(document).ready(function() {
    filtersHtml += '</div>';
    filtersHtml += '</section>';
                  $('#postListings').append(filtersHtml);
+                 if (response.user_type === 'business') {
                 // Iterate through sorted listings and append to #postListings
                 $.each(response.busuniqueListings, function(index, listing) {
                     var html = '<div class="corprow" data-latitude="40.71447628" data-longitude="-73.8821125">';
@@ -919,6 +936,67 @@ $(document).ready(function() {
                        html += '</div>';
                     $('#postListings').append(html);
                 });
+            }else{
+                $.each(response.busbuyuniqueListings, function(index, listing) {
+                 var html = '<div class="row corprow" data-latitude="40.71447628" data-longitude="-73.8821125">';
+                 html += '<div class="col-md-3">';
+                 html += '<a href="{{ url('bus_listing_details/') }}/' + listing.id + '">';
+                 html += '<div>';
+                 // html += '<img class="corpimage" src="{{ Storage::disk('s3')->url('Businessposts') }}/' + listing.resource_img + '" alt="abc">';
+                  html += '<img class="corpimage" src="' + listing.image_url + '" alt="abc">';
+                 html += '</div>';
+                   html += '</a>';
+                  html += '</div>';
+                 html += '<div class="col-md-6">';
+                 html += '<div class="description">';
+                 var resourceNames = listing.resource_names ? listing.resource_names.split(', ') : [];
+                 if (resourceNames.length > 0) {
+                     html += resourceNames.join(', ');
+                 }
+                 html += '<h4>' + listing.weight_details + '</h4>';
+                 html += '<h4>' + listing.address + '</h4><br>';
+                 html += '<h4>' + 'Posted on: ' + listing.formatted_date + '</h4>';
+                 html += '</div>';
+                  html += '</div>';
+                html += '<div class="col-md-3">';
+                 html += '<div class="controls-more">';
+                 // Adding the rating after the address
+ if (listing.average_rating) {
+     var roundedRating = Math.round(listing.average_rating); // Round the rating
+     html += '<div class="rating">';
+
+     // Generate star ratings based on the rounded value
+     for (var i = 1; i <= 5; i++) {
+         if (i <= roundedRating) {
+             html += '<i class="fa fa-star text-warning"></i>'; // Filled star
+         } else {
+             html += '<i class="fa fa-star-o text-muted"></i>'; // Empty star
+         }
+     }
+
+     // Optionally, display the average rating value
+     // html += '<span>(' + parseFloat(listing.average_rating).toFixed(1) + ')</span>';
+     html += '</div>';
+ }
+                 html += '<a href="#" data-id="' + listing.id + '" data-toggle="modal" data-target="#enquiryModal" class="btn btn-primary btn-small btn-rounded icon shadow connect-listing mobcon" style="float:right;">';
+                 html += '<span>Connect</span>';
+                 html += '</a>';
+                 // Add WhatsApp Share Button
+html += '<div class="wp">'; // Ensure it goes below the "Connect" button
+if (sessionUserId) { // Assuming you have session user ID in JavaScript (e.g., passed from backend or retrieved via AJAX)
+ html += 'Share&nbsp; .&nbsp;<a href="https://wa.me/?text=' + encodeURIComponent('This post from The ZeroWaste Community Tool might interest you, check it out : ' + baseUrl + 'bus_listing_details/' + listing.id) + '" target="_blank" style="margin-bottom:10px;">';
+ html += '<i class="fa fa-whatsapp"></i></a>';
+} else {
+ html += '<a href="' + consumerLoginRoute + '?redirect_wp=' + encodeURIComponent(baseUrl + 'bus_listing_details/' + listing.id) + '" target="_blank" class="btn btn-success btn-small btn-rounded icon shadow" style="margin-bottom:10px;">';
+ html += '<i class="fa fa-whatsapp"></i> Share on WhatsApp</a>';
+}
+html += '</div>';
+                 html += '</div>';
+                  html += '</div>';
+                 html += '</div>';
+                 $('#postListings').append(html);
+             });
+             }
             },
             error: function(xhr, status, error) {
                 console.error('Error:', error);

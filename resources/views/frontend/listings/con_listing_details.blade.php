@@ -161,9 +161,17 @@ padding-left:8px;
             <div class="owl-carousel" data-owl-items="3" data-owl-loop="1" data-owl-auto-width="1" data-owl-nav="1" data-owl-dots="0" data-owl-margin="2" data-owl-nav-container="#gallery-nav">
                 @foreach($consumerpostsres as $consumerpost)
                 <div class="image">
-                    <div class="bg-transfer">
-                        <img src="{{ Storage::disk('s3')->url('Consumerposts/' . $consumerpost->resource_img) }}" alt="abc">
+                    <div class="  bg-transfer">
+                        @php
+                            // Check if $listing->resource_img is set and not empty
+                            $imagePath = !empty($listing->resource_img) ? 'Consumerposts/' . $listing->resource_img : null;
 
+                            // Check if the image exists in the S3 bucket or fallback to default
+                            $imageUrl = $imagePath && Storage::disk('s3')->exists($imagePath)
+                                        ? Storage::disk('s3')->url($imagePath)
+                                        : asset('frontend/assets/img/ecosansar.png');
+                        @endphp
+                        <img src="{{ $imageUrl }}" alt="abc">
                     </div>
                 </div>
             @endforeach

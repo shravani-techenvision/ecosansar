@@ -71,7 +71,6 @@ class EnquiryController extends Controller
             ];
 
              $data["email"] = $req->email;
-            // $data["title"] = "IIV India Registered Valuers Foundation | Payment Success | Thank you";
             $data["title"] =  "Connection Details for Your Interest";
            // Render the email body using the Blade view
            $body = view('frontend.mail.userthankuemail', $data)->render();
@@ -472,7 +471,6 @@ class EnquiryController extends Controller
 
 
         $data["email"] = "ecosansar@yahoo.com";
-        // $data["title"] = "IIV India Registered Valuers Foundation | Payment Success | Thank you";
         $data["title"] =  "Enquiry from ".$req->name. " for ".$details->name;
        // Render the email body using the Blade view
        $body = view('frontend.mail.adminconsumermail', $data)->render();
@@ -728,14 +726,7 @@ if ($existingReview) {
              'link' => url('/conpostprofile/' . $postdata->user_id . '?review_id=' . $conaskrev->id),
             ];
 
-
-            // $data["title"] = "IIV India Registered Valuers Foundation | Payment Success | Thank you";
             $data["title"] =  $postdata->name . " has requested for review";
-            // Mail::to(Auth::user()->email)->send(new Payment_done_mail($data));
-            // Mail::send('frontend.mail.consumeraskreview', $data, function($message)use($data){
-            //     $message->to($data["email"], $data["email"])
-            //             ->subject($data["title"]);
-            // });
 
             // Render the email body using the Blade view
             $body = view('frontend.mail.consumeraskreview', $data)->render();
@@ -806,14 +797,7 @@ public function conmarkAsRead($id)
              'link' => url('/buspostprofile/' . $postdata->user_id. '?review_id=' . $conaskrev->id),
             ];
 
-
-            // $data["title"] = "IIV India Registered Valuers Foundation | Payment Success | Thank you";
             $data["title"] =  $users->name . " has requested for review";
-            // Mail::to(Auth::user()->email)->send(new Payment_done_mail($data));
-            // Mail::send('frontend.mail.consumeraskreview', $data, function($message)use($data){
-            //     $message->to($data["email"], $data["email"])
-            //             ->subject($data["title"]);
-            // });
 
             // Render the email body using the Blade view
             $body = view('frontend.mail.consumeraskreview', $data)->render();
@@ -882,14 +866,7 @@ public function busmarkAsRead($id)
              'link' => url('/sabpostprofile/' . $postdata->user_id. '?review_id=' . $conaskrev->id),
             ];
 
-
-            // $data["title"] = "IIV India Registered Valuers Foundation | Payment Success | Thank you";
             $data["title"] =  $postdata->name . " has requested for review";
-            // Mail::to(Auth::user()->email)->send(new Payment_done_mail($data));
-            // Mail::send('frontend.mail.sabaskreview', $data, function($message)use($data){
-            //     $message->to($data["email"], $data["email"])
-            //             ->subject($data["title"]);
-            // });
 
             // Render the email body using the Blade view
             $body = view('frontend.mail.sabaskreview', $data)->render();
@@ -995,14 +972,7 @@ public function updateReview(Request $request)
            'link' => url('/edit-con-review/' . $postdata->user_id . '/' . $id . '?review_id=' . $notificationchange->id)
             ];
 
-
-            // $data["title"] = "IIV India Registered Valuers Foundation | Payment Success | Thank you";
             $data["title"] =  $postdata->name . " has requested to change review";
-            // Mail::to(Auth::user()->email)->send(new Payment_done_mail($data));
-            // Mail::send('frontend.mail.sabaskreview', $data, function($message)use($data){
-            //     $message->to($data["email"], $data["email"])
-            //             ->subject($data["title"]);
-            // });
 
             // Render the email body using the Blade view
             $body = view('frontend.mail.sabaskreview', $data)->render();
@@ -1093,14 +1063,7 @@ public function editconReview($id, $rid)
            'link' => url('/edit-sab-review/' . $postdata->user_id . '/' . $id . '?review_id=' . $notificationchange->id)
             ];
 
-
-            // $data["title"] = "IIV India Registered Valuers Foundation | Payment Success | Thank you";
             $data["title"] =  $postdata->name . " has requested to change review";
-            // Mail::to(Auth::user()->email)->send(new Payment_done_mail($data));
-            // Mail::send('frontend.mail.sabaskreview', $data, function($message)use($data){
-            //     $message->to($data["email"], $data["email"])
-            //             ->subject($data["title"]);
-            // });
 
             // Render the email body using the Blade view
             $body = view('frontend.mail.sabaskreview', $data)->render();
@@ -1190,14 +1153,7 @@ public function changebusReviewRequest($id)
            'link' => url('/edit-bus-review/' . $postdata->user_id . '/' . $id . '?review_id=' . $notificationchange->id)
             ];
 
-
-            // $data["title"] = "IIV India Registered Valuers Foundation | Payment Success | Thank you";
             $data["title"] =  $postdata->name . " has requested to change review";
-            // Mail::to(Auth::user()->email)->send(new Payment_done_mail($data));
-            // Mail::send('frontend.mail.sabaskreview', $data, function($message)use($data){
-            //     $message->to($data["email"], $data["email"])
-            //             ->subject($data["title"]);
-            // });
 
             // Render the email body using the Blade view
             $body = view('frontend.mail.sabaskreview', $data)->render();
@@ -1242,12 +1198,6 @@ public function editbusReview($id, $rid)
     if (!$review) {
         return redirect('/')->with('error', 'Review not found.');
     }
-
-
-
-      //$reviewRequest = ConsumerAskReview::where('id', $review_id)->first();
-
-
 
     // Check if the review request exists and belongs to the logged-in user
     if (!$reviewRequest) {

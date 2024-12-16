@@ -306,8 +306,16 @@ function displayStars($rating) {
                             <div class="col-md-3">
                             <a href="{{ url('sabs_listing_details/'.$listing->id) }}">
                                 <div>
-                                    <img class="corpimage" src="{{ Storage::disk('s3')->url('SABposts/' . $listing->resource_img) }}" alt="abc">
+                                    @php
+                                        // Check if $listing->resource_img is set and not empty
+                                        $imagePath = !empty($listing->resource_img) ? 'SABposts/' . $listing->resource_img : null;
 
+                                        // Check if the image exists in the S3 bucket or fallback to default
+                                        $imageUrl = $imagePath && Storage::disk('s3')->exists($imagePath)
+                                                    ? Storage::disk('s3')->url($imagePath)
+                                                    : asset('frontend/assets/img/ecosansar.png');
+                                    @endphp
+                                    <img class="corpimage" src="{{ $imageUrl }}" alt="abc">
                                 </div>
                                  </a>
                                 </div>
@@ -539,9 +547,9 @@ function displayStars($rating) {
         var html = '<div class="row corprow" data-latitude="40.71447628" data-longitude="-73.8821125">';
         html += '<div class="col-md-3">';
         html += '<a href="{{ url('sabs_listing_details/') }}/' + listing.id + '">';
-        html += '<div >';
-        html += '<img class="corpimage" src="{{ Storage::disk('s3')->url('SABposts') }}/' + listing.resource_img + '" alt="abc">';
-        html += '</div>';
+            html += '<div >';
+                html += '<img class="corpimage" src="' + listing.image_url + '" alt="abc">';
+               html += '</div>';
         html += '</a>';
          html += '</div>';
            html += '<div class="col-md-6">';
@@ -695,9 +703,9 @@ $(document).ready(function() {
                     var html = '<div class="row corprow" data-latitude="40.71447628" data-longitude="-73.8821125">';
                     html += '<div class="col-md-3">';
                     html += '<a href="{{ url('sabs_listing_details/') }}/' + listing.id + '">';
-                    html += '<div>';
-                    html += '<img class="corpimage" src="{{ Storage::disk('s3')->url('SABposts') }}/' + listing.resource_img + '" alt="abc">';
-                    html += '</div>';
+                        html += '<div>';
+                             html += '<img class="corpimage" src="' + listing.image_url + '" alt="abc">';
+                            html += '</div>';
                       html += '</a>';
                      html += '</div>';
                     html += '<div class="col-md-6">';

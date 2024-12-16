@@ -1364,14 +1364,7 @@ $reviews = $consumerReviews->merge($businessReviews)->merge($sabReviews);
 
             ];
 
-
-            // $data["title"] = "IIV India Registered Valuers Foundation | Payment Success | Thank you";
             $data["title"] =  "New contact from ". $req->name;
-            // Mail::to(Auth::user()->email)->send(new Payment_done_mail($data));
-            // Mail::send('frontend.mail.contactmail', $data, function($message)use($data){
-            //     $message->to($data["email"], $data["email"])
-            //             ->subject($data["title"]);
-            // });
 
             // Render the email body using the Blade view
             $body = view('frontend.mail.contactmail', $data)->render();
@@ -2730,13 +2723,7 @@ function resizeImage($source, $width, $height)
             ];
 
             $data["email"] = $user->email;
-            // $data["title"] = "IIV India Registered Valuers Foundation | Payment Success | Thank you";
             $data["title"] =  "Welcome to The ZeroWaste Community Tool";
-            // Mail::to(Auth::user()->email)->send(new Payment_done_mail($data));
-            // Mail::send('frontend.mail.userregistrationemail', $data, function ($message) use ($data) {
-            //     $message->to($data["email"], $data["email"])
-            //         ->subject($data["title"]);
-            // });3
 
             // Render the email body using the Blade view
             $body = view('frontend.mail.userregistrationemail', $data)->render();
@@ -2841,13 +2828,7 @@ function resizeImage($source, $width, $height)
             ];
 
             $data["email"] = $user->email;
-            // $data["title"] = "IIV India Registered Valuers Foundation | Payment Success | Thank you";
             $data["title"] =  "Welcome to The ZeroWaste Community Tool";
-            // Mail::to(Auth::user()->email)->send(new Payment_done_mail($data));
-            // Mail::send('frontend.mail.userregistrationemail', $data, function ($message) use ($data) {
-            //     $message->to($data["email"], $data["email"])
-            //         ->subject($data["title"]);
-            // });
 
             // Render the email body using the Blade view
             $body = view('frontend.mail.userregistrationemail', $data)->render();
@@ -4304,7 +4285,15 @@ function resizeImage($source, $width, $height)
             ->join('resources', 'resources.id', 'consumer_resource_posts.resource_type')
             ->join('weights', 'consumer_posts.quantity', '=', 'weights.id')
             ->join('ecosansar_users', 'ecosansar_users.id', '=', 'consumer_posts.user_id')
-            ->select('ecosansar_users.name', 'consumer_posts.*', 'resources.resource_name', 'consumer_resource_posts.resource_img', 'weights.min_weight', 'weights.min_measure', 'weights.max_weight', 'weights.max_measure')
+            ->leftJoin(
+                // Subquery to calculate the average rating for each user
+                DB::raw('(SELECT user_id, AVG(rating) as average_rating FROM consumer_reviews GROUP BY user_id) as user_ratings'),
+                'ecosansar_users.id',
+                '=',
+                'user_ratings.user_id'
+            )
+            ->select('ecosansar_users.name', 'consumer_posts.*', 'resources.resource_name', 'consumer_resource_posts.resource_img',
+             'weights.min_weight', 'weights.min_measure', 'weights.max_weight', 'weights.max_measure','user_ratings.average_rating')
             ->where('consumer_posts.user_id', '!=', $user_id)
 
             // ->where('sale_giveaway','!=','Buy')
@@ -4373,6 +4362,8 @@ function resizeImage($source, $width, $height)
             $uniqueListing = $postListings->first();
             $uniqueListing->resource_names = $resourceNames;
             $uniqueListing->resource_img = $resourceImages;
+             // Average rating from the query
+             $uniqueListing->average_rating = $uniqueListing->average_rating ?? 0; // Default to 0 if null
             $uniqueListing->weight_details  = $weightDetails;
             $uniqueListing->formatted_date = date('dS F Y', strtotime($uniqueListing->created_at));
 
@@ -4380,12 +4371,28 @@ function resizeImage($source, $width, $height)
             //$uniqueListing->formatted_date = $uniqueListing->created_at->format('d-m-Y');
             $sabuniqueListings->push($uniqueListing);
         }
+         // Map listings to include the `image_url`
+$sabuniqueListings = $sabuniqueListings->map(function ($listing) {
+    $imagePath = !empty($listing->resource_img) ? 'Consumerposts/' . $listing->resource_img : null;
+    $listing->image_url = $imagePath && Storage::disk('s3')->exists($imagePath)
+        ? Storage::disk('s3')->url($imagePath)
+        : asset('frontend/assets/img/ecosansar.png');
+    return $listing;
+});
         //sell posts
         $selllistings = ConsumerPost::leftjoin('consumer_resource_posts', 'consumer_resource_posts.post_id', 'consumer_posts.id')
             ->leftjoin('resources', 'resources.id', 'consumer_resource_posts.resource_type')
             ->join('weights', 'consumer_posts.quantity', '=', 'weights.id')
             ->join('ecosansar_users', 'ecosansar_users.id', '=', 'consumer_posts.user_id')
-            ->select('consumer_posts.*', 'resources.resource_name', 'consumer_resource_posts.resource_img', 'weights.min_weight', 'weights.min_measure', 'weights.max_weight', 'weights.max_measure')
+            ->leftJoin(
+                // Subquery to calculate the average rating for each user
+                DB::raw('(SELECT user_id, AVG(rating) as average_rating FROM consumer_reviews GROUP BY user_id) as user_ratings'),
+                'ecosansar_users.id',
+                '=',
+                'user_ratings.user_id'
+            )
+            ->select('consumer_posts.*', 'resources.resource_name', 'consumer_resource_posts.resource_img',
+             'weights.min_weight', 'weights.min_measure', 'weights.max_weight', 'weights.max_measure','user_ratings.average_rating')
             ->where('consumer_posts.user_id', '!=', $user_id)
             ->where('active', 1)
             ->where('sale_giveaway', '!=', 'Buy');
@@ -4450,6 +4457,8 @@ function resizeImage($source, $width, $height)
             $uniqueListing = $postListings->first();
             $uniqueListing->resource_names = $resourceNames;
             $uniqueListing->resource_img = $resourceImages;
+            // Average rating from the query
+            $uniqueListing->average_rating = $uniqueListing->average_rating ?? 0; // Default to 0 if null
             $uniqueListing->weight_details  = $weightDetails;
             $uniqueListing->formatted_date = date('dS F Y', strtotime($uniqueListing->created_at));
 
@@ -4457,7 +4466,14 @@ function resizeImage($source, $width, $height)
             //$uniqueListing->formatted_date = $uniqueListing->created_at->format('d-m-Y');
             $sabuniquesellListings->push($uniqueListing);
         }
-
+ // Map listings to include the `image_url`
+ $sabuniquesellListings = $sabuniquesellListings->map(function ($listing) {
+    $imagePath = !empty($listing->resource_img) ? 'Consumerposts/' . $listing->resource_img : null;
+    $listing->image_url = $imagePath && Storage::disk('s3')->exists($imagePath)
+        ? Storage::disk('s3')->url($imagePath)
+        : asset('frontend/assets/img/ecosansar.png');
+    return $listing;
+});
 
         //  echo "<pre>";
         //  print_r($sabPosts);die;
@@ -4508,8 +4524,17 @@ function resizeImage($source, $width, $height)
             ->join('resources', 'resources.id', 'consumer_resource_posts.resource_type')
             ->leftjoin('consumer_reviews', 'consumer_reviews.post_id', 'consumer_posts.id')
             ->join('weights', 'consumer_posts.quantity', '=', 'weights.id')
-
-            ->select('consumer_posts.*', 'resources.resource_name', 'consumer_resource_posts.resource_img', 'consumer_reviews.rating', 'weights.min_weight', 'weights.min_measure', 'weights.max_weight', 'weights.max_measure')
+            ->join('ecosansar_users', 'ecosansar_users.id', '=', 'consumer_posts.user_id')
+            ->leftJoin(
+       // Subquery to calculate the average rating for each user
+       DB::raw('(SELECT user_id, AVG(rating) as average_rating FROM consumer_reviews GROUP BY user_id) as user_ratings'),
+       'ecosansar_users.id',
+       '=',
+       'user_ratings.user_id'
+   )
+            ->select('consumer_posts.*', 'resources.resource_name', 'consumer_resource_posts.resource_img',
+            'consumer_reviews.rating', 'weights.min_weight', 'weights.min_measure', 'weights.max_weight',
+            'weights.max_measure','user_ratings.average_rating')
             ->where('consumer_posts.user_id', '!=', $user_id)
             ->where('consumer_posts.active', '=', 1);
 
@@ -4558,17 +4583,34 @@ function resizeImage($source, $width, $height)
             $uniqueListing = $postListings->first();
             $uniqueListing->resource_names = $resourceNames;
             $uniqueListing->resource_img = $resourceImages;
+             // Average rating from the query
+             $uniqueListing->average_rating = $uniqueListing->average_rating ?? 0; // Default to 0 if null
             $uniqueListing->weight_details  = $weightDetails;
             $uniqueListing->formatted_date = date('dS F Y', strtotime($uniqueListing->created_at));
             $sabuniqueListings->push($uniqueListing);
         }
-
+ // Map listings to include the `image_url`
+ $sabuniqueListings = $sabuniqueListings->map(function ($listing) {
+    $imagePath = !empty($listing->resource_img) ? 'Consumerposts/' . $listing->resource_img : null;
+    $listing->image_url = $imagePath && Storage::disk('s3')->exists($imagePath)
+        ? Storage::disk('s3')->url($imagePath)
+        : asset('frontend/assets/img/ecosansar.png');
+    return $listing;
+});
           //sell posts
         $selllistings = ConsumerPost::leftjoin('consumer_resource_posts', 'consumer_resource_posts.post_id', 'consumer_posts.id')
             ->leftjoin('resources', 'resources.id', 'consumer_resource_posts.resource_type')
             ->join('weights', 'consumer_posts.quantity', '=', 'weights.id')
             ->join('ecosansar_users', 'ecosansar_users.id', '=', 'consumer_posts.user_id')
-            ->select('consumer_posts.*', 'resources.resource_name', 'consumer_resource_posts.resource_img', 'weights.min_weight', 'weights.min_measure', 'weights.max_weight', 'weights.max_measure')
+            ->leftJoin(
+                // Subquery to calculate the average rating for each user
+                DB::raw('(SELECT user_id, AVG(rating) as average_rating FROM consumer_reviews GROUP BY user_id) as user_ratings'),
+                'ecosansar_users.id',
+                '=',
+                'user_ratings.user_id'
+            )
+            ->select('consumer_posts.*', 'resources.resource_name', 'consumer_resource_posts.resource_img',
+             'weights.min_weight', 'weights.min_measure', 'weights.max_weight', 'weights.max_measure','user_ratings.average_rating')
             ->where('active', 1)
             ->where('sale_giveaway', '!=', 'Buy');
 
@@ -4616,11 +4658,20 @@ function resizeImage($source, $width, $height)
             $uniqueListing = $postListings->first();
             $uniqueListing->resource_names = $resourceNames;
             $uniqueListing->resource_img = $resourceImages;
+             // Average rating from the query
+             $uniqueListing->average_rating = $uniqueListing->average_rating ?? 0; // Default to 0 if null
             $uniqueListing->weight_details  = $weightDetails;
             $uniqueListing->formatted_date = date('dS F Y', strtotime($uniqueListing->created_at));
             $sabuniquesellListings->push($uniqueListing);
         }
-
+// Map listings to include the `image_url`
+$sabuniquesellListings = $sabuniquesellListings->map(function ($listing) {
+    $imagePath = !empty($listing->resource_img) ? 'Consumerposts/' . $listing->resource_img : null;
+    $listing->image_url = $imagePath && Storage::disk('s3')->exists($imagePath)
+        ? Storage::disk('s3')->url($imagePath)
+        : asset('frontend/assets/img/ecosansar.png');
+    return $listing;
+});
 
 
         $weightDetails = Weight::select('min_weight', 'max_weight', 'min_measure', 'max_measure')
@@ -4737,7 +4788,15 @@ function resizeImage($source, $width, $height)
             ->join('resources', 'resources.id', 's_a_b_resource_posts.resource_type')
             ->join('weights', 's_a_b_posts.quantity', '=', 'weights.id')
             ->join('ecosansar_users', 'ecosansar_users.id', '=', 's_a_b_posts.user_id')
-            ->select('ecosansar_users.name', 's_a_b_posts.*', 'resources.resource_name', 's_a_b_resource_posts.resource_img', 'weights.min_weight', 'weights.min_measure', 'weights.max_weight', 'weights.max_measure')
+            ->leftJoin(
+                // Subquery to calculate the average rating for each user
+                DB::raw('(SELECT user_id, AVG(rating) as average_rating FROM s_a_b_reviews GROUP BY user_id) as user_ratings'),
+                'ecosansar_users.id',
+                '=',
+                'user_ratings.user_id'
+            )
+            ->select('ecosansar_users.name', 's_a_b_posts.*', 'resources.resource_name', 's_a_b_resource_posts.resource_img',
+             'weights.min_weight', 'weights.min_measure', 'weights.max_weight', 'weights.max_measure','user_ratings.average_rating')
             ->where('s_a_b_posts.user_id', '!=', $user_id)
             ->where('active', 1);
 
@@ -4803,6 +4862,8 @@ function resizeImage($source, $width, $height)
             $uniqueListing = $postListings->first();
             $uniqueListing->resource_names = $resourceNames;
             $uniqueListing->resource_img = $resourceImages;
+             // Average rating from the query
+             $uniqueListing->average_rating = $uniqueListing->average_rating ?? 0; // Default to 0 if null
             $uniqueListing->weight_details  = $weightDetails;
             $uniqueListing->formatted_date = date('dS F Y', strtotime($uniqueListing->created_at));
 
@@ -4810,6 +4871,14 @@ function resizeImage($source, $width, $height)
             //$uniqueListing->formatted_date = $uniqueListing->created_at->format('d-m-Y');
             $sabuniqueListings->push($uniqueListing);
         }
+         // Map listings to include the `image_url`
+$sabuniqueListings = $sabuniqueListings->map(function ($listing) {
+    $imagePath = !empty($listing->resource_img) ? 'SABposts/' . $listing->resource_img : null;
+    $listing->image_url = $imagePath && Storage::disk('s3')->exists($imagePath)
+        ? Storage::disk('s3')->url($imagePath)
+        : asset('frontend/assets/img/ecosansar.png');
+    return $listing;
+});
         //  echo "<pre>";
         //  print_r($sabPosts);die;
         $res = Resource::get();
@@ -4980,7 +5049,15 @@ function resizeImage($source, $width, $height)
             ->leftjoin('resources', 'resources.id', 'business_resource_posts.resource_type')
             ->join('weights', 'business_posts.quantity', '=', 'weights.id')
             ->join('ecosansar_users', 'ecosansar_users.id', '=', 'business_posts.user_id')
-            ->select('ecosansar_users.name', 'business_posts.*', 'resources.resource_name', 'business_resource_posts.resource_img', 'weights.min_weight', 'weights.min_measure', 'weights.max_weight', 'weights.max_measure')
+            ->leftJoin(
+                // Subquery to calculate the average rating for each user
+                DB::raw('(SELECT user_id, AVG(rating) as average_rating FROM business_reviews GROUP BY user_id) as user_ratings'),
+                'ecosansar_users.id',
+                '=',
+                'user_ratings.user_id'
+            )
+            ->select('ecosansar_users.name', 'business_posts.*', 'resources.resource_name', 'business_resource_posts.resource_img',
+             'weights.min_weight', 'weights.min_measure', 'weights.max_weight', 'weights.max_measure','user_ratings.average_rating')
             ->where('business_posts.user_id', '!=', $user_id)
             ->where('active', 1);
 
@@ -5043,17 +5120,33 @@ function resizeImage($source, $width, $height)
             $uniqueListing = $postListings->first();
             $uniqueListing->resource_names = $resourceNames;
             $uniqueListing->resource_img = $resourceImages;
+             // Average rating from the query
+             $uniqueListing->average_rating = $uniqueListing->average_rating ?? 0; // Default to 0 if null
             $uniqueListing->weight_details  = $weightDetails;
             $uniqueListing->formatted_date = date('dS F Y', strtotime($uniqueListing->created_at));
             $busuniqueListings->push($uniqueListing);
         }
-
+        $response['$busuniqueListings'] = $busuniqueListings->map(function ($listing) {
+            $imagePath = !empty($listing->resource_img) ? 'Businessposts/' . $listing->resource_img : null;
+            $listing->image_url = $imagePath && Storage::disk('s3')->exists($imagePath)
+                ? Storage::disk('s3')->url($imagePath)
+                : asset('frontend/assets/img/ecosansar.png');
+            return $listing;
+        });
         //business buy posts
         $busbuyQuery = BusinessPost::leftjoin('business_resource_posts', 'business_resource_posts.post_id', '=', 'business_posts.id')
             ->leftjoin('resources', 'resources.id', 'business_resource_posts.resource_type')
             ->join('weights', 'business_posts.quantity', '=', 'weights.id')
             ->join('ecosansar_users', 'ecosansar_users.id', '=', 'business_posts.user_id')
-            ->select('ecosansar_users.name', 'business_posts.*', 'resources.resource_name', 'business_resource_posts.resource_img', 'weights.min_weight', 'weights.min_measure', 'weights.max_weight', 'weights.max_measure')
+            ->leftJoin(
+                // Subquery to calculate the average rating for each user
+                DB::raw('(SELECT user_id, AVG(rating) as average_rating FROM business_reviews GROUP BY user_id) as user_ratings'),
+                'ecosansar_users.id',
+                '=',
+                'user_ratings.user_id'
+            )
+            ->select('ecosansar_users.name', 'business_posts.*', 'resources.resource_name', 'business_resource_posts.resource_img',
+             'weights.min_weight', 'weights.min_measure', 'weights.max_weight', 'weights.max_measure','user_ratings.average_rating')
             ->where('business_posts.user_id', '!=', $user_id)
              ->where('sale_giveaway', '=', 'Buy')
             ->where('active', 1);
@@ -5115,24 +5208,23 @@ function resizeImage($source, $width, $height)
             $uniqueListing = $postListings->first();
             $uniqueListing->resource_names = $resourceNames;
             $uniqueListing->resource_img = $resourceImages;
+            // Average rating from the query
+            $uniqueListing->average_rating = $uniqueListing->average_rating ?? 0; // Default to 0 if null
             $uniqueListing->weight_details  = $weightDetails;
             $uniqueListing->formatted_date = date('dS F Y', strtotime($uniqueListing->created_at));
             $busuniquebuyListings->push($uniqueListing);
         }
-
+        $response['$busuniquebuyListings'] = $busuniquebuyListings->map(function ($listing) {
+            $imagePath = !empty($listing->resource_img) ? 'Businessposts/' . $listing->resource_img : null;
+            $listing->image_url = $imagePath && Storage::disk('s3')->exists($imagePath)
+                ? Storage::disk('s3')->url($imagePath)
+                : asset('frontend/assets/img/ecosansar.png');
+            return $listing;
+        });
 
         $res = Resource::get();
         //   $buspostsres = BusinessResourcePost::where('user_id',$user_id)->where('post_id',$id)->get();
         $buspostsres = BusinessResourcePost::where('user_id', $user_id)->get();
-        // Return filtered results to the same view for display
-        //      echo "<pre>";
-        // print_r($request->except('_token'));die;
-        // Return filtered results as JSON response
-        // return response()->json([
-        //     'busuniqueListings' => $busuniqueListings,
-        //     'res' => $res,
-        //     'appliedFilters' => $request->except('_token'),
-        // ]);
         // Assuming $weightName is fetched based on the selected weight ID
         $weightDetails = Weight::select('min_weight', 'max_weight', 'min_measure', 'max_measure')
             ->where('id', $request->weight)
@@ -5517,8 +5609,17 @@ function resizeImage($source, $width, $height)
             ->join('resources', 'resources.id', 's_a_b_resource_posts.resource_type')
             ->leftjoin('s_a_b_reviews', 's_a_b_reviews.post_id', 's_a_b_posts.id')
             ->join('weights', 's_a_b_posts.quantity', '=', 'weights.id')
+            ->join('ecosansar_users', 'ecosansar_users.id', '=', 's_a_b_posts.user_id')
 
-            ->select('s_a_b_posts.*', 'resources.resource_name', 's_a_b_resource_posts.resource_img', 's_a_b_reviews.rating', 'weights.min_weight', 'weights.min_measure', 'weights.max_weight', 'weights.max_measure')
+            ->leftJoin(
+                    // Subquery to calculate the average rating for each user
+                    DB::raw('(SELECT user_id, AVG(rating) as average_rating FROM s_a_b_reviews GROUP BY user_id) as user_ratings'),
+                    'ecosansar_users.id',
+                    '=',
+                    'user_ratings.user_id'
+                )
+            ->select('s_a_b_posts.*', 'resources.resource_name', 's_a_b_resource_posts.resource_img', 's_a_b_reviews.rating',
+             'weights.min_weight', 'weights.min_measure', 'weights.max_weight', 'weights.max_measure','user_ratings.average_rating')
             ->where('s_a_b_posts.user_id', '!=', $user_id)
             ->where('s_a_b_posts.active', '=', 1);
 
@@ -5567,10 +5668,20 @@ function resizeImage($source, $width, $height)
             $uniqueListing = $postListings->first();
             $uniqueListing->resource_names = $resourceNames;
             $uniqueListing->resource_img = $resourceImages;
+            // Average rating from the query
+            $uniqueListing->average_rating = $uniqueListing->average_rating ?? 0; // Default to 0 if null
             $uniqueListing->weight_details  = $weightDetails;
             $uniqueListing->formatted_date = date('dS F Y', strtotime($uniqueListing->created_at));
             $sabuniqueListings->push($uniqueListing);
         }
+        // Map listings to include the `image_url`
+$sabuniqueListings = $sabuniqueListings->map(function ($listing) {
+    $imagePath = !empty($listing->resource_img) ? 'SABposts/' . $listing->resource_img : null;
+    $listing->image_url = $imagePath && Storage::disk('s3')->exists($imagePath)
+        ? Storage::disk('s3')->url($imagePath)
+        : asset('frontend/assets/img/ecosansar.png');
+    return $listing;
+});
         $weightDetails = Weight::select('min_weight', 'max_weight', 'min_measure', 'max_measure')
             ->where('id', $request->weight)
             ->first();
@@ -5602,8 +5713,17 @@ function resizeImage($source, $width, $height)
             ->leftjoin('resources', 'resources.id', 'business_resource_posts.resource_type')
             ->leftjoin('business_reviews', 'business_reviews.post_id', 'business_posts.id')
             ->join('weights', 'business_posts.quantity', '=', 'weights.id')
+            ->join('ecosansar_users', 'ecosansar_users.id', '=', 'business_posts.user_id')
 
-            ->select('business_posts.*', 'resources.resource_name', 'business_resource_posts.resource_img', 'business_reviews.rating', 'weights.min_weight', 'weights.min_measure', 'weights.max_weight', 'weights.max_measure')
+            ->leftJoin(
+                    // Subquery to calculate the average rating for each user
+                    DB::raw('(SELECT user_id, AVG(rating) as average_rating FROM business_reviews GROUP BY user_id) as user_ratings'),
+                    'ecosansar_users.id',
+                    '=',
+                    'user_ratings.user_id'
+                )
+            ->select('business_posts.*', 'resources.resource_name', 'business_resource_posts.resource_img', 'business_reviews.rating',
+             'weights.min_weight', 'weights.min_measure', 'weights.max_weight', 'weights.max_measure','user_ratings.average_rating')
             ->where('business_posts.user_id', '!=', $user_id)
             ->where('business_posts.active', '=', 1);
 
@@ -5652,10 +5772,100 @@ function resizeImage($source, $width, $height)
             $uniqueListing = $postListings->first();
             $uniqueListing->resource_names = $resourceNames;
             $uniqueListing->resource_img = $resourceImages;
+             // Average rating from the query
+             $uniqueListing->average_rating = $uniqueListing->average_rating ?? 0; // Default to 0 if null
             $uniqueListing->weight_details  = $weightDetails;
             $uniqueListing->formatted_date = date('dS F Y', strtotime($uniqueListing->created_at));
             $busuniqueListings->push($uniqueListing);
         }
+        $response['$busuniqueListings'] = $busuniqueListings->map(function ($listing) {
+            $imagePath = !empty($listing->resource_img) ? 'Businessposts/' . $listing->resource_img : null;
+            $listing->image_url = $imagePath && Storage::disk('s3')->exists($imagePath)
+                ? Storage::disk('s3')->url($imagePath)
+                : asset('frontend/assets/img/ecosansar.png');
+            return $listing;
+        });
+         //business buy posts
+         $buyquery = BusinessPost::leftjoin('business_resource_posts', 'business_resource_posts.post_id', 'business_posts.id')
+         ->leftjoin('resources', 'resources.id', 'business_resource_posts.resource_type')
+         ->leftjoin('business_reviews', 'business_reviews.post_id', 'business_posts.id')
+         ->join('weights', 'business_posts.quantity', '=', 'weights.id')
+         ->join('ecosansar_users', 'ecosansar_users.id', '=', 'business_posts.user_id')
+
+->leftJoin(
+     // Subquery to calculate the average rating for each user
+     DB::raw('(SELECT user_id, AVG(rating) as average_rating FROM business_reviews GROUP BY user_id) as user_ratings'),
+     'ecosansar_users.id',
+     '=',
+     'user_ratings.user_id'
+ )
+
+         ->select('business_posts.*', 'resources.resource_name', 'business_resource_posts.resource_img', 'business_reviews.rating',
+         'weights.min_weight', 'weights.min_measure', 'weights.max_weight', 'weights.max_measure','user_ratings.average_rating')
+         ->where('business_posts.user_id', '!=', $user_id)
+          ->where('sale_giveaway', '=', 'Buy')
+
+         ->where('business_posts.active', '=', 1);
+
+     // Apply sorting based on the selected criteria
+     switch ($sort) {
+         case '1':
+             $buyquery->orderBy('business_posts.created_at', 'desc'); // Newest first
+             break;
+         case '2':
+             $buyquery->orderBy('business_posts.created_at', 'asc'); // Oldest first
+             break;
+         case '3':
+             $buyquery->orderBy('weights.min_weight', 'desc')
+                 ->orderBy('weights.max_weight', 'desc'); // Smallest quantity
+             break;
+         case '4':
+             $buyquery->orderBy('weights.min_weight', 'asc')
+                 ->orderBy('weights.max_weight', 'asc'); // Largest quantity
+             break;
+         case '5':
+             $buyquery->orderBy('business_reviews.rating', 'desc'); // Highest ratings
+             break;
+         case '6':
+             $buyquery->orderBy('business_reviews.rating', 'asc'); // Lowest ratings
+             break;
+         default:
+             // Default sorting if needed
+             break;
+     }
+
+     $buylistings = $buyquery->get();
+
+     // Extract unique post IDs
+     $buypostIds = $buylistings->pluck('id')->unique();
+
+     // Filter listings to get only one record per post and include all resource names
+     $busbuyuniqueListings = collect([]);
+     foreach ($buypostIds as $postId) {
+         $postListings = $listings->where('id', $postId);
+         $weightDetails = $postListings->pluck('min_weight')->first() . ' ' .
+             $postListings->pluck('min_measure')->first() . ' to ' .
+             $postListings->pluck('max_weight')->first() . ' ' .
+             $postListings->pluck('max_measure')->first();
+         $resourceNames = $postListings->pluck('resource_name')->implode(', ');
+         $resourceImages = $postListings->pluck('resource_img')->first();;
+         $uniqueListing = $postListings->first();
+         $uniqueListing->resource_names = $resourceNames;
+         $uniqueListing->resource_img = $resourceImages;
+         // Average rating from the query
+         $uniqueListing->average_rating = $uniqueListing->average_rating ?? 0; // Default to 0 if null
+
+         $uniqueListing->weight_details  = $weightDetails;
+         $uniqueListing->formatted_date = date('dS F Y', strtotime($uniqueListing->created_at));
+         $busbuyuniqueListings->push($uniqueListing);
+     }
+$response['$busbuyuniqueListings'] = $busbuyuniqueListings->map(function ($listing) {
+ $imagePath = !empty($listing->resource_img) ? 'Businessposts/' . $listing->resource_img : null;
+ $listing->image_url = $imagePath && Storage::disk('s3')->exists($imagePath)
+     ? Storage::disk('s3')->url($imagePath)
+     : asset('frontend/assets/img/ecosansar.png');
+ return $listing;
+});
         $weightDetails = Weight::select('min_weight', 'max_weight', 'min_measure', 'max_measure')
             ->where('id', $request->weight)
             ->first();

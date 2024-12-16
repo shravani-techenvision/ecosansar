@@ -434,8 +434,16 @@
                         </div>
                         <!--end description-->
                         <div class="image bg-transfer">
-                            <img src="{{ Storage::disk('s3')->url('Consumerposts/' . $listing->resource_img) }}" alt="abc">
+                            @php
+                                // Check if $listing->resource_img is set and not empty
+                                $imagePath = !empty($listing->resource_img) ? 'Consumerposts/' . $listing->resource_img : null;
 
+                                // Check if the image exists in the S3 bucket or fallback to default
+                                $imageUrl = $imagePath && Storage::disk('s3')->exists($imagePath)
+                                            ? Storage::disk('s3')->url($imagePath)
+                                            : asset('frontend/assets/img/ecosansar.png');
+                            @endphp
+                            <img src="{{ $imageUrl }}" alt="abc">
                         </div>
                         <!--end image-->
                     </a>
@@ -497,8 +505,16 @@
                         </div>
                         <!--end description-->
                         <div class="image bg-transfer">
-                            <img src="{{ Storage::disk('s3')->url('Consumerposts/' . $listing->resource_img) }}" alt="abc">
+                            @php
+                                // Check if $listing->resource_img is set and not empty
+                                $imagePath = !empty($listing->resource_img) ? 'Consumerposts/' . $listing->resource_img : null;
 
+                                // Check if the image exists in the S3 bucket or fallback to default
+                                $imageUrl = $imagePath && Storage::disk('s3')->exists($imagePath)
+                                            ? Storage::disk('s3')->url($imagePath)
+                                            : asset('frontend/assets/img/ecosansar.png');
+                            @endphp
+                            <img src="{{ $imageUrl }}" alt="abc">
                         </div>
                         <!--end image-->
                     </a>
@@ -559,8 +575,16 @@
                                         </div>
                                         <!--end description-->
                                         <div class="image bg-transfer">
-                                            <img src="{{ Storage::disk('s3')->url('SABposts/' . $listing->resource_img) }}" alt="abc">
+                                            @php
+                                                // Check if $listing->resource_img is set and not empty
+                                                $imagePath = !empty($listing->resource_img) ? 'SABposts/' . $listing->resource_img : null;
 
+                                                // Check if the image exists in the S3 bucket or fallback to default
+                                                $imageUrl = $imagePath && Storage::disk('s3')->exists($imagePath)
+                                                            ? Storage::disk('s3')->url($imagePath)
+                                                            : asset('frontend/assets/img/ecosansar.png');
+                                            @endphp
+                                            <img src="{{ $imageUrl }}" alt="abc">
                                         </div>
                                         <!--end image-->
                                     </a>
@@ -621,8 +645,16 @@
                                         </div>
                                         <!--end description-->
                                         <div class="image bg-transfer">
-                                            <img src="{{ Storage::disk('s3')->url('Businessposts/' . $listing->resource_img) }}" alt="abc">
+                                            @php
+                                                // Check if $listing->resource_img is set and not empty
+                                                $imagePath = !empty($listing->resource_img) ? 'Businessposts/' . $listing->resource_img : null;
 
+                                                // Check if the image exists in the S3 bucket or fallback to default
+                                                $imageUrl = $imagePath && Storage::disk('s3')->exists($imagePath)
+                                                            ? Storage::disk('s3')->url($imagePath)
+                                                            : asset('frontend/assets/img/ecosansar.png');
+                                            @endphp
+                                            <img src="{{ $imageUrl }}" alt="abc">
                                         </div>
                                         <!--end image-->
                                     </a>
@@ -696,8 +728,16 @@
                                         </div>
                                         <!--end description-->
                                         <div class="image bg-transfer">
-                                            <img src="{{ Storage::disk('s3')->url('Businessposts/' . $listing->resource_img) }}" alt="abc">
+                                            @php
+                                                // Check if $listing->resource_img is set and not empty
+                                                $imagePath = !empty($listing->resource_img) ? 'Businessposts/' . $listing->resource_img : null;
 
+                                                // Check if the image exists in the S3 bucket or fallback to default
+                                                $imageUrl = $imagePath && Storage::disk('s3')->exists($imagePath)
+                                                            ? Storage::disk('s3')->url($imagePath)
+                                                            : asset('frontend/assets/img/ecosansar.png');
+                                            @endphp
+                                            <img src="{{ $imageUrl }}" alt="abc">
                                         </div>
                                         <!--end image-->
                                     </a>
