@@ -115,9 +115,18 @@
     @media screen and (max-width: 786px) {
     .wp{
         display:flex;
-        margin-top: 7px !important;
+        margin-top: 40px !important;
     }
-
+.controls-more{
+    height:75px;
+}
+.controls-more .btn.btn-small {
+    padding: 10px 9px;
+}
+.col-md-3 {
+    padding-right: 15px !important;
+    padding-left: 15px !important;
+}
     }
     </style>
 <div id="page-content">

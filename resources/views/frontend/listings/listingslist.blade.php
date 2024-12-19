@@ -31,25 +31,35 @@
 .controls-more {
 right: 5px !important;
 }
-a.btn {
-margin-left: 5px !important;
-}
 .controls-more .fa {
     margin-top:6px !important;
     font-size: larger !important;
+}
+.controls-more{
+    margin:20px 0;
+}
+.text-warning {
+    color: #8eb66f;
 }
 .wp-dis {
     display: flex;
     align-items: center;
     gap: 25px;
-    margin-top: 25px;
+}
+.wp-dis-own {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    margin-top: 50px;
 }
 .hide-show {
 display:grid;
 }
-.controls-more {
-    margin: 20px 0;
-}
+.gradient-icon {
+        background: linear-gradient(to right, #25d366, #128c7e, #075e54);
+        -webkit-background-clip: text;
+        color: transparent;
+    }
 @media screen and (max-width: 786px) {
     .hide-show {
         display:flex;

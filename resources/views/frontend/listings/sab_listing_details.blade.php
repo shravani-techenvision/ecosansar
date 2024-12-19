@@ -188,7 +188,7 @@ height:36px;
                     <div class="  bg-transfer">
                         @php
                             // Check if $listing->resource_img is set and not empty
-                            $imagePath = !empty($listing->resource_img) ? 'SABposts/' . $listing->resource_img : null;
+                            $imagePath = !empty($consumerpost->resource_img) ? 'SABposts/' . $consumerpost->resource_img : null;
 
                             // Check if the image exists in the S3 bucket or fallback to default
                             $imageUrl = $imagePath && Storage::disk('s3')->exists($imagePath)

@@ -1511,11 +1511,63 @@ $reviews = $consumerReviews->merge($businessReviews)->merge($sabReviews);
         $user->pincode = $req->pincode;
         $user->type_of_residences = $req->type_of_residences;
         $user->email = $req->email;
-        //  $user->password = Hash::make($req->password);
         $user->otp = 123456;
         $user->is_checked = 1;
-        // $user->latitude = $req->latitude;
-        // $user->longitude = $req->longitude;
+
+         // Determine the prefix and increment the unique ID
+if ($req->type_of_user == 'consumer') {
+    $prefix = 'CTB';
+
+    // Fetch the latest unique_id with prefix 'CR'
+    $lastConsumer = EcosansarUsers::where('unique_id', 'like', $prefix . '-%')
+                                    ->orderBy('id', 'desc')
+                                    ->first();
+
+    if ($lastConsumer) {
+        // Extract the numeric part from the unique_id
+        $lastNumber = (int) str_replace($prefix . '-', '', $lastConsumer->unique_id);
+        $newNumber = $lastNumber + 1;
+    } else {
+        $newNumber = 1; // Start from 1 if no existing consumer
+    }
+
+    $user->unique_id = $prefix . '-' . $newNumber;
+} elseif ($req->type_of_user == 'sab') {
+    $prefix = 'RC';
+
+    // Fetch the latest unique_id with prefix 'RC'
+    $lastSab = EcosansarUsers::where('unique_id', 'like', $prefix . '-%')
+                              ->orderBy('id', 'desc')
+                              ->first();
+
+    if ($lastSab) {
+        // Extract the numeric part from the unique_id
+        $lastNumber = (int) str_replace($prefix . '-', '', $lastSab->unique_id);
+        $newNumber = $lastNumber + 1;
+    } else {
+        $newNumber = 1; // Start from 1 if no existing sab
+    }
+
+    $user->unique_id = $prefix . '-' . $newNumber;
+}else{
+    $prefix = 'CP';
+
+    // Fetch the latest unique_id with prefix 'RC'
+    $lastCorp = EcosansarUsers::where('unique_id', 'like', $prefix . '-%')
+                              ->orderBy('id', 'desc')
+                              ->first();
+
+    if ($lastCorp) {
+        // Extract the numeric part from the unique_id
+        $lastNumber = (int) str_replace($prefix . '-', '', $lastCorp->unique_id);
+        $newNumber = $lastNumber + 1;
+    } else {
+        $newNumber = 1; // Start from 1 if no existing sab
+    }
+
+    $user->unique_id = $prefix . '-' . $newNumber;
+}
+
         $user->save();
 
         $contact = $req->mobile;
