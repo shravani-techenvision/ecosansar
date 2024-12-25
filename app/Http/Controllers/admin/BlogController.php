@@ -44,7 +44,9 @@ class BlogController extends Controller
     }
     public function blog_category_update(Request $req, $id){
          $blogcategory = BlogCategory::find($id);
-         if($req->category_name == $blogcategory->category_name){
+         $currentCategoryName = strtolower($blogcategory->category_name);
+    $newCategoryName = strtolower($req->category_name);
+        if ($newCategoryName === $currentCategoryName) {
              $req->validate([
             'category_name' => 'required',
         ]);
@@ -60,42 +62,7 @@ class BlogController extends Controller
         Alert::success('success','Category Updated Successfully');
         return redirect()->route('blog.blog_category_list');
     }
-//   public function blog_category_delete($id)
-// {
-//     // Find the category
-//     $category = BlogCategory::find($id);
 
-//     if ($category) {
-//         // Disable posts where the category_id exactly matches the deleted category
-//         Blog::where('category', $id)->update(['active' => 0]);
-
-//         // Update posts that contain the category in a list by removing the deleted category
-//         $postsWithMultipleCategories = Blog::whereRaw("FIND_IN_SET(?, category)", [$id])->get();
-//         foreach ($postsWithMultipleCategories as $post) {
-//             $categories = explode(',', $post->category);
-
-//             // Remove the deleted category from the array
-//             $categories = array_diff($categories, [$id]);
-
-//             // Update the post's category_id field with the remaining categories
-//             $post->category = implode(',', $categories);
-//             $post->save();
-//         }
-
-//         // Delete the category
-//         $category->delete();
-
-//         // Show a success alert message
-//         Alert::success('success', 'Category Deleted Successfully. Posts with this single category were disabled, and posts with multiple categories were updated.');
-
-//         // Redirect to the category list
-//         return redirect()->route('blog.blog_category_list');
-//     }
-
-//     // If the category does not exist, show an error message
-//     Alert::error('error', 'Category not found.');
-//     return redirect()->route('blog.blog_category_list');
-// }
 public function blog_category_delete($id)
 {
     // Find the category
