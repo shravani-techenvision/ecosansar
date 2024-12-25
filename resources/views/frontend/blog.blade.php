@@ -152,7 +152,7 @@
 
         <header>
 
-                <h2>{{ $blog->blog_name }}</h2>
+                <h1>{{ $blog->blog_name }}</h1>
 
         </header>
         <figure class="meta">
