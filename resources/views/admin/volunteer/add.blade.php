@@ -33,7 +33,13 @@ User Add
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label" for="formrow-password-input">Image<span style="color:red;">*</span></label>
+                                            <label class="form-label" for="formrow-password-input">Image<span style="color:red;">*</span></label><br>
+                                            @if($category->image)
+                                            <img src="{{ Storage::disk('s3')->url('VolunteerImages/' . $category->image) }}" alt="Post Image" class="mb-2" style="width: 100px; height: 100px;">
+
+                                     @else
+                                         <p>No profile image available.</p>
+                                     @endif
                                             <input type="file" class="form-control" name="image" id="image" placeholder="Category name" value="@if(isset($category->category_name)){{ $category->category_name }}@else{{ old('category_name')}}@endif">
                                             @if ($errors->has('image'))
                                                 <span class="text-danger">{{ $errors->first('image') }}</span>

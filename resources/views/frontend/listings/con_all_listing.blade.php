@@ -913,7 +913,7 @@ $(document).ready(function() {
                 $.each(response.sabuniqueListings, function(index, listing) {
                     var html = '<div class="row corprow" data-latitude="40.71447628" data-longitude="-73.8821125">';
                     html += '<div class="col-md-3">';
-                    html += '<a href="{{ url('sabs_listing_details/') }}/' + listing.id + '">';
+                    html += '<a href="{{ url('con_listing_details/') }}/' + listing.id + '">';
                         html += '<div>';
 
                              html += '<img class="corpimage" src="' + listing.image_url + '" alt="abc">';
@@ -963,7 +963,7 @@ $(document).ready(function() {
                       $.each(response.sabuniquesellListings, function(index, listing) {
                     var html = '<div class="row corprow" data-latitude="40.71447628" data-longitude="-73.8821125">';
                     html += '<div class="col-md-3">';
-                    html += '<a href="{{ url('sabs_listing_details/') }}/' + listing.id + '">';
+                    html += '<a href="{{ url('con_listing_details/') }}/' + listing.id + '">';
                         html += '<div>';
                              html += '<img class="corpimage" src="' + listing.image_url + '" alt="abc">';
                             html += '</div>';

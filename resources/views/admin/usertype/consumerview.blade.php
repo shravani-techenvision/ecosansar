@@ -21,6 +21,10 @@ Contributor View
                 <section class="basic-details pt-2 pb-0 px-3" style="border: 1px solid #ccc;border-radius:5px;">
                 <div class="row">
                     <div class="col-4">
+                        <p class="mb-0"><strong> Unique ID:</strong><br>
+                        <p>@isset($users->unique_id){{ $users->unique_id }}@endisset</p>
+                    </div>
+                    <div class="col-4">
                         <p class="mb-0"><strong> Name:</strong><br>
                         <p>@isset($users->name){{ $users->name }}@endisset</p>
                     </div>

@@ -28,6 +28,7 @@
                         <thead>
                             <tr>
                                 <th>Sr. No</th>
+                                <th>Unique ID</th>
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Mobile</th>
@@ -43,6 +44,7 @@
                                 @foreach ($result as $res)
                                 <tr>
                                         <td>{{ $i++ }}</td>
+                                        <td>{{ $res->unique_id }}</td>
                                         <td>{{ $res->name }}</td>
                                         <td>{{ $res->email }}</td>
                                         <td>{{ $res->mobile }}</td>
@@ -53,11 +55,11 @@
                                         <!--               data-id="{{$res->id}}" {{ $res->is_checked ? 'checked' : '' }}>-->
                                         <!--    </div>-->
                                         <!--</td>-->
-                                       
+
                                         <td>
                                             <a title="View" href="{{ route('user.consumerview', $res->id) }}" class="btn btn-outline-primary btn-sm "><i class="fas fa-eye"></i></a>
                                              <a title="Edit" href="{{ route('user.edituser', $res->id) }}" class="btn btn-outline-success btn-sm edit"><i class="fas fa-pencil-alt"></i></a>
-                                            <a title="Delete" href="{{ route('user.deleteuser', $res->id) }}" onclick="return confirm('Are you sure you want to delete this user?');" class="btn btn-outline-danger btn-sm deleteAttr"><i class="fas fa-trash-alt"></i></a> 
+                                            <a title="Delete" href="{{ route('user.deleteuser', $res->id) }}" onclick="return confirm('Are you sure you want to delete this user?');" class="btn btn-outline-danger btn-sm deleteAttr"><i class="fas fa-trash-alt"></i></a>
                                         </td>
                                 </tr>
                             @endforeach
