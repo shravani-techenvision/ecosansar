@@ -50,7 +50,7 @@
     padding: 15px; /* Spacing inside the widget */
     margin-bottom: 20px; /* Spacing between widgets */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-   
+
 }
 
 .widget h3 {
@@ -166,8 +166,8 @@ button:hover {
              <section>
             <div class="bann height-400px" id="map-contact">
                 <div class="banner-text">
-            <a href="{{url('/')}}" class="breadcrumb-link">Home</a> / 
-            <a href="{{ route('blog.detail', ['id' => $blog->id]) }}" class="breadcrumb-link">Blog detail</a>
+            <a href="{{url('/')}}" class="breadcrumb-link">Home</a> /
+            <a href="{{ url('blog-detail', ['slug' => $blog->slug]) }}" class="breadcrumb-link">Blog detail</a>
         </div>
             </div>
             <!--end map-->
@@ -175,7 +175,7 @@ button:hover {
              <section class="block">
             <div class="container">
             <div class="row">
-                
+
                 <div class="col-md-9 col-sm-9">
 <!--                   <section class="page-title">-->
 <!--    <h1>Blog</h1> <!-- Static page title -->
@@ -184,31 +184,31 @@ button:hover {
 <section>
 <article class="blog-post">
     <header>
-        
+
             <h1>{{ $blog->blog_name }}</h1> <!-- Display the blog title dynamically -->
-        
+
     </header>
-     
 
 
-    
+
+
 
     <figure class="meta">
         <i class="fa fa-user"></i> {{ $blog->posted_by_name }}&emsp;  <!-- Author (static for now) -->
-        
-            <i class="fa fa-calendar"></i> {{ $blog->created_at->format('d/m/Y') }} <!-- Display the blog's publish date -->
-        
+
+            <i class="fa fa-calendar"></i> {{ $blog->created_at->format('d/m/Y') }} <!-- Display the blogs publish date -->
+
        <div class="tags">
-         
+
         @foreach($categories as $category)
-            <a class="tag article" href="{{ route('blog.category', ['id' => $category->id]) }}" class="tag article">{{ $category->category_name }}</a>
+            <a class="tag article" href="{{ url('blog/category', ['slug' => $category->bc_slug]) }}" class="tag article">{{ $category->category_name }}</a>
         @endforeach
     </div>
     </figure>
 
-     
 
-    
+
+
     <p>{!! $blog->content !!}
 
 
@@ -220,16 +220,16 @@ button:hover {
     <!--        {{ $category }}@if(!$loop->last), @endif-->
     <!--    @endforeach-->
     <!--</p>-->
-    
-    <p><strong>Tag:</strong> 
+
+    <p><strong>Tag:</strong>
         @foreach($tags as $tag)
             {{ $tag->tag_name }}@if(!$loop->last), @endif
         @endforeach
     </p>
 </div>
-    
 
-     
+
+
 </article>
  </section>
 
@@ -260,10 +260,10 @@ button:hover {
                             <input type="text" class="reply-name" placeholder="Your Name" required>
                             <input type="email" class="reply-email" placeholder="Your Email" required>
                             <textarea class="reply-text" placeholder="Write your reply here..." required></textarea>
-                            <button class="btn  btn-primary btn-rounded" onclick="saveReply({{ $comment->id }}, {{ $userid ?? 'null' }}, {{ $id }})">Submit</button>
+                            <button class="btn  btn-primary btn-rounded" onclick="saveReply({{ $comment->id }}, {{ $userid ?? 'null' }}, {{ $blog->id }})">Submit</button>
                         </div>
 
-                       
+
                     </div>
                     <ul class="replies">
                         @if(isset($comment->replies) && $comment->replies->isEmpty())
@@ -285,14 +285,14 @@ button:hover {
 </section><!-- /#comments -->
 
 
-                   
-                    
+
+
                     <section id="leave-reply">
                         <header><h1 class="no-border">Leave a Reply</h1></header>
                         <form role="form" id="form-blog-reply" method="post"  class="clearfix" action={{ route('comment.save') }}>
                             @csrf
                             <input type="hidden" name="login_id" value="{{$userid}}">
-                            <input type="hidden" name="blog_id" value="{{$id}}">
+                            <input type="hidden" name="blog_id" value="{{$blog->id}}">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -327,8 +327,8 @@ button:hover {
                                     <div class="form-group ">
                                         <label class="label-text">Please type the characters below<span style="color:red;">*</span></label>
                                         <div style="display:flex; margin-top:20px;">
-                                            <div class="box space" style="font-size:20px;padding:10px;">{{ $captcha }}</div>&emsp;&emsp;&emsp;&emsp;&emsp; 
-                                            <input required class="form-control" type="text" id="userInput" name="captcha" placeholder="Enter Captcha" >  
+                                            <div class="box space" style="font-size:20px;padding:10px;">{{ $captcha }}</div>&emsp;&emsp;&emsp;&emsp;&emsp;
+                                            <input required class="form-control" type="text" id="userInput" name="captcha" placeholder="Enter Captcha" >
                                              </div>
                                            @error('captcha')
                                             <div class="text-danger" style="margin-left:175px; ">{{ $message }}</div>
@@ -353,7 +353,7 @@ button:hover {
         <ul class="list-unstyled">
             @foreach($categoriesall as $category)
                 <li>
-                    <a href="{{ route('blog.category', ['id' => $category->id]) }}">
+                    <a href="{{ url('blog/category', ['slug' => $category->bc_slug]) }}">
                         {{ $category->category_name }}
                         <br>
                     </a>
@@ -367,7 +367,7 @@ button:hover {
         <h3>Tags</h3>
         <div class="tag-cloud">
             @foreach($tagsall as $tag)
-                <a href="{{ route('blog.tag', ['id' => $tag->id]) }}" class="tag">{{ $tag->tag_name }}</a>
+                <a href="{{ url('blog/tag', ['slug' => $tag->bt_slug]) }}" class="tag">{{ $tag->tag_name }}</a>
             @endforeach
         </div>
     </section>
@@ -406,7 +406,7 @@ button:hover {
     const replyEmail = replyEmailElement.value.trim();
 
     // Validate the fields
-    
+
     if (!replyName) {
         alert('Please enter your name.');
         replyNameElement.focus(); // Set focus on the empty field

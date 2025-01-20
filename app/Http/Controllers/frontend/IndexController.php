@@ -1083,9 +1083,9 @@ $reviews = $consumerReviews->merge($businessReviews)->merge($sabReviews);
         return view('frontend.blog', compact('blogs', 'categories', 'tags'));
     }
 
-    public function blog_detail($id){
+    public function blog_detail($slug){
      // Fetch the blog by ID
-    $blog = Blog::findOrFail($id);
+     $blog = Blog::where('slug',$slug)->first();
     // Resolve posted_by_name
     if ($blog->posted_by === 'admin') {
         $blog->posted_by_name = 'Admin';
@@ -1109,26 +1109,26 @@ $reviews = $consumerReviews->merge($businessReviews)->merge($sabReviews);
         $categoriesall = BlogCategory::all();
         $tagsall = BlogTag::all();
     // Fetch comments associated with this blog post
-    $comments = Comment::with('replies')->where('blog_id', $id)->where('active',1)->get();
+    $comments = Comment::with('replies')->where('blog_id', $blog->id)->where('active',1)->get();
   // Generate CAPTCHA
         $captcha = $this->generateCaptcha();
          // Store CAPTCHA value in session
         session(['captcha' => $captcha]);
     // Return the view with the blog data
-    return view('frontend.blog-detail', compact('blog','categories','tags','categoriesall','tagsall','id','userid','comments','captcha'));
+    return view('frontend.blog-detail', compact('blog','categories','tags','categoriesall','tagsall','userid','comments','captcha'));
     }
-    public function categoryBlogs($id)
+    public function categoryBlogs($slug)
     {
         // Fetch the category by ID
-        $category = BlogCategory::findOrFail($id);
+        $category = BlogCategory::where('bc_slug',$slug)->first();
 
         // Fetch blogs related to the category
         $blogs = Blog::where('active', 1)
-            ->where(function ($query) use ($id) {
-                $query->where('category', $id) // Check for exact match
-                      ->orWhere('category', 'LIKE', "%,$id,%") // Match in the middle
-                      ->orWhere('category', 'LIKE', "$id,%")   // Match at the start
-                      ->orWhere('category', 'LIKE', "%,$id");  // Match at the end
+            ->where(function ($query) use ($category) {
+                $query->where('category', $category->id) // Check for exact match
+                      ->orWhere('category', 'LIKE', "%,$category->id,%") // Match in the middle
+                      ->orWhere('category', 'LIKE', "$category->id,%")   // Match at the start
+                      ->orWhere('category', 'LIKE', "%,$category->id");  // Match at the end
             })
              ->orderBy('id', 'DESC') // Fetch in descending order
             ->get();
@@ -1156,18 +1156,18 @@ $reviews = $consumerReviews->merge($businessReviews)->merge($sabReviews);
         return view('frontend.blog', compact('blogs', 'categories', 'tags', 'category'));
     }
 
-    public function tagBlogs($id)
+    public function tagBlogs($slug)
     {
         // Fetch the tag by ID
-        $tag = BlogTag::findOrFail($id);
+        $tag = BlogTag::where('bt_slug',$slug)->first();
 
         // Fetch blogs related to the tag
         $blogs = Blog::where('active', 1)
-        ->where(function ($query) use ($id) {
-            $query->where('tag', $id) // Check for exact match
-                  ->orWhere('tag', 'LIKE', "%,$id,%") // Match in the middle
-                  ->orWhere('tag', 'LIKE', "$id,%")   // Match at the start
-                  ->orWhere('tag', 'LIKE', "%,$id");  // Match at the end
+        ->where(function ($query) use ($tag) {
+            $query->where('tag', $tag->id) // Check for exact match
+                  ->orWhere('tag', 'LIKE', "%,$tag->id,%") // Match in the middle
+                  ->orWhere('tag', 'LIKE', "$tag->id,%")   // Match at the start
+                  ->orWhere('tag', 'LIKE', "%,$tag->id");  // Match at the end
         })
          ->orderBy('id', 'DESC') // Fetch in descending order
         ->get();

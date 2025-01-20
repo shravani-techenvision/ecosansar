@@ -165,7 +165,7 @@
                         $category = \App\Models\admin\BlogCategory::find($categoryId);
                     @endphp
                     @if($category)
-                        <a href="{{ route('blog.category', ['id' => $categoryId]) }}" class="tag article">
+                        <a href="{{ url('blog/category', ['slug' => $category->bc_slug]) }}" class="tag article">
                             {{ $category->category_name }}
                         </a>
                     @endif
@@ -175,7 +175,7 @@
 
         <!-- Display a portion of the content as a preview -->
         <p>{!! Str::limit(strip_tags($blog->content), 350) !!}</p>
-        <a style="margin-left: -1px;" href="{{ route('blog.detail', ['id' => $blog->id]) }}" class="btn  btn-primary btn-small btn-rounded icon shadow add-listing text-center">Read More</a>
+        <a style="margin-left: -1px;" href="{{ url('blog-detail', ['slug' => $blog->slug]) }}" class="btn  btn-primary btn-small btn-rounded icon shadow add-listing text-center">Read More</a>
     </article><!-- /.blog-post -->
 @endforeach
 
@@ -195,7 +195,7 @@
         <ul class="list-unstyled">
             @foreach($categories as $category)
                 <li>
-                    <a href="{{ route('blog.category', ['id' => $category->id]) }}">
+                    <a href="{{ url('blog/category', ['slug' => $category->bc_slug]) }}">
                         {{ $category->category_name }}
                         <br>
                     </a>
@@ -209,7 +209,7 @@
         <h3>Tags</h3>
         <div class="tag-cloud">
             @foreach($tags as $tag)
-                <a href="{{ route('blog.tag', ['id' => $tag->id]) }}" class="tag">{{ $tag->tag_name }}</a>
+                <a href="{{ url('blog/tag', ['slug' => $tag->bt_slug]) }}" class="tag">{{ $tag->tag_name }}</a>
             @endforeach
         </div>
     </section>

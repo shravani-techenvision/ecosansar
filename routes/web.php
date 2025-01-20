@@ -52,9 +52,9 @@ Route::controller(IndexController::class)->group(function(){
      Route::get('about','about')->name('about');
      Route::get('privacypolicy','privacypolicy')->name('privacypolicy');
      Route::get('blog','blog')->name('blog');
-     Route::get('blog-detail/{id}','blog_detail')->name('blog.detail');
-     Route::get('/blog/category/{id}', 'categoryBlogs')->name('blog.category');
-Route::get('/blog/tag/{id}', 'tagBlogs')->name('blog.tag');
+     Route::get('blog-detail/{slug}','blog_detail')->name('blog.detail');
+     Route::get('/blog/category/{slug}', 'categoryBlogs')->name('blog.category');
+Route::get('/blog/tag/{slug}', 'tagBlogs')->name('blog.tag');
        Route::get('ourteam','ourteam')->name('ourteam');
        Route::get('contact','contact')->name('contact');
         Route::post('contact_store','contact_store')->name('contact_store');

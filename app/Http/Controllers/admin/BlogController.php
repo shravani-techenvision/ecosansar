@@ -11,6 +11,7 @@ use App\Models\admin\Blog;
 use App\Models\frontend\Comment;
 use App\Models\frontend\CommentReply;
 use RealRashid\SweetAlert\Facades\Alert;
+use Str;
 
 class BlogController extends Controller
 {
@@ -31,8 +32,10 @@ class BlogController extends Controller
         $req->validate([
             'category_name' => 'required|unique:blog_categories,category_name',
         ]);
+        $slug = str_replace(' ','-',$req->category_name);
         $blogcategory = new BlogCategory();
         $blogcategory->category_name = $req->category_name;
+        $blogcategory->bc_slug = $slug;
         $blogcategory->save();
         Alert::success('success','Category Added Successfully');
         return redirect()->route('blog.blog_category_list');
@@ -57,7 +60,9 @@ class BlogController extends Controller
          }
 
          $blogcategory = BlogCategory::find($id);
+         $slug = str_replace(' ','-',$req->category_name);
          $blogcategory->category_name = $req->category_name;
+         $blogcategory->bc_slug = $slug;
         $blogcategory->save();
         Alert::success('success','Category Updated Successfully');
         return redirect()->route('blog.blog_category_list');
@@ -123,8 +128,10 @@ public function blog_category_delete($id)
         $req->validate([
             'tag_name' => 'required',
         ]);
+        $slug = str_replace(' ','-',$req->tag_name);
         $blogtag = new BlogTag();
         $blogtag->tag_name = $req->tag_name;
+        $blogtag->bt_slug = $slug;
         $blogtag->save();
         Alert::success('success','Tag Added Successfully');
         return redirect()->route('blog.blog_tag_list');
@@ -138,43 +145,18 @@ public function blog_category_delete($id)
        $req->validate([
             'tag_name' => 'required',
         ]);
+        $slug = str_replace(' ','-',$req->tag_name);
          $blogtag = BlogTag::find($id);
          $blogtag->tag_name = $req->tag_name;
+         $blogtag->bt_slug = $slug;
         $blogtag->save();
         Alert::success('success','Tag Updated Successfully');
         return redirect()->route('blog.blog_tag_list');
     }
     public function blog_tag_delete($id)
 {
-    // Retrieve the tag that is about to be deleted
-    $tag = BlogTag::find($id);
-
-    if ($tag) {
-        // Get all blogs associated with this tag
-        $blogs = Blog::where('tag', 'LIKE', '%' . $id . '%')->get();
-
-        foreach ($blogs as $blog) {
-            // Split the tags into an array
-            $tagsArray = explode(',', $blog->tag);
-            // Remove the tag ID from the array
-            $tagsArray = array_filter($tagsArray, function($tagId) use ($id) {
-                return trim($tagId) != $id;
-            });
-            // Update the tags in the blog record
-            $blog->tag = implode(',', $tagsArray);
-            $blog->save();
-        }
-
-        // Delete the tag
-        $tag->delete();
-
-        // Show success message
-        Alert::success('Success', 'Tag Deleted Successfully');
-    } else {
-        // Show error message if tag not found
-        Alert::error('Error', 'Tag not found');
-    }
-
+    BlogTag::where('id',$id)->delete();
+    Alert::success('success','Tag Deleted Successfully');
     return redirect()->route('blog.blog_tag_list');
 }
 
@@ -217,9 +199,10 @@ public function blog_category_delete($id)
 
         // Store the blog data
         $blog = new Blog();
-
+        $slug = Str::slug($request->blog_name, '-');
         // Set blog fields
         $blog->blog_name = $request->blog_name;
+        $blog->slug = $slug;
         $blog->active = 1;
         if($request->posted_by != null){
          $blog->posted_by =  $request->posted_by;
@@ -275,10 +258,11 @@ public function blog_category_delete($id)
 
         // Find the existing blog by its ID
         $blog = Blog::findOrFail($id);
-
+        $slug = Str::slug($request->blog_name, '-');
 
             // Set blog fields
             $blog->blog_name = $request->blog_name;
+            $blog->slug = $slug;
             $blog->content = $request->content;
 
 
