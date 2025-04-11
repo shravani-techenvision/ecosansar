@@ -338,7 +338,7 @@
                             <!--</div>-->
                             <div class="form-check">
         					<label>
-        						<input type="checkbox" name="terms" id="terms" value="accepted" {{ old('terms') ? 'checked' : '' }}>  I have read and agree to the <a href="{{ route('terms_conditions') }}" class="terms-link"> Terms and Condition </a> and <a href="{{ route('privacypolicy') }}" class="terms-link"> Privacy Policy </a> of this website<span style="color:red;">*</span>
+        						<input type="checkbox" name="terms" id="terms" value="accepted" {{ old('terms') ? 'checked' : '' }}>  I have read and agree to the <a target="_blank" href="{{ route('terms_conditions') }}" class="terms-link"> Terms and Condition </a> and <a target="_blank" href="{{ route('privacypolicy') }}" class="terms-link"> Privacy Policy </a> of this website<span style="color:red;">*</span>
         					</label>
 
         				</div>
