@@ -44,9 +44,7 @@ Route::get('/ads.txt', function () {
 
     abort(404);
 });
-Route::get('/export-users', function () {
-    return Excel::download(new SABUsersExport, 'users.xlsx');
-});
+
 Route::controller(IndexController::class)->group(function(){
     Route::get('/','index');
      Route::get('profile/{id}','profile')->middleware('auth.user')->name('profile');
@@ -214,7 +212,9 @@ Auth::routes();
 
 // Route::get('index/{locale}', [App\Http\Controllers\HomeController::class, 'lang']);
 // Route::post('/formsubmit', [App\Http\Controllers\HomeController::class, 'FormSubmit'])->name('FormSubmit');
-
+Route::get('/export-users', function () {
+    return Excel::download(new SABUsersExport, 'users.xlsx');
+});
 Route::get('/admin_login', [App\Http\Controllers\admin\AuthController::class, 'admin_login'])->name('admin_login');
 Route::post('/admin_store', [App\Http\Controllers\admin\AuthController::class, 'admin_store'])->name('admin_store');
 Route::get('/admin_dashboard', [App\Http\Controllers\admin\AuthController::class, 'admin_dashboard'])->name('admin_dashboard');
