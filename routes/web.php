@@ -1,5 +1,6 @@
 <?php
 
+use App\Exports\SABUsersExport;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\FaqController;
@@ -19,6 +20,8 @@ use App\Http\Controllers\admin\PrivacyPolicyController;
 use App\Http\Controllers\frontend\PincodeCheckController;
 use App\Http\Controllers\admin\BlogController;
 use App\Http\Controllers\frontend\BlogDetailController;
+use App\Exports\UsersExport;
+use Maatwebsite\Excel\Facades\Excel;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,6 +43,9 @@ Route::get('/ads.txt', function () {
     }
 
     abort(404);
+});
+Route::get('/export-users', function () {
+    return Excel::download(new SABUsersExport, 'users.xlsx');
 });
 Route::controller(IndexController::class)->group(function(){
     Route::get('/','index');

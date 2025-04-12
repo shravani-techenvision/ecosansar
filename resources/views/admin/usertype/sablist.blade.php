@@ -19,6 +19,8 @@
                     <div class="d-flex justify-content-between mb-3">
                         <div>
                         </div>
+                        <a href="{{ url('/export-users') }}" class="btn btn-success">Export Full Data</a>
+
                     {{--  <div >
                         <a href="{{ route('category.add') }}" class="btn btn-primary waves-effect waves-light" >Add</a>
                     </div>  --}}
