@@ -30,7 +30,7 @@
                         <thead>
                             <tr>
                                 <th>Sr. No</th>
-                                <th>Unique ID</th>
+                                <th>Unique IDD</th>
                                 <th>Name</th>
 
                                 <th>Mobile</th>
