@@ -20,3 +20,5 @@ yarn-error.log
 /.idea
 /.vscode
 /.zed
+composer.phar
+# Ignore IDE and editor specific files
