@@ -18,9 +18,9 @@ class ServiceEnquiryController extends Controller
     {
         $this->mailerService = $mailerService;
     }
-    
+
     public function service_enquiry_save(Request $req){
-        
+
         $req->validate([
             'name' => 'required',
             'address' => 'required',
@@ -30,14 +30,14 @@ class ServiceEnquiryController extends Controller
         ]);
 
         $enquiry = new ServiceEnquiry();
-        
+
         $enquiry->name = $req->name;
         $enquiry->address = $req->address;
         $enquiry->mobile = $req->mobile;
         $enquiry->message = $req->message;
         $enquiry->type_of_service = $req->type_of_service;
         $enquiry->save();
-        
+
         $data = [
             'name' => $req->name,
             'address' => $req->address,
@@ -45,8 +45,8 @@ class ServiceEnquiryController extends Controller
             'msg' => $req->message,
             'type_of_service' => $req->type_of_service,
         ];
-        
-        $data["email"] = "userfortesting456@gmail.com";
+
+        $data["email"] = "ecosansar@yahoo.com";
         // $data["title"] = "IIV India Registered Valuers Foundation | Payment Success | Thank you";
         $data["title"] =  "Enquiry from ".$req->name;
 
@@ -54,7 +54,7 @@ class ServiceEnquiryController extends Controller
         //     $message->to($data["email"], $data["email"])
         //             ->subject($data["title"]);
         // });
-        
+
         // Render the email body using the Blade view
         $body = view('frontend.mail.adminserviceenquiry', $data)->render();
 
@@ -64,5 +64,5 @@ class ServiceEnquiryController extends Controller
         Session::flash('success', 'Enquiry Sent Successfully');
         return redirect()->back();
     }
-    
+
 }
