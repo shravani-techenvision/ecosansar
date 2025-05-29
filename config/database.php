@@ -6,7 +6,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Default Database Connection Name
+    | Default Database Connection Namee
     |--------------------------------------------------------------------------
     |
     | Here you may specify which of the database connections below you wish
@@ -62,7 +62,7 @@ return [
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
         ],
-        
+
 
         'pgsql' => [
             'driver' => 'pgsql',
