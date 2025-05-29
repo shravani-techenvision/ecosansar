@@ -42,7 +42,7 @@
 	    <link rel="stylesheet" href="{{ asset('frontend/css/main.css') }}">
 	    <!--<link rel="stylesheet" href="https://unpkg.com/bs-brain@2.0.4/tutorials/timelines/timeline-6/assets/css/timeline-6.css">-->
 	<style>
-	   #google_translate_element div, 
+	   #google_translate_element div,
 #google_translate_element   {
   display: flex;
   align-items: center;
@@ -50,7 +50,7 @@
     padding: 5px;
 }
 }
- 
+
 
 	</style>
 </head>
@@ -73,12 +73,12 @@
 							<img src="{{ asset('frontend/assets/img/logo-one.png') }}" class="img-fluid" alt="Logo">
 						</a>
 							@php
-    $user_id = session()->get('user_id'); 
+    $user_id = session()->get('user_id');
     $userdet = null;
 
     if (isset($user_id) && !empty($user_id)) {
         $userdet = \App\Models\frontend\EcosansarUsers::where('id', $user_id)->first();
-        $type = $userdet->user_type; 
+        $type = $userdet->user_type;
     }
 @endphp
 							 @php
@@ -87,17 +87,17 @@
                    use App\Models\frontend\RecyclableReview;
                     use App\Models\frontend\ReusableAskReview;
         use App\Models\frontend\ReusableReview;
-                    
-        $userId = session()->get('user_id');  
+
+        $userId = session()->get('user_id');
     $notifications = [];
     $notificationCount = 0;
 $conreviews = RecyclableReview::where('login_user_id', $userId)->first();
 
- 
+
 
     if ($userId) {
-   
-       
+
+
         $notifications = RecyclableAskReviews::where('user_id', $userId)
                         ->where(function($query) {
                             $query->where('flag', 'asked')
@@ -105,7 +105,7 @@ $conreviews = RecyclableReview::where('login_user_id', $userId)->first();
                                   ->orWhere('change_review', 'changereview');
                         })
                         ->get();
-                        
+
         $notificationCount = $notifications->count();
     }
 @endphp
@@ -116,12 +116,12 @@ $conreviews = RecyclableReview::where('login_user_id', $userId)->first();
 						<a href="javascript:void(0);" class="d-flex align-items-center justify-content-center me-2 notify-link" data-bs-toggle="dropdown"><i class="feather-bell" style="font-size: 28px;"></i></a>
 						<div class="dropdown-menu dropdown-menu-end notification-dropdown p-4">
 							<div class="d-flex dropdown-body align-items-center justify-content-between border-bottom p-0 pb-3 mb-3">
-								<h6 class="notification-title">Notifications 
+								<h6 class="notification-title">Notifications
 								 @if($notificationCount > 0)
 								<span class="fs-18 text-gray"> {{ $notificationCount }}</span>
 								@endif
 								</h6>
-								 
+
 							</div>
 
 						@if ($notificationCount > 0)
@@ -129,7 +129,7 @@ $conreviews = RecyclableReview::where('login_user_id', $userId)->first();
         <div class="d-flex flex-column">
             @foreach ($notifications as $notification)
                 @php
-                    $reviewModel = $notification->source === 'recyclable' 
+                    $reviewModel = $notification->source === 'recyclable'
                         ? \App\Models\frontend\RecyclableReview::where('login_user_id', $userId)->first()
                         : \App\Models\frontend\ReusableReview::where('login_user_id', $userId)->first();
 
@@ -147,7 +147,7 @@ $conreviews = RecyclableReview::where('login_user_id', $userId)->first();
                             <div class="flex-grow-1">
                                 <div class="d-flex align-items-center">
                                     <p class="mb-1 w-100">
-                                        <span class="text-dark fw-semibold">{{ $notification->name }}</span> 
+                                        <span class="text-dark fw-semibold">{{ $notification->name }}</span>
                                         @if (is_null($notification->status))
                                             asked for a review.
                                         @elseif ($notification->change_review == 'changereview')
@@ -189,7 +189,7 @@ $conreviews = RecyclableReview::where('login_user_id', $userId)->first();
             <ul class="dropdown-menu p-2">
                  <li>
                 <a href="{{ url('profile') . '/' . $user_id }}"  >
-                     My Profile  
+                     My Profile
                 </a>
             </li>
                 <li>
@@ -203,7 +203,7 @@ $conreviews = RecyclableReview::where('login_user_id', $userId)->first();
         </form>
         </div>
     @else
-        
+
     @endif
 </div>
 <!--<ul class="nav header-navbar-rht">-->
@@ -217,14 +217,14 @@ $conreviews = RecyclableReview::where('login_user_id', $userId)->first();
 <!--            </li>-->
 <!--        </ul>-->
 </div>
-					</div> 
+					</div>
 					<div class="main-menu-wrapper">
 						<div class="menu-header">
 							<a href="{{url('/')}}" class="menu-logo">
 								<img src="{{ asset('frontend/assets/img/logo-one.png') }}" class="img-fluid" alt="Logo">
 							</a>
 							<a id="menu_close" class="menu-close" href="javascript:void(0);"> <i class="fas fa-times"></i></a>
-						
+
 						</div>
 						<ul class="main-nav">
 						 <li class="nav-item">
@@ -238,7 +238,7 @@ $conreviews = RecyclableReview::where('login_user_id', $userId)->first();
 								<ul class="submenu">
 									<li class="active"><a href="{{route('about')}}">About Us</a></li>
 										<li><a href="{{route('howitsworks')}}">How it Works</a></li>
-										
+
 											<li><a href="{{route('blog')}}">Blogs</a></li>
 											<li><a href="{{route('workwithus')}}">Work with us</a></li>
 										<li><a href="{{route('contact')}}">Contact</a></li>
@@ -248,17 +248,17 @@ $conreviews = RecyclableReview::where('login_user_id', $userId)->first();
 											<!--		<li><a href="{{ route('consumer_login', ['redirect' => url()->current()]) }}">The Repair Map</a></li>-->
 											<!--			@endif-->
 												<li><a href="{{route('faq')}}">FAQs</a></li>
-							
-								
-							
+
+
+
 								</ul>
 							</li>
-						
-							 
-						
-							 
-						
-							 
+
+
+
+
+
+
 								 @if (session()->has('user_id'))
 								 @else
 									<li class="nav-item d-md-none"><a href="{{route('consumer_login')}}">Login</a></li>
@@ -268,26 +268,26 @@ $conreviews = RecyclableReview::where('login_user_id', $userId)->first();
                         <div id="google_translate_element"></div>
                    </li>
 						</ul>
-						
+
 					</div>
 @php
-    $user_id = session()->get('user_id'); 
+    $user_id = session()->get('user_id');
     $userdet = null;
 
     if (isset($user_id) && !empty($user_id)) {
         $userdet = \App\Models\frontend\EcosansarUsers::where('id', $user_id)->first();
-        $type = $userdet->user_type; 
+        $type = $userdet->user_type;
     }
 @endphp
 <!--notification display-->
 @php
-						
-    
-     
-   
+
+
+
+
     use Illuminate\Support\Collection;
 
-    $userId = session()->get('user_id');  
+    $userId = session()->get('user_id');
     $notifications = collect();
     $notificationCount = 0;
 
@@ -326,10 +326,10 @@ $conreviews = RecyclableReview::where('login_user_id', $userId)->first();
 
 
         $notifications = $recyclable->merge($reusable)->sortByDesc('created_at')->values(); // reset keys
-        
+
         $notificationCount = $notifications->count();
     }
-   
+
 @endphp
 <div class="desktop-header">
 <div class="header-btn   d-flex align-items-center">
@@ -338,12 +338,12 @@ $conreviews = RecyclableReview::where('login_user_id', $userId)->first();
 						<a href="javascript:void(0);" class="d-flex align-items-center justify-content-center me-2 notify-link" data-bs-toggle="dropdown"><i class="feather-bell" style="font-size: 28px;"></i></a>
 						<div class="dropdown-menu dropdown-menu-end notification-dropdown p-4">
 							<div class="d-flex dropdown-body align-items-center justify-content-between border-bottom p-0 pb-3 mb-3">
-								<h6 class="notification-title">Notifications 
+								<h6 class="notification-title">Notifications
 								 @if($notificationCount > 0)
 								<span class="fs-18 text-gray"> {{ $notificationCount }}</span>
 								@endif
 								</h6>
-								 
+
 							</div>
 
 						@if ($notificationCount > 0)
@@ -351,7 +351,7 @@ $conreviews = RecyclableReview::where('login_user_id', $userId)->first();
         <div class="d-flex flex-column">
             @foreach ($notifications as $notification)
                 @php
-                    $reviewModel = $notification->source === 'recyclable' 
+                    $reviewModel = $notification->source === 'recyclable'
                         ? \App\Models\frontend\RecyclableReview::where('login_user_id', $userId)->first()
                         : \App\Models\frontend\ReusableReview::where('login_user_id', $userId)->first();
 
@@ -369,7 +369,7 @@ $conreviews = RecyclableReview::where('login_user_id', $userId)->first();
                             <div class="flex-grow-1">
                                 <div class="d-flex align-items-center">
                                     <p class="mb-1 w-100">
-                                        <span class="text-dark fw-semibold">{{ $notification->name }}</span> 
+                                        <span class="text-dark fw-semibold">{{ $notification->name }}</span>
                                         @if (is_null($notification->status))
                                             asked for a review.
                                         @elseif ($notification->change_review == 'changereview')
@@ -411,7 +411,7 @@ $conreviews = RecyclableReview::where('login_user_id', $userId)->first();
             <ul class="dropdown-menu p-2">
                  <li>
                 <a href="{{ url('profile') . '/' . $user_id }}"  >
-                     My Profile  
+                     My Profile
                 </a>
             </li>
                 <li>
@@ -439,9 +439,8 @@ $conreviews = RecyclableReview::where('login_user_id', $userId)->first();
 </div>
 </div>
 
-				 
+
 				</nav>
 			</div>
 		</header>
 
- 

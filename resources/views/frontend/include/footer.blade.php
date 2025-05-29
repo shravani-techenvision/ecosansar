@@ -17,7 +17,7 @@
 .my-float{
 	margin-top:16px;
 }
- 
+
 </style>
 	<!-- Footer -->
 	<footer>
@@ -33,14 +33,14 @@
 									<a href="{{route('listings')}}"> Recyclables Listings</a>
 									@else
 										<a href="{{ route('consumer_login', ['redirect' => url()->current()]) }}"> Recyclables Listings</a>
-										@endif	
+										@endif
 								</li>
 								<li>
 								     @if (session()->has('user_id'))
 									<a href="{{route('reusable_listings')}}">Reusables Listings</a>
 										@else
 											<a href="{{ route('consumer_login', ['redirect' => url()->current()]) }}">Reusables Listings</a>
-												@endif	
+												@endif
 								</li>
 								<li>
 								     @if (session()->has('user_id'))
@@ -56,7 +56,7 @@
 											<a href="{{ route('consumer_login', ['redirect' => url()->current()]) }}"> Find Your Nearest Collection Agent</a>
 									@endif
 								</li>
-							 
+
 							</ul>
 						</div>
 					</div>
@@ -76,12 +76,12 @@
 								<li>
 									<a href="{{route('blog')}}"> Blogs</a>
 								</li>
-							 
+
 							</ul>
 						</div>
 					</div>
 					<div class="col-md-6 col-xl-3  ">
-						<div class=" follow align-items-center justify-content-between flex-wrap  ">			
+						<div class=" follow align-items-center justify-content-between flex-wrap  ">
 							<h5 class="mb-4"> Follow Us On</h5>
 							<ul class="social-icon mb-3">
 								<li>
@@ -93,11 +93,11 @@
 								<li>
 								<a href="javascript:void(0);"><img src="{{ asset('frontend/assets/img/icons/linkedin.svg') }}" class="img" alt="icon" style="max-width:40px!important;"></a>
 								</li>
-							 
+
 							</ul>
 						</div>
 					</div>
-				  
+
 					<div class="col-md-12 col-xl-3 ">
 					<div class="footer-widget">
 								<h2 class="footer-title">Contact</h2>
@@ -133,7 +133,7 @@
 							</div>
 					</div>
 				</div>
-			 
+
 			</div>
 		</div>
 		<!-- Footer Bottom -->
@@ -195,7 +195,7 @@
 <!-- Slick Slider -->
 	<script src="{{ asset('frontend/assets/js/slick.js') }}"></script>
 
- 
+
 	<!-- Script JS -->
 	<script src="{{ asset('frontend/assets/js/script.js')}}"></script>
  <script type="text/javascript">
