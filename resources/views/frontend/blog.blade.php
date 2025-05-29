@@ -2,7 +2,7 @@
 <!-- Breadcrumb -->
 		<div class="breadcrumb-bar text-center"
 		style="background-image: url('{{ $breadcrumbimage ? Storage::disk('s3')->url("Breadcrumbimage/" . $breadcrumbimage->breadcrumb_image) : asset("frontend/assets/img/bg/default.png") }}');
-            background-size: cover; 
+            background-size: cover;
             background-position: center;">
 		<div class="container">
 			<div class="row">
@@ -30,7 +30,7 @@
 		<div class="content">
            <div class="container">
             <div class="row justify-content-center align-items-center">
-                
+
                 @foreach ($blogs as $blog)
 <div class="col-xl-4 col-md-6">
     <div class="card p-0">
@@ -51,21 +51,10 @@
                     @endif
                 @endforeach</span>
                 </div>
-<!--                <div class="image-tag d-flex flex-wrap justify-content-end align-items-center gap-1">-->
-<!--    @foreach(explode(',', $blog->category) as $categoryId)-->
-<!--        @php-->
-<!--            $category = \App\Models\admin\BlogCategory::find(trim($categoryId));-->
-<!--        @endphp-->
-<!--        @if($category)-->
-<!--            <a href="{{ url('blog/category', ['slug' => $category->bc_slug]) }}" class="trend-tag">-->
-<!--                {{ $category->category_name }}-->
-<!--            </a>-->
-<!--        @endif-->
-<!--    @endforeach-->
-<!--</div>-->
 
 
- 
+
+
 
 
             </div>
@@ -95,8 +84,8 @@
 </div>
 @endforeach
 
-                
-            </div> 
+
+            </div>
             	<nav aria-label="Page navigation">
   <ul class="paginations d-flex justify-content-center align-items-center">
     {{-- Previous Page Link --}}
@@ -113,7 +102,7 @@
     {{-- Page Number Links --}}
     @foreach ($blogs->getUrlRange(1, $blogs->lastPage()) as $page => $url)
       <li class="page-item me-2">
-        <a class="page-link-1 d-flex justify-content-center align-items-center {{ $page == $blogs->currentPage() ? 'active' : '' }}" 
+        <a class="page-link-1 d-flex justify-content-center align-items-center {{ $page == $blogs->currentPage() ? 'active' : '' }}"
            href="{{ $url }}">{{ $page }}</a>
       </li>
     @endforeach
@@ -137,4 +126,3 @@
 		<!-- /Page Wrapper -->
 @include('frontend.include.footer')
 
-  
