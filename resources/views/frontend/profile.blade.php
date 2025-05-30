@@ -959,6 +959,7 @@
 
 
  @include('frontend.include.footer')
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
  <script>
 
 
@@ -1126,7 +1127,14 @@ $(document).ready(function() {
             },
             success: function(response) {
                 if (response.status === 'success') {
-                    alert('Review request sent successfully!');
+                  // ✅ Use SweetAlert instead of alert()
+                           Swal.fire({
+                    icon: 'success',
+                    title: 'Request Sent!',
+                    text: 'Review update request sent successfully!',
+                    timer: 3000, // auto close after 3 seconds
+                    showConfirmButton: false
+                });
                 } else {
                     alert('Error sending review request.');
                 }
@@ -1276,6 +1284,14 @@ $(document).ready(function() {
                     // Always update button text and disable it
                     button.html('<strong>Asked for review</strong>');
                     button.prop('disabled', true);
+                    // ✅ Use SweetAlert instead of alert()
+                           Swal.fire({
+                    icon: 'success',
+                    title: 'Request Sent!',
+                    text: 'Review update request sent successfully!',
+                    timer: 3000, // auto close after 3 seconds
+                    showConfirmButton: false
+                });
                 } else {
                     alert('Error sending review request.');
                 }

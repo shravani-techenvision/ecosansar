@@ -11,7 +11,7 @@ use App\Models\frontend\ReusablePost;
 use App\Models\frontend\RecyclableEnquiry;
 use App\Models\frontend\RecyclableAskReviews;
 use App\Models\frontend\RecyclableReview;
-use App\Models\frontend\ReusableReview; 
+use App\Models\frontend\ReusableReview;
 use App\Models\admin\BreadcrumImage;
 use App\Models\frontend\SABEnquiryMessages;
 use App\Models\frontend\Comment;
@@ -29,7 +29,7 @@ use App\Models\admin\BlogCategory;
 use App\Models\admin\BlogTag;
 use App\Models\admin\Service;
 use App\Models\admin\Contact;
- 
+
 use App\Models\frontend\UserContact;
 use App\Models\frontend\RepairContact;
 use App\Models\frontend\UserActivityLog;
@@ -50,15 +50,15 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Storage;
 use App\Services\PHPMailerService;
 use Illuminate\Support\Facades\View;
-use App\Services\NotificationService; 
-use App\Services\NotificationSABService; 
-use App\Services\NotificationBusinessService; 
+use App\Services\NotificationService;
+use App\Services\NotificationSABService;
+use App\Services\NotificationBusinessService;
 use App\Services\NotificationValidationService;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Exception;
 use Illuminate\Pagination\Paginator;
- 
+
 
 
 class IndexController extends Controller
@@ -69,7 +69,7 @@ class IndexController extends Controller
     {
         $this->mailerService = $mailerService;
     }
-    
+
     public function sendOtp(Request $request)
     {
         // print_r($request->all());
@@ -103,8 +103,8 @@ class IndexController extends Controller
 
             ], 404);
         }
-        
-         
+
+
 
 
         $userver = DB::table('ecosansar_users')
@@ -199,7 +199,7 @@ class IndexController extends Controller
         // $request->validate([
         //     'contact' => 'required|digits:10', // Assuming Indian 10 digit phone number
         // ]);
-        // 
+        //
         // Check if the user exists in the ecosansar_users table
         $user = DB::table('ecosansar_users')
             ->where('id', $id)->first();
@@ -393,7 +393,7 @@ class IndexController extends Controller
 
     public function terms_conditions()
     {
-        
+
         // user activity start
         $userid = session()->get('user_id');
         $breadcrumbimage = BreadcrumImage::latest()->first();
@@ -406,14 +406,14 @@ class IndexController extends Controller
             $userActivity->save();
         }
         // user activity end
-        
+
         return view('frontend/temrs_condition', compact('breadcrumbimage'));
     }
     public function index(Request $request)
     {
         $user_id = session()->get('user_id');
         $user_type = session()->get('user_type');
-        
+
        $query = RecyclablePost::with(['resource', 'weight'])
         //->where('recyclable_posts.user_id', '!=', $user_id)
         ->where('recyclable_posts.active', 1)
@@ -462,7 +462,7 @@ class IndexController extends Controller
 
 
     $posts = $query->orderBy('id','desc')->take(4)->get();
-   
+
    //fetch reusable posts
    $query = ReusablePost::with(['resource', 'weight'])
        // ->where('reusable_posts.user_id', '!=', $user_id)
@@ -512,8 +512,8 @@ class IndexController extends Controller
 
 
     $reusableposts = $query->orderBy('id','desc')->take(4)->get();
-   
-        
+
+
          // Fetch only the latest 3 blogs
          $blogs = Blog::where('active', 1)
             ->orderBy('id', 'desc')
@@ -529,12 +529,12 @@ class IndexController extends Controller
                     // If it's a numeric value, fetch the volunteer name
                     $volunteer = Volunteer::find($blog->posted_by);
                     $blog->posted_by_name = $volunteer ? $volunteer->name : 'Unknown Volunteer';
-                }  
-    
+                }
+
                 return $blog;
             });
-         $Contributorusers = EcosansarUsers::where('user_type','consumer')->where('is_delete','0')->count();   
-         $collagentusers = EcosansarUsers::where('user_type','sab')->where('is_delete','0')->count(); 
+         $Contributorusers = EcosansarUsers::where('user_type','consumer')->where('is_delete','0')->count();
+         $collagentusers = EcosansarUsers::where('user_type','sab')->where('is_delete','0')->count();
          $totlenoofrecyclablelistings = RecyclablePost::where('active','1')->count();
          $totlenoofreusablelistings = ReusablePost::where('active','1')->count();
          $totnooflistings = $totlenoofrecyclablelistings + $totlenoofreusablelistings;
@@ -548,7 +548,7 @@ class IndexController extends Controller
         $totalrecyclableconn = RecyclableEnquiry::count();
          $totalreusableconn = ReusableEnquiry::count();
          $totalconn = $totalrecyclableconn + $totalreusableconn;
-        
+
           // user activity start
         $userid = session()->get('user_id');
         if ($userid){
@@ -561,22 +561,22 @@ class IndexController extends Controller
         }
         // user activity end
 
-        
+
         return view('frontend/index', compact('user_type', 'blogs', 'posts', 'reusableposts', 'Contributorusers', 'collagentusers', 'totnooflistings',
          'totnoresources', 'totalconn'));
     }
 
-     
+
 
     public function profile($id)
     {
         $breadcrumbimage = BreadcrumImage::latest()->first();
- 
-          $userid = session()->get('user_id');  
+
+          $userid = session()->get('user_id');
          $user_type = session()->get('user_type');
         $users = EcosansarUsers::where('id', $id)->first();
-         $utype = $users->user_type; 
- 
+         $utype = $users->user_type;
+
         // $uniqueListings = RecyclablePost::with(['resource', 'weight'])
         //     ->select('recyclable_posts.*')
         //     ->where('recyclable_posts.user_id', $id)
@@ -643,7 +643,7 @@ $total = DB::table(DB::raw("({$combined->toSql()}) as combined"))
     ->mergeBindings($combined)
     ->count();
 
- 
+
 
 $uniqueListings = new LengthAwarePaginator(
     $results,
@@ -652,7 +652,7 @@ $uniqueListings = new LengthAwarePaginator(
     $page,
     ['path' => request()->url(), 'query' => request()->query()]
 );
-        
+
 // First query: recyclable_posts
 $recyclable = DB::table('recyclable_posts')
     ->leftJoin('resources', 'resources.id', '=', 'recyclable_posts.resource_type')
@@ -707,7 +707,7 @@ $total = DB::table(DB::raw("({$combined->toSql()}) as combined"))
     ->mergeBindings($combined)
     ->count();
 
- 
+
 
 $deactiveuniqueListings = new LengthAwarePaginator(
     $results,
@@ -735,7 +735,7 @@ $recyclable = DB::table('recyclable_posts')
     ->where('recyclable_posts.user_id', $id)
     ->where('recyclable_posts.user_type', $utype)
      ->where('recyclable_posts.request_fulfilled', 1);
-     
+
 
 // Second query: reusable_posts
 $reusable = DB::table('reusable_posts')
@@ -754,7 +754,7 @@ $reusable = DB::table('reusable_posts')
     ->where('reusable_posts.user_id', $id)
     ->where('reusable_posts.user_type', $utype)
      ->where('reusable_posts.request_fulfilled', 1);
-    
+
 
 // Combine using unionAll
 $combined = $recyclable->unionAll($reusable);
@@ -772,7 +772,7 @@ $total = DB::table(DB::raw("({$combined->toSql()}) as combined"))
     ->mergeBindings($combined)
     ->count();
 
- 
+
 
 $fulfilledListings = new LengthAwarePaginator(
     $results,
@@ -781,16 +781,16 @@ $fulfilledListings = new LengthAwarePaginator(
     $page,
     ['path' => request()->url(), 'query' => request()->query()]
 );
-  
+
         // $deactiveuniqueListings = RecyclablePost::with(['resource', 'weight'])
         //     ->select('recyclable_posts.*')
         //     ->where('recyclable_posts.user_id', $id)
         //     ->where('recyclable_posts.user_type', $utype)
         //     ->where('recyclable_posts.active', '=', 0)
         //      ->paginate(8);
-        
+
       //  $enquiries = RecyclableEnquiry :: where('post_user_id', $id)->where('user_type',$user_type)->paginate(10);
-      
+
 
     // First query from recyclable_enquiries
     $recyclable = DB::table('recyclable_enquiries')
@@ -812,7 +812,7 @@ $fulfilledListings = new LengthAwarePaginator(
         ->mergeBindings($query)
         ->orderBy('created_at', 'desc')
         ->paginate($perPage);
-        
+
      // First query from recyclable_enquiries for own profile
     $recyclableown = DB::table('recyclable_enquiries')
      ->join('ecosansar_users', 'recyclable_enquiries.post_user_id', '=', 'ecosansar_users.id')
@@ -859,8 +859,8 @@ $fulfilledListings = new LengthAwarePaginator(
         ->mergeBindings($queryown)
         ->orderBy('created_at', 'desc')
         ->paginate($perPage);
-        
-        
+
+
 // Get Recyclable Reviews
 $recyclable = RecyclableReview::where('login_user_id', $userid)
     ->select('id', 'title', 'user_id', 'message', 'rating', 'login_user_id', 'created_at', DB::raw("'recyclable' as source"))
@@ -877,8 +877,8 @@ $combined = $recyclable->unionAll($reusable);
 $reviewsgiven = DB::table(DB::raw("({$combined->toSql()}) as combined"))
     ->mergeBindings($combined)
     ->orderBy('created_at', 'desc')
-    ->paginate($perPage);    
-    
+    ->paginate($perPage);
+
         //$reviewsgiven = RecyclableReview::where('login_user_id',$userid)->paginate(10);
       // Convert to base query builders using ->toBase()
 $recyclableQuery = RecyclableReview::select('id', 'user_id', 'message', 'rating', 'login_user_id', 'created_at', DB::raw("'recyclable' as source"))->where('user_id', $userid)->toBase();
@@ -923,8 +923,8 @@ $merged = $recyclable->merge($reusable);
             $userActivity->save();
         }
         // user activity end
-        
-        $url = route('profile_update', $id);  
+
+        $url = route('profile_update', $id);
         return view('frontend/profile', compact('users', 'url', 'utype',   'uniqueListings','deactiveuniqueListings', 'enquiries', 'reviewsgiven', 'reviewsrecieved',
         'breadcrumbimage', 'fulfilledListings', 'ownenquiries'
           ));
@@ -942,40 +942,40 @@ $merged = $recyclable->merge($reusable);
         Session::flash('success', 'Data updated successfully');
         return redirect()->back();
     }
-    
+
       public function recyclablepostprofile($u_id)
     {
-        
+
          // Retrieve the review_id from the query string
-       $review_id = request()->query('review_id'); 
-            $user_id = session()->get('user_id'); 
+       $review_id = request()->query('review_id');
+            $user_id = session()->get('user_id');
         $conpost = RecyclablePost::where('user_id', $u_id)->first();
-      
+
         // Redirect if the user or post doesn't exist
     if (!$conpost) {
         Session::flash('warning', 'Invalid user or post.');
         return redirect('/');
     }
         $post_id = $conpost->id;
-          $u_id = $conpost->user_id;  
+          $u_id = $conpost->user_id;
          $user_type = session()->get('user_type');
         if (null === $user_id || $user_id === '') {
             // User is not logged in, redirect to the login page
              $redirectUrl = route('recyclablepostprofile', ['id' => $u_id]) . ($review_id ? '?review_id=' . $review_id : '');
              session()->put('redirect_askrev', $redirectUrl);
-              
+
             return redirect()->route('consumer_login');
         }
-        
-        
- \DB::enableQueryLog();   
+
+
+ \DB::enableQueryLog();
     // Check for existing connection (BusinessEnquiry)
 $busrev = RecyclableEnquiry::where('login_user_id', $user_id)
     ->where('post_user_id', $u_id)
 ->first();
 
- 
- 
+
+
 // Check for a review request only if a review_id is provided
 $reviewRequest = null;
 if ($review_id) {
@@ -988,10 +988,10 @@ if ($review_id) {
 if (!$busrev || ($review_id && !$reviewRequest)) {
     Session::flash('warning', 'You have not connected with this user. Please connect first then give review');
     return redirect('/');
-}  
+}
   //Retrieve the review request based only on user_id
     $reviewRequest = RecyclableAskReviews::where('id', $review_id)->where('user_id', $user_id)->first();
-      
+
 
     //Check if the review request has already been submitted (status is 'read')
     if ($reviewRequest && $reviewRequest->status === 'read') {
@@ -999,14 +999,14 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
         return redirect('/');
     }
 
-    
-    
+
+
         $conlistreviews = RecyclableReview::where('post_id', $post_id)->where('user_id', $u_id)->get();
         $users = EcosansarUsers::where('id', $u_id)->first();
 
         return view('frontend/recyclablepostprofile', compact('users', 'conlistreviews', 'u_id', 'post_id'));
     }
-    
+
     public function about()
     {
           // user activity start
@@ -1021,7 +1021,7 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
             $userActivity->save();
         }
         // user activity end
-        
+
         return view('frontend/about', compact('breadcrumbimage'));
     }
      public function privacypolicy()
@@ -1038,10 +1038,10 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
             $userActivity->save();
         }
         // user activity end
-        
+
         return view('frontend/privacypolicy', compact('breadcrumbimage'));
     }
-     
+
     public function blog()
     {
         // Fetch all blogs where active = 1
@@ -1060,24 +1060,24 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
                 // If it's a numeric value, fetch the volunteer name
                 $volunteer = Volunteer::find($blog->posted_by);
                 $blog->posted_by_name = $volunteer ? $volunteer->name : 'Unknown Volunteer';
-            }  
+            }
 
             return $blog;
         });
-    
+
         // Fetch all categories and tags for the sidebar
         $categories = BlogCategory::all();
         $tags = BlogTag::all();
-    
+
         return view('frontend.blog', compact('blogs', 'categories', 'tags', 'breadcrumbimage'));
     }
 
     public function blog_detail($slug){
-        
+
      // Fetch the blog by ID
        $breadcrumbimage = BreadcrumImage::latest()->first();
     $blog = Blog::where('slug',$slug)->first();
-    
+
     // Resolve posted_by_name
     if ($blog->posted_by === 'admin') {
         $blog->posted_by_name = 'Admin';
@@ -1092,11 +1092,11 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
     // Split the category and tag fields and fetch their names from the database
     $categoryIds = explode(',', $blog->category);
     $tagIds = explode(',', $blog->tag);
-   
+
    // Fetch category and tag models based on the IDs
     $categories = BlogCategory::whereIn('id', $categoryIds)->get(); // Get models instead of names
     $tags = BlogTag::whereIn('id', $tagIds)->get(); // Get models instead of names
-     
+
      // Fetch all categories and tags to show in the sidebar
        $categoriesall = DB::table('blog_categories')
     ->select('blog_categories.*', DB::raw('(SELECT COUNT(*) FROM blogs WHERE FIND_IN_SET(blog_categories.id, blogs.category) AND blogs.active = 1 AND blogs.deleted_at IS NULL) as blogs_count'))
@@ -1112,7 +1112,7 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
   // Generate CAPTCHA
         $captcha = $this->generateCaptcha();
          // Store CAPTCHA value in session
-        session(['captcha' => $captcha]); 
+        session(['captcha' => $captcha]);
     // Return the view with the blog data
     return view('frontend.blog-detail', compact('blog','categories','tags','categoriesall','tagsall','userid','comments','captcha', 'latestBlogs', 'breadcrumbimage'));
     }
@@ -1150,7 +1150,7 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
         // Fetch all categories and tags to show in the sidebar
         $categories = BlogCategory::all();
         $tags = BlogTag::all();
-        
+
         // Return the view with the filtered blogs
         return view('frontend.blog', compact('blogs', 'categories', 'tags', 'category', 'breadcrumbimage'));
     }
@@ -1188,14 +1188,14 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
         // Fetch all categories and tags to show in the sidebar
         $categories = BlogCategory::all();
         $tags = BlogTag::all();
-    
+
         // Return the view with the filtered blogs
         return view('frontend/blog', compact('blogs', 'categories', 'tags', 'tag', 'breadcrumbimage'));
     }
 
     public function faq()
     {
-        
+
       // user activity start
         $userid = session()->get('user_id');
           $breadcrumbimage = BreadcrumImage::latest()->first();
@@ -1219,7 +1219,7 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
         return view('frontend/faq', compact('faqs','categories', 'breadcrumbimage'));
     }
 
-    public function howitsworks() 
+    public function howitsworks()
     {
        // user activity start
         $userid = session()->get('user_id');
@@ -1249,7 +1249,7 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
             $userActivity->ip_address = request()->ip();
             $userActivity->save();
         }
-        
+
         return view('frontend/workwithus',compact('breadcrumbimage'));
     }
      public function service()
@@ -1323,7 +1323,7 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
 
     private function generateCaptcha()
     {
-        
+
         $captchaLength = 6; // Set the length of the CAPTCHA
         $captchaCharacters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'; // Define the characters to be used in the CAPTCHA
         $captcha = '';
@@ -1370,12 +1370,12 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
         // Generate CAPTCHA
         $captcha = $this->generateCaptcha();
         $contact = Contact::first();
-        
+
         // Store CAPTCHA value in session
-        session(['captcha' => $captcha]); 
+        session(['captcha' => $captcha]);
         return view('frontend/contact',compact('captcha','contact', 'breadcrumbimage'));
     }
-    
+
     public function contact_store(Request $req){
         $req->validate([
             'email' => 'required|email',
@@ -1384,10 +1384,10 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
             'captcha' => 'required'
         ]);
         // echo "<pre>";
-        // print_r($req->all()); 
+        // print_r($req->all());
              // Validate CAPTCHA input
     if (!$this->validateCaptcha($req)) {
-         
+
         return redirect()->back()->withErrors(['captcha' => 'CAPTCHA validation failed.'])->withInput();
     }
      // If CAPTCHA validation succeeds, continue processing the contact form submission
@@ -1396,7 +1396,7 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
      $userInput = $req->input('captcha');
 
     if ($userInput !== $captchaNumber) {
-        
+
         // If the user input doesn't match the CAPTCHA value, return an error
         return redirect()->back()->withErrors(['captcha' => 'CAPTCHA validation failed.'])->withInput();
     }
@@ -1410,7 +1410,7 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
         $contact->save();
 
         $data = [
-             
+
             'name' =>  $req->name,
             // 'email' => 'ecosansar@yahoo.com',
             'email' => 'ecosansar@yahoo.com',
@@ -1419,37 +1419,37 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
             'sub' => $req->subject,
             'msg' => $req->message,
             ];
-            
-              
+
+
             $data["title"] =  "New contact from ". $req->name;
 
             // Render the email body using the Blade view
             $body = view('frontend.mail.contactmail', $data)->render();
-    
+
             // Try sending the email
             try {
                 // Call your mailer service to send the email
                 $response = $this->mailerService->sendEmail($data['email'], $data['title'], $body, $data);
-    
+
                 Session::flash('success', 'Contact Details Sent Successfully');
                 return redirect()->back();
             } catch (\Exception $e) {
                 // If there is any exception, redirect with failure message
                 return redirect()->back()->with('error', 'Failed to send email. Please try again later.');
             }
-    
+
     }
       public function repair_contact_store(Request $req){
            $userid = session()->get('user_id');
            $user = EcosansarUsers::where('id',$userid)->first();
-       if($req->type_of_service != 'Other'){     
+       if($req->type_of_service != 'Other'){
         $req->validate([
             'name' => 'required',
             'phone_no' => 'required',
             'location' => 'required',
             'pincode' => 'required',
             'type_of_service' => 'required',
-             
+
         ]);
        } else {
             $req->validate([
@@ -1457,7 +1457,7 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
             'phone_no' => 'required',
             'location' => 'required',
             'pincode' => 'required',
-             
+
             'other_service' => 'required'
         ]);
        }
@@ -1471,7 +1471,7 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
          if($req->type_of_service != 'Other'){
             $contact->type_of_service = $req->type_of_service;
          } else {
-            $contact->other_service = $req->other_service; 
+            $contact->other_service = $req->other_service;
          }
         $contact->save();
         Session::flash('success', 'Contact Details Sent Successfully');
@@ -1481,13 +1481,13 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
     {
          // Generate CAPTCHA
         $captcha = $this->generateCaptcha();
-        
+
         // Store CAPTCHA value in session
-        session(['captcha' => $captcha]); 
+        session(['captcha' => $captcha]);
         return view('frontend/auth/register',compact('captcha'));
     }
 
-    public function register_otp($id) 
+    public function register_otp($id)
     {
         // echo $id;
         $users = EcosansarUsers::where('id', $id)->first();
@@ -1499,7 +1499,7 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
         $users = EcosansarUsers::where('id', $id)->first();
         return view('frontend/auth/activateotp', compact('users'));
     }
-  
+
     public function recyclable_choose_one() {
         $breadcrumbimage = BreadcrumImage::latest()->first();
 
@@ -1509,11 +1509,11 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
         $breadcrumbimage = BreadcrumImage::latest()->first();
         return view('frontend/userdetails/displayreusablepostoption', compact('breadcrumbimage'));
     }
-    
+
     public function user_deactivate()
     {
         // Clear all session data
-        
+
         // user activity start
         $userid = session()->get('user_id');
         if ($userid){
@@ -1525,8 +1525,8 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
             $userActivity->save();
         }
         // user activity end
-        
-        
+
+
 
         $user_id = session()->get('user_id');
 
@@ -1611,7 +1611,7 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
         $err = curl_error($curl);
 
         curl_close($curl);
- 
+
         if ($err) {
             return response()->json([
                 'status' => 'error',
@@ -1634,7 +1634,7 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
     public function signOut()
     {
         // Clear all session data
-        
+
          // user activity start
         $userid = session()->get('user_id');
         if ($userid){
@@ -1646,7 +1646,7 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
             $userActivity->save();
         }
         // user activity end
-        
+
         Session::flush();
 
         // Redirect to the login page
@@ -1661,8 +1661,8 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
         if ($request->has('redirect_list')) {
             session()->put('redirect_to_list', $request->input('redirect_list'));
         }
-          
- 
+
+
 
         return view('frontend/auth/consumerlogin');
     }
@@ -1723,7 +1723,7 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
             'captcha' => 'required|valid_captcha',
 
         ];
-        
+
 
         if ($req->type_of_user == 'consumer') {
             $rules['type_of_residences'] = 'required';
@@ -1733,7 +1733,7 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
             $rules['email'] = 'required';
         }
     // Define custom error messages
-    
+
         $messages = [
             'mobile.required' => 'The mobile number is required.',
             'mobile.unique' => 'This number is in use',
@@ -1743,7 +1743,7 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
         ];
 
         $validator = Validator::make($req->all(), $rules, $messages);
- 
+
         if ($validator->fails()) {
             $errors = $validator->errors()->toArray();
 
@@ -1778,8 +1778,8 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
 
        // Fetch lat/long based on pincode
     list($latitude, $longitude) = $this->getLatLongFromPincode($req->pincode);
- 
- 
+
+
         $user = new EcosansarUsers;
         $user->user_type = $req->type_of_user;
         $user->name = $req->name;
@@ -1791,21 +1791,21 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
         $user->type_of_residences = $req->type_of_residences;
         $user->email = $req->email;
         //  $user->password = Hash::make($req->password);
-        
-        $user->is_checked = 1;
-        
-       
 
-        
+        $user->is_checked = 1;
+
+
+
+
      // Determine the prefix and increment the unique ID
 if ($req->type_of_user == 'consumer') {
     $prefix = 'CTB';
-    
+
     // Fetch the latest unique_id with prefix 'CR'
     $lastConsumer = EcosansarUsers::where('unique_id', 'like', $prefix . '-%')
                                     ->orderBy('id', 'desc')
                                     ->first();
-    
+
     if ($lastConsumer) {
         // Extract the numeric part from the unique_id
         $lastNumber = (int) str_replace($prefix . '-', '', $lastConsumer->unique_id);
@@ -1813,16 +1813,16 @@ if ($req->type_of_user == 'consumer') {
     } else {
         $newNumber = 1; // Start from 1 if no existing consumer
     }
-    
+
     $user->unique_id = $prefix . '-' . $newNumber;
 } elseif ($req->type_of_user == 'sab') {
     $prefix = 'RC';
-    
+
     // Fetch the latest unique_id with prefix 'RC'
     $lastSab = EcosansarUsers::where('unique_id', 'like', $prefix . '-%')
                               ->orderBy('id', 'desc')
                               ->first();
-    
+
     if ($lastSab) {
         // Extract the numeric part from the unique_id
         $lastNumber = (int) str_replace($prefix . '-', '', $lastSab->unique_id);
@@ -1830,16 +1830,16 @@ if ($req->type_of_user == 'consumer') {
     } else {
         $newNumber = 1; // Start from 1 if no existing sab
     }
-    
+
     $user->unique_id = $prefix . '-' . $newNumber;
 }else{
     $prefix = 'CP';
-    
+
     // Fetch the latest unique_id with prefix 'RC'
     $lastCorp = EcosansarUsers::where('unique_id', 'like', $prefix . '-%')
                               ->orderBy('id', 'desc')
                               ->first();
-    
+
     if ($lastCorp) {
         // Extract the numeric part from the unique_id
         $lastNumber = (int) str_replace($prefix . '-', '', $lastCorp->unique_id);
@@ -1847,10 +1847,10 @@ if ($req->type_of_user == 'consumer') {
     } else {
         $newNumber = 1; // Start from 1 if no existing sab
     }
-    
+
     $user->unique_id = $prefix . '-' . $newNumber;
 }
-        
+
         $user->save();
 
         $contact = $req->mobile;
@@ -1933,7 +1933,7 @@ if ($req->type_of_user == 'consumer') {
     {
         // Get the input data from the request
         $input = $request->all();
-       
+
          // Custom validation rule to check if the input is a valid mobile
         Validator::extend('mobile', function ($attribute, $value, $parameters, $validator) {
             $mobileRegex = '/^\d{10,15}$/';
@@ -1946,7 +1946,7 @@ if ($req->type_of_user == 'consumer') {
            'otp' => 'required|array|size:6',
             'otp.*' => 'required|digits:1',
         ]);
- 
+
         // Check if the validation fails
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
@@ -1975,8 +1975,8 @@ if ($req->type_of_user == 'consumer') {
             // echo $request->has('remember');die;
             Log::info('Session Data:', session()->all());
 
-        
-            
+
+
                  // user activity start
             $userid = session()->get('user_id');
             if ($userid){
@@ -1988,7 +1988,7 @@ if ($req->type_of_user == 'consumer') {
                 $userActivity->save();
             }
             // user activity end
-            
+
              // Log session data before redirect checks
         Log::info('Session data before redirect', session()->all());
 
@@ -1998,15 +1998,15 @@ if ($req->type_of_user == 'consumer') {
             Log::info('Redirecting to WhatsApp share URL', ['redirect_revurl' => $redirect_askrevto]);
             return redirect($redirect_askrevto);
         }
-        
+
         //Check for change review
         if (session()->has('redirect_changerev')) {
-            
-             $redirect_changerevto = session()->pull('redirect_changerev'); 
+
+             $redirect_changerevto = session()->pull('redirect_changerev');
             Log::info('Redirecting to WhatsApp share URL', ['redirect_chrevurl' => $redirect_changerevto]);
             return redirect($redirect_changerevto);
         }
-        
+
         // Check for WhatsApp redirect
         if (session()->has('redirect_wp')) {
             $redirect_wpto = session()->pull('redirect_wp');
@@ -2015,11 +2015,11 @@ if ($req->type_of_user == 'consumer') {
         }
      $redirectTo = $request->input('redirect') ?? route('profile', ['id' => $user->id]);
       // Flash only if it's a direct login (i.e., no custom redirect)
- 
+  Session::flash('success', 'Logged in Successfully');
 return redirect()->to($redirectTo); // ✅ Ensures a valid response
 
-            
-             
+
+
         } elseif ($user && now()->greaterThan($user->otp_expires_at)) {
             // OTP expired
             return redirect()->route('consumer_login')->withErrors([
@@ -2047,7 +2047,7 @@ return redirect()->to($redirectTo); // ✅ Ensures a valid response
 
         // Use Eloquent model to query and update
         $user = EcosansarUsers::where('mobile', $contact)->first();
-        
+
 
         if (!$user) {
             return response()->json([
@@ -2069,7 +2069,7 @@ return redirect()->to($redirectTo); // ✅ Ensures a valid response
                 'message' => 'Incorrect OTP. Please try again.',
             ], 400);
         }
-        
+
         // user activity start
         // $user22 = EcosansarUsers::where('mobile', $contact)->first();
 
@@ -2088,7 +2088,7 @@ return redirect()->to($redirectTo); // ✅ Ensures a valid response
         $user->is_delete = 0;
         //$result->is_delete = '0';
         $user->save();
-        
+
 
 
 
@@ -2106,10 +2106,10 @@ return redirect()->to($redirectTo); // ✅ Ensures a valid response
 
             $data["email"] = $user->email;
             $data["title"] =  "Welcome to The ZeroWaste Community Tool";
-            
+
             // Render the email body using the Blade view
             $body = view('frontend.mail.userregistrationemail', $data)->render();
-            
+
             // Call your mailer service to send the email
             $this->mailerService->sendEmail($data['email'], $data['title'], $body, $data);
         }
@@ -2132,14 +2132,14 @@ return redirect()->to($redirectTo); // ✅ Ensures a valid response
                 $userActivity->save();
             }
         // user activity end
-        
+
         return response()->json([
             'status' => 'success',
             'message' => 'OTP verified successfully.',
             'user_id' => $user->id
         ]);
     }
-    public function activateverifyOtp(Request $request) 
+    public function activateverifyOtp(Request $request)
     {
         // Validate the request data
         $request->validate([
@@ -2152,7 +2152,7 @@ return redirect()->to($redirectTo); // ✅ Ensures a valid response
 
         // Use Eloquent model to query and update
         $user = EcosansarUsers::where('mobile', $contact)->first();
-        
+
 
         if (!$user) {
             return response()->json([
@@ -2174,7 +2174,7 @@ return redirect()->to($redirectTo); // ✅ Ensures a valid response
                 'message' => 'Incorrect OTP. Please try again.',
             ], 400);
         }
-        
+
         // user activity start
         // $user22 = EcosansarUsers::where('mobile', $contact)->first();
 
@@ -2193,7 +2193,7 @@ return redirect()->to($redirectTo); // ✅ Ensures a valid response
         $user->is_delete = 0;
         //$result->is_delete = '0';
         $user->save();
-        
+
 
 
 
@@ -2211,7 +2211,7 @@ return redirect()->to($redirectTo); // ✅ Ensures a valid response
 
             $data["email"] = $user->email;
             $data["title"] =  "Welcome to The ZeroWaste Community Tool";
-            
+
             // Render the email body using the Blade view
             $body = view('frontend.mail.userregistrationemail', $data)->render();
             // Call your mailer service to send the email
@@ -2237,14 +2237,14 @@ return redirect()->to($redirectTo); // ✅ Ensures a valid response
                 $userActivity->save();
             }
         // user activity end
-        
+
         return response()->json([
             'status' => 'success',
             'message' => 'OTP verified successfully.',
             'user_id' => $user->id
         ]);
     }
-   
+
     public function recyclable_add_post()
     {
         $breadcrumbimage = BreadcrumImage::latest()->first();
@@ -2267,7 +2267,7 @@ return redirect()->to($redirectTo); // ✅ Ensures a valid response
             $userActivity->ip_address = request()->ip();
             $userActivity->save();
         }
-        
+
         return view('frontend/userdetails/recyclablepostadd', compact('users', 'user_id', 'resources', 'weights', 'breadcrumbimage'));
     }
 //       public function recyclable_post_save(Request $request)
@@ -2294,11 +2294,11 @@ return redirect()->to($redirectTo); // ✅ Ensures a valid response
 //                 'address' => 'required',
 //                 'sale_giveaway' => 'required',
 //                 'quantity' => 'required',
-                
+
 //                 'resource_type' => 'required',
 //                 'resource_img' => 'required|mimes:jpg,jpeg,png,webp', // Adjust mime types and max size as needed
 //     ]);
-            
+
 //         }
 //         $user = new RecyclablePost();
 //         $user->user_id = $user_id;
@@ -2316,8 +2316,8 @@ return redirect()->to($redirectTo); // ✅ Ensures a valid response
 //         $user->longitude = $request->longitude;
 //         $user->resource_price = $request->resource_price;
 //         $user->description = $request->description;
-        
-        
+
+
 //       // Function to resize an image using the GD library
 // function resizeImage($source, $width, $height)
 // {
@@ -2381,8 +2381,8 @@ return redirect()->to($redirectTo); // ✅ Ensures a valid response
 //     return $imageContent; // Return the resized image content as a binary string
 // }
 
- 
-            
+
+
 //             $user->resource_type = $request->resource_type;
 
 
@@ -2391,7 +2391,7 @@ return redirect()->to($redirectTo); // ✅ Ensures a valid response
 //         $file = $request->file('resource_img');
 //         $filePath = 'Recyclableposts';
 //         $fileName = $user_id . '_' . $user->id . '_' . $request->resource_type  .'.'. $file->getClientOriginalExtension();
-        
+
 //           $fileTempPath = $file->getRealPath(); // Get the temporary file path
 
 //     // Set desired dimensions for resizing (e.g., 800px wide)
@@ -2406,8 +2406,8 @@ return redirect()->to($redirectTo); // ✅ Ensures a valid response
 // $user->resource_img = $fileName;
 //     }
 //  $user->save();
-    
-      
+
+
 //             // user activity start
 //         $userid = session()->get('user_id');
 //         if ($userid){
@@ -2419,7 +2419,7 @@ return redirect()->to($redirectTo); // ✅ Ensures a valid response
 //             $userActivity->save();
 //         }
 //         // user activity end
-        
+
 //         if ($request->action === 'post_another') {
 //       Session::flash('success', 'Data saved successfully. You can post another.');
 //       return redirect()->back();
@@ -2454,11 +2454,11 @@ return redirect()->to($redirectTo); // ✅ Ensures a valid response
                 'address' => 'required',
                 'sale_giveaway' => 'required',
                 'quantity' => 'required',
-                
+
                 'resource_type' => 'required',
                 'resource_img' => 'required|mimes:jpg,jpeg,png,webp', // Adjust mime types and max size as needed
     ]);
-            
+
         }
         $user = new RecyclablePost();
         $user->user_id = $user_id;
@@ -2476,8 +2476,8 @@ return redirect()->to($redirectTo); // ✅ Ensures a valid response
         $user->longitude = $request->longitude;
         $user->resource_price = $request->resource_price;
         $user->description = $request->description;
-        
-        
+
+
        // Function to resize an image using the GD library
 function resizeImage($source, $width, $height)
 {
@@ -2537,8 +2537,8 @@ function resizeImage($source, $width, $height)
 }
 
 
- 
-            
+
+
             $user->resource_type = $request->resource_type;
 
 
@@ -2546,7 +2546,7 @@ function resizeImage($source, $width, $height)
    if ($request->hasFile('resource_img')) {
     $file = $request->file('resource_img');
     $fileName = $user_id . '_' . $user->id . '_' . $request->resource_type  .'.'. $file->getClientOriginalExtension();
-    
+
     $fileTempPath = $file->getRealPath(); // Get the temporary file path
 
     // Resize for main (800x600)
@@ -2562,8 +2562,8 @@ function resizeImage($source, $width, $height)
 }
 
  $user->save();
-    
-      
+
+
             // user activity start
         $userid = session()->get('user_id');
         if ($userid){
@@ -2575,7 +2575,7 @@ function resizeImage($source, $width, $height)
             $userActivity->save();
         }
         // user activity end
-        
+
         if ($request->action === 'post_another') {
       Session::flash('success', 'Data saved successfully. You can post another.');
       return redirect()->back();
@@ -2584,8 +2584,8 @@ function resizeImage($source, $width, $height)
     }
 
     }
-    
-    
+
+
 public function listings()
 {
     $user_id = session()->get('user_id');
@@ -2641,12 +2641,12 @@ public function listings()
 
 
     $posts = $query->orderBy('id','desc')->paginate(20);
- 
+
 
     $res = Resource::get();
     //  $weight = Weight::orderByRaw('CAST(min_weight AS UNSIGNED) ASC')->get();
     $weight = Weight::orderByRaw("
-    CASE 
+    CASE
         WHEN min_measure = 'kg' THEN 1
         WHEN min_measure = 'ton' THEN 2
         WHEN min_measure = 'piece' THEN 3
@@ -2670,7 +2670,7 @@ public function listings()
     return view('frontend/listings/listingslist', compact('res', 'weight', 'posts', 'user_type', 'user_id', 'breadcrumbimage'));
 }
 
- 
+
 // with accesslevel and without nearby pincode search
 // public function recyclable_post_filter(Request $request) {
 //     $user_id = session()->get('user_id');
@@ -2748,7 +2748,7 @@ public function listings()
 
 //     // Apply the filters to both queries
 //     $query->where($applyFilters);
-     
+
 
 //     // Execute and process images for both queries
 //     $posts = $query->get()->map(function ($post) {
@@ -2759,11 +2759,11 @@ public function listings()
 //         return $post;
 //     });
 
-    
+
 
 //     return response()->json([
 //         'posts' => $posts,
-        
+
 //     ]);
 // }
 
@@ -2945,7 +2945,7 @@ public function getPincodes() {
     }
 
 
-   
+
     public function recyclable_listing_details($id)
     {
         // Check if the user is logged in
@@ -2965,25 +2965,25 @@ public function getPincodes() {
         // Fetch the user's role from the database
         $user = DB::table('ecosansar_users')->where('id', $user_id)->first();
          $enquiry = RecyclableEnquiry::where('post_user_id',$u_id)->where('login_user_id',$user_id)->first();
-         
+
        // If there is a connection, check if a review exists
 if ($enquiry) {
-    
+
     $review = RecyclableReview::where('user_id', $u_id)
         ->where('login_user_id', $user_id)
         ->first();
- 
+
     // Hide the button if a $review exists
     $hideAddReviewButton = $review ? true : false;
 } else {
-    
+
     // If no connection, also hide the button
     $hideAddReviewButton = true;
 }
-        
+
         if (($user && $user->user_type === 'business') || ($user && $user->user_type === 'sab') || ($user && $user->user_type === 'consumer')) {
             // User is logged in as a consumer, proceed to fetch the listing details
-            
+
 
 
             $posts = RecyclablePost::with(['resource', 'weight'])
@@ -2991,7 +2991,7 @@ if ($enquiry) {
                 ->where('recyclable_posts.id', $id)
                 ->first();
             $noofposts = RecyclablePost::where('user_id', $u_id)->where('active',1)->count();
-           
+
             //$users = EcosansarUsers::where('id', $u_id)->first();
             // Get user details along with the count of reviews and the average rating from recyclable_reviews
     $users = DB::table('ecosansar_users as eu')
@@ -3007,13 +3007,13 @@ if ($enquiry) {
    // Get the count of reviews for the user from recyclable_reviews table
     $reviewsCount = DB::table('recyclable_reviews')
         ->where('user_id', $u_id)
-        ->count(); 
+        ->count();
      // Calculate the average rating
     $averageRating = DB::table('recyclable_reviews')
         ->where('user_id', $u_id)
         ->avg('rating');
     $averageRating = $averageRating ? round($averageRating, 1) : 0;
-            
+
             $loginuser = EcosansarUsers::where('id', $user_id)->first();
           $afterfilter = GoogleAdsense::where('place_of_adsense','After search filter')->first();
             return view('frontend/listings/recyclablelistingdetails', compact('user_id', 'posts', 'id', 'u_id', 'post_id' , 'noofposts', 'hideAddReviewButton',
@@ -3025,8 +3025,8 @@ if ($enquiry) {
         return redirect()->route('consumer_login');
     }
 
-    
-   
+
+
     public function recyclable_deactivate(Request $request)
     {
         $postId = $request->input('post_id');
@@ -3042,7 +3042,7 @@ if ($enquiry) {
         if ($post) {
             $post->active = 0;
             $post->save();
-            
+
         // user activity start
             $userid = session()->get('user_id');
             if ($userid){
@@ -3056,10 +3056,10 @@ if ($enquiry) {
             // user activity end
              Session::flash('success', 'Post deactivated successfully.');
             return response()->json(['success' => true ]);
-            
-           
+
+
         }
-        
+
         return response()->json(['success' => false, 'message' => 'Post not found.'], 404);
     }
     public function recyclable_reactivate(Request $request)
@@ -3079,7 +3079,7 @@ if ($enquiry) {
             $post->reactive = 'reactive';
             $post->post_date = Carbon::now()->addDays(7);
             $post->save();
-            
+
              // user activity start
             $userid = session()->get('user_id');
             if ($userid){
@@ -3154,8 +3154,8 @@ if ($enquiry) {
         }
     }
 
- 
-    
+
+
     public function notify_me(){
          $user_id = session()->get('user_id');
              // Fetch existing data
@@ -3172,7 +3172,7 @@ if ($enquiry) {
         if($notifyMe){
         return view('frontend/notifyme',compact('pincodes','resources','url','notifyMe'));
         }else{
-            return view('frontend/notifyme',compact('pincodes','resources','url')); 
+            return view('frontend/notifyme',compact('pincodes','resources','url'));
         }
     }
    public function notify_me_store(Request $request)
@@ -3186,7 +3186,7 @@ if ($enquiry) {
         'resource_type' => 'required|array|min:1', // Ensure it's an array with at least one item
         'resource_type.*' => 'exists:resources,id', // Validate each resource type ID exists
     ]);
-    
+
      // Send notifications
    // NotificationValidationService::validateAndCheckAvailability($request->pincode, $request->resource_type, $user_id);
 
@@ -3200,7 +3200,7 @@ if ($enquiry) {
     //     'pincode' => $pincodeString,
     //     'resource' => $resourceString,
     // ]);
-    
+
     // Check if a record for the user already exists
     $existingNotify = Notify::where('user_id', $user_id)->first();
 
@@ -3234,20 +3234,20 @@ if ($enquiry) {
        $url = route('notify_me_update', $id);
         $pincodes = Pincode::get();
         $resources = Resource::get();
-        
+
          // Fetch existing data
         $notifyMe = Notify::find($id); // Adjust the model name based on your project
          // Ensure pincode is an array
     $notifyMe->pincode = explode(',', $notifyMe->pincode); // Convert string to array
      // Ensure resource is an array
     $notifyMe->resource = explode(',', $notifyMe->resource); // Convert string to array
-     
+
         return view('frontend/notifyme',compact('pincodes','resources','notifyMe','url'));
     }
-    
+
     public function notify_me_update(Request $request, $id) {
      $notifyMe = Notify::find($id);
-    
+
     // If record doesn't exist, you might want to handle that case
     if (!$notifyMe) {
         return redirect()->route('notify_me_edit', $id)->with('error', 'Record not found.');
@@ -3290,7 +3290,7 @@ public function updateNotificationStatus($id, Request $request)
 {
      // Find the notification by ID
     $notification = NotificationLog::find($id);  // Adjust model as necessary
-    
+
     if ($notification) {
         // Update the status to 1 (or whatever status you need)
         $notification->notification_status = 1;
