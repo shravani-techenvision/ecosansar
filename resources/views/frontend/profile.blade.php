@@ -1,12 +1,12 @@
 
 @include('frontend.include.header')
- 
-  
-	
+
+
+
 	<!-- Breadcrumb -->
 	<div class="breadcrumb-bar text-center"
 	style="background-image: url('{{ $breadcrumbimage ? Storage::disk('s3')->url("Breadcrumbimage/" . $breadcrumbimage->breadcrumb_image) : asset("frontend/assets/img/bg/default.png") }}');
-            background-size: cover; 
+            background-size: cover;
             background-position: center;">
 		<div class="container">
 			<div class="row">
@@ -42,7 +42,7 @@
                                         <img src="{{asset('frontend/assets/img/user.png') }}" class="img-fluid rounded-circle" alt="Img">
                                     </span>
                                     <h6 class="mb-2">{{$users->name}}</h6>
-                                    
+
                                 </div>
                             </div>
 							<div class="card-body user-sidebar-body p-0">
@@ -69,13 +69,13 @@
                               </li>
                               <li class="mb-4">
                                         <a href="#" class="d-flex align-items-center" onclick="showSection('reviews-recieved')">
-                                            <i class="fa fa-comment me-2"></i> 
+                                            <i class="fa fa-comment me-2"></i>
                                            Reviews Received
                                         </a>
                                     </li>
                                     <li class="mb-4">
                                         <a href="#" class="d-flex align-items-center" onclick="showSection('reviews-given')">
-                                             <i class="fa fa-comment-dots me-2"></i> 
+                                             <i class="fa fa-comment-dots me-2"></i>
                                            Reviews Given
                                         </a>
                                     </li>
@@ -91,7 +91,7 @@
                                             Connection Requests Received
                                         </a>
                                     </li>
-                                   
+
                                     <li class="mb-0">
                                         <a href="{{ route('user_logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="d-flex align-items-center">
                                             <!--<i class="ti ti-logout me-2"></i>-->
@@ -105,9 +105,9 @@
 						</div>
 					</div>
 					<div class="col-xl-9 col-lg-8">
-                        
-                       
-                       
+
+
+
                         <div id="profile-info" class="content-section">
                              <form class="form " action="{{ $url }}" method="post" enctype="multipart/form-data">
                             @csrf
@@ -140,48 +140,48 @@
     							<div class="col-md-6  ">
     								<div class="mb-3">
     									<label class="form-label d-block">Address</label>
-    									<textarea class="form-control" rows="5"  name="address" 
-                                    id="address" 
+    									<textarea class="form-control" rows="5"  name="address"
+                                    id="address"
                                     placeholder="Address">{{ old('address', $users->address ?? '') }}</textarea>
                                   @if ($errors->has('address'))
                                     <span class="text-danger">{{ $errors->first('address') }}</span>
                                   @endif
     								</div>
-    							</div>  
+    							</div>
 						</div>
-                        
+
                         <div class="acc-submit d-flex justify-content-end align-items-center">
-                       
+
                        <button type="submit" class="btn btn-lg btn-linear-primary ">Save Changes  </button>
                         </div>
                         </form>
                         </div>
-                        
+
                          <div id="active-listings" class="content-section d-none">
-                         	 
+
 						<div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
 							  <h3>My Active Listings</h3>
-						 
+
 						</div>
-					
+
 						<div class="row  ">
 						    	@if($uniqueListings->count() > 0)
 						@foreach ($uniqueListings as $listing)
             						@php
                 // Decide the detail route
-                $detailRoute = strtolower($listing->source) === 'reusable' 
-                    ? 'reusable_listing_details' 
+                $detailRoute = strtolower($listing->source) === 'reusable'
+                    ? 'reusable_listing_details'
                     : 'recyclable_listing_details';
-            
+
                 // Decide the image folder based on source
                 $folder = strtolower($listing->source) === 'reusable' ? 'Reusableposts/' : 'Recyclableposts/';
-                
+
                 // Generate the image path
                 $imagePath = !empty($listing->resource_img) ? $folder . $listing->resource_img : null;
-            
+
                 // Check if the image exists on S3
-                $imageUrl = $imagePath && Storage::disk('s3')->exists($imagePath) 
-                            ? Storage::disk('s3')->url($imagePath) 
+                $imageUrl = $imagePath && Storage::disk('s3')->exists($imagePath)
+                            ? Storage::disk('s3')->url($imagePath)
                             : asset('frontend/assets/img/ecosansar.png');
             @endphp
 
@@ -190,8 +190,8 @@
                                     <div class="card-body p-0">
                                         <div class="img-sec-2 w-100" style="aspect-ratio: 14 / 9; overflow: hidden;">
                                             <a href="{{ url($detailRoute.'/'.$listing->id) }}">
-                                                 
-                                                            
+
+
                                                 <img src=" {{ $imageUrl }}" class="img-fluid w-100 h-100" alt="img" style="object-fit: cover;">
                                             </a>
                                              <div class="image-tag d-flex justify-content-between align-items-center w-100 px-2" style="position: absolute; top: 10px; left: 0; right: 0; z-index: 10;">
@@ -215,27 +215,27 @@
                                                 </div>
                                                 <div class="d-flex flex-column align-items-center">
                                                     <!--<a href="{{ url('recyclable_listing_details/'.$listing->id) }}" class="btn btn-light btn-sm"> View Details</a>-->
-                                                     <a href="#" class="btn btn-dark btn-sm bus-deactivate-post mb-2" 
+                                                     <a href="#" class="btn btn-dark btn-sm bus-deactivate-post mb-2"
                                                      data-post-id="{{ $listing->id }}"
                                                      data-post-type="{{ strtolower($listing->source) }}"> Deactivate</a>
-                                                      <a href="#" style="background-color:white;" class="btn btn-light btn-sm bus-reactivate-post mb-2" 
+                                                      <a href="#" style="background-color:white;" class="btn btn-light btn-sm bus-reactivate-post mb-2"
                                                       data-post-id="{{ $listing->id }}"
                                                        data-post-type="{{ strtolower($listing->source) }}">Reactivate</a>
-                                                      <a href="#" 
-                                                       style="background-color:#8eb66f;" 
-                                                       class="btn btn-light btn-sm mark-fulfilled" 
-                                                       data-post-id="{{ $listing->id }}" 
+                                                      <a href="#"
+                                                       style="background-color:#8eb66f;"
+                                                       class="btn btn-light btn-sm mark-fulfilled"
+                                                       data-post-id="{{ $listing->id }}"
                                                        data-post-type="{{ strtolower($listing->source) }}">Is Fulfilled</a>
 
                                                 </div>
-                                                
+
                                             </div>
-                                            
+
                                                 <!-- <div class="d-flex justify-content-center align-items-center gap-3 mt-3">-->
                                                 <!--    <a href="#" class="btn btn-dark btn-sm bus-deactivate-post" data-post-id="{{ $listing->id }}"> Deactivate</a>-->
                                                 <!--      <a href="#" style="background-color:white;" class="btn btn-light btn-sm bus-reactivate-post" data-post-id="{{ $listing->id }}">Reactivate</a>-->
                                                 <!--</div>-->
-                                                 
+
                                         </div>
                                     </div>
                                 </div>
@@ -244,9 +244,9 @@
                         @else
     <p>No listings found.</p>
 @endif
-						 
+
 						</div>
-					@if($uniqueListings->count() > 10)		
+					@if($uniqueListings->count() > 10)
 			<nav aria-label="Page navigation">
   <ul class="paginations d-flex justify-content-center align-items-center">
     {{-- Previous Page Link --}}
@@ -263,7 +263,7 @@
     {{-- Page Number Links --}}
     @foreach ($uniqueListings->getUrlRange(1, $uniqueListings->lastPage()) as $page => $url)
       <li class="page-item me-2">
-        <a class="page-link-1 d-flex justify-content-center align-items-center {{ $page == $uniqueListings->currentPage() ? 'active' : '' }}" 
+        <a class="page-link-1 d-flex justify-content-center align-items-center {{ $page == $uniqueListings->currentPage() ? 'active' : '' }}"
            href="{{ $url }}">{{ $page }}</a>
       </li>
     @endforeach
@@ -282,32 +282,32 @@
 </nav>
             @else
             @endif
-				 
+
                         </div>
-                        
+
                         <div id="deactivated-listings" class="content-section d-none">
                          	<div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
 							  <h3>Deactivated Listings</h3>
-						 
+
 						</div>
 						<div class="row  ">
 						    	@if($deactiveuniqueListings->count() > 0)
 						@foreach ($deactiveuniqueListings as $listing)
 							@php
                 // Decide the detail route
-                $detailRoute = strtolower($listing->source) === 'reusable' 
-                    ? 'reusable_listing_details' 
+                $detailRoute = strtolower($listing->source) === 'reusable'
+                    ? 'reusable_listing_details'
                     : 'recyclable_listing_details';
-            
+
                 // Decide the image folder based on source
                 $folder = strtolower($listing->source) === 'reusable' ? 'Reusableposts/' : 'Recyclableposts/';
-                
+
                 // Generate the image path
                 $imagePath = !empty($listing->resource_img) ? $folder . $listing->resource_img : null;
-            
+
                 // Check if the image exists on S3
-                $imageUrl = $imagePath && Storage::disk('s3')->exists($imagePath) 
-                            ? Storage::disk('s3')->url($imagePath) 
+                $imageUrl = $imagePath && Storage::disk('s3')->exists($imagePath)
+                            ? Storage::disk('s3')->url($imagePath)
                             : asset('frontend/assets/img/ecosansar.png');
             @endphp
                             <div class="col-xxl-4 col-md-6">
@@ -315,8 +315,8 @@
                                     <div class="card-body p-0">
                                         <div class="img-sec-2 w-100" style="aspect-ratio: 14 / 9; overflow: hidden;">
                                             <a href="{{ url($detailRoute.'/'.$listing->id) }}">
-                                                  
-                                                            
+
+
                                                 <img src=" {{ $imageUrl }}" class="img-fluid w-100 h-100" alt="img" style="object-fit: cover;">
                                             </a>
                                            <div class="image-tag d-flex justify-content-between align-items-center w-100 px-2" style="position: absolute; top: 10px; left: 0; right: 0; z-index: 10;">
@@ -347,10 +347,10 @@
                                                 </div>
                                             </div>
                                              <!--<div class="d-flex justify-content-between align-items-center">-->
-                                                    
+
                                              <!--         <a href="#" class="btn btn-light btn-sm bus-reactivate-post" data-post-id="{{ $listing->id }}">Reactivate</a>-->
                                              <!--   </div>-->
-                                                 
+
                                         </div>
                                     </div>
                                 </div>
@@ -359,7 +359,7 @@
 @else
     <p>No listings found.</p>
 @endif
-						 
+
 						</div>
 							@if($deactiveuniqueListings->count() > 10)
 				            	<nav aria-label="Page navigation">
@@ -378,7 +378,7 @@
     {{-- Page Number Links --}}
     @foreach ($deactiveuniqueListings->getUrlRange(1, $deactiveuniqueListings->lastPage()) as $page => $url)
       <li class="page-item me-2">
-        <a class="page-link-1 d-flex justify-content-center align-items-center {{ $page == $deactiveuniqueListings->currentPage() ? 'active' : '' }}" 
+        <a class="page-link-1 d-flex justify-content-center align-items-center {{ $page == $deactiveuniqueListings->currentPage() ? 'active' : '' }}"
            href="{{ $url }}">{{ $page }}</a>
       </li>
     @endforeach
@@ -398,32 +398,32 @@
                             @else
                             @endif
                         </div>
-                        
-                        
+
+
                         <!--fulfilled listings start-->
                          <div id="fulfilled-listings" class="content-section d-none">
                          	<div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
 							  <h3>Fulfilled Listings</h3>
-						 
+
 						</div>
 						<div class="row  ">
 						    	@if($fulfilledListings->count() > 0)
 						@foreach ($fulfilledListings as $listing)
 							@php
                 // Decide the detail route
-                $detailRoute = strtolower($listing->source) === 'reusable' 
-                    ? 'reusable_listing_details' 
+                $detailRoute = strtolower($listing->source) === 'reusable'
+                    ? 'reusable_listing_details'
                     : 'recyclable_listing_details';
-            
+
                 // Decide the image folder based on source
                 $folder = strtolower($listing->source) === 'reusable' ? 'Reusableposts/' : 'Recyclableposts/';
-                
+
                 // Generate the image path
                 $imagePath = !empty($listing->resource_img) ? $folder . $listing->resource_img : null;
-            
+
                 // Check if the image exists on S3
-                $imageUrl = $imagePath && Storage::disk('s3')->exists($imagePath) 
-                            ? Storage::disk('s3')->url($imagePath) 
+                $imageUrl = $imagePath && Storage::disk('s3')->exists($imagePath)
+                            ? Storage::disk('s3')->url($imagePath)
                             : asset('frontend/assets/img/ecosansar.png');
             @endphp
                             <div class="col-xxl-4 col-md-6">
@@ -431,8 +431,8 @@
                                     <div class="card-body p-0">
                                         <div class="img-sec-2 w-100" style="aspect-ratio: 14 / 9; overflow: hidden;">
                                             <a href="{{ url($detailRoute.'/'.$listing->id) }}">
-                                                  
-                                                            
+
+
                                                 <img src=" {{ $imageUrl }}" class="img-fluid w-100 h-100" alt="img" style="object-fit: cover;">
                                             </a>
                                            <div class="image-tag d-flex justify-content-between align-items-center w-100 px-2" style="position: absolute; top: 10px; left: 0; right: 0; z-index: 10;">
@@ -456,13 +456,13 @@
                                                         <span class="fs-12"><i class="ti ti-map-pin me-1"></i>{{ Str::limit($listing->address, 15, '...') }}</span>
                                                     </div>
                                                 </div>
-                                                
+
                                             </div>
                                              <!--<div class="d-flex justify-content-between align-items-center">-->
-                                                    
+
                                              <!--         <a href="#" class="btn btn-light btn-sm bus-reactivate-post" data-post-id="{{ $listing->id }}">Reactivate</a>-->
                                              <!--   </div>-->
-                                                 
+
                                         </div>
                                     </div>
                                 </div>
@@ -471,7 +471,7 @@
 @else
     <p>No listings found.</p>
 @endif
-						 
+
 						</div>
 							@if($fulfilledListings->count() > 10)
 				            	<nav aria-label="Page navigation">
@@ -490,7 +490,7 @@
     {{-- Page Number Links --}}
     @foreach ($fulfilledListings->getUrlRange(1, $fulfilledListings->lastPage()) as $page => $url)
       <li class="page-item me-2">
-        <a class="page-link-1 d-flex justify-content-center align-items-center {{ $page == $fulfilledListings->currentPage() ? 'active' : '' }}" 
+        <a class="page-link-1 d-flex justify-content-center align-items-center {{ $page == $fulfilledListings->currentPage() ? 'active' : '' }}"
            href="{{ $url }}">{{ $page }}</a>
       </li>
     @endforeach
@@ -511,12 +511,12 @@
                             @endif
                         </div>
                         <!--fulfilled listings end-->
-                        
-                        
-                        
-                        
-                        
-                        
+
+
+
+
+
+
                         <div id="reviews-recieved" class="content-section d-none">
                             <div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
 							<h4 class="mb-3">Reviews</h4>
@@ -566,19 +566,19 @@
                             {{ $review->message ?? 'No review available.' }}
                         </p>
                     </div>
-                </div>							
+                </div>
             </div>
         </div>
     @endforeach
 
-    
+
 @else
     <p>No reviews found.</p>
 @endif
 
-						 
+
 						</div>
-						@if($reviewsrecieved->count() > 10) 
+						@if($reviewsrecieved->count() > 10)
 						<nav aria-label="Page navigation">
   <ul class="paginations d-flex justify-content-center align-items-center">
     {{-- Previous Page Link --}}
@@ -595,7 +595,7 @@
     {{-- Page Number Links --}}
     @foreach ($reviewsrecieved->getUrlRange(1, $reviewsrecieved->lastPage()) as $page => $url)
       <li class="page-item me-2">
-        <a class="page-link-1 d-flex justify-content-center align-items-center {{ $page == $reviewsrecieved->currentPage() ? 'active' : '' }}" 
+        <a class="page-link-1 d-flex justify-content-center align-items-center {{ $page == $reviewsrecieved->currentPage() ? 'active' : '' }}"
            href="{{ $url }}">{{ $page }}</a>
       </li>
     @endforeach
@@ -611,20 +611,20 @@
       </li>
     @endif
   </ul>
-</nav>			 
+</nav>
 						@else
 						@endif
-							  
-					 
+
+
                         </div>
-                        
+
                         <div id="reviews-given" class="content-section d-none">
                             <div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
 							<h4>Reviews Given</h4>
-							 
+
 						</div>
 						<div class="row">
-						    @if($reviewsgiven->count() > 0) 
+						    @if($reviewsgiven->count() > 0)
 							<div class="col-12 ">
 								<div class="table-responsive border">
 									<table class="table mb-0">
@@ -658,7 +658,7 @@
 
 </td>
 
-                <td id="message_{{ $review->id }}">{{ $review->message }}</td>  
+                <td id="message_{{ $review->id }}">{{ $review->message }}</td>
                 <td>
                     <!-- Edit Icon -->
                     <a href="javascript:void(0);" onclick="enableEdit({{ $review->id }})" id="editBtn_{{ $review->id }}">
@@ -678,7 +678,7 @@
 							 <p>No reviews given.</p>
 							@endif
 						</div>
-						@if($reviewsgiven->count() > 10) 
+						@if($reviewsgiven->count() > 10)
 							<nav aria-label="Page navigation">
   <ul class="paginations d-flex justify-content-center align-items-center">
     {{-- Previous Page Link --}}
@@ -695,7 +695,7 @@
     {{-- Page Number Links --}}
     @foreach ($reviewsgiven->getUrlRange(1, $reviewsgiven->lastPage()) as $page => $url)
       <li class="page-item me-2">
-        <a class="page-link-1 d-flex justify-content-center align-items-center {{ $page == $reviewsgiven->currentPage() ? 'active' : '' }}" 
+        <a class="page-link-1 d-flex justify-content-center align-items-center {{ $page == $reviewsgiven->currentPage() ? 'active' : '' }}"
            href="{{ $url }}">{{ $page }}</a>
       </li>
     @endforeach
@@ -718,10 +718,10 @@
                              <div id="connections" class="content-section d-none">
                             <div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
 							<h4> Connections</h4>
-							 
+
 						</div>
 						<div class="row">
-						    	@if($ownenquiries->count() > 0) 
+						    	@if($ownenquiries->count() > 0)
 							<div class="col-12 ">
 								<div class="table-resposnive border">
 									<table class="table mb-0">
@@ -730,11 +730,11 @@
 												<th>Sr. No</th>
 												<th>Name</th>
 												<th>Mobile</th>
-											 
+
 											</tr>
 										</thead>
 										<tbody><span hidden>{{ $i=1; }}</span>
-										 
+
 										  @foreach($ownenquiries as $data)
                                         <tr>
                                              <td>{{ $i++ }}</td>
@@ -750,7 +750,7 @@
 							<p>No connections.</p>
 							@endif
 						</div>
-							@if($ownenquiries->count() > 10) 
+							@if($ownenquiries->count() > 10)
 						<nav aria-label="Page navigation">
   <ul class="paginations d-flex justify-content-center align-items-center">
     {{-- Previous Page Link --}}
@@ -767,7 +767,7 @@
     {{-- Page Number Links --}}
     @foreach ($ownenquiries->getUrlRange(1, $ownenquiries->lastPage()) as $page => $url)
       <li class="page-item me-2">
-        <a class="page-link-1 d-flex justify-content-center align-items-center {{ $page == $ownenquiries->currentPage() ? 'active' : '' }}" 
+        <a class="page-link-1 d-flex justify-content-center align-items-center {{ $page == $ownenquiries->currentPage() ? 'active' : '' }}"
            href="{{ $url }}">{{ $page }}</a>
       </li>
     @endforeach
@@ -790,10 +790,10 @@
                          <div id="my-connections" class="content-section d-none">
                             <div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
 							<h4>My Connections</h4>
-							 
+
 						</div>
 						<div class="row">
-						    	@if($enquiries->count() > 0) 
+						    	@if($enquiries->count() > 0)
 							<div class="col-12 ">
 								<div class="table-resposnive border">
 									<table class="table mb-0">
@@ -806,16 +806,16 @@
 											</tr>
 										</thead>
 										<tbody><span hidden>{{ $i=1; }}</span>
-										 
+
 										  @foreach($enquiries as $data)
                                         <tr>
                                              <td>{{ $i++ }}</td>
                                             <td>{{ $data->name }}</td>
                                             <td>{{ $data->mobile }}</td>
                                             <td>
-                                                
-                                                <a  
-                                                    class="btn btn-primary btn-small btn-rounded icon shadow add-listing conreview @if($data->flag == 'asked') disabled @endif" 
+
+                                                <a
+                                                    class="btn btn-primary btn-small btn-rounded icon shadow add-listing conreview @if($data->flag == 'asked') disabled @endif"
                                                     data-id="{{ $data->id }}"
                                                      data-source="{{ $data->source }}"
                                                     @if($data->flag == 'asked') data-disabled="true" @endif
@@ -827,16 +827,16 @@
                                                             @endif</strong>
                                                     @else
                                                         <strong>
-                                                            Ask for review 
+                                                            Ask for review
                                                             @if($data->loggedin_user_type === 'sab')
                                                                 <i class="fab fa-whatsapp" style="margin-left: 5px;"></i>
                                                             @endif
                                                         </strong>
                                                     @endif
                                                 </a>
-                                                
+
                                             </td>
-                
+
                                         </tr>
                                      @endforeach
 										</tbody>
@@ -847,7 +847,7 @@
 							<p>No connections.</p>
 							@endif
 						</div>
-							@if($enquiries->count() > 10) 
+							@if($enquiries->count() > 10)
 						<nav aria-label="Page navigation">
   <ul class="paginations d-flex justify-content-center align-items-center">
     {{-- Previous Page Link --}}
@@ -864,7 +864,7 @@
     {{-- Page Number Links --}}
     @foreach ($enquiries->getUrlRange(1, $enquiries->lastPage()) as $page => $url)
       <li class="page-item me-2">
-        <a class="page-link-1 d-flex justify-content-center align-items-center {{ $page == $enquiries->currentPage() ? 'active' : '' }}" 
+        <a class="page-link-1 d-flex justify-content-center align-items-center {{ $page == $enquiries->currentPage() ? 'active' : '' }}"
            href="{{ $url }}">{{ $page }}</a>
       </li>
     @endforeach
@@ -948,19 +948,19 @@
 			</div>
 		</div>
 	</div>
-	<!-- /Page Wrapper --> 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- @include('frontend.include.footer')   
+	<!-- /Page Wrapper -->
+
+
+
+
+
+
+
+
+
+ @include('frontend.include.footer')
  <script>
-   
+
 
  function enableEdit(id) {
     let titleElement = document.getElementById(`title_${id}`);
@@ -977,12 +977,12 @@
     messageElement.innerHTML = `<textarea class="form-control" id="edit_message_${id}">${messageElement.innerText}</textarea>`;
 
     // Get current rating from existing stars
-    let currentRating = ratingElement.getAttribute('data-rating'); 
+    let currentRating = ratingElement.getAttribute('data-rating');
 
     // Convert rating to clickable stars with border
     let starsHtml = `<div class="star-container border p-1 rounded" id="star_container_${id}">`; // Add border container
     for (let i = 1; i <= 5; i++) {
-        starsHtml += `<i class="fas fa-star star-edit ${i <= currentRating ? 'text-warning' : 'text-secondary'}" 
+        starsHtml += `<i class="fas fa-star star-edit ${i <= currentRating ? 'text-warning' : 'text-secondary'}"
                       data-value="${i}" data-id="${id}" onclick="selectRating(${id}, ${i})"></i>`;
     }
     starsHtml += `</div>`; // Close border container
@@ -1079,7 +1079,7 @@ function cancelEdit(id) {
 
 
  </script>
-  
+
  <script>
      function showSection(sectionId) {
   // Hide all sections
@@ -1094,15 +1094,15 @@ function cancelEdit(id) {
   }
 }
 
- </script> 
- 
+ </script>
+
 <script>
 $(document).ready(function() {
     // Delegate the click event to dynamically bind the "Change Review" button
     $('.review').on('click', '.change-review', function() {
         // Get the review ID from the closest div containing the data-id attribute
         var reviewId = $(this).closest('.review').data('id');
-        var source = $(this).closest('.review').data('source'); 
+        var source = $(this).closest('.review').data('source');
            // Determine the correct route based on source
         var url = '';
         if (source === 'recyclable') {
@@ -1114,9 +1114,9 @@ $(document).ready(function() {
             return;
         }
 
-        
-        alert('Review ID: ' + reviewId);  // This will show the review ID when you click edit
-        
+
+
+
         // Send AJAX request
         $.ajax({
             url: url,  // URL of the route with reviewId
@@ -1138,7 +1138,7 @@ $(document).ready(function() {
     });
 });
 </script>
-    
+
 <script>
         $(document).ready(function() {
             $('.bus-deactivate-post').on('click', function(e) {
@@ -1158,10 +1158,10 @@ $(document).ready(function() {
                         },
                         success: function(response) {
                             if (response.success) {
-                                
+
                                  location.reload();
                             } else {
-                                
+
                             }
                         },
                         error: function(xhr) {
@@ -1192,10 +1192,10 @@ $(document).ready(function() {
                         },
                         success: function(response) {
                             if (response.success) {
-                                 
+
                                  location.reload();
                             } else {
-                                 
+
                             }
                         },
                         error: function(xhr) {
@@ -1222,7 +1222,7 @@ $(document).ready(function() {
             _token: '{{ csrf_token() }}',
         },
         success: function (response) {
-           
+
             // Optionally reload or change the button state
         },
         error: function () {
@@ -1232,7 +1232,7 @@ $(document).ready(function() {
 });
 
     </script>
-   
+
     <!-- ask review start-->
 <script>
     $(document).on('click', '.conreview', function(event) {
@@ -1289,13 +1289,13 @@ $(document).ready(function() {
 
 
  <!--  ask review end-->
- 
- 
- 
 
- 
- 
- 
+
+
+
+
+
+
 
 
 
