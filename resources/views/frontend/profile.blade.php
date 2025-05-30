@@ -1288,7 +1288,7 @@ $(document).ready(function() {
                            Swal.fire({
                     icon: 'success',
                     title: 'Request Sent!',
-                    text: 'Review update request sent successfully!',
+                    text: 'Review request sent successfully!',
                     timer: 3000, // auto close after 3 seconds
                     showConfirmButton: false
                 });
