@@ -24,17 +24,17 @@
 
     <button type="button" class="btn btn-sm px-3 font-size-16 header-item waves-effect vertical-menu-btn">
         <i class="fa fa-fw fa-bars"></i>
-    </button> 
+    </button>
 
     <div data-simplebar class="sidebar-menu-scroll">
 
         <!--- Sidemenu -->
         <div id="sidebar-menu">
             <!-- Left Menu Start -->
-           
-          
-           
-            
+
+
+
+
               <ul class="metismenu list-unstyled" id="side-menu">
                 <li class="menu-title">@lang('translation.Menu')</li>
               <li>
@@ -43,21 +43,21 @@
                         <span>@lang('translation.Dashboard')</span>
                     </a>
                 </li>
-                
+
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                        <img src="{{ URL::asset('/frontend/assets/img/pages.png') }}" alt="" height="16">
                         <span>Pages</span>
                     </a>
                     @php
-                       
+
                         // Fetch the first record from the About table
                         $about = App\Models\admin\About::first();
                         // Get the ID of the About record, or null if no record exists
                         $aboutId = $about ? $about->id : null;
                     @endphp
                     @php
-                    
+
                     // Fetch the first record from the About table
                     $about = App\Models\admin\Contact::first();
                     // Get the ID of the About record, or null if no record exists
@@ -107,21 +107,21 @@
                     </ul>
                 </li>
                  @php
-                        
+
                         // Fetch the first record from the About table
                         $service = App\Models\admin\Service::first();
                         // Get the ID of the About record, or null if no record exists
                         $serviceId = $service ? $service->id : null;
                     @endphp
                      @php
-                        
+
                         // Fetch the first record from the About table
                         $policy = App\Models\admin\PrivacyPolicy::first();
                         // Get the ID of the About record, or null if no record exists
                         $policyId = $policy ? $policy->id : null;
                     @endphp
                     @php
-                        
+
                         // Fetch the first record from the About table
                         $breadcrum = App\Models\admin\BreadcrumImage::first();
                         // Get the ID of the About record, or null if no record exists
@@ -134,7 +134,7 @@
                     </a>
 
                     <ul class="sub-menu" aria-expanded="false">
-                        
+
                         <li><a href="{{ route('weight.list') }}">Weight</a></li>
                         <li><a href="{{ route('googleadsense.list') }}">Google Adsense</a></li>
                         @if ($serviceId)
@@ -158,40 +158,40 @@
                  <li class="menu-title">Resources</li>
                   <li>
                     <a href="{{route('resource.list')}}">
-                        
+
                         <span>Recyclable</span>
                     </a>
                 </li>
                 <li>
                     <a href="{{route('reusable_resource.list')}}">
-                        
+
                         <span>Reusable</span>
                     </a>
                 </li>
-                
+
                  <li class="menu-title">Users</li>
-                 
+
                 <li>
                     <a href="{{route('volunteer.list')}}">
-                         
+
                         <span>Volunteers</span>
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('user.businesslist') }}">
-                        
+
                         <span>Corporate list</span>
                     </a>
                 </li>
                   <li>
                     <a href="{{ route('user.sablist') }}">
-                        
+
                         <span>Collection Agent list</span>
                     </a>
                 </li>
                  <li>
                     <a href="{{ route('user.consumerlist') }}">
-                        
+
                         <span>Contributor list</span>
                     </a>
                 </li>
@@ -239,7 +239,7 @@
                 <li>
                     <a href="{{route('user.recyclablereviews')}}">
                        <img src="{{ URL::asset('/frontend/assets/img/resource.png') }}" alt="" height="16">
-                        <span>Resource</span>
+                        <span>Collection Agent</span>
                     </a>
                 </li>
                 <li>
@@ -248,30 +248,30 @@
                         <span>Contributor</span>
                     </a>
                 </li>
-                
+
                 <li class="menu-title">Reports</li>
-                
+
                 <li>
                     <a href="{{ route('user.recyclablepostreportlist') }}">
                        <img src="{{ URL::asset('/frontend/assets/img/corporate.png') }}" alt="" height="16">
                         <span>Recyclable Post Report</span>
                     </a
                 </li>
-                
+
                 <li>
                     <a href="{{ route('user.reusablepostreportlist') }}">
                        <img src="{{ URL::asset('/frontend/assets/img/resource.png') }}" alt="" height="16">
                         <span>Reusable Post Report</span>
                     </a
                 </li>
-                
+
                 <li>
                     <a href="{{ route('user.activityreportlist') }}">
                         <i class="uil-home-alt"></i>
                         <span>User Activity Report</span>
                     </a
                 </li>
-                
+
                  <li class="menu-title">Reports</li>
                  <li>
                     <a href="{{ route('user.recyclableconnectreportlist') }}">
@@ -285,17 +285,17 @@
                         <span>Reusable Connect </span>
                     </a
                 </li>
-                
-                
-                
-                       
-                
+
+
+
+
+
 
             </ul>
-               
-            
-             
-             
+
+
+
+
 
 
         </div>

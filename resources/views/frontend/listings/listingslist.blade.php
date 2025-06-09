@@ -29,13 +29,13 @@
     gap: 25px;
     margin-top: 50px;
 }
-</style> 
- 
- 
+</style>
+
+
 
  <div class="breadcrumb-bar text-center"
  	style="background-image: url('{{ $breadcrumbimage ? Storage::disk('s3')->url("Breadcrumbimage/" . $breadcrumbimage->breadcrumb_image) : asset("frontend/assets/img/bg/default.png") }}');
-            background-size: cover; 
+            background-size: cover;
             background-position: center;">
 		<div class="container">
 			<div class="row">
@@ -49,7 +49,7 @@
 					</nav>
 				</div>
 			</div>
-		 
+
 		</div>
 	</div>
 
@@ -65,9 +65,9 @@
                                 @csrf
 									<div class="d-flex align-items-center justify-content-between mb-3 pb-3 border-bottom">
 										<h5><i class="ti ti-filter-check me-2"></i>Filters</h5>
-									 
+
 									</div>
-									 
+
 									<div class="accordion border-bottom mb-3">
                                         <div class="accordion-item mb-3">
                                             <div class="accordion-header" id="accordion-headingThree">
@@ -77,9 +77,9 @@
                                             </div>
                                             <div id="accordion-collapseThree" class="accordion-collapse collapse show" aria-labelledby="accordion-headingThree">
                                                 <div class="content-list mb-3" id="fill-more">
-                                                     
+
                                                     @foreach($res as $project)
-                                                        <div class="form-check mb-2">								
+                                                        <div class="form-check mb-2">
                                                             <label class="form-check-label">
                                                                 <input class="form-check-input resource-checkbox" type="checkbox" name="resource[]" value="{{ $project->id }}">
                                                                 {{ $project->resource_name }}
@@ -88,14 +88,14 @@
                                                     @endforeach
                                                 </div>
                                                 <a href="javascript:void(0);" id="more" class="more-view text-primary fs-14">View more <i class="ti ti-chevron-down ms-1"></i></a>
-                                            </div>										
+                                            </div>
                                         </div>
                                     </div>
 
 									<div class="accordion border-bottom mb-3">
 										<div class="accordion-header" id="accordion-headingFour">
 											<div class="accordion-button p-0 mb-3" data-bs-toggle="collapse" data-bs-target="#accordion-collapseFour" aria-expanded="true" aria-controls="accordion-collapseFour" role="button">
-											Show lisitngs that 
+											Show lisitngs that
 											</div>
 										</div>
 										<div id="accordion-collapseFour" class="accordion-collapse collapse show" aria-labelledby="accordion-headingFour">
@@ -105,7 +105,7 @@
 												 <option value="Sell">Sell  </option>
 												 <option value="Buy">Buy  </option>
                                             <option value="Giveaway">Giveaway  </option>
-                                             
+
                                               <option value="Request for free">Request for free  </option>
 												</select>
 											</div>
@@ -151,7 +151,7 @@
 										<div class="accordion border-bottom mb-3">
 										<div class="accordion-header" id="accordion-headingFour">
 											<div class="accordion-button p-0 mb-3" data-bs-toggle="collapse" data-bs-target="#accordion-collapseSeven" aria-expanded="true" aria-controls="accordion-collapseSeven" role="button">
-										Show Posts listed by 
+										Show Posts listed by
 											</div>
 										</div>
 										<div id="accordion-collapseSeven" class="accordion-collapse collapse show" aria-labelledby="accordion-headingFour">
@@ -161,13 +161,13 @@
 												 <option value="consumer">Contributor  </option>
                                             <option value="sab">Collection Agent  </option>
                                              <option value="business">Businessess  </option>
-                                              
+
 												</select>
 											</div>
 										</div>
 									</div>
-									 
-								 
+
+
 									<button type="submit" class="btn btn-dark w-100">Search</button>
 								</form>
 							</div>
@@ -190,7 +190,7 @@
                                   </div>
                                 </div>
 
-								 
+
 							</div>
 						</div>
 					<div class="row">
@@ -199,7 +199,7 @@
                             <!-- Container to Display Listings -->
                             <!-- Container to Display Listings -->
                          <div id="listings-container">
-                              
+
                             @foreach ($posts as $post)
                               <div class="service-list">
                                 <div class="service-cont">
@@ -209,18 +209,18 @@
                                       @php
                                         // Check if $listing->resource_img is set and not empty
                                         $imagePath = !empty($post->resource_img) ? 'Recyclableposts/' . $post->resource_img : null;
-                                
+
                                         // Check if the image exists in the S3 bucket or fallback to default
-                                        $imageUrl = $imagePath && Storage::disk('s3')->exists($imagePath) 
-                                                    ? Storage::disk('s3')->url($imagePath) 
+                                        $imageUrl = $imagePath && Storage::disk('s3')->exists($imagePath)
+                                                    ? Storage::disk('s3')->url($imagePath)
                                                     : asset('frontend/assets/img/ecosansar.png');
                                     @endphp
-                                    
+
                                     <!-- Display the Image -->
                                     <img src="{{ $imageUrl }}" alt="Listing Image" class="img-fluid serv-img">
 
                                     </a>
-                                     
+
                                   </div>
                                   <div class="service-cont-info">
                                     <span class="badge bg-light fs-14 mb-2">{{ $post->resource->resource_name }}</span>
@@ -235,7 +235,7 @@
                                         @php
                                             $rating = round($post->average_rating ?? 0);
                                         @endphp
-                                    
+
                                         @for ($i = 1; $i <= 5; $i++)
                                             @if ($i <= $rating)
                                                 <i class="fas fa-star" style="color: #ffc107;"></i> {{-- Filled gold star --}}
@@ -247,7 +247,7 @@
                                     </span>
 
 
-                                  
+
                                     </div>
                                       <small >Posted By: {{$post->user->name}} | On {{ date('jS F Y', strtotime($post->created_at)) }}</small>
                                   </div>
@@ -273,14 +273,14 @@
                                     </div>
                                 </div>
                               </div>
-                              
+
                             @endforeach
-                            
-                            
-                            
+
+
+
 </div>
 
-                          
+
                             <!-- /Service List -->
                           </div>
                         </div>
@@ -301,7 +301,7 @@
     {{-- Page Number Links --}}
     @foreach ($posts->getUrlRange(1, $posts->lastPage()) as $page => $url)
       <li class="page-item ms-4 ms-lg-0 me-2">
-        <a class="page-link-1 d-flex justify-content-center align-items-center {{ $page == $posts->currentPage() ? 'active' : '' }}" 
+        <a class="page-link-1 d-flex justify-content-center align-items-center {{ $page == $posts->currentPage() ? 'active' : '' }}"
            href="{{ $url }}">{{ $page }}</a>
       </li>
     @endforeach
@@ -326,17 +326,17 @@
                 </div>
                 <div class="row mt-5 text-center">
                      <div class="col-md-3">
-                                                                         
+
                                                                            <h5> Have something that can be recycled?  </h5>
                                                                     </div>
                                                                     <div class="col-md-3 mt-2 mt-md-0 mb-2">
-                                                                       <a href="{{route('recyclable_add_post')}}" class="btn btn-linear-primary btn-lg w-100">  
+                                                                       <a href="{{route('recyclable_add_post')}}" class="btn btn-linear-primary btn-lg w-100">
                                                                             Add Your Listing</a>
                                                                     </div>
                                                                     <div class="col-md-3 mb-2">
                                                                         <a href="{{url('/')}}" class="btn btn-linear-primary btn-lg w-100">  Go back to Home Page</a>
                                                                     </div>
-                                                                    
+
                                                                 </div>
             </div>
         </div>
@@ -355,7 +355,7 @@
 
       <!-- User Details Section -->
       <div id="user-details" class="">
-        
+
       </div>
 
       <!-- Divider with OR -->
@@ -442,7 +442,7 @@ $(document).ready(function() {
                         let pathParts = window.location.pathname.split('/');
                         let projectFolder = pathParts[1]; // e.g., 'myproject'
                         let basePath = `${baseUrl}/${projectFolder}`;
-                        
+
                         let shareLink;
                         if (userId) {
                             shareLink = `<a href="https://wa.me/?text=${encodeURIComponent('This post from The ZeroWaste Community Tool might interest you, check it out : ' + basePath + '/recyclable_listing_details/' + post.id)}" target="_blank">
@@ -454,7 +454,7 @@ $(document).ready(function() {
                                          </a>`;
                         }
 
-        
+
                         $('#listings-container').append(`
                             <div class="service-list">
                                 <div class="service-cont">
@@ -469,7 +469,7 @@ $(document).ready(function() {
                                         <p>Weight: ${weight}</p>
                                         <div class="service-pro-img mb-4">
                                             <img src="${userImage}" alt="user">
-                                           <span>${generateStars(post.average_rating)}</span> 
+                                           <span>${generateStars(post.average_rating)}</span>
                                         </div>
                                        <small>Posted By: ${userName} | On ${formatDate(post.created_at)}</small>
                                     </div>
@@ -486,7 +486,7 @@ $(document).ready(function() {
         </div>
         <div class="service-action">
                                      <span class="wp-dis-own">Distance: ${post.distance || 0}km</span>
-                                    
+
                                 </div>
 
                                 </div>
@@ -520,12 +520,12 @@ function generateStars(rating) {
         } else {
             starsHtml += `<i class="fas fa-star" style="color: #ddd;"></i>`; // ☆ Empty Star
         }
-    }  
+    }
     return starsHtml;
 }
 
  </script>
- 
+
 <script>
     $(document).ready(function () {
   // Sorting functionality
@@ -589,7 +589,7 @@ function generateStars(rating) {
                         let pathParts = window.location.pathname.split('/');
                         let projectFolder = pathParts[1]; // e.g., 'myproject'
                         let basePath = `${baseUrl}/${projectFolder}`;
-                        
+
                         let shareLink;
                         if (userId) {
                             shareLink = `<a href="https://wa.me/?text=${encodeURIComponent('This post from The ZeroWaste Community Tool might interest you, check it out : ' + basePath + '/recyclable_listing_details/' + post.id)}" target="_blank">
@@ -600,7 +600,7 @@ function generateStars(rating) {
                                             <img src="{{ asset('frontend/assets/img/icons/whatsapp.svg') }}" class="img" alt="WhatsApp">
                                          </a>`;
                         }
-        
+
                         $('#listings-container').append(`
                             <div class="service-list">
                                 <div class="service-cont">
@@ -615,7 +615,7 @@ function generateStars(rating) {
                                         <p>Weight: ${weight}</p>
                                         <div class="service-pro-img mb-4">
                                             <img src="${userImage}" alt="user">
-                                           <span>${generateStars(post.average_rating)}</span> 
+                                           <span>${generateStars(post.average_rating)}</span>
                                         </div>
                                        <small>Posted By: ${userName} | On ${formatDate(post.created_at)}</small>
                                     </div>
@@ -635,30 +635,6 @@ function generateStars(rating) {
                             </div>
                         `);
 
-    //   $('#listings-container').append(`
-    //     <div class="service-list">
-    //       <div class="service-cont">
-    //         <div class="service-cont-img">
-    //           <a href="recyclable_listing_details/${post.id}">
-    //             <img src="${imageUrl}" alt="Listing Image" class="img-fluid serv-img">
-    //           </a>
-    //         </div>
-    //         <div class="service-cont-info">
-    //           <span class="badge bg-light fs-14 mb-2">${resourceName}</span>
-    //           <p><i class="feather-map-pin"></i> ${address}</p>
-    //           <p>Weight: ${weight}</p>
-    //           <div class="service-pro-img">
-    //             <img src="${userImage}" alt="user">
-    //             <span>${generateStars(post.average_rating)}</span> 
-    //           </div>
-    //         </div>
-    //       </div>
-    //       <div class="service-action">
-    //         <h6>${price}</h6>
-    //         <a href="#" class="btn btn-light">Connect</a>
-    //       </div>
-    //     </div>
-    //   `);
     });
   }
 });
@@ -683,10 +659,10 @@ function generateStars(rating) {
         // Event delegation for .connect-listing elements
         $(document).on('click', '.connect-listing', function(e) {
             e.preventDefault(); // Prevent default anchor tag behavior
-            
+
             var dataId = $(this).attr('data-id'); // Get data-id attribute value
             $('#postid').val(dataId); // Assuming you're setting some value to #postid element
-            
+
             // AJAX request to fetch post details
             $.ajax({
                 url: "{{ url('/get_recyclable_post_details') }}",
@@ -696,7 +672,7 @@ function generateStars(rating) {
                     if (response.status === 'success') {
                         var post = response.post;
                         var user = response.user;
-                        
+
                          // Update modal content with post details
                         $('#name').val(post.name);
                         $('#email').val(post.email);
@@ -704,9 +680,13 @@ function generateStars(rating) {
                         $('#message').val(post.message);
 
                         // Update div with user details
-                        var userDetails = '<span style="font-size: 16px;"><strong>User Name:</strong> ' + user.name + '</span><br>' +
-                                          '<span style="font-size: 16px;"><strong>User Email:</strong> ' + (user.email || 'N/A') + '</span><br> ' +
-                                          '<span style="font-size: 16px;"><strong>User Phone:</strong> ' + user.mobile + '</span>';
+                       var userDetails = '<span style="font-size: 16px;"><strong>User Type:</strong> ' +
+                                                (user.user_type === 'business' ? 'Corporate' :
+                                                 user.user_type === 'sab' ? 'Collection Agent' :
+                                                 user.user_type === 'consumer' ? 'Contributor' : 'Unknown') + '</span><br>' +
+                                                '<span style="font-size: 16px;"><strong>User Name:</strong> ' + user.name + '</span><br>' +
+                                                '<span style="font-size: 16px;"><strong>User Email:</strong> ' + (user.email || 'N/A') + '</span><br>' +
+                                                '<span style="font-size: 16px;"><strong>User Phone:</strong> ' + user.mobile + '</span>';
                         $('#user-details').html(userDetails);
                     } else {
                         alert(response.message); // Alert if status is not success

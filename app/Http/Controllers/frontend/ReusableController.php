@@ -20,7 +20,7 @@ use DB;
 use App\Models\admin\GoogleAdsense;
 use Illuminate\Support\Facades\Session;
 use PHPMailer\PHPMailer\PHPMailer;
-use Illuminate\Support\Facades\Log; 
+use Illuminate\Support\Facades\Log;
 
 class ReusableController extends Controller
 {
@@ -41,7 +41,7 @@ class ReusableController extends Controller
 
     return $mail;
 }
-    
+
     public function listings()
 {
     $user_id = session()->get('user_id');
@@ -60,44 +60,17 @@ class ReusableController extends Controller
     )
     ->select('reusable_posts.*', 'user_ratings.average_rating');
 
-//     if ($user_type === 'consumer') {
-//     $query->where(function ($q) {
-//         // Both Sell & Buy from Contributor
-//         $q->where('user_type', 'consumer')
-//           ->orWhere('user_type', 'sab')
-//           ->orWhere(function ($subQuery) {
-//               // Buy posts from Corporate (Business)
-//               $subQuery->where('user_type', 'business')->where('sale_giveaway', '=', 'Buy');
-//           });
-//     });
-// } elseif ($user_type === 'sab') {
-//     $query->where(function ($q) {
-//         // Sell posts from Contributor
-//         $q->where(function ($subQuery) {
-//             $subQuery->where('user_type', 'consumer')->where('sale_giveaway', '!=', 'Buy');
-//         })
-//         // Both Sell & Buy posts from Resource Collector
-//         ->orWhere('user_type', 'sab')
-//         // Buy posts from Corporate (Business)
-//         ->orWhere(function ($subQuery) {
-//             $subQuery->where('user_type', 'business')->where('sale_giveaway', '=', 'Buy');
-//         });
-//     });
-// }elseif ($user_type === 'business') {
-//     $query->where(function ($q) {
-//         // Sell posts from Resource Collector
-//         $q->where(function ($subQuery) {
-//             $subQuery->where('user_type', 'sab')->where('sale_giveaway', '!=', 'Buy');
-//         })
-//         // Both Buy and Sell posts from Corporate (Business)
-//         ->orWhere('user_type', 'business');
-//     });
-// }
-
-
     $posts = $query->orderBy('id','desc')->paginate(20);
     $res = ReusableResource::get();
-    $weight = Weight::orderByRaw('CAST(min_weight AS UNSIGNED) ASC')->get();
+     $weight = Weight::orderByRaw("
+    CASE
+        WHEN min_measure = 'kg' THEN 1
+        WHEN min_measure = 'ton' THEN 2
+        WHEN min_measure = 'piece' THEN 3
+        ELSE 4
+    END ASC,
+    CAST(min_weight AS UNSIGNED) ASC
+")->get();
            // user activity start
         $userid = session()->get('user_id');
         if ($userid){
@@ -121,7 +94,7 @@ class ReusableController extends Controller
         $users = EcosansarUsers::where('id', $user_id)->first();
         $resources = ReusableResource::get();
          $weights = Weight::orderByRaw('CAST(min_weight AS UNSIGNED) ASC')->get();
-        
+
           // user activity start
         $userid = session()->get('user_id');
         if ($userid){
@@ -132,7 +105,7 @@ class ReusableController extends Controller
             $userActivity->ip_address = request()->ip();
             $userActivity->save();
         }
-        
+
         return view('frontend/userdetails/reusablepostadd', compact('users', 'user_id', 'resources', 'weights', 'breadcrumbimage'));
     }
     public function reusable_post_save(Request $request)
@@ -157,11 +130,11 @@ class ReusableController extends Controller
                 'address' => 'required',
                 'sale_giveaway' => 'required',
                 'quantity' => 'required',
-                
+
                 'resource_type' => 'required',
                 'resource_img' => 'required|mimes:jpg,jpeg,png,webp', // Adjust mime types and max size as needed
     ]);
-            
+
         }
         $user = new ReusablePost();
         $user->user_id = $user_id;
@@ -178,8 +151,8 @@ class ReusableController extends Controller
         $user->longitude = $request->longitude;
         $user->resource_price = $request->resource_price;
         $user->description = $request->description;
-        
-        
+
+
        // Function to resize an image using the GD library
 function resizeImage($source, $width, $height)
 {
@@ -243,8 +216,8 @@ function resizeImage($source, $width, $height)
     return $imageContent; // Return the resized image content as a binary string
 }
 
- 
-            
+
+
             $user->resource_type = $request->resource_type;
 
 
@@ -253,7 +226,7 @@ function resizeImage($source, $width, $height)
         $file = $request->file('resource_img');
         $filePath = 'Reusableposts';
         $fileName = $user_id . '_' . $user->id . '_' . $request->resource_type  .'.'. $file->getClientOriginalExtension();
-        
+
           $fileTempPath = $file->getRealPath(); // Get the temporary file path
 
     // Set desired dimensions for resizing (e.g., 800px wide)
@@ -268,8 +241,8 @@ function resizeImage($source, $width, $height)
 $user->resource_img = $fileName;
     }
  $user->save();
-    
-      
+
+
             // user activity start
         $userid = session()->get('user_id');
         if ($userid){
@@ -281,7 +254,7 @@ $user->resource_img = $fileName;
             $userActivity->save();
         }
         // user activity end
-        
+
         if ($request->action === 'post_another') {
       Session::flash('success', 'Data saved successfully. You can post another.');
       return redirect()->back();
@@ -309,23 +282,23 @@ $user->resource_img = $fileName;
         // Fetch the user's role from the database
         $user = DB::table('ecosansar_users')->where('id', $user_id)->first();
          $enquiry = ReusableEnquiry::where('post_user_id',$u_id)->where('login_user_id',$user_id)->first();
-         
+
        // If there is a connection, check if a review exists
 if ($enquiry) {
-    
+
     $review = ReusableReview::where('user_id', $u_id)
         ->where('login_user_id', $user_id)
         ->first();
- 
+
     // Hide the button if a $review exists
     $hideAddReviewButton = $review ? true : false;
 } else {
-    
+
     // If no connection, also hide the button
     $hideAddReviewButton = true;
 }
- 
-        
+
+
         if (($user && $user->user_type === 'business') || ($user && $user->user_type === 'sab') || ($user && $user->user_type === 'consumer')) {
             // User is logged in as a consumer, proceed to fetch the listing details
             $consumerpostsres = ReusablePost::where('id', $id)->get();
@@ -337,8 +310,8 @@ if ($enquiry) {
                 ->where('reusable_posts.id', $id)
                 ->first();
             $noofposts = ReusablePost::where('user_id', $u_id)->where('active',1)->count();
-            
-            
+
+
             // Get user details along with the count of reviews and the average rating from recyclable_reviews
     $users = DB::table('ecosansar_users as eu')
         ->leftJoin('reusable_reviews as rr', 'eu.id', '=', 'rr.user_id')
@@ -353,7 +326,7 @@ if ($enquiry) {
    // Get the count of reviews for the user from recyclable_reviews table
     $reviewsCount = DB::table('reusable_reviews')
         ->where('user_id', $u_id)
-        ->count(); 
+        ->count();
      // Calculate the average rating
     $averageRating = DB::table('reusable_reviews')
         ->where('user_id', $u_id)
@@ -369,7 +342,7 @@ if ($enquiry) {
         session()->put('redirect_wp', route('con_listing_details', $id));
         return redirect()->route('consumer_login');
     }
-    
+
 //     public function reusable_post_filter(Request $request) {
 //     $user_id = session()->get('user_id');
 //      $user_type = session()->get('user_type');
@@ -432,7 +405,7 @@ if ($enquiry) {
 
 //     // Apply the filters to both queries
 //     $query->where($applyFilters);
-     
+
 
 //     // Execute and process images for both queries
 //     $posts = $query->get()->map(function ($post) {
@@ -443,11 +416,11 @@ if ($enquiry) {
 //         return $post;
 //     });
 
-    
+
 
 //     return response()->json([
 //         'posts' => $posts,
-        
+
 //     ]);
 // }
 
@@ -615,7 +588,7 @@ public function reusable_post_filter(Request $request) {
 
     // Apply the filters to both queries
     $query->where($applyFilters);
-     
+
 
     // Execute and process images for both queries
     $posts = $query->get()->map(function ($post) {
@@ -626,11 +599,11 @@ public function reusable_post_filter(Request $request) {
         return $post;
     });
 
-    
+
 
     return response()->json([
         'posts' => $posts,
-        
+
     ]);
 }
 
@@ -733,11 +706,11 @@ public function reusable_post_sort(Request $request)
         ]);
          $user_id = session()->get('user_id');
         $user_type = session()->get('user_type');
-        
+
         $details = ReusablePost::where('id',$req->id)->first();
 
         $enquiry = new ReusableEnquiry();
-        $enquiry->post_user_id = $details->user_id; 
+        $enquiry->post_user_id = $details->user_id;
         $enquiry->login_user_id = $user_id;
         $enquiry->post_id = $req->id;
          $enquiry->loggedin_user_type = $user_type;
@@ -748,15 +721,15 @@ public function reusable_post_sort(Request $request)
         $enquiry->message = $req->message;
         $enquiry->save();
 
-        
-        
+
+
          $users = EcosansarUsers::where('id',$details->user_id)->first();
-        
+
         // echo "<pre>";
         // print_r($post);die;
-        
+
         if($req->email){
-            
+
              $userdata = [
             'post_name' => $details->name,
             'name' =>  $req->name,
@@ -765,11 +738,11 @@ public function reusable_post_sort(Request $request)
             'post_email' =>$details->email,
             ];
             $userdata["title"] =  "Connection Details for Your Interest";
-           
+
             try {
             // Configure PHPMailer
             $mail = $this->configureMailer();
-            
+
             // Add recipient
             $mail->addAddress($userdata['email']);
 
@@ -784,10 +757,10 @@ public function reusable_post_sort(Request $request)
         } catch (Exception $e) {
             Log::error("Error sending email to {$userdata['email']}: " . $e->getMessage());
         }
-            
-            
+
+
         }
-        
+
         $data = [
             'name' => $req->name,
             'post_email' => $req->email,
@@ -795,12 +768,12 @@ public function reusable_post_sort(Request $request)
             //'post_email' => $req->email,
             'msg' => $req->message,
         ];
-        
+
             // print_r($data);die;
-         $data["email"] = $details->email; 
-       
+         $data["email"] = $details->email;
+
         $data["title"] =  "Enquiry from ".$req->name;
-        
+
        // ✅ Check if email exists and is valid
         if (!empty($data['email']) && filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
             try {
@@ -810,7 +783,7 @@ public function reusable_post_sort(Request $request)
                 $mail->isHTML(true);
                 $mail->Body = view('frontend.mail.consumermail', $data)->render();
                 $mail->send();
-        
+
                 Log::info("Reminder email sent to: {$data['email']}");
             } catch (Exception $e) {
                 Log::error("Error sending email to {$data['email']}: " . $e->getMessage());
@@ -818,18 +791,18 @@ public function reusable_post_sort(Request $request)
         } else {
             Log::warning("Email not sent: Invalid or missing email for user.");
         }
-        
+
         $adminemail = User::where('type','admin')->first();
-        
+
         $data["email"] = $adminemail->email;
-       
+
         Log::info("Sending admin email to: " . $data['email']);  // Debug log
         $data["title"] =  "Enquiry from ".$req->name. " for ".$details->name;
-       
+
          try {
             // Configure PHPMailer
             $mail = $this->configureMailer();
-            
+
             // Add recipient
             $mail->addAddress($data['email']);
 
@@ -844,19 +817,19 @@ public function reusable_post_sort(Request $request)
         } catch (Exception $e) {
             Log::error("Error sending email to {$data['email']}: " . $e->getMessage());
         }
-        
-        
-        
+
+
+
           $contact = $req->mobile;
     // // Check if the user exists in the ecosansar_users table
     //     $user = DB::table('ecosansar_users')
     //     ->where('mobile', $contact)->first();
     //     // Generate a 6-digit random OTP
     //     $otp = mt_rand(100000, 999999);
-    
+
         $templateId = '6697c3ecd6fc051035577b52'; // Ensure this is a valid string from MSG91
         $apiKey = config('services.msg91.authkey'); // Fetch authkey from config
-        
+
         // Prepare the data for the cURL request
         $data = json_encode([
             'template_id' => $templateId,
@@ -870,10 +843,10 @@ public function reusable_post_sort(Request $request)
                 ]
             ]
         ]);
-    
+
         // Initialize cURL
         $curl = curl_init();
-    
+
         curl_setopt_array($curl, [
             CURLOPT_URL => "https://control.msg91.com/api/v5/flow",
             CURLOPT_RETURNTRANSFER => true,
@@ -889,12 +862,12 @@ public function reusable_post_sort(Request $request)
                 "content-type: application/json"
             ],
         ]);
-    
+
         // Execute the cURL request and handle the response
         $response = curl_exec($curl);
         $err = curl_error($curl);
         curl_close($curl);
-        
+
          Session::flash('success', 'Enquiry Sent Successfully');
        return redirect()->back();
     }
@@ -920,7 +893,7 @@ public function reusable_post_sort(Request $request)
         }
     }
      public function reusablereviewsave(Request $req){
-        
+
         $req->validate([
             'title' => 'required',
             'message' => 'required',
@@ -928,8 +901,8 @@ public function reusable_post_sort(Request $request)
         ]);
         $details = ReusablePost::where('id',$req->post_id)->first();
         $enquiry = new ReusableReview();
-        $user_id = session()->get('user_id'); 
-        
+        $user_id = session()->get('user_id');
+
           // Check if a review already exists for this post by the same user
     $existingReview = ReusableReview::where('post_id', $req->post_id)
         ->where('login_user_id', $user_id)
@@ -959,7 +932,7 @@ public function reusable_post_sort(Request $request)
         $enquiry->rating = $req->rating;
          $enquiry->type = $details->user_type;
         $enquiry->save();
-        
+
         //  $notification = ConsumerAskReview::where('post_id',$details->id)->where('login_user_id',$details->user_id)->where('user_id',$user_id)->first();
          $notification = ReusableAskReview::where('login_user_id',$details->user_id)->where('user_id',$user_id)->first();
         //  echo "<pre>";
@@ -972,18 +945,18 @@ public function reusable_post_sort(Request $request)
     }
      return redirect('/');
     }
-    
-    
-    
+
+
+
     public function sendReusableReviewRequest($id)
     {
       $user_id = session()->get('user_id');
       $user_type = session()->get('user_type');
-      
+
        // Find the record by ID
     $condata = ReusableEnquiry::find($id);
     $postdata = ReusablePost::where('id',$condata->post_id)->first();
-      
+
        $conaskrev = new ReusableAskReview();
         $conaskrev->user_id = $condata->login_user_id;
         $conaskrev->login_user_id = $postdata->user_id;
@@ -993,10 +966,10 @@ public function reusable_post_sort(Request $request)
         $conaskrev->type = $user_type;
         $conaskrev->user_type = $condata->loggedin_user_type;
         $conaskrev->save();
-      
-   
-     
-        
+
+
+
+
 
     if ($condata) {
        $data = [
@@ -1006,18 +979,18 @@ public function reusable_post_sort(Request $request)
             'post_id' => $postdata->id,
              'link' => url('/reusablepostprofile/' . $postdata->user_id . '?review_id=' . $conaskrev->id),
             ];
-            
-             
-            
+
+
+
             // $data["title"] =  $postdata->name . " has requested for review";
-             $data["title"] =  "Share Your Feedback on ". $postdata->name ."'s " ."Service"; 
-            
-             
-         if (!empty($data['email']) && filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {  
+             $data["title"] =  "Share Your Feedback on ". $postdata->name ."'s " ."Service";
+
+
+         if (!empty($data['email']) && filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
           try {
             // Configure PHPMailer
             $mail = $this->configureMailer();
-            
+
             // Add recipient
             $mail->addAddress($data['email']);
 
@@ -1034,16 +1007,16 @@ public function reusable_post_sort(Request $request)
         }
          } else {
     Log::error("Email is missing for ReusableEnquiry ID: {$id}");
-    
+
 }
 
         // Update the flag field to indicate the review email has been sent
         $condata->flag = 'asked'; // Assuming flag is 1 for sent, 0 for not sent
         $condata->save();
-        
-        
-       
-   
+
+
+
+
          return response()->json([
     'status' => 'success',
     'review_id' => $conaskrev->id,
@@ -1055,14 +1028,14 @@ public function reusable_post_sort(Request $request)
 
     return response()->json(['status' => 'error']);
 }
-    
+
       public function reusablepostprofile($u_id)
     {
          // Retrieve the review_id from the query string
-     $review_id = request()->query('review_id'); 
+     $review_id = request()->query('review_id');
          $user_id = session()->get('user_id');
         $conpost = ReusablePost::where('user_id', $u_id)->first();
-       
+
         // Redirect if the user or post doesn't exist
     if (!$conpost) {
         Session::flash('warning', 'Invalid user or post.');
@@ -1075,12 +1048,12 @@ public function reusable_post_sort(Request $request)
             // User is not logged in, redirect to the login page
              $redirectUrl = route('reusablepostprofile', ['id' => $u_id]) . ($review_id ? '?review_id=' . $review_id : '');
              session()->put('redirect_askrev', $redirectUrl);
-              
+
             return redirect()->route('consumer_login');
         }
-        
-        
-    
+
+
+
     // Check for existing connection (BusinessEnquiry)
 $busrev = ReusableEnquiry::where('login_user_id', $user_id)
     ->where('post_user_id', $u_id)
@@ -1098,30 +1071,30 @@ if ($review_id) {
 if (!$busrev || ($review_id && !$reviewRequest)) {
     Session::flash('warning', 'You have not connected with this user. Please connect first then give review');
     return redirect('/');
-}  
+}
 
 
-    
-    
+
+
         $conlistreviews = ReusableReview::where('post_id', $post_id)->where('user_id', $u_id)->get();
         $users = EcosansarUsers::where('id', $u_id)->first();
 
         return view('frontend/reusablepostprofile', compact('users', 'conlistreviews', 'u_id', 'post_id'));
     }
-    
+
 public function changeReusableReviewRequest($id)
     {
-        
+
       $user_id = session()->get('user_id');
       $user_type = session()->get('user_type');
-      
+
     // Find the record by ID
     $condata = ReusableReview::find($id);
-    
+
     $postdata = ReusablePost::where('id',$condata->post_id)->first();
      $userdata = Ecosansarusers::where('id',$condata->login_user_id)->first();
-      $notificationchange = ReusableAskReview::where('user_id',$condata->login_user_id)->where('login_user_id',$user_id)->first();  
-      
+      $notificationchange = ReusableAskReview::where('user_id',$condata->login_user_id)->where('login_user_id',$user_id)->first();
+
        if (!$notificationchange) {
         // Create a new record in ConsumerAskReview if it doesn't exist
         $notificationchange = ReusableAskReview::create([
@@ -1136,7 +1109,7 @@ public function changeReusableReviewRequest($id)
         ]);
     }
 
-      
+
         $conaskrev = new ChangeReusableReview();
         $conaskrev->user_id = $condata->login_user_id;
         $conaskrev->login_user_id = $postdata->user_id;
@@ -1144,7 +1117,7 @@ public function changeReusableReviewRequest($id)
          $conaskrev->name = $postdata->name;
         $conaskrev->flag = 'asked';
         $conaskrev->type = $user_type;
-        $conaskrev->save();  
+        $conaskrev->save();
 
     if ($condata) {
        $data = [
@@ -1154,16 +1127,16 @@ public function changeReusableReviewRequest($id)
             'post_id' => $postdata->id,
            'link' => url('/edit-reusable-review/' . $postdata->user_id . '/' . $id . '?review_id=' . $notificationchange->id)
             ];
-            
-             
-            
-            $data["title"] =  "Request to Update Your Review";  
-             
-   if (!empty($condata->email) && filter_var($condata->email, FILTER_VALIDATE_EMAIL)) {          
+
+
+
+            $data["title"] =  "Request to Update Your Review";
+
+   if (!empty($condata->email) && filter_var($condata->email, FILTER_VALIDATE_EMAIL)) {
  try {
             // Configure PHPMailer
             $mail = $this->configureMailer();
-            
+
             // Add recipient
             $mail->addAddress($data['email']);
 
@@ -1180,13 +1153,13 @@ public function changeReusableReviewRequest($id)
         }
    } else {
         Log::info("Email not present or invalid. Skipping email for ReusableEnquiry ID: $id");
-    }   
-      
+    }
+
         $notificationchange->change_review = 'changereview';
         $notificationchange->save();
-        
+
         Session::flash('success', 'Review request sent successfully!');
-   
+
         return response()->json(['status' => 'success']);
     }
 
@@ -1196,16 +1169,16 @@ public function editReusableReview($id, $rid)
 {
     $user_id = session()->get('user_id');
     $user_type = session()->get('user_type');
-  $review_id = request()->query('review_id');  
+  $review_id = request()->query('review_id');
     // Check if user is logged in; if not, redirect to login
      if (null === $user_id || $user_id === '') {
             // User is not logged in, redirect to the login page
-             $redirectUrl = url("/edit-reusable-review/{$id}/{$rid}") . '?review_id=' . $review_id; 
+             $redirectUrl = url("/edit-reusable-review/{$id}/{$rid}") . '?review_id=' . $review_id;
              session()->put('redirect_changerev', $redirectUrl);
             //  session()->put('redirect_askrev', route('conpostprofile', $u_id));
             return redirect()->route('consumer_login');
         }
-        
+
     // Find the review by ID
     $review = ReusableReview::find($rid);
     $post_id = $review->post_id;
@@ -1213,29 +1186,29 @@ public function editReusableReview($id, $rid)
     if (!$review) {
         return redirect('/')->with('error', 'Review not found.');
     }
-    
+
      // Retrieve the review request based only on user_id
      $reviewRequest = ReusableAskReview::where('id', $review_id)->where('user_id', $user_id)->first();
-    
+
       //$reviewRequest = ConsumerAskReview::where('id', $review_id)->first();
- 
-   
+
+
 
     // Check if the review request exists and belongs to the logged-in user
     if (!$reviewRequest) {
-         
+
         Session::flash('warning', 'Unauthorized access to this review request.');
         return redirect('/');
     }
-    
+
   $users = EcosansarUsers::where('id', $review->user_id)->first();
     // Pass the review data to the view
     return view('frontend.reusableeditreview', compact('review','id','post_id','users'));
 }
-//to update from my prrofile page under reviews given tab 
+//to update from my prrofile page under reviews given tab
 public function reusableupdateReview(Request $request, $id) {
     $review = ReusableReview::find($id);
-    
+
     if (!$review) {
         return response()->json(['success' => false, 'message' => 'Review not found']);
     }

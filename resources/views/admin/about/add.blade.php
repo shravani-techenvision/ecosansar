@@ -17,21 +17,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <form action="{{ $url }}" method="post">
-                                    @csrf
-                                        <textarea id="elm1" name="content" id="content">@if(isset($about->content)){{$about->content}}@else{{old('content')}}@endif</textarea>
-                                        @if ($errors->has('content'))
-                                                <span class="text-danger">{{ $errors->first('content') }}</span>
-                                            @endif
-                                        <div class="row mt-3">
-                                            <div class="col-md-8">
-                                                <div class="mb-3">
-                                                    <button class="btn btn-primary" type="submit">Submit</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-
+                                          <h2 class="text-center">If you would like to make any changes, please contact the developer.</h2>
                                 </div>
                             </div>
                         </div> <!-- end col -->

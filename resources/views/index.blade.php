@@ -19,7 +19,7 @@
 </style>
 
 <div class="row">
-    
+
         <div class="col-md-6 col-xl-3">
         <div class="card">
             <div class="card-body new">
@@ -30,14 +30,14 @@
                     <h3><i class="fas fa-users"></i></h3>
                     <h4 class="mb-1 mt-1"><span data-plugin="counterup">{{$users}}</span> </h4>
                     <p class="text-muted mb-0"><b>Total Users</b></p>
-                    
+
                 </div>
                 <!--<p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="bx bx-group"></i>2.65%</span> since last week-->
                 <!--</p>-->
             </div>
         </div>
     </div> <!-- end col  -->
-    
+
     <div class="col-md-6 col-xl-3">
         <div class="card">
             <div class="card-body new">
@@ -54,7 +54,7 @@
             </div>
         </div>
     </div> <!-- end col  -->
-    
+
     <div class="col-md-6 col-xl-3">
         <div class="card">
             <div class="card-body new">
@@ -71,7 +71,7 @@
             </div>
         </div>
     </div> <!-- end col  -->
-    
+
     <div class="col-md-6 col-xl-3">
         <div class="card">
             <div class="card-body new">
@@ -81,15 +81,15 @@
                 <div>
                     <h3><i class="fas fa-users"></i></h3>
                     <h4 class="mb-1 mt-1"><span data-plugin="counterup">{{$Resourceusers}}</span></h4>
-                    <p class="text-muted mb-0"><b>Total Resource users</b></p>
+                    <p class="text-muted mb-0"><b>Total Collection Agents</b></p>
                 </div>
                 <!--<p class="text-muted mt-3 mb-0"><span class="text-success me-1"><i class="mdi mdi-arrow-up-bold me-1"></i>2.65%</span> since last week-->
                 <!--</p>-->
             </div>
         </div>
     </div> <!-- end col  -->
-    
-    
+
+
     <div class="col-md-6 col-xl-3">
         <div class="card">
             <div class="card-body new">
@@ -106,7 +106,7 @@
             </div>
         </div>
     </div> <!-- end col  -->
-    
+
     <div class="col-md-6 col-xl-3">
         <div class="card">
             <div class="card-body new">
@@ -123,8 +123,8 @@
             </div>
         </div>
     </div> <!-- end col  -->
-    
-    
+
+
 
     <!--<div class="col-md-6 col-xl-3">-->
     <!--    <div class="card">-->

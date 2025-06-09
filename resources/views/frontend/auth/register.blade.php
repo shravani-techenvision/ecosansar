@@ -1,4 +1,4 @@
- 
+
  @include('frontend.include.header')
  <style>
      .trust-us-section {
@@ -6,7 +6,7 @@
     padding-top: 40px;
     background-color: #fff;
     z-index: 1;
-    
+
 }
 .trust-us-main {
   background: linear-gradient(135deg, #ffffff, #f8f9fa);
@@ -35,11 +35,11 @@
         color:#8eb66f; /* Optional: Change color on hover */
     }
  </style>
- 
+
 
 	<div class="d-flex justify-content-between     flex-column">
-		
-	 
+
+
 
 	<!-- Main Wrapper -->
 	<div class="main-wrapper">
@@ -49,7 +49,7 @@
 			<div class="row">
 				<div class="col-md-12 text-center">
 					<div class="section-heading section-heading-four category-heading aos" data-aos="fade-up">
-					 
+
 						<p>Welcome! We're thrilled to have you here.
 
 Choose your role to register:</p>
@@ -59,26 +59,26 @@ Choose your role to register:</p>
 			<div class="row justify-content-center row-gap-3">
 				<div class="col-lg-3 col-md-4 col-sm-6 col-12 d-flex">
 					<div class="trust-us-main flex-fill">
-						 
+
 						<h3 class="text-truncate">Contributor</h3>
 						<p>For Waste / Resource Generators (consumers)</p>
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-4 col-sm-6 col-12 d-flex">
 					<div class="trust-us-main flex-fill">
-					 
+
 						<h3 class="text-truncate">Collection Agent</h3>
 						<p>Resource Pickup Agents</p>
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-4 col-sm-6 col-12 d-flex">
 					<div class="trust-us-main flex-fill">
-					 
+
 						<h3 class="text-truncate">Corporate</h3>
 						<p>Brands / Waste Management Companies / Recyclers / businesses dealing in bulk quantities</p>
 					</div>
 				</div>
-				 
+
 			</div>
 		</div>
 	</section>
@@ -99,7 +99,7 @@ Choose your role to register:</p>
 													<option value="">Select</option>
                                         <option value="consumer" {{ old('type_of_user') == 'consumer' ? 'selected' : '' }}>Contributor</option>
                                         <option value="sab" {{ old('type_of_user') == 'sab' ? 'selected' : '' }}>Collection Agent</option>
-                                        <option value="business" {{ old('type_of_user') == 'business' ? 'selected' : '' }}>Corporate</option>
+                                        <option value="business" {{ old('type_of_user') == 'business' ? 'selected' : '' }}>Business</option>
 												</select>
 												 @if ($errors->has('type_of_user'))
                                 <span class="text-danger">{{ $errors->first('type_of_user') }}</span>
@@ -115,7 +115,7 @@ Choose your role to register:</p>
 										<label class="form-label">Phone number<span style="color:red;">*</span></label>
                                        <input onkeydown="" type="text" class="form-control" name="mobile" id="contact" placeholder="Please enter 10 digit mobile number" minlength="10" maxlength="10" value={{ old('mobile') }}>
                                        <span class="error-message text-danger" id="mobile-error"></span>
-                                                                         
+
                                     <div id="contact-error" class="invalid-feedback text-danger" style="display: none;"></div>
                                      @if ($errors->has('mobile'))
                                             <span class="text-danger">{{ $errors->first('mobile') }}</span>
@@ -124,18 +124,18 @@ Choose your role to register:</p>
 									</div>
 									<div class="mb-3">
 										<label class="form-label"> Address<span style="color:red;">*</span></label>
-                                       <textarea 
-                                    class="form-control" 
-                                    rows="4" 
-                                    cols="50" 
-                                    name="address" 
-                                    id="address" 
+                                       <textarea
+                                    class="form-control"
+                                    rows="4"
+                                    cols="50"
+                                    name="address"
+                                    id="address"
                                     placeholder="Address"
                                 >{{ old('address') }}</textarea>
                                 @if ($errors->has('address'))
                                     <span class="text-danger">{{ $errors->first('address') }}</span>
                                 @endif
-                                
+
                                  <span class="error-message text-danger" id="address-error"></span>
 									</div>
 									<div class="mb-3">
@@ -144,7 +144,7 @@ Choose your role to register:</p>
                                 @if ($errors->has('pincode'))
                                 <span class="text-danger">{{ $errors->first('pincode') }}</span>
                              @endif
-                             
+
                              <span class="error-message text-danger" id="pincode-error"></span>
 									</div>
 									<div class="mb-3" id="hide-tresi">
@@ -167,31 +167,31 @@ Choose your role to register:</p>
                                 @if ($errors->has('email'))
                                 <span class="text-danger">{{ $errors->first('email') }}</span>
                              @endif
-                             
+
                              <span class="error-message text-danger" id="email-error"></span>
 									</div>
-									
-									
+
+
 									<div class="mb-3"  >
 										<label class="form-label"> Please type the characters below<span style="color:red;">*</span></label>
 										  <div style="display:flex; ">
-                                            <div class="box space" style="font-size:20px;padding:10px;">{{ $captcha }}</div>&emsp;&emsp;&emsp;&emsp;&emsp; 
-                                            <input class="form-control" type="text" id="userInput" name="captcha" placeholder="Enter Captcha" >  
+                                            <div class="box space" style="font-size:20px;padding:10px;">{{ $captcha }}</div>&emsp;&emsp;&emsp;&emsp;&emsp;
+                                            <input class="form-control" type="text" id="userInput" name="captcha" placeholder="Enter Captcha" >
                                              </div>
-                                           
+
                               <span class="error-message text-danger" id="captcha-error"></span>
                                @if ($errors->has('captcha'))
                             <span class="text-danger">{{ $errors->first('captcha') }}</span>
                         @endif
 									</div>
-									
-									
-									
-									 	 
+
+
+
+
 									<div class="mb-3">
 										<div class="d-flex align-items-center justify-content-between flex-wrap row-gap-2">
 											<div class="form-check">
-											 
+
 												<label class="form-check-label" for="remember_me">
 												    <input class="form-check-input"  type="checkbox" name="terms" id="terms" value="accepted" {{ old('terms') ? 'checked' : '' }}>
 													 I have read and agree to the <a target="_blank" href="{{ route('terms_conditions') }}" class="text-primary terms-link">Terms and condition</a> and <a target="_blank" href="{{ route('privacypolicy') }}" class="text-primary terms-link">Privacy policy </a> of this website
@@ -206,7 +206,7 @@ Choose your role to register:</p>
 									<div class="mb-3">
 										<button type="submit" class="btn btn-lg btn-linear-primary w-100">Sign Up</button>
 									</div>
-									 
+
 									<div class=" d-flex justify-content-center">
 										<p>Already have a account? <a href="{{route('consumer_login')}}" class=" " style="color:#406c1e;">Sign In</a></p>
 									</div>
@@ -215,8 +215,8 @@ Choose your role to register:</p>
 									<img src="{{ asset('frontend/assets/img/bg/authentication-bg.png') }}" class="bg-left-top" alt="Img">
 									<img src="{{ asset('frontend/assets/img/bg/authentication-bg.png') }}" class="bg-right-bottom" alt="Img">
 								</div>
-							</div>						
-							
+							</div>
+
 						</div>
 					</form>
 				</div>
@@ -225,20 +225,20 @@ Choose your role to register:</p>
 	</div>
 	<!-- /Main Wrapper -->
 
- 
+
 
 	</div>
-	
-	 
-	
-@include('frontend.include.footer') 
 
- 
+
+
+@include('frontend.include.footer')
+
+
 
 <script>
 document.getElementById('registerForm').addEventListener('submit', function(event) {
     event.preventDefault(); // Prevent the form from submitting normally
-    
+
    //alert('hhh');
 
     // Clear previous error messages
@@ -259,7 +259,7 @@ document.getElementById('registerForm').addEventListener('submit', function(even
     })
     .then(response => response.json())
     .then(data => {
-        
+
         // Handle the response
        if (data.errors) {
             // Display errors next to the respective form fields
@@ -267,7 +267,7 @@ document.getElementById('registerForm').addEventListener('submit', function(even
                 document.getElementById(`${field}-error`).innerHTML = data.errors[field][0];
             }
         } else {
-            
+
            // alert(data.user_id);
             // Display success message
                window.location.href = "{{ url('register_otp') }}/" + data.user_id;
@@ -280,7 +280,7 @@ document.getElementById('registerForm').addEventListener('submit', function(even
 });
 </script>
 
- 
+
 
 
 <script>
@@ -305,7 +305,7 @@ document.getElementById('registerForm').addEventListener('submit', function(even
                    // alert('OTP resent successfully.');
                       window.location.href = "{{ url('register_otp') }}/" + data.user_id;
                     otpInput.value = ''; // Clear the OTP input field
-                    
+
                 } else {
                      //alert('OTP resent successfully22222.');
                   // contactError.style.display = 'block';
@@ -353,9 +353,9 @@ document.getElementById('registerForm').addEventListener('submit', function(even
         toggleFields(); // Call it initially to set the correct state on page load
     });
 </script>
- 
- 
 
 
- 
+
+
+
 

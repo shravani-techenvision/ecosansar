@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-   SAB Review
+   Collection Agent Review
 @endsection
 @section('css')
     <!-- DataTables -->
@@ -10,7 +10,7 @@
 @section('content')
     @component('common-components.breadcrumb')
         @slot('pagetitle') Review @endslot
-        @slot('title') SAB @endslot
+        @slot('title')  Collection Agent @endslot
     @endcomponent
 
 

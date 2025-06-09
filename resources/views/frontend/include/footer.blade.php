@@ -218,7 +218,7 @@
                 title: 'Success',
                 text: "{{ Session::get('success') }}",
                 showConfirmButton: false,
-                timer: 5000
+                timer: 2000
             });
         @endif
 

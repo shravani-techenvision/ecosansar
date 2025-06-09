@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-   Consumer Review
+   Contributor Review
 @endsection
 @section('css')
     <!-- DataTables -->
@@ -10,7 +10,7 @@
 @section('content')
     @component('common-components.breadcrumb')
         @slot('pagetitle') Review @endslot
-        @slot('title') Consumer @endslot
+        @slot('title') Contributor @endslot
     @endcomponent
 
 

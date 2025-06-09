@@ -81,14 +81,7 @@
       </div>
     </div>
   </div>
-  <!--<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">-->
-  <!--  <span class="carousel-control-prev-icon" aria-hidden="true"></span>-->
-  <!--  <span class="visually-hidden">Previous</span>-->
-  <!--</button>-->
-  <!--<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">-->
-  <!--  <span class="carousel-control-next-icon" aria-hidden="true"></span>-->
-  <!--  <span class="visually-hidden">Next</span>-->
-  <!--</button>-->
+
 </div>
 		<!-- /Hero Section -->
 
@@ -96,13 +89,13 @@
 		<section class="work-section pt-0 mb-0" >
 
 			<div class="container">
-				<!--<div class="row">-->
-				<!--	<div class="col-md-12 text-center">-->
-				<!--		<div class="section-heading aos" data-aos="fade-up">-->
-
-				<!--		</div>-->
-				<!--	</div>-->
-				<!--</div>-->
+				 <div class="row">
+					<div class="col-md-12 text-center">
+						<div class="section-heading aos" data-aos="fade-up">
+						    <h2 class="text-center">Start managing waste responsibly using any of the 4 options below: </h2>
+						</div>
+					</div>
+				</div>
 				<div class="row justify-content-center">
 					<div class="col-lg-4 col-md-6 d-flex ">
 						<div class="work-box card flex-fill aos" data-aos="fade-up">
@@ -127,7 +120,7 @@
 									</span>
 								</div>
 								<h5>Packaging Reusables</h5>
-								<p>Got clean containers / packaging fit for reuse? Don’t toss them—list them! Need some? Just browse. </p>
+								<p>Got clean containers / packaging fit for reuse? Don’t toss them—list them for someone else to reuse! Need some? Just browse. </p>
 							 	<a href="{{route('reusable-choose_one')}}" class="btn btn-lg btn-linear-primary w-100 mt-2">List or Browse Reusables</a>
 							</div>
 						</div>
@@ -226,138 +219,7 @@
 		</section>
 		<!-- /Work Section -->
 
- <!-- Category Section -->
-	<!--<section class="section category-section">-->
-	<!--	<div class="container">-->
-	<!--		<div class="row justify-content-center">-->
-	<!--			<div class="col-lg-6 text-center wow fadeInUp" data-wow-delay="0.2s">-->
-	<!--				<div class="section-header text-center">-->
-	<!--					<h2 class="mb-1">What can you list</h2>-->
 
-	<!--				</div>-->
-	<!--			</div>-->
-	<!--		</div>-->
-	<!--		<h4 class="mb-3">Recyclables</h4>-->
-	<!--		<div class="row g-4 row-cols-xxl-6 row-cols-xl-6 row-cols-md-4 row-cols-sm-2 row-cols-1 justify-content-center">-->
-	<!--			<div class="col d-flex">-->
-	<!--				<div class="category-item text-center flex-fill wow fadeInUp" data-wow-delay="0.2s">-->
-	<!--					<div class="mx-auto mb-3">-->
-	<!--						<img src="{{ asset('frontend/assets/img/icons/category-01.svg') }}" class="img-fluid" alt="img">-->
-	<!--					</div>-->
-	<!--					<h6 class="fs-14 mb-1">Paper</h6>-->
-
-
-	<!--				</div>-->
-	<!--			</div>-->
-	<!--			<div class="col d-flex">-->
-	<!--				<div class="category-item text-center flex-fill wow fadeInUp" data-wow-delay="0.2s">-->
-	<!--					<div class="mx-auto mb-3">-->
-	<!--						<img src="{{ asset('frontend/assets/img/icons/category-02.svg') }}" class="img-fluid" alt="img">-->
-	<!--					</div>-->
-	<!--					<h6 class="fs-14 mb-1">Plastic</h6>-->
-
-	<!--				</div>-->
-	<!--			</div>-->
-	<!--			<div class="col d-flex">-->
-	<!--				<div class="category-item text-center flex-fill wow fadeInUp" data-wow-delay="0.2s">-->
-	<!--					<div class="mx-auto mb-3">-->
-	<!--						<img src="{{ asset('frontend/assets/img/icons/category-13.svg') }}" class="img-fluid" alt="img">-->
-	<!--					</div>-->
-	<!--					<h6 class="fs-14 mb-1">Glass</h6>-->
-
-	<!--				</div>-->
-	<!--			</div>-->
-	<!--			<div class="col d-flex">-->
-	<!--				<div class="category-item text-center flex-fill wow fadeInUp" data-wow-delay="0.2s">-->
-	<!--					<div class="mx-auto mb-3">-->
-	<!--						<img src="{{ asset('frontend/assets/img/icons/category-04.svg') }}" class="img-fluid" alt="img">-->
-	<!--					</div>-->
-	<!--					<h6 class="fs-14 mb-1">Textile</h6>-->
-
-	<!--				</div>-->
-	<!--			</div>-->
-	<!--			<div class="col d-flex">-->
-	<!--				<div class="category-item text-center flex-fill wow fadeInUp" data-wow-delay="0.2s">-->
-	<!--					<div class="mx-auto mb-3">-->
-	<!--						<img src="{{ asset('frontend/assets/img/icons/category-05.svg') }}" class="img-fluid" alt="img">-->
-	<!--					</div>-->
-	<!--					<h6 class="fs-14 mb-1">Flower </h6>-->
-
-	<!--				</div>-->
-	<!--			</div>-->
-	<!--			<div class="col d-flex">-->
-	<!--				<div class="category-item text-center flex-fill wow fadeInUp" data-wow-delay="0.2s">-->
-	<!--					<div class="mx-auto mb-3">-->
-	<!--						<img src="{{ asset('frontend/assets/img/icons/category-06.svg') }}" class="img-fluid" alt="img">-->
-	<!--					</div>-->
-	<!--					<h6 class="fs-14 mb-1">Waste</h6>-->
-
-	<!--				</div>-->
-	<!--			</div>-->
-
-	<!--		</div>-->
-	<!--		<h4 class="mb-3 mt-3">Packaging Reusables (CLEAN ONLY) </h4>-->
-	<!--		<div class="row g-4 row-cols-xxl-6 row-cols-xl-6 row-cols-md-4 row-cols-sm-2 row-cols-1 justify-content-center">-->
-	<!--			<div class="col d-flex">-->
-	<!--				<div class="category-item text-center flex-fill wow fadeInUp" data-wow-delay="0.2s">-->
-	<!--					<div class="mx-auto mb-3">-->
-	<!--						<img src="{{ asset('frontend/assets/img/icons/category-01.svg') }}" class="img-fluid" alt="img">-->
-	<!--					</div>-->
-	<!--					<h6 class="fs-14 mb-1">Delivery bags</h6>-->
-
-
-	<!--				</div>-->
-	<!--			</div>-->
-	<!--			<div class="col d-flex">-->
-	<!--				<div class="category-item text-center flex-fill wow fadeInUp" data-wow-delay="0.2s">-->
-	<!--					<div class="mx-auto mb-3">-->
-	<!--						<img src="{{ asset('frontend/assets/img/icons/category-02.svg') }}" class="img-fluid" alt="img">-->
-	<!--					</div>-->
-	<!--					<h6 class="fs-14 mb-1">Cartons</h6>-->
-
-	<!--				</div>-->
-	<!--			</div>-->
-	<!--			<div class="col d-flex">-->
-	<!--				<div class="category-item text-center flex-fill wow fadeInUp" data-wow-delay="0.2s">-->
-	<!--					<div class="mx-auto mb-3">-->
-	<!--						<img src="{{ asset('frontend/assets/img/icons/category-13.svg') }}" class="img-fluid" alt="img">-->
-	<!--					</div>-->
-	<!--					<h6 class="fs-14 mb-1">Glass </h6>-->
-
-	<!--				</div>-->
-	<!--			</div>-->
-	<!--			<div class="col d-flex">-->
-	<!--				<div class="category-item text-center flex-fill wow fadeInUp" data-wow-delay="0.2s">-->
-	<!--					<div class="mx-auto mb-3">-->
-	<!--						<img src="{{ asset('frontend/assets/img/icons/category-04.svg') }}" class="img-fluid" alt="img">-->
-	<!--					</div>-->
-	<!--					<h6 class="fs-14 mb-1">Jars</h6>-->
-
-	<!--				</div>-->
-	<!--			</div>-->
-	<!--			<div class="col d-flex">-->
-	<!--				<div class="category-item text-center flex-fill wow fadeInUp" data-wow-delay="0.2s">-->
-	<!--					<div class="mx-auto mb-3">-->
-	<!--						<img src="{{ asset('frontend/assets/img/icons/category-05.svg') }}" class="img-fluid" alt="img">-->
-	<!--					</div>-->
-	<!--					<h6 class="fs-14 mb-1">Drums </h6>-->
-
-	<!--				</div>-->
-	<!--			</div>-->
-
-
-	<!--		</div>-->
-			<!--<div class="row">-->
-			<!--	<div class="col-md-12">-->
-			<!--		<div class="text-center view-all wow fadeInUp" data-wow-delay="0.2s">-->
-			<!--			<a href="categories.html" class="btn btn-dark">View All<i-->
-			<!--					class="ti ti-arrow-right ms-2"></i></a>-->
-			<!--		</div>-->
-			<!--	</div>-->
-			<!--</div>-->
-	<!--	</div>-->
-	<!--</section>-->
-	<!-- /Category Section -->
 		<!-- Feature Section -->
 		<section class="feature-section" >
 
@@ -366,9 +228,6 @@
 					<div class="row align-items-center">
 
 							<h2 class="text-center">What can you list</h2>
-
-
-
 					</div>
 				</div>
 				<h3 class="mb-3 text-center">RECYCLABLES</h3>
@@ -425,19 +284,20 @@
 							</div>
 						</div>
 					</div>
-					<!--<div class="col-6 col-md-6 col-lg-2 mb-3 px-1">-->
-					<!--	<div class="feature-box aos" data-aos="fade-up">-->
-					<!--		<div class="feature-icon">-->
-					<!--			<span>-->
-					<!--				<img src="{{ asset('frontend/assets/img/icons/flower.png') }}" alt="img">-->
-					<!--			</span>-->
-					<!--		</div>-->
-					<!--		<h5>Flower Waste</h5>-->
-					<!--		<div class="feature-overlay">-->
+                    <div class="col-6 col-md-6 col-lg-2 mb-3 px-1">
+						<div class="feature-box aos" data-aos="fade-up">
+							<div class="feature-icon">
+								<span>
+									<img src="{{ asset('frontend/assets/img/icons/ewaste.png') }}" alt="img">
+								</span>
+							</div>
+							<h5>Ewaste</h5>
+							<div class="feature-overlay">
 
-					<!--		</div>-->
-					<!--	</div>-->
-					<!--</div>-->
+							</div>
+						</div>
+					</div>
+
 
 
 				</div>
@@ -470,19 +330,7 @@
 							</div>
 						</div>
 					</div>
-					<!--<div class="col-md-6 col-lg-2">-->
-					<!--	<div class="feature-box aos" data-aos="fade-up">-->
-					<!--		<div class="feature-icon">-->
-					<!--			<span>-->
-					<!--				<img src="{{ asset('frontend/assets/img/icons/glass.png') }}" alt="img">-->
-					<!--			</span>-->
-					<!--		</div>-->
-					<!--		<h5></h5>-->
-					<!--		<div class="feature-overlay">-->
 
-					<!--		</div>-->
-					<!--	</div>-->
-					<!--</div>-->
 						<div class="col-6 col-md-6 col-lg-2 mb-3 px-1">
 						<div class="feature-box aos" data-aos="fade-up">
 							<div class="feature-icon">
@@ -503,13 +351,37 @@
 									<img src="{{ asset('frontend/assets/img/icons/jar.png') }}" alt="img">
 								</span>
 							</div>
-							<h5 style="font-size: 19px;"> Jars and Bottles</h5>
+							<h5 style="font-size: 19px;"> Glass jars and Bottles</h5>
+							<div class="feature-overlay">
+							</div>
+						</div>
+					</div>
+                    			<div class="col-6 col-md-6 col-lg-2 mb-3 px-1">
+						<div class="feature-box aos" data-aos="fade-up">
+							<div class="feature-icon">
+								<span>
+									<img src="{{ asset('frontend/assets/img/icons/bag.png') }}" alt="img">
+								</span>
+							</div>
+							<h5 style="font-size: 19px;">Sacks</h5>
 							<div class="feature-overlay">
 
 							</div>
 						</div>
 					</div>
+					<div class="col-6 col-md-6 col-lg-2 mb-3 px-1">
+						<div class="feature-box aos" data-aos="fade-up">
+							<div class="feature-icon">
+								<span>
+									<img src="{{ asset('frontend/assets/img/icons/blanket.png') }}" alt="img">
+								</span>
+							</div>
+							<h5 style="font-size: 19px;">Product covers(plastic)</h5>
+							<div class="feature-overlay">
 
+							</div>
+						</div>
+					</div>
 
 
 				</div>

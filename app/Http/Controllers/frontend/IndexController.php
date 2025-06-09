@@ -2604,47 +2604,11 @@ public function listings()
     )
     ->select('recyclable_posts.*', 'user_ratings.average_rating');
 
-
-//     if ($user_type === 'consumer') {
-//     $query->where(function ($q) {
-//         // Both Sell & Buy from Contributor
-//         $q->where('user_type', 'consumer')
-//           ->orWhere('user_type', 'sab')
-//           ->orWhere(function ($subQuery) {
-//               // Buy posts from Corporate (Business)
-//               $subQuery->where('user_type', 'business')->where('sale_giveaway', '=', 'Buy');
-//           });
-//     });
-// } elseif ($user_type === 'sab') {
-//     $query->where(function ($q) {
-//         // Sell posts from Contributor
-//         $q->where(function ($subQuery) {
-//             $subQuery->where('user_type', 'consumer')->where('sale_giveaway', '!=', 'Buy');
-//         })
-//         // Both Sell & Buy posts from Resource Collector
-//         ->orWhere('user_type', 'sab')
-//         // Buy posts from Corporate (Business)
-//         ->orWhere(function ($subQuery) {
-//             $subQuery->where('user_type', 'business')->where('sale_giveaway', '=', 'Buy');
-//         });
-//     });
-// }elseif ($user_type === 'business') {
-//     $query->where(function ($q) {
-//         // Sell posts from Resource Collector
-//         $q->where(function ($subQuery) {
-//             $subQuery->where('user_type', 'sab')->where('sale_giveaway', '!=', 'Buy');
-//         })
-//         // Both Buy and Sell posts from Corporate (Business)
-//         ->orWhere('user_type', 'business');
-//     });
-// }
-
-
     $posts = $query->orderBy('id','desc')->paginate(20);
 
 
     $res = Resource::get();
-    //  $weight = Weight::orderByRaw('CAST(min_weight AS UNSIGNED) ASC')->get();
+
     $weight = Weight::orderByRaw("
     CASE
         WHEN min_measure = 'kg' THEN 1
