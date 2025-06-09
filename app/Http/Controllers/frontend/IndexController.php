@@ -2268,7 +2268,7 @@ return redirect()->to($redirectTo); // ✅ Ensures a valid response
             $userActivity->save();
         }
 
-        return view('frontend/userdetails/recyclablepostadd', compact('users', 'user_id', 'resources', 'weights', 'breadcrumbimage'));
+        return view('frontend/userdetails/recyclablepostadd', compact('user_type', 'users', 'user_id', 'resources', 'weights', 'breadcrumbimage'));
     }
 //       public function recyclable_post_save(Request $request)
 //     {
