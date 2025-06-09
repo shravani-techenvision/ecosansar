@@ -41,8 +41,20 @@
                                     <span class="user rounded-circle avatar avatar-xxl mb-2">
                                         <img src="{{asset('frontend/assets/img/user.png') }}" class="img-fluid rounded-circle" alt="Img">
                                     </span>
-                                    <h6 class="mb-2">{{$users->name}}</h6>
-
+                                     <h6 class="mb-2">{{strtoupper($users->name)}}</h6>
+                                   <span class="mb-2">
+                                      (
+                                      @if($users->user_type == 'sab')
+                                        {{ strtoupper('collection agent') }}
+                                      @elseif($users->user_type == 'business')
+                                        {{ strtoupper('corporate') }}
+                                      @elseif($users->user_type == 'consumer')
+                                        {{ strtoupper('contributor') }}
+                                      @else
+                                        {{ strtoupper('unknown') }}
+                                      @endif
+                                      )
+                                    </span>
                                 </div>
                             </div>
 							<div class="card-body user-sidebar-body p-0">
