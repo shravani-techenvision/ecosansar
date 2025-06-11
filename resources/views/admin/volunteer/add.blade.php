@@ -24,7 +24,7 @@ User Add
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label" for="formrow-password-input">Name<span style="color:red;">*</span></label>
+                                            <label class="form-label" for="formrow-password-input">Name</label>
                                             <input type="text" class="form-control" name="name" id="name" placeholder="Name" value="@if(isset($category->name)){{ $category->name }}@else{{ old('name')}}@endif">
                                             @if ($errors->has('name'))
                                                 <span class="text-danger">{{ $errors->first('name') }}</span>
@@ -33,7 +33,7 @@ User Add
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label" for="formrow-password-input">Email<span style="color:red;">*</span></label>
+                                            <label class="form-label" for="formrow-password-input">Email</label>
                                             <input type="email" class="form-control" name="email" id="email" placeholder="Email" value="@if(isset($category->email)){{ $category->email }}@else{{ old('email')}}@endif">
                                             @if ($errors->has('email'))
                                                 <span class="text-danger">{{ $errors->first('email') }}</span>
@@ -42,7 +42,7 @@ User Add
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label" for="formrow-password-input">Password<span style="color:red;">*</span></label>
+                                            <label class="form-label" for="formrow-password-input">Password</label>
                                             <input type="password" class="form-control" name="password" id="password" placeholder="Password" >
                                             @if ($errors->has('password'))
                                                 <span class="text-danger">{{ $errors->first('password') }}</span>
@@ -51,10 +51,10 @@ User Add
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label" for="formrow-password-input">Image<span style="color:red;">*</span></label><br>
+                                            <label class="form-label" for="formrow-password-input">Image</label><br>
                                              @if(isset($category->image))
                                                <img src="{{ Storage::disk('s3')->url('VolunteerImages/' . $category->image) }}" alt="Post Image" class="mb-2" style="width: 100px; height: 100px;">
-                                           
+
                                         @else
                                             <p>No profile image available.</p>
                                         @endif

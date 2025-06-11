@@ -27,19 +27,19 @@ class AdminController extends Controller
   public function usercontact(){
     $result = UserContact::orderBy('id','desc')
     ->get();
-    
-    return view('admin/usertype/usercontactlist',compact('result'));  
-  } 
+
+    return view('admin/usertype/usercontactlist',compact('result'));
+  }
   public function businesslist(){
-      
+
     $result = EcosansarUsers::where('user_type','business')->where('is_delete','0')
     ->orderBy('id','desc')
     ->get();
     $plans = SubscriptionModule::where('active',1)->get();
-    
+
     return view('admin/usertype/businesslist',compact('result','plans'));
   }
-  
+
    public function businessassignplan(Request $request){
        $request->validate([
         'user_id' => 'required|exists:ecosansar_users,id',
@@ -48,7 +48,7 @@ class AdminController extends Controller
 
     // Find the user
     $user = EcosansarUsers::find($request->user_id);
- 
+
     if (!$user) {
         return redirect()->back()->with('error', 'User not found.');
     }
@@ -59,8 +59,8 @@ class AdminController extends Controller
     $planPrice = $plan->plan_price;
  // Convert plan validity (months) to days. You can adjust the number of days per month if needed (e.g., 30 or 31 days per month)
     $daysInMonth = 30; // Assume 30 days in a month (you can adjust this if needed)
-     $validityInDays = $request->plan_validity * $daysInMonth; 
-     
+     $validityInDays = $request->plan_validity * $daysInMonth;
+
    try {
     // Store the plan history in plan_history table
     PlanHistory::create([
@@ -76,21 +76,21 @@ class AdminController extends Controller
     return redirect()->back()->with('error', 'Error saving plan history: ' . $e->getMessage());
 }
 
-    
+
     // Assign the selected plan to the user
     $user->plan = $request->plan;
     $user->plan_expiration_date = Carbon::now()->addDays($validityInDays); // Example: 30-day expiration
-    
+
     // Check if the plan expiration date is in the past, and deactivate the user
     if ($user->plan_expiration_date < Carbon::now()) {
         $user->status = 0;  // You can change 'inactive' to any status field you have
     } else {
         $user->status = 1;  // Set status to active if the plan is still valid
     }
-    
+
     $user->save();
-    
-    
+
+
 // Determine the redirect route based on user_type
     $redirectRoute = null;
    // Redirect based on user_type
@@ -111,23 +111,23 @@ if ($redirectRoute === null) {
 }
     return redirect()->route($redirectRoute)->with('success', 'Plan assigned successfully.');
    }
-  
+
   public function edituser($id){
     $url = route('user.updateuser', $id);
-    
+
     $user = EcosansarUsers::where('id',$id)->first();
     // echo "<pre>";
     // print_r($user);
     // die;
     return view('admin/usertype/adduser',compact('url','user' ));
    }
-   
+
    public function updateuser(Request $req, $id){
-       
+
     // echo "<pre>";
     // print_r($req->all());
     // die;
-       
+
     $req->validate([
         'name' => 'required',
         'user_type' => 'required',
@@ -137,20 +137,20 @@ if ($redirectRoute === null) {
             'type_of_residences' => 'required',
              //'email' => 'required',
     ]);
-    
+
     $user = EcosansarUsers::find($id);
     $user->name = $req->name;
     $user->user_type = $req->user_type;
     $user->mobile = $req->mobile;
     $user->address = $req->address;
     $user->pincode = $req->pincode;
-    
+
     $user->type_of_residences = $req->type_of_residences;
     $user->email = $req->email;
     $user->save();
-    
+
     Alert::success('success','User Updated Successfully');
-    
+
     if($user->user_type == 'business'){
         return redirect()->route('user.businesslist');
     }elseif($user->user_type == 'consumer'){
@@ -158,15 +158,15 @@ if ($redirectRoute === null) {
     }elseif($user->user_type == 'sab'){
          return redirect()->route('user.sablist');
     }
-    
+
    }
-   
+
    public function deleteuser($id){
-       
+
     $result = EcosansarUsers::where('id', $id)->first();
     $result->is_delete = '1';
     $result->save();
-    
+
     Alert::success('success','User delete Successfully');
     if($result->user_type == 'business'){
         return redirect()->route('user.businesslist');
@@ -175,9 +175,9 @@ if ($redirectRoute === null) {
     }elseif($result->user_type == 'sab'){
          return redirect()->route('user.sablist');
     }
-    
+
   }
-  
+
   public function sablist(){
     $result = EcosansarUsers::where('user_type','sab')->where('is_delete','0')
     ->orderBy('id','desc')->get();
@@ -205,14 +205,14 @@ if ($redirectRoute === null) {
     return view('admin/usertype/businessview')->with($data);
   }
   public function sabview($id){
-    $users = EcosansarUsers:: 
+    $users = EcosansarUsers::
     select('ecosansar_users.*' )
         ->where('ecosansar_users.id', $id)->first();
     $data=compact('users');
     return view('admin/usertype/sabview')->with($data);
   }
   public function consumerview($id){
-    $users = EcosansarUsers:: 
+    $users = EcosansarUsers::
     select('ecosansar_users.*' )
         ->where('ecosansar_users.id', $id)->first();
     $data=compact('users');
@@ -220,7 +220,7 @@ if ($redirectRoute === null) {
   }
   public function recyclableposts(){
     $result = RecyclablePost::where('active',1)->orderBy('id','desc')->get();
-   
+
     return view('admin/usertype/recyclablepostslist',compact('result'));
   }
   public function reusableposts(){
@@ -237,13 +237,13 @@ if ($redirectRoute === null) {
         ->join('weights', 'recyclable_posts.quantity', '=', 'weights.id')
       ->select('recyclable_posts.*', 'resources.resource_name','weights.min_weight', 'weights.min_measure', 'weights.max_weight','weights.max_measure')
       ->where('recyclable_posts.id', $id)->first();
-    
+
     $data=compact('users');
     return view('admin/usertype/recyclablepostsview')->with($data);
   }
   public function reusablepostsview($id){
-       
-    $users = ReusablePost:: 
+
+    $users = ReusablePost::
        join('resources', 'resources.id', 'reusable_posts.resource_type')
         ->join('weights', 'reusable_posts.quantity', '=', 'weights.id')
       ->select('reusable_posts.*', 'resources.resource_name','weights.min_weight', 'weights.min_measure', 'weights.max_weight', 'weights.max_measure')
@@ -253,14 +253,14 @@ if ($redirectRoute === null) {
     return view('admin/usertype/reusablepostsview')->with($data);
   }
   public function consumerpostsview($id){
-      
+
     $users = ConsumerPost::join('consumer_resource_posts', 'consumer_resource_posts.post_id', 'consumer_posts.id')
        ->join('resources', 'resources.id', 'consumer_resource_posts.resource_type')
         ->join('weights', 'consumer_posts.quantity', '=', 'weights.id')
         ->select('consumer_posts.*', 'resources.resource_name','weights.min_weight', 'weights.min_measure', 'weights.max_weight', 'weights.max_measure','consumer_resource_posts.resource_img')
         ->where('consumer_posts.id', $id)
         ->first();
-        
+
     $data=compact('users');
     return view('admin/usertype/consumerpostsview')->with($data);
   }
@@ -278,9 +278,9 @@ if ($redirectRoute === null) {
     ->get();
     return view('admin/usertype/reusablereview',compact('result'));
   }
-  
+
   public function consumerpostreportlist(){
-      
+
     // $result = EcosansarUsers::where('user_type','business')->where('is_delete','0')
     // ->orderBy('id','desc')
     // ->get();
@@ -290,14 +290,14 @@ if ($redirectRoute === null) {
         ->select('consumer_posts.*','ecosansar_users.name as username','resources.resource_name')
         //->where('consumer_posts.active','1')
         ->get();
-         
+
       $data=compact('result');
-    
+
     return view('admin/usertype/consumerpostreportlist')->with($data);
   }
-  
+
   public function shortconsumerReportList(Request $request) {
-      
+
        $request->validate([
         'start_date' => 'required',
         'end_date' => 'required',
@@ -316,28 +316,28 @@ if ($redirectRoute === null) {
         ->get();
 
     $data = compact('result');
-    
+
     return view('admin.usertype.consumerpostreportlist')->with($data);
 }
-  
-  
-  
+
+
+
   public function reusablepostreportlist(){
-      
+
      $result = ReusablePost::join('ecosansar_users','ecosansar_users.id','reusable_posts.user_id')
         ->join('resources', 'resources.id', 'reusable_posts.resource_type')
         ->select('reusable_posts.*','ecosansar_users.name as username','resources.resource_name')
         ->get();
-        
+
        // print_r($result);
-         
+
       $data=compact('result');
-    
+
     return view('admin/usertype/reusablepostreportlist')->with($data);
   }
-  
+
   public function shortreusableReportList(Request $request) {
-      
+
        $request->validate([
         'start_date' => 'required',
         'end_date' => 'required',
@@ -355,37 +355,37 @@ if ($redirectRoute === null) {
         ->get();
 
     $data = compact('result');
-    
+
     return view('admin.usertype.reusablepostreportlist')->with($data);
 }
-  
+
   public function recyclablepostreportlist(){
-      
-      
-    
+
+
+
     $result = RecyclablePost::join('ecosansar_users', 'ecosansar_users.id', '=', 'recyclable_posts.user_id')
-    
+
     ->join('resources', 'resources.id', '=', 'recyclable_posts.resource_type')
     ->select('recyclable_posts.*', 'ecosansar_users.name as username', DB::raw('GROUP_CONCAT(resources.resource_name SEPARATOR ", ") as resource_names'))
     ->groupBy('recyclable_posts.id', 'recyclable_posts.user_id','ecosansar_users.name')
     ->get();
-    
+
     // echo "<pre>";
     // print_r($result);
     // die;
-         
+
       $data=compact('result');
-    
+
     return view('admin/usertype/recyclablepostreportlist')->with($data);
   }
-  
+
   public function shortrecyclableReportList(Request $request) {
-      
+
        $request->validate([
         'start_date' => 'required',
         'end_date' => 'required',
        ]);
-       
+
     // Ensure that startdate and enddate are provided, otherwise use default values
      $startDate = $request->start_date;
    $endDate = $request->end_date;
@@ -399,26 +399,26 @@ if ($redirectRoute === null) {
         ->get();
 
     $data = compact('result');
-    
+
     return view('admin.usertype.recyclablepostreportlist')->with($data);
 }
-  
-  
+
+
   public function activityreportlist(){
-      
+
      $result = UserActivityLog::join('ecosansar_users','ecosansar_users.id','user_activity_logs.user_id')
     //   ->join('business_resource_posts', 'business_resource_posts.post_id', 'business_posts.id')
         // ->join('resources', 'resources.id', 'business_resource_posts.resource_type')
         ->select('user_activity_logs.*','ecosansar_users.name as username')
         ->get();
-        
+
       $data=compact('result');
-    
+
     return view('admin/usertype/activityreportlist')->with($data);
   }
-  
+
   public function shortActivityReportList(Request $request) {
-      
+
        $request->validate([
         'start_date' => 'required',
         'end_date' => 'required',
@@ -435,7 +435,7 @@ if ($redirectRoute === null) {
 
     // Pass the result to the view
     $data = compact('result');
-    
+
     return view('admin.usertype.activityreportlist')->with($data);
 }
 
@@ -446,14 +446,9 @@ if ($redirectRoute === null) {
    public function volunteeradd(){
         $url = route('volunteer.save');
         return view('admin/volunteer/add',compact('url'));
-   }  
+   }
   public function volunteersave(Request $req){
-    $req->validate([
-        'name' => 'required',
-        'email' => 'required',
-        'password' => 'required'
-    ]);
-     
+
     $category = new Volunteer();
     $category->name = $req->name;
      $category->email = $req->email;
@@ -479,7 +474,7 @@ if ($redirectRoute === null) {
         }
     }
 
-            
+
     $category->save();
     Alert::success('success','Volunteer Added Successfully');
     return redirect()->route('volunteer.list');
@@ -490,11 +485,7 @@ if ($redirectRoute === null) {
     return view('admin/volunteer/add',compact('url','category'));
    }
    public function volunteerupdate(Request $req, $id){
-    $req->validate([
-        'name' => 'required',
-         'email' => 'required',
-         
-    ]);
+
     $category = Volunteer::find($id);
     $category->name = $req->name;
     $category->email = $req->email;
@@ -527,7 +518,7 @@ if ($redirectRoute === null) {
     Alert::success('success','Volunteer Updated Successfully');
     return redirect()->route('volunteer.list');
    }
-  
+
   public function volunteerdelete($id)
    {
         Volunteer::where('id',$id)->delete();
@@ -555,14 +546,14 @@ if ($redirectRoute === null) {
     $req->validate([
         'first_name' => 'required',
     ]);
-     
+
     $adminuser = new User();
     $adminuser->first_name = $req->first_name;
     $adminuser->last_name = $req->last_name;
     $adminuser->email = $req->email;
     $adminuser->password = Hash::make($req->password);
     $adminuser->type = 'admin';
-    
+
      if ($req->hasFile('profile_pic')) {
         $imageFile = $req->file('profile_pic');
         $imageName = time() . '.' . $imageFile->getClientOriginalExtension();
@@ -589,7 +580,7 @@ if ($redirectRoute === null) {
         join('resources', 'resources.id', '=', 'recyclable_posts.resource_type')
          ->join('weights', 'recyclable_posts.quantity', '=', 'weights.id')
       ->select('recyclable_posts.*', 'resources.resource_name','weights.min_weight', 'weights.min_measure', 'weights.max_weight','weights.max_measure')
-        
+
         ->where('request_fulfilled', 1)
         ->get()
         ->map(function ($item) {
@@ -601,19 +592,19 @@ if ($redirectRoute === null) {
         join('resources', 'resources.id', '=', 'reusable_posts.resource_type')
          ->join('weights', 'reusable_posts.quantity', '=', 'weights.id')
       ->select('reusable_posts.*', 'resources.resource_name','weights.min_weight', 'weights.min_measure', 'weights.max_weight','weights.max_measure')
-        
+
         ->where('request_fulfilled', 1)
         ->get()
         ->map(function ($item) {
             $item->source = 'reusable';
             return $item;
         });
-       
+
 
         $combinedPosts = $recyclablePosts->concat($reusablePosts);
-         
+
         return view('admin/requestfulfilled/list', compact('combinedPosts'));
 
    }
-  
+
 }
