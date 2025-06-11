@@ -50,12 +50,12 @@
     color: #000;
 }
 
-</style> 
+</style>
 </head>
 <!-- Breadcrumb -->
 		<div class="breadcrumb-bar text-center"
 			style="background-image: url('{{ $breadcrumbimage ? Storage::disk('s3')->url("Breadcrumbimage/" . $breadcrumbimage->breadcrumb_image) : asset("frontend/assets/img/bg/default.png") }}');
-            background-size: cover; 
+            background-size: cover;
             background-position: center;">
 			<div class="container">
 				<div class="row">
@@ -77,7 +77,7 @@
 			</div>
 		</div>
 		<!-- /Breadcrumb -->
-		
+
 	<!-- Page Wrapper -->
 		<div class="page-wrapper">
 			<div class="content">
@@ -96,7 +96,7 @@
 								</div>
 							</div>
 						</div>
-                                                                     
+
                         <div class="col-md-2">
                             <button class="btn btn-lg btn-linear-primary w-50  " onclick="searchNearby()">Search</button>
                         </div>
@@ -111,7 +111,7 @@
     <button class="btn btn-lg btn-linear-primary" onclick="applyFilter(40)">40 KM</button>
 </div>
                     </div>
-     
+
 					 <!-- Map Div -->
 <div id="map" style="height: 500px; width: 100%; margin-top: 20px;z-index: 1;"></div>
                         <hr>
@@ -124,10 +124,10 @@
     </div>
   </div>
 
- 
+
             <div class="col-md-6 d-flex flex-column align-items-center justify-content-center">
- 
- 
+
+
                  <a href="{{url('/')}}"> <button class="btn btn-lg btn-linear-primary w-100 w-md-50 mt-4" type="submit">Homepage<i class="feather-arrow-right-circle ms-2"></i></button></a>
             </div>
 
@@ -138,7 +138,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 @include('frontend.include.footer')
 <!-- Leaflet JS -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -198,7 +198,6 @@ function pinUsersOnMap(users) {
         const marker = L.marker([lat, lng]).addTo(map)
             .bindPopup(`
                 <b>${user.name}</b><br>
-                Type: ${user.user_type}<br>
                 Address: ${user.address}<br>
                 Mobile: ${user.mobile}<br>
                 Pincode: ${user.pincode}<br>
@@ -225,7 +224,7 @@ function applyFilter(radius) {
     pinUsersOnMap(filteredUsers);
 }
 
- 
+
 
 $(document).ready(function () {
     initMap();
@@ -247,4 +246,3 @@ $(document).ready(function () {
       }
     }
 </script>
- 
