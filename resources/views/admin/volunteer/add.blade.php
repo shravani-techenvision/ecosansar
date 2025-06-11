@@ -66,7 +66,7 @@ User Add
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label" for="formrow-password-input">Description<span style="color:red;">*</span></label>
+                                            <label class="form-label" for="formrow-password-input">Description</label>
                                             <textarea class="form-control" name="description" id="description" placeholder="Description"  >@if(isset($category->description)){{ $category->description }}@else{{ old('description')}}@endif</textarea>
                                             @if ($errors->has('description'))
                                                 <span class="text-danger">{{ $errors->first('description') }}</span>
