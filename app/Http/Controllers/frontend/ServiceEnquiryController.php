@@ -46,8 +46,7 @@ class ServiceEnquiryController extends Controller
             'type_of_service' => $req->type_of_service,
         ];
 
-        //$data["email"] = "ecosansar@yahoo.com";
-         $data["email"] = "userfortesting456@gmail.com";
+        $data["email"] = "ecosansar@yahoo.com";
         // $data["title"] = "IIV India Registered Valuers Foundation | Payment Success | Thank you";
         $data["title"] =  "Enquiry from ".$req->name;
 
