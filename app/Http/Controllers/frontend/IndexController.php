@@ -1413,7 +1413,7 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
 
             'name' =>  $req->name,
             // 'email' => 'ecosansar@yahoo.com',
-            'email' => 'ecosansar@yahoo.com',
+            'email' => 'support@ecosansar.com',
             'useremail' => $req->email,
             'phone' => $req->phone_no,
             'sub' => $req->subject,
@@ -1474,8 +1474,34 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
             $contact->other_service = $req->other_service;
          }
         $contact->save();
-        Session::flash('success', 'Contact Details Sent Successfully');
-        return redirect()->back();
+       $data = [
+
+            'name' =>  $req->name,
+            // 'email' => 'ecosansar@yahoo.com',
+            'email' => 'userfortesting456@gmail.com',
+
+            'phone' => $req->phone_no,
+            'location' => $req->location,
+            'pincode' => $req->pincode,
+            ];
+
+
+            $data["title"] =  "New contact from repair map form";
+
+            // Render the email body using the Blade view
+            $body = view('frontend.mail.repairmapmail', $data)->render();
+
+            // Try sending the email
+            try {
+                // Call your mailer service to send the email
+                $response = $this->mailerService->sendEmail($data['email'], $data['title'], $body, $data);
+
+                Session::flash('success', 'Contact Details Sent Successfully');
+                return redirect()->back();
+            } catch (\Exception $e) {
+                // If there is any exception, redirect with failure message
+                return redirect()->back()->with('error', 'Failed to send email. Please try again later.');
+            }
     }
     public function user_register()
     {
