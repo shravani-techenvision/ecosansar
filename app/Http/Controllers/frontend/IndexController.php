@@ -1478,7 +1478,7 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
 
             'name' =>  $req->name,
             // 'email' => 'ecosansar@yahoo.com',
-            'email' => 'userfortesting456@gmail.com',
+            'email' => 'support@ecosansar.com',
 
             'phone' => $req->phone_no,
             'location' => $req->location,
