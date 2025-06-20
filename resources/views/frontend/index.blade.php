@@ -570,7 +570,7 @@
 </a>
 
                 <div class="fav-item">
-                    <a href="#"><span class="item-cat">{{ $post->resource->resource_name ?? '' }}</span></a>
+                    <a href="#"><span class="item-cat">{{ $post->resource->reusable_resource_name ?? '' }}</span></a>
                     <!--<a href="javascript:void(0)" class="fav-icon">-->
                     <!--    <i class="feather-heart"></i>-->
                     <!--</a>-->
