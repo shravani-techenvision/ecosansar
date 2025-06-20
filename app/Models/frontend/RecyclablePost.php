@@ -6,10 +6,11 @@ use App\Models\admin\Weight;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class RecyclablePost extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
     public function resource()
 {
     return $this->belongsTo(Resource::class, 'resource_type', 'id');
@@ -23,7 +24,7 @@ public function user()
     {
         return $this->belongsTo(EcosansarUsers::class);
     }
- 
+
 
 
 
