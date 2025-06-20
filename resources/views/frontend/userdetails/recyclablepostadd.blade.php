@@ -96,7 +96,7 @@
                                                                         <div class="card p-4">
                                                                             <div class="row g-3">
                                                                                 <div class="col-md-12">
-                                                                                    <p  >Let's find out if a Collection Agent has registered here from your area</p>
+                                                                                    <p  >Lets find out if a Collection Agent has registered here from your area</p>
                                                                                     <input
                                                                                         type="text"
                                                                                         class="form-control"
@@ -277,15 +277,11 @@
                                                                 </div>
                                                                 </div>
                                                                 @endif
-
+                                                                 @if ( $user_type == 'consumer' )
                                                                 <div id="full-form-section" style="display: none;">
                                                                     <!--<h4 class="text-center mt-4 mb-4">👉 To list or find self pickups - just get started!</h4>-->
                                                                       <h4 class="text-center mt-4 mb-4">Yay! Your request could get serviced! Get started!</h4>
                                                                 <div class="row g-4">
-
-
-
-
                                                                     <div class="col-md-6">
                                                                         <label class="form-label">Do you want to <span
                                                                                 class="text-danger">*</span></label>
@@ -430,6 +426,7 @@
                                                                     </div>
                                                                 </div>
                                                                 </div>
+                                                                @endif
                                                             </div>
                                                         </div>
                                                     </div>
