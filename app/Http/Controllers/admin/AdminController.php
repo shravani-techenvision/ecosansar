@@ -223,9 +223,21 @@ if ($redirectRoute === null) {
 
     return view('admin/usertype/recyclablepostslist',compact('result'));
   }
+   public function recyclablepostsdelete($id){
+    $posts = RecyclablePost::find($id);
+     $posts->delete();
+     Alert::success('success','Post Deleted Successfully');
+        return redirect()->route('user.recyclableposts');
+  }
   public function reusableposts(){
     $result = ReusablePost::where('active',1)->orderBy('id','desc')->get();
     return view('admin/usertype/reusablepostslist',compact('result'));
+  }
+   public function reusablepostsdelete($id){
+    $posts = ReusablePost::find($id);
+     $posts->delete();
+     Alert::success('success','Post Deleted Successfully');
+        return redirect()->route('user.reusableposts');
   }
   public function consumerposts(){
     $result = ConsumerPost::orderBy('id','desc')->get();

@@ -52,7 +52,7 @@ Route::controller(IndexController::class)->group(function(){
      Route::get('blog-detail/{slug}','blog_detail')->name('blog.detail');
      Route::get('/blog/category/{slug}', 'categoryBlogs')->name('blog.category');
     Route::get('/blog/tag/{slug}', 'tagBlogs')->name('blog.tag');
-       
+
        Route::get('contact','contact')->name('contact');
          Route::get('faq','faq')->name('faq');
     Route::get('howitsworks','howitsworks')->name('howitsworks');
@@ -65,25 +65,25 @@ Route::controller(IndexController::class)->group(function(){
           Route::get('/terms_conditions', 'terms_conditions')->name('terms_conditions');
         Route::post('repair_contact_store','repair_contact_store')->name('repair_contact_store');
     Route::get('listings','listings')->name('listings');
-    
+
     Route::get('consumer_login', 'consumer_login')->name('consumer_login');
     //Route::post('send_otp','sendOtp')->name('send_otp');
-    
+
     Route::post('resendOtp','resendOtp')->name('resend_Otp');
-    
+
     Route::get('register_otp/{id}', 'register_otp')->name('register_otp');
      Route::get('activate_otp/{id}', 'activate_otp')->name('activate_otp');
-    
+
     Route::get('loginverify_otp/{id}', 'loginverify_otp')->name('loginverify_otp');
 
     Route::post('/verify-otp', 'verifyOtp')->name('verify.otp');
      Route::post('/activate-verify-otp', 'activateverifyOtp')->name('activateverify.otp');
 Route::get('/whatsapp/share', 'shareOnWhatsApp')->name('whatsapp.share');
     Route::post('consumer_store','consumer_store')->name('consumer.store');
-    
+
     Route::get('recyclable_add_post','recyclable_add_post')->name('recyclable_add_post');
     Route::post('recyclable_post_save','recyclable_post_save')->name('recyclable_post_save');
-    
+
     Route::get('recyclable_listing_details/{id}','recyclable_listing_details')->name('recyclable_listing_details');
      Route::get('recyclable_post_filter','recyclable_post_filter')->name('recyclable_post_filter');
      Route::get('/recyclable-post-sort', 'recyclable_post_sort')->name('recyclable_post_sort');
@@ -97,9 +97,9 @@ Route::get('/whatsapp/share', 'shareOnWhatsApp')->name('whatsapp.share');
 
 Route::post('/check-contact', 'checkContact')->name('check.contact');
     Route::get('user_register', 'user_register')->name('user_register');
-   
-    
-    
+
+
+
     Route::get('/user_logout', 'signOut')->name('user_logout');
      Route::get('user_deactivate', 'user_deactivate')->name('user.user_deactivate');
       Route::get('user_activate/{id}', 'user_activate')->name('user.user_activate');
@@ -117,7 +117,7 @@ Route::controller(ReusableController::class)->group(function(){
      Route::get('reusable_post_filter','reusable_post_filter')->name('reusable_post_filter');
      Route::get('/reusable-post-sort', 'reusable_post_sort')->name('reusable_post_sort');
      Route::get('reusable_listing_details/{id}','reusable_listing_details')->name('reusable_listing_details');
-     
+
      Route::post('reusable_enquiry_save','reusable_enquiry_save')->name('reusable_enquiry_save');
       Route::get('get_reusable_post_details','get_reusable_post_details')->name('get_reusable_post_details');
       Route::post('review/reusablereviewsave','reusablereviewsave')->name('review.reusablereviewsave');
@@ -144,18 +144,18 @@ Route::controller(EnquiryController::class)->group(function(){
 
 });
 Route::controller(BlogDetailController::class)->group(function(){
-    
+
 
     Route::post('comment/save', 'save')->name('comment.save');
     Route::post('/comment/reply', 'saveReply')->name('comment.savereply');
-    
+
     Route::get('user_blog_add', 'user_blog_add')->name('user_blog_add');
     Route::post('user_blog/save', 'user_blog_save')->name('user_blog.save');
 });
 
 Route::controller(ServiceEnquiryController::class)->group(function(){
     Route::post('service_enquiry/save', 'service_enquiry_save')->name('service_enquiry.save');
-    
+
 });
 Route::controller(PincodeCheckController::class)->group(function(){
   Route::post('/check-pincode', 'checkPincode')->name('check-pincode');
@@ -184,7 +184,9 @@ Route::post('/changepassword_store', [App\Http\Controllers\admin\AuthController:
 
 Route::controller(AdminController::class)->group(function(){
     Route::get('user/recyclableposts','recyclableposts')->name('user.recyclableposts');
+     Route::get('user/recyclableposts/delete/{id}','recyclablepostsdelete')->name('recyclableposts.delete');
     Route::get('user/reusableposts','reusableposts')->name('user.reusableposts');
+     Route::get('user/reusableposts/delete/{id}','reusablepostsdelete')->name('reusableposts.delete');
     Route::get('user/recyclablepostsview/{id}','recyclablepostsview')->name('user.recyclablepostsview');
     Route::get('user/reusablepostsview/{id}','reusablepostsview')->name('user.reusablepostsview');
     Route::get('user/recyclablereviews','recyclablereviews')->name('user.recyclablereviews');
@@ -197,7 +199,7 @@ Route::controller(AdminController::class)->group(function(){
     Route::post('volunteer/update/{id}','volunteerupdate')->name('volunteer.update');
     Route::get('volunteer/delete/{id}','volunteerdelete')->name('volunteer.delete');
      Route::get('/volunteerchangeStatus', 'volunteerchangeStatus')->name('user.volunteerchangeStatus');
-    
+
     Route::get('user/businesslist','businesslist')->name('user.businesslist');
     Route::get('/changeStatus', 'changeStatus')->name('user.changeStatus');
      Route::post('user/businessassignplan','businessassignplan')->name('user.businessassignplan');
@@ -210,19 +212,19 @@ Route::controller(AdminController::class)->group(function(){
     Route::get('user/reusablepostreportlist','reusablepostreportlist')->name('user.reusablepostreportlist');
     Route::post('shortrecyclableReportList','shortrecyclableReportList')->name('user.shortrecyclableReportList');
      Route::post('shortreusableReportList','shortreusableReportList')->name('user.shortreusableReportList');
-    
+
     Route::get('user/usercontact','usercontact')->name('user.usercontact');
      Route::get('user/delete/{id}','deleteuser')->name('user.deleteuser');
-    
+
      Route::post('user/update/{id}','updateuser')->name('user.updateuser');
-     
+
      Route::get('user/consumerpostreportlist','consumerpostreportlist')->name('user.consumerpostreportlist');
      Route::post('shortconsumerReportList','shortconsumerReportList')->name('user.shortconsumerReportList');
       Route::get('user/activityreportlist','activityreportlist')->name('user.activityreportlist');
       Route::post('shortactivityreportlist','shortactivityreportlist')->name('user.shortactivityreportlist');
        Route::get('user/requestfulfilledlist','requestfulfilledlist')->name('user.requestfulfilledlist');
-     
-     
+
+
 });
 
 Route::controller(ContactController::class)->group(function(){
@@ -259,7 +261,7 @@ Route::controller(ServiceController::class)->group(function(){
     Route::get('service/edit/{id}','edit')->name('service.edit');
     Route::post('service/update/{id}','update')->name('service.update');
     Route::get('service/delete/{id}','delete')->name('service.delete');
-    
+
     Route::get('service_enquiry/list','service_enquiry')->name('service_enquiry.list');
 });
 
@@ -317,7 +319,7 @@ Route::controller(PincodeController::class)->group(function(){
     Route::get('pincode/edit/{id}','edit')->name('pincode.edit');
     Route::post('pincode/update/{id}','update')->name('pincode.update');
     Route::get('pincode/delete/{id}','delete')->name('pincode.delete');
-   
+
     Route::get('unavailablepincode/list','unavaillist')->name('pincode.unavaillist');
 });
 Route::controller(GoogleAdsenseController::class)->group(function(){
@@ -336,14 +338,14 @@ Route::controller(BlogController::class)->group(function(){
         Route::get('blog_category_edit/{id}','blog_category_edit')->name('blog.blog_category_edit');
         Route::post('blog_category_update/{id}','blog_category_update')->name('blog.blog_category_update');
         Route::get('blog_category_delete/{id}','blog_category_delete')->name('blog.blog_category_delete');
-        
+
         Route::get('blog_tag_list','blog_tag_list')->name('blog.blog_tag_list');
         Route::get('blog_tag_add','blog_tag_add')->name('blog.blog_tag_add');
         Route::post('blog_tag_save','blog_tag_save')->name('blog.blog_tag_save');
         Route::get('blog_tag_edit/{id}','blog_tag_edit')->name('blog.blog_tag_edit');
         Route::post('blog_tag_update/{id}','blog_tag_update')->name('blog.blog_tag_update');
         Route::get('blog_tag_delete/{id}','blog_tag_delete')->name('blog.blog_tag_delete');
-        
+
         Route::get('admin_blog_list','blog_list')->name('admin_blog_list');
         Route::get('admin_blog_add','blog_add')->name('admin_blog_add');
         Route::post('admin_blog_save','blog_save')->name('admin_blog_save');
@@ -352,12 +354,12 @@ Route::controller(BlogController::class)->group(function(){
         Route::get('admin_blog_delete/{id}','blog_delete')->name('admin_blog_delete');
         Route::get('admin_blog_view/{id}','blog_view')->name('admin_blog_view');
         Route::get('/admin_changeBlogStatus','changeBlogStatus')->name('admin_changeBlogStatus');
-        
+
         Route::get('comment_list','comment_list')->name('blog.comment_list');
         Route::get('/changeCommentStatus','comment_status_update')->name('changeCommentStatus');
         Route::get('comment_reply_list','comment_reply_list')->name('blog.comment_reply_list');
         Route::get('/changeCommentReplyStatus','commentreply_status_update')->name('changeCommentReplyStatus');
-        
+
          Route::post('/upload-image','upload')->name('upload.image');
 });
 });
@@ -367,10 +369,10 @@ Route::get('adminuser/list','adminuserlist')->name('adminuser.list');
 Route::get('adminuser/add','adminuseradd')->name('adminuser.add');
  });
  Route::get('/changeAdminStatus',[App\Http\Controllers\admin\AuthController::class, 'changeAdminStatus'])->name('changeAdminStatus');
-   
-    
+
+
 Route::controller(SubscriptionModuleController::class)->group(function(){
-    Route::get('subscription/list','list')->name('subscription.list');  
+    Route::get('subscription/list','list')->name('subscription.list');
     Route::get('subscription/add', 'add')->name('subscription.add');
     Route::post('subscription/save','save')->name('subscription.save');
     Route::get('subscription/edit/{id}','edit')->name('subscription.edit');
@@ -379,15 +381,15 @@ Route::controller(SubscriptionModuleController::class)->group(function(){
     Route::get('/changeSubscriptionStatus','changeSubscriptionStatus')->name('changeSubscriptionStatus');
 });
 Route::controller(PlanValidity::class)->group(function(){
-    Route::get('planvalidity/list','list')->name('planvalidity.list');  
+    Route::get('planvalidity/list','list')->name('planvalidity.list');
     Route::get('planvalidity/add', 'add')->name('planvalidity.add');
-     
+
 });
 });
 
 Route::middleware(['auth:volunteer'])->group(function () {
     Route::get('/volunteer_dashboard', [App\Http\Controllers\admin\AuthController::class, 'volunteer_dashboard'])->name('volunteer_dashboard');
-    
+
     Route::controller(BlogController::class)->group(function(){
         Route::get('volunteer_blog_category_list','blog_category_list')->name('blog.volunteer_blog_category_list');
         Route::get('volunteer_blog_category_add','blog_category_add')->name('blog.volunteer_blog_category_add');
@@ -395,14 +397,14 @@ Route::middleware(['auth:volunteer'])->group(function () {
         Route::get('blog_category_edit/{id}','blog_category_edit')->name('blog.blog_category_edit');
         Route::post('blog_category_update/{id}','blog_category_update')->name('blog.blog_category_update');
         Route::get('blog_category_delete/{id}','blog_category_delete')->name('blog.blog_category_delete');
-        
+
         Route::get('volunteer_blog_tag_list','blog_tag_list')->name('volunteer_blog_tag_list');
         Route::get('volunteer_blog_tag_add','blog_tag_add')->name('volunteer_blog_tag_add');
         Route::post('volunteer_blog_tag_save','blog_tag_save')->name('volunteer_blog_tag_save');
         Route::get('volunteer_blog_tag_edit/{id}','blog_tag_edit')->name('volunteer_blog_tag_edit');
         Route::post('volunteer_blog_tag_update/{id}','blog_tag_update')->name('volunteer_blog_tag_update');
         Route::get('volunteer_blog_tag_delete/{id}','blog_tag_delete')->name('volunteer_blog_tag_delete');
-        
+
         Route::get('blog_list','blog_list')->name('blog.blog_list');
         Route::get('blog_add','blog_add')->name('blog.blog_add');
         Route::post('blog_save','blog_save')->name('blog.blog_save');
@@ -411,7 +413,7 @@ Route::middleware(['auth:volunteer'])->group(function () {
         Route::get('blog_delete/{id}','blog_delete')->name('blog.blog_delete');
         Route::get('blog_view/{id}','blog_view')->name('blog.blog_view');
         Route::get('/changeBlogStatus','changeBlogStatus')->name('changeBlogStatus');
-        
+
         Route::get('volunteer_comment_list','comment_list')->name('volunteer_comment_list');
         Route::get('/volunteer_changeCommentStatus','comment_status_update')->name('volunteer_changeCommentStatus');
         Route::get('volunteer_comment_reply_list','comment_reply_list')->name('volunteer_comment_reply_list');

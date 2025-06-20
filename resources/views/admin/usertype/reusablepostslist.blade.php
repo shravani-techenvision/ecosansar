@@ -36,9 +36,9 @@
                                 <th>Mobile</th>
                                  <th>Type of Post</th>
                                 <th>Posted On</th>
-                                
+
                                 <th>Address</th>
-                                
+
                                  <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -54,9 +54,9 @@
                                          <td>{{ $res->mobile }}</td>
                                         <td>{{ $res->sale_giveaway }}</td>
                                         <td>{{ \Carbon\Carbon::parse($res->created_at)->format('F j, Y \a\t g:i A') }}</td>
-                                       
+
                                         <td style="word-wrap: break-word !important;white-space: normal; max-width: 200px;">{{ $res->address }}</td>
-                                       
+
                                         <td> @if($res->active == 1) Active
                                              @else
                                                  Deactive
@@ -64,7 +64,8 @@
                                         </td>
                                            <td>
                                             <a title="View" href="{{ route('user.reusablepostsview',$res->id) }}" class="btn btn-outline-primary btn-sm "><i class="fas fa-eye"></i></a>
-                                               </td>
+                                          <a title="Delete" href="{{ route('reusableposts.delete', $res->id) }}" onclick="return confirm('Are you sure you want to delete this post?');" class="btn btn-outline-danger btn-sm deleteAttr"><i class="fas fa-trash-alt"></i></a>
+                                        </td>
                                 </tr>
                             @endforeach
                         </tbody>
