@@ -2467,7 +2467,7 @@ return redirect()->to($redirectTo); // ✅ Ensures a valid response
         $users = EcosansarUsers::where('id', $user_id)->first();
         if ($request->sale_giveaway == 'Buy') {
             $request->validate([
-                'pincode' => 'required|exists:pincodes,pincode',
+              //  'pincode' => 'required|exists:pincodes,pincode',
                 'address' => 'required',
                 'sale_giveaway' => 'required',
                 'quantity' => 'required',
@@ -2476,7 +2476,7 @@ return redirect()->to($redirectTo); // ✅ Ensures a valid response
     ]);
         } else {
             $request->validate([
-                'pincode' => 'required|exists:pincodes,pincode',
+              //  'pincode' => 'required|exists:pincodes,pincode',
                 'address' => 'required',
                 'sale_giveaway' => 'required',
                 'quantity' => 'required',

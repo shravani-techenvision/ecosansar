@@ -90,13 +90,13 @@
                                                             class="accordion-collapse collapse show"
                                                             aria-labelledby="accordion-headingOne">
                                                             <div class="accordion-body p-0 mt-3 pb-1">
-                                                                 @if ( $user_type == 'consumer' )
+                                                                @if ( $user_type == 'consumer' )
                                                                 <div class="row g-4 justify-content-center">
                                                                     <div class="col-md-6">
                                                                         <div class="card p-4">
                                                                             <div class="row g-3">
                                                                                 <div class="col-md-12">
-                                                                                    <p  >Lets find out if a Collection Agent has registered here from your area</p>
+                                                                                    <p  >Let's find out if a Collection Agent has registered here from your area</p>
                                                                                     <input
                                                                                         type="text"
                                                                                         class="form-control"
@@ -129,8 +129,11 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                 @else
+                                                                @else
                                                                  <div>
+                                                                   <input type="hidden"
+                                                                                    class=""
+                                                                                    name="user_type" value="{{$user_type}}" >
                                                                 <div class="row g-4">
                                                                     <div class="col-md-6">
                                                                         <label class="form-label">Do you want to <span
@@ -172,7 +175,8 @@
 
                                                                     <div class="col-md-6">
                                                                         <label class="form-label">Type of Resource (you
-                                                                            can add another one after this) </label>
+                                                                            can add another one after this) <span
+                                                                                class="text-danger">*</span></label>
                                                                         <select class="form-select" name="resource_type" id="resource_type"  >
                                                                             <option value="">Select</option>
                                                                             @foreach($resources as $res)
@@ -186,7 +190,8 @@
                                                                     </div>
 
                                                                     <div class="col-md-6">
-                                                                        <label class="form-label">Upload Image</label>
+                                                                        <label class="form-label">Upload Image <span
+                                                                                class="text-danger">*</span></label>
                                                                          <!-- Image Preview -->
                                                                         <div id="imagePreview" class="mt-2" style="display:none;">
                                                                             <img id="previewImg" src="#" alt="Image Preview" style="max-width: 100%; height: 150px;" />
@@ -277,11 +282,19 @@
                                                                 </div>
                                                                 </div>
                                                                 @endif
+
                                                                  @if ( $user_type == 'consumer' )
                                                                 <div id="full-form-section" style="display: none;">
-                                                                    <!--<h4 class="text-center mt-4 mb-4">👉 To list or find self pickups - just get started!</h4>-->
+                                                                    <input type="hidden"
+                                                                                    class=""
+                                                                                    name="user_type" value="{{$user_type}}" >
+                                                                    <!--<h4 class="text-center mt-4 mb-4">ðŸ‘‰ To list or find self pickups - just get started!</h4>-->
                                                                       <h4 class="text-center mt-4 mb-4">Yay! Your request could get serviced! Get started!</h4>
                                                                 <div class="row g-4">
+
+
+
+
                                                                     <div class="col-md-6">
                                                                         <label class="form-label">Do you want to <span
                                                                                 class="text-danger">*</span></label>
@@ -322,7 +335,8 @@
 
                                                                     <div class="col-md-6">
                                                                         <label class="form-label">Type of Resource (you
-                                                                            can add another one after this) </label>
+                                                                            can add another one after this) <span
+                                                                                class="text-danger">*</span></label>
                                                                         <select class="form-select" name="resource_type" id="resource_type"  >
                                                                             <option value="">Select</option>
                                                                             @foreach($resources as $res)
@@ -336,7 +350,8 @@
                                                                     </div>
 
                                                                     <div class="col-md-6">
-                                                                        <label class="form-label">Upload Image</label>
+                                                                        <label class="form-label">Upload Image <span
+                                                                                class="text-danger">*</span></label>
                                                                          <!-- Image Preview -->
                                                                         <div id="imagePreview" class="mt-2" style="display:none;">
                                                                             <img id="previewImg" src="#" alt="Image Preview" style="max-width: 100%; height: 150px;" />
@@ -437,10 +452,10 @@
                                 </form>
                                  <!-- Error message + buttons -->
                                                                                 <div class="col-md-12 mt-3 text-center" id="pincode-error-section" style="display: none;">
-                                                                                    <p >Sorry, No Collection Agent in this area yet! 😔 </p>
+                                                                                    <p >Sorry, No Collection Agent in this area yet! ðŸ˜” </p>
                                                                                     <p>But you can help change that!
                                                                                         Know a local scrap dealer or waste collector? Just help register them as a Collection Agent on this tool.
-                                                                                        Share their details in this short form, and we’ll get in touch to guide them through the tool</p>
+                                                                                        Share their details in this short form, and weâ€™ll get in touch to guide them through the tool</p>
                                                                                         	<div class="col-md-12 d-flex align-items-center justify-content-center">
 							<div class="contact-queries flex-fill">
 								<h2 class="mb-4">Share Your Contact Details</h2>
