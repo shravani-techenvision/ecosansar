@@ -1,6 +1,6 @@
 @include('frontend.include.header')
 <style>
- 
+
 .timeline-content p small {
     float:inline-end;
 }
@@ -35,7 +35,7 @@
   padding-right: 50px;
   padding-bottom: 10px;
   padding-left: 50px;
-  
+
 }
 
 .inner-container {
@@ -56,7 +56,7 @@
   font-size: 35px;
   font-weight: 700;
   line-height: 48px;
-  
+
   margin: 0 0 10px 0;
 }
 
@@ -110,7 +110,7 @@
 .position {
   font-size: 16px;
   font-weight: 500;
-  
+
   margin-top: 0px;
   margin-right: 0px;
   margin-bottom: 8px;
@@ -265,7 +265,7 @@ body {
     .section2{
         margin-top: 20px;
     }
-       
+
   .wk-tab-1 {
     width: 8.333333%;
   }
@@ -355,7 +355,7 @@ body {
   .wk-mobile-10 {
     width: 83.333333%;
   }
-  
+
 
   .wk-mobile-11 {
     width: 91.666667%;
@@ -483,13 +483,13 @@ body {
   }
 }
 
-</style> 
+</style>
 
- 
+
 	<!-- Breadcrumb -->
-		<div class="breadcrumb-bar text-center" 
+		<div class="breadcrumb-bar text-center"
     style="background-image: url('{{ $breadcrumbimage ? Storage::disk('s3')->url("Breadcrumbimage/" . $breadcrumbimage->breadcrumb_image) : asset("frontend/assets/img/bg/default.png") }}');
-            background-size: cover; 
+            background-size: cover;
             background-position: center; "
              >
 	<div class="container">
@@ -529,30 +529,30 @@ body {
 						</div>
 						<div class="col-lg-6">
 							<div class="about-content">
-							 
+
 								<h2>Our Story</h2>
 								<p>As a social enterprise, we have always focused on REDUCING waste in the urban context through a zero waste store for groceries and cleaners. The rapid increase in household waste due to shifting consumer lifestyles made it clear that this issue requires more than just a service, it demands an inclusive system intervention.</p>
 								<p>The ZeroWaste Community Tool aims to be just that, a ground zero intervention that connects the consumer with the system via the local workforce to create a resilient, scalable, inclusive, and a strong backbone for the Circular Economy.</p>
-								 
+
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 			<!-- /About -->
-		 
+
 		</div>
 		</div>
 		<!-- /Page Wrapper -->
 
-   
+
    <!-- Timeline 6 - Bootstrap Brain Component -->
  <div >
         <h1 class="text-center mb-3" >Our Journey</h1>
     </div>
    <section style="background-color: #F0F2F5;">
   <div class="container py-5">
-      
+
     <div class="main-timeline-2">
       <div class="timeline-2 left-2">
         <div class="card">
@@ -562,7 +562,7 @@ body {
             <h4 class="fw-bold mb-4">Zero-Waste Grocery Store Front</h4>
             <p class="text-muted mb-4"><i class="far fa-clock" aria-hidden="true"></i> December 2017</p>
             <p class="mb-0">A pioneering venture for buying organic groceries without unnecessary packaging. This was made possible by having returnable containers, refundable deposits, encouraging consumers to bring their own packaging, welcoming donations of containers and upcycling packaging from scrap material. <br>
- 
+
                Our innovative approach quickly gained traction among a dedicated community of environmentally conscious consumers, who eagerly embraced our ethos. Beyond mere transactions, our store front became a hub for engaging conversations and shared learning experiences. We take pride in inspiring many individuals at that time, fostering enduring loyalty among our patrons at ecoSansar.</p>
           </div>
         </div>
@@ -575,7 +575,7 @@ body {
             <h4 class="fw-bold mb-4">Online Marketplace - Deposit Refund System</h4>
             <p class="text-muted mb-4"><i class="far fa-clock" aria-hidden="true"></i> March 2019</p>
             <p class="mb-0">As the trend towards online shopping gained momentum, we responded by launching our own marketplace, complete with a first of its kind, integrated deposit refund system for containers. We now had new learnings about logistical challenges, product and logistics based packaging requirements, managing irregular returns and tracking deposits. Every challenge and every interaction were now new learnings.<br><br>
- 
+
 Despite challenges, our system persevered through the pandemic. However, the landscape quickly evolved with the emergence of fast commerce, offering 10 minute deliveries - a level of convenience beyond our capacity as a small business. Consequently, we made the difficult decision to discontinue our grocery arm, recognizing the impossibility of matching such rapid service.</p>
           </div>
         </div>
@@ -600,7 +600,7 @@ Despite challenges, our system persevered through the pandemic. However, the lan
             <h4 class="fw-bold mb-4"> DWCC Collaborations</h4>
             <p class="text-muted mb-4"><i class="far fa-clock" aria-hidden="true"></i> November 2023</p>
             <p class="mb-0">Understanding the operations, mindset, challenges and requirements of DWCCs (Dry Waste Collection Centers) is crucial for designing an inclusive and
-              effective reuse chain. We’ve engaged in open dialogues with them and were pleasantly surprised by their readiness to offer unconditional support and cooperation 
+              effective reuse chain. We’ve engaged in open dialogues with them and were pleasantly surprised by their readiness to offer unconditional support and cooperation
               for the advancement of the reuse chain. This speaks volumes about the significance of effective recycling of household waste for them. Food for thought indeed!</p>
           </div>
         </div>
@@ -612,7 +612,7 @@ Despite challenges, our system persevered through the pandemic. However, the lan
           <div class="card-body p-4">
             <h4 class="fw-bold mb-4">Second-Hand Marketplace</h4>
             <p class="text-muted mb-4"><i class="far fa-clock" aria-hidden="true"></i> November 2023</p>
-            <p class="mb-0">In our efforts to optimize existing resources, we are creating a marketplace for second hand packaging and packaging materials. 
+            <p class="mb-0">In our efforts to optimize existing resources, we are creating a marketplace for second hand packaging and packaging materials.
               This exercise is intended to be a quick fix while gaining perspectives.</p>
           </div>
         </div>
@@ -633,7 +633,7 @@ Who We Are</h4>
    <h1>
      Meet the Team
    </h1>
-     
+
     <div class="responsive-container-block">
       <div class="responsive-cell-block wk-desk-3 wk-ipadp-3 wk-tab-6 wk-mobile-12 team-card-container">
         <div class="team-card">
@@ -650,17 +650,17 @@ Who We Are</h4>
             <a href="https://www.linkedin.com/in/gayatrijoshi/" target="_blank">
               <img src="{{ asset('frontend/assets/img/linkicon.png') }}" alt="image" style="height: 25px;">
             </a>
-             
+
           </div>
         </div>
       </div>
-      <div class="responsive-cell-block wk-desk-3 wk-ipadp-3 wk-tab-6 wk-mobile-12 team-card-container">
+      {{--  <div class="responsive-cell-block wk-desk-3 wk-ipadp-3 wk-tab-6 wk-mobile-12 team-card-container">
         <div class="team-card">
           <div class="img-wrapper">
                <img src="{{ asset('frontend/assets/img/ourteam/AmodKabade.png') }}" alt="SAB Post">
           </div>
           <p class="text-blk name">
-           
+
 Amod Kabade
           </p>
           <p class="text-blk position">
@@ -670,10 +670,10 @@ Amod Kabade
             <a href="https://www.linkedin.com/in/akabade/" target="_blank">
               <img src="{{ asset('frontend/assets/img/linkicon.png') }}" alt="image" style="height: 25px;">
             </a>
-            
+
           </div>
         </div>
-      </div>
+      </div>  --}}
        <div class="responsive-cell-block wk-desk-3 wk-ipadp-3 wk-tab-6 wk-mobile-12 team-card-container">
         <div class="team-card">
           <div class="img-wrapper">
@@ -690,15 +690,15 @@ Amod Kabade
             <a href="https://www.linkedin.com/in/saritha-devpunje-50315824/" target="_blank">
               <img src="{{ asset('frontend/assets/img/linkicon.png') }}" alt="image" style="height: 25px;">
             </a>
-            
+
           </div>
         </div>
       </div>
     </div>
-    
-     
-     
-      <div class="responsive-container-block">
+
+
+
+      {{--  <div class="responsive-container-block">
           <div class="responsive-cell-block wk-desk-3 wk-ipadp-3 wk-tab-6 wk-mobile-12 team-card-container">
         <div class="team-card">
           <div class="img-wrapper">
@@ -716,7 +716,7 @@ Amod Kabade
             </a>
           </div>
         </div>
-      </div> 
+      </div>   --}}
       <div class="responsive-cell-block wk-desk-3 wk-ipadp-3 wk-tab-6 wk-mobile-12 team-card-container">
         <div class="team-card">
           <div class="img-wrapper">
@@ -726,7 +726,7 @@ Amod Kabade
              Capt Tapas Majumdar
           </p>
           <p class="text-blk position">
-          Sustainability Practitioner / Advisor / ESG consultant 
+          Sustainability Practitioner / Advisor / ESG consultant
           </p>
           <div class="social-media-links">
             <a href="https://www.linkedin.com/in/capttapasmajumdar/" target="_blank">
@@ -753,10 +753,10 @@ Amod Kabade
           </div>
         </div>
       </div>
-      
+
     </div>
-    
-     
+
+
   </div>
 </div>
                 <!--end col-md-9-->
@@ -765,7 +765,7 @@ Amod Kabade
 
 
 <script>
-    
+
     $(document).ready(function(){
 	var my_posts = $("[rel=tooltip]");
 
