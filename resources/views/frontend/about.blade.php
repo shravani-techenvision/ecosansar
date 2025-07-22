@@ -624,7 +624,7 @@ Despite challenges, our system persevered through the pandemic. However, the lan
 </section>
 
 <div class="row">
-              
+
 
               <div class="responsive-container-block outer-container">
   <div class="responsive-container-block inner-container">
@@ -717,6 +717,7 @@ Amod Kabade
           </div>
         </div>
       </div>   --}}
+      <div class="responsive-container-block">
       <div class="responsive-cell-block wk-desk-3 wk-ipadp-3 wk-tab-6 wk-mobile-12 team-card-container">
         <div class="team-card">
           <div class="img-wrapper">
