@@ -225,7 +225,7 @@ function resizeImage($source, $width, $height)
     if ($request->hasFile('resource_img')) {
         $file = $request->file('resource_img');
         $filePath = 'Reusableposts';
-        $fileName = $user_id . '_' . time() . '_' . $request->resource_type . '.' . $file->getClientOriginalExtension();
+        $fileName = $user_id . '_' . $user->id . '_' . $request->resource_type  .'.'. $file->getClientOriginalExtension();
 
           $fileTempPath = $file->getRealPath(); // Get the temporary file path
 
