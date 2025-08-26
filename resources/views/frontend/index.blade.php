@@ -42,17 +42,19 @@
 
 /* Base - Hide text on small screens */
 @media (max-width: 575px) {
-  .card-text {
-    display: none; /* hide by default on mobile */
-  }
-
   .col-md-6 {
     flex: 0 0 50%;  /* 2 columns */
     max-width: 50%;
   }
 
   /* When hovering the card, show text */
-  .work-box:hover .card-text {
+  .work-box p {
+    display: none;
+    transition: all 0.3s ease;
+  }
+
+  /* Show text when hovering over the whole card */
+  .col-md-6:hover .work-box p {
     display: block;
     margin-top: 10px;
     font-size: 14px;
