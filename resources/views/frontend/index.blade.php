@@ -61,7 +61,7 @@
   }
 
   /* Show text when hovering over the whole card */
-  .work-box:hover .card-body p {
+  .work-box:hover  {
     display: block;
     margin-top: 10px;
     font-size: 14px;
