@@ -48,19 +48,25 @@
   }
 
   /* When hovering the card, show text */
-  .work-box p {
+  /* Mobile - 2 columns */
+@media (max-width: 575px) {
+  .col-md-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+
+
+ .work-box .card-body p {
     display: none;
-    transition: all 0.3s ease;
   }
 
   /* Show text when hovering over the whole card */
-  .col-md-6:hover .work-box p {
+  .work-box:hover .card-body p {
     display: block;
     margin-top: 10px;
     font-size: 14px;
     color: #333;
   }
-
   /* Adjust image + title + button */
   .work-icon img {
     width: 50px;
