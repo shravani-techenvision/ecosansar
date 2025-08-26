@@ -40,6 +40,41 @@
 }
 }
 
+/* Base - Hide text on small screens */
+@media (max-width: 575px) {
+  .card-text {
+    display: none; /* hide by default on mobile */
+  }
+
+  .col-md-6 {
+    flex: 0 0 50%;  /* 2 columns */
+    max-width: 50%;
+  }
+
+  /* When hovering the card, show text */
+  .work-box:hover .card-text {
+    display: block;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #333;
+  }
+
+  /* Adjust image + title + button */
+  .work-icon img {
+    width: 50px;
+    height: auto;
+  }
+
+  .work-box h5 {
+    font-size: 16px;
+    margin: 10px 0;
+  }
+
+  .work-box .btn {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+}
 
  </style>
  <!-- Hero Section -->
