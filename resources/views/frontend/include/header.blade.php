@@ -49,6 +49,16 @@
   margin-top: 6px;
     padding: 5px;
 }
+.responsive-logo {
+    max-width: 180px;
+    height: auto;
+}
+
+@media (max-width: 320px) {
+    .responsive-logo {
+        max-width: 140px;
+    }
+}
 }
 
 
@@ -70,7 +80,7 @@
 							<img src="{{ asset('frontend/assets/img/logo-one.png') }}" class="img-fluid" alt="Logo"   >
 						</a>
 						<a href="{{url('/')}}" class="navbar-brand logo-small">
-							<img src="{{ asset('frontend/assets/img/logo-one.png') }}" style="max-width: 180px; height: auto;" alt="Logo">
+							<img src="{{ asset('frontend/assets/img/logo-one.png') }}" class="responsive-logo" alt="Logo">
 						</a>
 							@php
     $user_id = session()->get('user_id');
