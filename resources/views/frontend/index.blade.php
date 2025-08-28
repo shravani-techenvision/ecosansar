@@ -39,7 +39,11 @@
 
 }
 }
-
+@media (max-width: 767.98px) {
+    .mob-content {
+        display: none !important;
+    }
+}
 
  </style>
  <!-- Hero Section -->
@@ -97,7 +101,7 @@
 					</div>
 				</div>
 				<div class="row justify-content-center">
-					<div class="col-lg-4 col-md-6  d-flex ">
+					<div class="col-lg-4 col-md-6 col-6  d-flex ">
 						<div class="work-box card flex-fill aos" data-aos="fade-up">
 							<div class="card-body">
 								<div class="work-icon ">
@@ -106,12 +110,17 @@
 									</span>
 								</div>
 								<h5>Recyclables </h5>
-								<p>Want to Give or Get Recyclables? Let’s Begin! <br> We’ll do a quick pincode check for a nearby Collection Agent.</p>
-							 	<a href="{{route('recyclable-choose_one')}}" class="btn btn-lg btn-linear-primary w-100 mt-2">List or Browse Recyclables</a>
+								<p class="mob-content">Want to Give or Get Recyclables? Let’s Begin! <br> We’ll do a quick pincode check for a nearby Collection Agent.</p>
+							 	<a href="{{ route('recyclable-choose_one') }}" class="btn btn-lg btn-linear-primary w-100 mt-2">
+                                    <span class="d-none d-md-inline">List or Browse Recyclables</span>
+                                    <span class="d-inline d-md-none">
+                                        <i class="fas fa-arrow-right"></i>
+                                    </span>
+                                </a>
 							</div>
 						</div>
 					</div>
-					<div class="col-lg-4 col-md-6 d-flex">
+					<div class="col-lg-4 col-md-6 col-6 d-flex">
 						<div class="work-box flex-fill card aos" data-aos="fade-up">
 							<div class="card-body">
 								<div class="work-icon">
@@ -120,14 +129,19 @@
 									</span>
 								</div>
 								<h5>Packaging Reusables</h5>
-								<p>Got clean containers / packaging fit for reuse? Don’t toss them—list them for someone else to reuse! Need some? Just browse. </p>
-							 	<a href="{{route('reusable-choose_one')}}" class="btn btn-lg btn-linear-primary w-100 mt-2">List or Browse Reusables</a>
+								<p class="mob-content">Got clean containers / packaging fit for reuse? Don’t toss them—list them for someone else to reuse! Need some? Just browse. </p>
+							 	<a href="{{route('reusable-choose_one')}}" class="btn btn-lg btn-linear-primary w-100 mt-2">
+                                    <span class="d-none d-md-inline">List or Browse Reusables</span>
+                                    <span class="d-inline d-md-none">
+                                        <i class="fas fa-arrow-right"></i>
+                                    </span>
+                                </a>
 							</div>
 						</div>
 					</div>
 					</div>
 						<div class="row justify-content-center">
-					<div class="col-lg-4 col-md-6 d-flex">
+					<div class="col-lg-4 col-md-6 col-6 d-flex">
 						<div class="work-box card flex-fill aos" data-aos="fade-up">
 							<div class="card-body">
 								<div class="work-icon">
@@ -136,16 +150,21 @@
 									</span>
 								</div>
 								<h5>Find a Repair Service near you</h5>
-								<p>Before you throw it, see if you can fix it. Locate nearby informal sector repair heroes who can bring things back to life.</p>
+								<p class="mob-content">Before you throw it, see if you can fix it. Locate nearby informal sector repair heroes who can bring things back to life.</p>
 								@if (session()->has('user_id'))
-							 	<a href="{{route('repairmap')}}" class="btn btn-lg btn-linear-primary w-100 mt-2">View Repair Map</a>
+							 	<a href="{{route('repairmap')}}" class="btn btn-lg btn-linear-primary w-100 mt-2">
+                                     <span class="d-none d-md-inline">View Repair Map</span>
+                                    <span class="d-inline d-md-none">
+                                        <i class="fas fa-arrow-right"></i>
+                                    </span>
+                                </a>
 							 	@else
 							 	<a href="{{ route('consumer_login', ['redirect' => url()->current()]) }}" class="btn btn-lg btn-linear-primary w-100 mt-2">View Repair Map</a>
 							 	@endif
 							</div>
 						</div>
 					</div>
-					<div class="col-lg-4 col-md-6 d-flex">
+					<div class="col-lg-4 col-md-6 col-6 d-flex">
 						<div class="work-box card flex-fill aos" data-aos="fade-up">
 							<div class="card-body">
 								<div class="work-icon">
@@ -154,9 +173,14 @@
 									</span>
 								</div>
 								<h5>Locate a Collection Agent near you</h5>
-								<p>Find & support your neighborhood waste warriors directly </p>
+								<p class="mob-content">Find & support your neighborhood waste warriors directly </p>
 								@if (session()->has('user_id'))
-							 	<a href="{{route('findcollectionagent')}}" class="btn btn-lg btn-linear-primary w-100 mt-2">Find Collection Agents</a>
+							 	<a href="{{route('findcollectionagent')}}" class="btn btn-lg btn-linear-primary w-100 mt-2">
+                                    <span class="d-none d-md-inline">Find Collection Agents</span>
+                                    <span class="d-inline d-md-none">
+                                        <i class="fas fa-arrow-right"></i>
+                                    </span>
+                                </a>
 							 	@else
 							 		<a href="{{ route('consumer_login', ['redirect' => url()->current()]) }}" class="btn btn-lg btn-linear-primary w-100 mt-2">Find Collection Agents</a>
 							 	@endif
