@@ -81,6 +81,7 @@
 
     .toggle-card {
         cursor: pointer;
+        margin: 10px;
     }
 
     .card .card-body {
@@ -153,14 +154,14 @@
 		<section class="work-section pt-0 mb-0" >
 
 			<div class="container work-section">
-                <div class="row">
+                <div class="row" >
                     <div class="col-md-12 text-center">
                         <div class="section-heading aos" data-aos="fade-up">
                             <h2 class="text-center">Start managing waste responsibly using any of the 4 options below:</h2>
                         </div>
                     </div>
                 </div>
-				<div class="row justify-content-center">
+				<div class="row justify-content-center" style="margin:0px 10px;">
 					<div class="col-lg-4 col-md-6 col-6  d-flex ">
 						<div class="work-box card flex-fill aos toggle-card" data-aos="fade-up">
 							<div class="card-body d-flex flex-column">
@@ -204,7 +205,7 @@
 						</div>
 					</div>
 					</div>
-						<div class="row justify-content-center">
+						<div class="row justify-content-center" style="margin:0px 10px;">
 					<div class="col-lg-4 col-md-6 col-6 d-flex">
 						<div class="work-box card flex-fill aos toggle-card" data-aos="fade-up">
 							<div class="card-body d-flex flex-column">
@@ -268,7 +269,7 @@
 				</div>
                 <div class="popup-box" id="popup">
                     <button class="popup-close">&times;</button>
-                    <h5 id="popup-heading" class="text-center mb-3" style="margin-top:41px;"></h5> <!-- Add this -->
+                    <h5 id="popup-heading" class="text-center mb-3" style="margin-top:21px;"></h5> <!-- Add this -->
                     <p id="popup-content"></p>
                     <a id="popup-link" href="#" class="btn btn-lg btn-linear-primary w-100 mt-2">
                         <i class="fas fa-arrow-right"></i>
