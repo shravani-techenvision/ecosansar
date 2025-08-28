@@ -161,7 +161,7 @@
                         </div>
                     </div>
                 </div>
-				<div class="row justify-content-center" style="margin:0px 10px;">
+				<div class="row justify-content-center" style="padding:0px 0px;">
 					<div class="col-lg-4 col-md-6 col-6  d-flex ">
 						<div class="work-box card flex-fill aos toggle-card" data-aos="fade-up">
 							<div class="card-body d-flex flex-column">
