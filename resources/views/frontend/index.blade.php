@@ -73,6 +73,13 @@
     .card .card-body {
         padding: 5px;
     }
+        .work-section {
+        padding: 0px;
+    }
+        .section-heading h2{
+            padding: 30px;
+            padding-top: 0px;
+        }
 }
 
 
