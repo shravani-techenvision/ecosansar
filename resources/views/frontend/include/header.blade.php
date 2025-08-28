@@ -70,7 +70,7 @@
 							<img src="{{ asset('frontend/assets/img/logo-one.png') }}" class="img-fluid" alt="Logo"   >
 						</a>
 						<a href="{{url('/')}}" class="navbar-brand logo-small">
-							<img src="{{ asset('frontend/assets/img/logo-one.png') }}" class="img-fluid" alt="Logo">
+							<img src="{{ asset('frontend/assets/img/logo-one.png') }}" style="max-width: 73%;height: 50px;" alt="Logo">
 						</a>
 							@php
     $user_id = session()->get('user_id');
