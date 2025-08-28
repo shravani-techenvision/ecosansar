@@ -70,7 +70,7 @@
     }
 
     .popup-box p {
-        margin-top: 40px;
+        margin-top: 10px;
         font-size: 14px;
         color: #333;
     }
