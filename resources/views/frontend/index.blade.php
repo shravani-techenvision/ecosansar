@@ -81,7 +81,6 @@
 
     .toggle-card {
         cursor: pointer;
-        margin: 10px;
     }
 
     .card .card-body {
@@ -154,14 +153,14 @@
 		<section class="work-section pt-0 mb-0" >
 
 			<div class="container work-section">
-                <div class="row" >
+                <div class="row">
                     <div class="col-md-12 text-center">
                         <div class="section-heading aos" data-aos="fade-up">
                             <h2 class="text-center">Start managing waste responsibly using any of the 4 options below:</h2>
                         </div>
                     </div>
                 </div>
-				<div class="row justify-content-center" style="padding:0px 0px;">
+				<div class="row justify-content-center">
 					<div class="col-lg-4 col-md-6 col-6  d-flex ">
 						<div class="work-box card flex-fill aos toggle-card" data-aos="fade-up">
 							<div class="card-body d-flex flex-column">
@@ -205,7 +204,7 @@
 						</div>
 					</div>
 					</div>
-						<div class="row justify-content-center" style="margin:0px 10px;">
+						<div class="row justify-content-center">
 					<div class="col-lg-4 col-md-6 col-6 d-flex">
 						<div class="work-box card flex-fill aos toggle-card" data-aos="fade-up">
 							<div class="card-body d-flex flex-column">
