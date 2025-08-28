@@ -103,7 +103,11 @@
     }
 }
 
-
+@media (min-width: 768px) {
+    .popup-box {
+        display: none !important;
+    }
+}
 
  </style>
  <!-- Hero Section -->
