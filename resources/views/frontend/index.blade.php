@@ -39,16 +39,22 @@
 
 }
 }
-@media (max-width: 767.98px) {
+@media (max-width: 425px) {
     .mob-content {
         display: none !important;
     }
+    .toggle-card:hover .mob-content {
+        display: block;
+    }
     .work-box h5{
-        font-size: 11px;
+        font-size: 14px;
     }
     .work-icon span{
         height: 60px;
         width: 60px;;
+    }
+    .card .card-body {
+        padding: 5px;
     }
 }
 
@@ -109,7 +115,7 @@
 				</div>
 				<div class="row justify-content-center">
 					<div class="col-lg-4 col-md-6 col-6  d-flex ">
-						<div class="work-box card flex-fill aos" data-aos="fade-up">
+						<div class="work-box card flex-fill aos toggle-card" data-aos="fade-up">
 							<div class="card-body">
 								<div class="work-icon ">
 									<span>
@@ -128,7 +134,7 @@
 						</div>
 					</div>
 					<div class="col-lg-4 col-md-6 col-6 d-flex">
-						<div class="work-box flex-fill card aos" data-aos="fade-up">
+						<div class="work-box flex-fill card aos toggle-card" data-aos="fade-up">
 							<div class="card-body">
 								<div class="work-icon">
 									<span>
@@ -149,7 +155,7 @@
 					</div>
 						<div class="row justify-content-center">
 					<div class="col-lg-4 col-md-6 col-6 d-flex">
-						<div class="work-box card flex-fill aos" data-aos="fade-up">
+						<div class="work-box card flex-fill aos toggle-card" data-aos="fade-up">
 							<div class="card-body">
 								<div class="work-icon">
 									<span>
@@ -177,7 +183,7 @@
 						</div>
 					</div>
 					<div class="col-lg-4 col-md-6 col-6 d-flex">
-						<div class="work-box card flex-fill aos" data-aos="fade-up">
+						<div class="work-box card flex-fill aos toggle-card" data-aos="fade-up">
 							<div class="card-body">
 								<div class="work-icon">
 									<span>
@@ -857,9 +863,27 @@
             }
         });
     });
+
 </script>
 
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const cards = document.querySelectorAll('.toggle-card');
+
+        cards.forEach(card => {
+            card.addEventListener('click', function () {
+                // Only run on mobile screens
+                if (window.innerWidth < 768) {
+                    const details = card.querySelector('.mob-content');
+                    if (details) {
+                        details.style.display = (details.style.display === 'block') ? 'none' : 'block';
+                    }
+                }
+            });
+        });
+    });
+</script>
 
 
 
