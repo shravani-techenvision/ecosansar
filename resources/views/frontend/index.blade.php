@@ -39,7 +39,7 @@
 
 }
 }
-@media (max-width: 425px) {
+@media (max-width: 767.98px) {
    .mob-content {
         display: none;
         position: absolute;
