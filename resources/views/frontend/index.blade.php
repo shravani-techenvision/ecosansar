@@ -52,6 +52,7 @@
         z-index: 999;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         font-size: 10px;
+        color: black;
     }
 
     .mob-content.show-text {
