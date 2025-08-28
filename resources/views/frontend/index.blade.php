@@ -43,10 +43,10 @@
     .popup-box {
         display: none;
         position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
+        top: 23%;
+        left: 10%;
+        width: 80vw;
+        height: 70vh;
         background: #fff;
         z-index: 9999;
         padding: 20px 15px 60px;
@@ -77,7 +77,7 @@
     }
 
     .mob-content {
-        display: none !important;
+        display: none;
     }
 
     .toggle-card {
@@ -921,25 +921,26 @@
 
 </script>
 
-
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const cards = document.querySelectorAll('.toggle-card');
         const popup = document.getElementById('popup');
         const popupContent = document.getElementById('popup-content');
+        const popupHeading = document.getElementById('popup-heading');
         const popupLink = document.getElementById('popup-link');
         const popupClose = document.querySelector('.popup-close');
 
-        // Show popup when card is clicked
         cards.forEach(card => {
             card.addEventListener('click', function (e) {
                 if (window.innerWidth < 768) {
                     e.stopPropagation();
 
-                    const content = this.getAttribute('data-content');
-                    const link = this.getAttribute('data-link');
+                    const content = card.querySelector('.mob-content')?.innerHTML;
+                    const heading = card.querySelector('h5')?.innerText;
+                    const link = card.querySelector('a')?.getAttribute('href');
 
-                    // Inject content
+                    // Fill popup
+                    popupHeading.innerText = heading;
                     popupContent.innerHTML = content;
                     popupLink.setAttribute('href', link);
 
@@ -949,23 +950,22 @@
             });
         });
 
-        // Close popup
         popupClose.addEventListener('click', function (e) {
             e.stopPropagation();
             popup.classList.remove('show');
         });
 
-        // Close when clicking outside popup
+        // Close popup on outside click
         document.addEventListener('click', function () {
             popup.classList.remove('show');
         });
 
-        // Prevent popup click from closing it
         popup.addEventListener('click', function (e) {
-            e.stopPropagation();
+            e.stopPropagation(); // prevent inner click from closing popup
         });
     });
 </script>
+
 
 
 
