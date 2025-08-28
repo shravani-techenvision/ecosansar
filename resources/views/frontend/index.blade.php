@@ -81,6 +81,9 @@
             padding: 30px;
             padding-top: 0px;
         }
+        .work-icon span{
+                margin: 0px auto 18px;
+        }
 }
 
 
