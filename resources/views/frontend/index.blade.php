@@ -41,22 +41,31 @@
 }
 @media (max-width: 425px) {
     .mob-content {
-        display: none !important;
+        display: none;
     }
+
+    .mob-content.show-text {
+        display: block;
+    }
+
     .toggle-card:hover .mob-content {
         display: block;
     }
-    .work-box h5{
+
+    .work-box h5 {
         font-size: 14px;
     }
-    .work-icon span{
+
+    .work-icon span {
         height: 60px;
-        width: 60px;;
+        width: 60px;
     }
+
     .card .card-body {
         padding: 5px;
     }
 }
+
 
  </style>
  <!-- Hero Section -->
@@ -873,17 +882,18 @@
 
         cards.forEach(card => {
             card.addEventListener('click', function () {
-                // Only run on mobile screens
+                // Only for mobile view
                 if (window.innerWidth < 768) {
-                    const details = card.querySelector('.mob-content');
-                    if (details) {
-                        details.style.display = (details.style.display === 'block') ? 'none' : 'block';
+                    const detailText = card.querySelector('.mob-content');
+                    if (detailText) {
+                        detailText.classList.toggle('show-text');
                     }
                 }
             });
         });
     });
 </script>
+
 
 
 
