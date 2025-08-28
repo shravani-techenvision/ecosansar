@@ -43,10 +43,9 @@
     .popup-box {
         display: none;
         position: fixed;
-        top: 23%;
-        left: 10%;
-        width: 80vw;
-        height: 57vh;
+        top: 20%;
+        left: 5%;
+        width: 90vw;
         background: #fff;
         z-index: 9999;
         padding: 20px 15px 60px;
