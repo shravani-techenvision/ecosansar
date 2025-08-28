@@ -271,7 +271,7 @@
                     <h5 id="popup-heading" class="text-center mb-3" style="margin-top:21px;"></h5> <!-- Add this -->
                     <p id="popup-content"></p>
                     <a id="popup-link" href="#" class="btn btn-lg btn-linear-primary w-100 mt-2">
-                        <i class="fas fa-arrow-right"></i>
+                        <span id="popup-link-text"></span>
                     </a>
                 </div>
 			</div>
@@ -951,6 +951,8 @@
                     popupHeading.innerText = heading;
                     popupContent.innerHTML = content;
                     popupLink.setAttribute('href', link);
+                    const linkText = card.querySelector('.d-none.d-md-inline')?.innerText || 'Continue';
+                    document.getElementById('popup-link-text').innerText = linkText;
 
                     // Show popup
                     popup.classList.add('show');
