@@ -164,7 +164,7 @@
 				<div class="row justify-content-center">
 					<div class="col-lg-4 col-md-6 col-6  d-flex ">
 						<div class="work-box card flex-fill aos toggle-card" data-aos="fade-up">
-							<div class="card-body">
+							<div class="card-body d-flex flex-column">
 								<div class="work-icon ">
 									<span>
 										<img src="{{asset('frontend/assets/img/icons/recycle-symbol.png')}}" alt="img">
@@ -183,7 +183,7 @@
 					</div>
 					<div class="col-lg-4 col-md-6 col-6 d-flex">
 						<div class="work-box flex-fill card aos toggle-card" data-aos="fade-up">
-							<div class="card-body">
+							<div class="card-body d-flex flex-column">
 								<div class="work-icon">
 									<span>
 										<img src="{{asset('frontend/assets/img/icons/material-recycling.png')}}" alt="img">
@@ -204,7 +204,7 @@
 						<div class="row justify-content-center">
 					<div class="col-lg-4 col-md-6 col-6 d-flex">
 						<div class="work-box card flex-fill aos toggle-card" data-aos="fade-up">
-							<div class="card-body">
+							<div class="card-body d-flex flex-column">
 								<div class="work-icon">
 									<span>
 										<img src="{{asset('frontend/assets/img/icons/repairing-service.png')}}" alt="img">
@@ -232,7 +232,7 @@
 					</div>
 					<div class="col-lg-4 col-md-6 col-6 d-flex">
 						<div class="work-box card flex-fill aos toggle-card" data-aos="fade-up">
-							<div class="card-body">
+							<div class="card-body d-flex flex-column">
 								<div class="work-icon">
 									<span>
 										<img src="{{asset('frontend/assets/img/icons/location.png')}}" alt="img">
