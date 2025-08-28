@@ -46,13 +46,13 @@
         top: 23%;
         left: 10%;
         width: 80vw;
-        height: 70vh;
+        height: 57vh;
         background: #fff;
         z-index: 9999;
         padding: 20px 15px 60px;
         overflow-y: auto;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        border-radius: 0;
+        border-radius: 11px;
     }
 
     .popup-box.show {
@@ -261,7 +261,7 @@
 				</div>
                 <div class="popup-box" id="popup">
                     <button class="popup-close">&times;</button>
-                    <h5 id="popup-heading" class="text-center mb-3"></h5> <!-- Add this -->
+                    <h5 id="popup-heading" class="text-center mb-3" style="margin-top:41px;"></h5> <!-- Add this -->
                     <p id="popup-content"></p>
                     <a id="popup-link" href="#" class="btn btn-lg btn-linear-primary w-100 mt-2">
                         <i class="fas fa-arrow-right"></i>
