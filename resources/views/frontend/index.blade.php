@@ -261,6 +261,7 @@
 				</div>
                 <div class="popup-box" id="popup">
                     <button class="popup-close">&times;</button>
+                    <h5 id="popup-heading" class="text-center mb-3"></h5> <!-- Add this -->
                     <p id="popup-content"></p>
                     <a id="popup-link" href="#" class="btn btn-lg btn-linear-primary w-100 mt-2">
                         <i class="fas fa-arrow-right"></i>
