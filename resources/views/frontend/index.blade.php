@@ -40,18 +40,27 @@
 }
 }
 @media (max-width: 425px) {
-    .mob-content {
+   .mob-content {
         display: none;
+        position: absolute;
+        background: #fff;
+        border: 1px solid #ccc;
+        padding: 10px;
+        top: 100%;
+        left: 0;
+        right: 0;
+        z-index: 999;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        font-size: 14px;
     }
 
     .mob-content.show-text {
         display: block;
     }
 
-    .toggle-card:hover .mob-content {
-        display: block;
+    .toggle-card {
+        position: relative;
     }
-
     .work-box h5 {
         font-size: 14px;
     }
@@ -881,14 +890,32 @@
         const cards = document.querySelectorAll('.toggle-card');
 
         cards.forEach(card => {
-            card.addEventListener('click', function () {
-                // Only for mobile view
+            card.addEventListener('click', function (e) {
+                // Only run on mobile
                 if (window.innerWidth < 768) {
+                    e.stopPropagation(); // Prevent bubbling
+
                     const detailText = card.querySelector('.mob-content');
+
+                    // Hide all other popups first
+                    document.querySelectorAll('.mob-content.show-text').forEach(el => {
+                        if (el !== detailText) {
+                            el.classList.remove('show-text');
+                        }
+                    });
+
+                    // Toggle this one
                     if (detailText) {
                         detailText.classList.toggle('show-text');
                     }
                 }
+            });
+        });
+
+        // Hide popup if clicking outside a card
+        document.addEventListener('click', function () {
+            document.querySelectorAll('.mob-content.show-text').forEach(el => {
+                el.classList.remove('show-text');
             });
         });
     });
