@@ -40,72 +40,70 @@
 }
 }
 @media (max-width: 767.98px) {
- .popup-box {
+    .popup-box {
         display: none;
-        position: absolute;
+        position: fixed;
         top: 0;
         left: 0;
-        width: 100%;
-        min-height: 100%;
+        width: 100vw;
+        height: 100vh;
         background: #fff;
+        z-index: 9999;
         padding: 20px 15px 60px;
-        z-index: 999;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        border-radius: 6px;
+        overflow-y: auto;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        border-radius: 0;
     }
 
     .popup-box.show {
         display: block;
     }
 
-    .popup-box p {
-        font-size: 14px;
-        color: #333;
-    }
-
     .popup-close {
         position: absolute;
-        top: 8px;
-        right: 10px;
+        top: 10px;
+        right: 15px;
         background: transparent;
         border: none;
-        font-size: 24px;
-        line-height: 1;
-        color: #333;
+        font-size: 28px;
+        color: #000;
         cursor: pointer;
     }
 
-    .toggle-card {
-        position: relative;
+    .popup-box p {
+        margin-top: 40px;
+        font-size: 14px;
+        color: #333;
     }
 
-    /* Optional: hide original desktop hover text on mobile */
     .mob-content {
         display: none !important;
     }
-    .work-box h5 {
-        font-size: 14px;
-    }
 
-    .work-icon span {
-        height: 60px;
-        width: 60px;
+    .toggle-card {
+        cursor: pointer;
     }
 
     .card .card-body {
         padding: 5px;
     }
-        .work-section {
-        padding: 0px;
+
+    .work-section {
+        padding: 0;
     }
-        .section-heading h2{
-            padding: 30px;
-            padding-top: 0px;
-        }
-        .work-icon span{
-                margin: 0px auto 18px;
-        }
+
+    .section-heading h2 {
+        padding: 30px;
+        padding-top: 0;
+    }
+
+    .work-icon span {
+        margin: 0 auto 18px;
+        height: 60px;
+        width: 60px;
+    }
 }
+
 
 
  </style>
@@ -155,14 +153,14 @@
  	<!-- Work Section -->
 		<section class="work-section pt-0 mb-0" >
 
-			<div class="container">
-				 <div class="row">
-					<div class="col-md-12 text-center">
-						<div class="section-heading aos" data-aos="fade-up">
-						    <h2 class="text-center">Start managing waste responsibly using any of the 4 options below: </h2>
-						</div>
-					</div>
-				</div>
+			<div class="container work-section">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <div class="section-heading aos" data-aos="fade-up">
+                            <h2 class="text-center">Start managing waste responsibly using any of the 4 options below:</h2>
+                        </div>
+                    </div>
+                </div>
 				<div class="row justify-content-center">
 					<div class="col-lg-4 col-md-6 col-6  d-flex ">
 						<div class="work-box card flex-fill aos toggle-card" data-aos="fade-up">
@@ -265,6 +263,13 @@
 						</div>
 					</div>
 				</div>
+                <div class="popup-box" id="popup">
+                    <button class="popup-close">&times;</button>
+                    <p id="popup-content"></p>
+                    <a id="popup-link" href="#" class="btn btn-lg btn-linear-primary w-100 mt-2">
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
 			</div>
 		</section>
 		<!-- /Work Section -->
@@ -924,46 +929,48 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const cards = document.querySelectorAll('.toggle-card');
+        const popup = document.getElementById('popup');
+        const popupContent = document.getElementById('popup-content');
+        const popupLink = document.getElementById('popup-link');
+        const popupClose = document.querySelector('.popup-close');
 
+        // Show popup when card is clicked
         cards.forEach(card => {
-            const popup = card.querySelector('.popup-box');
-            const closeBtn = card.querySelector('.popup-close');
-
-            // Show popup on card tap (mobile only)
             card.addEventListener('click', function (e) {
                 if (window.innerWidth < 768) {
-                    // Prevent event bubbling
                     e.stopPropagation();
 
-                    // Close other popups
-                    document.querySelectorAll('.popup-box.show').forEach(p => {
-                        if (p !== popup) {
-                            p.classList.remove('show');
-                        }
-                    });
+                    const content = this.getAttribute('data-content');
+                    const link = this.getAttribute('data-link');
 
-                    // Toggle this popup
-                    popup.classList.toggle('show');
+                    // Inject content
+                    popupContent.innerHTML = content;
+                    popupLink.setAttribute('href', link);
+
+                    // Show popup
+                    popup.classList.add('show');
                 }
             });
-
-            // Close popup on close button
-            if (closeBtn) {
-                closeBtn.addEventListener('click', function (e) {
-                    e.stopPropagation();
-                    popup.classList.remove('show');
-                });
-            }
         });
 
-        // Close popup if clicked anywhere outside a card
+        // Close popup
+        popupClose.addEventListener('click', function (e) {
+            e.stopPropagation();
+            popup.classList.remove('show');
+        });
+
+        // Close when clicking outside popup
         document.addEventListener('click', function () {
-            document.querySelectorAll('.popup-box.show').forEach(p => {
-                p.classList.remove('show');
-            });
+            popup.classList.remove('show');
+        });
+
+        // Prevent popup click from closing it
+        popup.addEventListener('click', function (e) {
+            e.stopPropagation();
         });
     });
 </script>
+
 
 
 
