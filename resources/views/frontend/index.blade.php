@@ -40,27 +40,48 @@
 }
 }
 @media (max-width: 767.98px) {
-   .mob-content {
+ .popup-box {
         display: none;
         position: absolute;
-        background: #fff;
-        border: 1px solid #ccc;
-        padding: 10px;
-        top: 35%;
+        top: 0;
         left: 0;
-        right: 0;
+        width: 100%;
+        min-height: 100%;
+        background: #fff;
+        padding: 20px 15px 60px;
         z-index: 999;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        font-size: 12px;
-        color: black;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        border-radius: 6px;
     }
 
-    .mob-content.show-text {
+    .popup-box.show {
         display: block;
+    }
+
+    .popup-box p {
+        font-size: 14px;
+        color: #333;
+    }
+
+    .popup-close {
+        position: absolute;
+        top: 8px;
+        right: 10px;
+        background: transparent;
+        border: none;
+        font-size: 24px;
+        line-height: 1;
+        color: #333;
+        cursor: pointer;
     }
 
     .toggle-card {
         position: relative;
+    }
+
+    /* Optional: hide original desktop hover text on mobile */
+    .mob-content {
+        display: none !important;
     }
     .work-box h5 {
         font-size: 14px;
@@ -152,6 +173,7 @@
 									</span>
 								</div>
 								<h5>Recyclables </h5>
+                                <button class="popup-close">&times;</button>
 								<p class="mob-content">Want to Give or Get Recyclables? Let’s Begin! <br> We’ll do a quick pincode check for a nearby Collection Agent.</p>
 							 	<a href="{{ route('recyclable-choose_one') }}" class="btn btn-lg btn-linear-primary w-100 mt-2">
                                     <span class="d-none d-md-inline">List or Browse Recyclables</span>
@@ -171,6 +193,7 @@
 									</span>
 								</div>
 								<h5>Packaging Reusables</h5>
+                                <button class="popup-close">&times;</button>
 								<p class="mob-content">Got clean containers / packaging fit for reuse? Don’t toss them—list them for someone else to reuse! Need some? Just browse. </p>
 							 	<a href="{{route('reusable-choose_one')}}" class="btn btn-lg btn-linear-primary w-100 mt-2">
                                     <span class="d-none d-md-inline">List or Browse Reusables</span>
@@ -192,6 +215,7 @@
 									</span>
 								</div>
 								<h5>Find a Repair Service near you</h5>
+                                <button class="popup-close">&times;</button>
 								<p class="mob-content">Before you throw it, see if you can fix it. Locate nearby informal sector repair heroes who can bring things back to life.</p>
 								@if (session()->has('user_id'))
 							 	<a href="{{route('repairmap')}}" class="btn btn-lg btn-linear-primary w-100 mt-2">
@@ -220,6 +244,7 @@
 									</span>
 								</div>
 								<h5>Locate a Collection Agent near you</h5>
+                                <button class="popup-close">&times;</button>
 								<p class="mob-content">Find & support your neighborhood waste warriors directly </p>
 								@if (session()->has('user_id'))
 							 	<a href="{{route('findcollectionagent')}}" class="btn btn-lg btn-linear-primary w-100 mt-2">
@@ -901,36 +926,45 @@
         const cards = document.querySelectorAll('.toggle-card');
 
         cards.forEach(card => {
+            const popup = card.querySelector('.popup-box');
+            const closeBtn = card.querySelector('.popup-close');
+
+            // Show popup on card tap (mobile only)
             card.addEventListener('click', function (e) {
-                // Only run on mobile
                 if (window.innerWidth < 768) {
-                    e.stopPropagation(); // Prevent bubbling
+                    // Prevent event bubbling
+                    e.stopPropagation();
 
-                    const detailText = card.querySelector('.mob-content');
-
-                    // Hide all other popups first
-                    document.querySelectorAll('.mob-content.show-text').forEach(el => {
-                        if (el !== detailText) {
-                            el.classList.remove('show-text');
+                    // Close other popups
+                    document.querySelectorAll('.popup-box.show').forEach(p => {
+                        if (p !== popup) {
+                            p.classList.remove('show');
                         }
                     });
 
-                    // Toggle this one
-                    if (detailText) {
-                        detailText.classList.toggle('show-text');
-                    }
+                    // Toggle this popup
+                    popup.classList.toggle('show');
                 }
             });
+
+            // Close popup on close button
+            if (closeBtn) {
+                closeBtn.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    popup.classList.remove('show');
+                });
+            }
         });
 
-        // Hide popup if clicking outside a card
+        // Close popup if clicked anywhere outside a card
         document.addEventListener('click', function () {
-            document.querySelectorAll('.mob-content.show-text').forEach(el => {
-                el.classList.remove('show-text');
+            document.querySelectorAll('.popup-box.show').forEach(p => {
+                p.classList.remove('show');
             });
         });
     });
 </script>
+
 
 
 
