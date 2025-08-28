@@ -43,6 +43,13 @@
     .mob-content {
         display: none !important;
     }
+    .work-box h5{
+        font-size: 11px;
+    }
+    .work-icon span{
+        height: 60px;
+        width: 60px;;
+    }
 }
 
  </style>
@@ -159,7 +166,12 @@
                                     </span>
                                 </a>
 							 	@else
-							 	<a href="{{ route('consumer_login', ['redirect' => url()->current()]) }}" class="btn btn-lg btn-linear-primary w-100 mt-2">View Repair Map</a>
+							 	<a href="{{ route('consumer_login', ['redirect' => url()->current()]) }}" class="btn btn-lg btn-linear-primary w-100 mt-2">
+                                    <span class="d-none d-md-inline">View Repair Map</span>
+                                    <span class="d-inline d-md-none">
+                                        <i class="fas fa-arrow-right"></i>
+                                    </span>
+                                </a>
 							 	@endif
 							</div>
 						</div>
@@ -182,7 +194,12 @@
                                     </span>
                                 </a>
 							 	@else
-							 		<a href="{{ route('consumer_login', ['redirect' => url()->current()]) }}" class="btn btn-lg btn-linear-primary w-100 mt-2">Find Collection Agents</a>
+							 		<a href="{{ route('consumer_login', ['redirect' => url()->current()]) }}" class="btn btn-lg btn-linear-primary w-100 mt-2">
+                                         <span class="d-none d-md-inline">Find Collection Agents</span>
+                                        <span class="d-inline d-md-none">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </span>
+                                    </a>
 							 	@endif
 							</div>
 						</div>
