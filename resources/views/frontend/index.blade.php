@@ -4,7 +4,20 @@
     display: inline-block;
     position: relative;
 }
-
+.info-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    color: #055805;
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 10;
+}
+.info-btn:hover {
+    color: #005805;
+}
 .default-overlay {
     position: absolute;
     top: 0;
@@ -168,6 +181,10 @@
 					<div class="col-lg-4 col-md-6 col-6  d-flex ">
 						<div class="work-box card flex-fill aos toggle-card" data-aos="fade-up">
 							<div class="card-body d-flex flex-column">
+                                <button type="button" class="info-btn d-block d-md-none" data-bs-toggle="modal" data-bs-target="#infoModal1">
+                                    <i class="fas fa-info-circle"></i>
+                                </button>
+
 								<div class="work-icon ">
 									<span>
 										<img src="{{asset('frontend/assets/img/icons/recycle-symbol.png')}}" alt="img">
@@ -189,6 +206,9 @@
 					<div class="col-lg-4 col-md-6 col-6 d-flex">
 						<div class="work-box flex-fill card aos toggle-card" data-aos="fade-up">
 							<div class="card-body d-flex flex-column">
+                                <button type="button" class="info-btn d-block d-md-none" data-bs-toggle="modal" data-bs-target="#infoModal1">
+                                    <i class="fas fa-info-circle"></i>
+                                </button>
 								<div class="work-icon">
 									<span>
 										<img src="{{asset('frontend/assets/img/icons/material-recycling.png')}}" alt="img">
@@ -212,6 +232,9 @@
 					<div class="col-lg-4 col-md-6 col-6 d-flex">
 						<div class="work-box card flex-fill aos toggle-card" data-aos="fade-up">
 							<div class="card-body d-flex flex-column">
+                                <button type="button" class="info-btn d-block d-md-none" data-bs-toggle="modal" data-bs-target="#infoModal1">
+                                    <i class="fas fa-info-circle"></i>
+                                </button>
 								<div class="work-icon">
 									<span>
 										<img src="{{asset('frontend/assets/img/icons/repairing-service.png')}}" alt="img">
@@ -242,6 +265,9 @@
 					<div class="col-lg-4 col-md-6 col-6 d-flex">
 						<div class="work-box card flex-fill aos toggle-card" data-aos="fade-up">
 							<div class="card-body d-flex flex-column">
+                                <button type="button" class="info-btn d-block d-md-none" data-bs-toggle="modal" data-bs-target="#infoModal1">
+                                    <i class="fas fa-info-circle"></i>
+                                </button>
 								<div class="work-icon">
 									<span>
 										<img src="{{asset('frontend/assets/img/icons/location.png')}}" alt="img">
