@@ -36,6 +36,9 @@ use App\Http\Controllers\frontend\PincodeCheckController;
 |
 */
 Route::get('/', [App\Http\Controllers\frontend\IndexController::class, 'index']);
+Route::get('/health', function () {
+    return response('OK', 200);
+});
 Route::get('/usercounts', [MapController::class, 'getUserCounts'])->name('usercount');
 Route::get('/geocode-address', [MapController::class, 'geocodeAddress'])->name('geocodeAddress');
 
@@ -420,6 +423,5 @@ Route::middleware(['auth:volunteer'])->group(function () {
         Route::get('/volunteer_changeCommentReplyStatus','commentreply_status_update')->name('volunteer_changeCommentReplyStatus');
 });
 });
-
 
 
