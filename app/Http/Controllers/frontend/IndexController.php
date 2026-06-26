@@ -1042,6 +1042,9 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
         return view('frontend/privacypolicy', compact('breadcrumbimage'));
     }
 
+    public function downloadPoster() {
+        return view('frontend.download-poster');
+    }
     public function blog()
     {
         // Fetch all blogs where active = 1

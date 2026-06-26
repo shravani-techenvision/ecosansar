@@ -55,7 +55,8 @@ Route::controller(IndexController::class)->group(function(){
      Route::get('blog-detail/{slug}','blog_detail')->name('blog.detail');
      Route::get('/blog/category/{slug}', 'categoryBlogs')->name('blog.category');
     Route::get('/blog/tag/{slug}', 'tagBlogs')->name('blog.tag');
-
+    Route::get('/download-posters','downloadPoster')->name('download.posters');
+    
        Route::get('contact','contact')->name('contact');
          Route::get('faq','faq')->name('faq');
     Route::get('howitsworks','howitsworks')->name('howitsworks');

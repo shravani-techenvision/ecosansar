@@ -135,14 +135,14 @@
     <div class="carousel-item active">
       <img src="{{asset('frontend/assets/img/banner1.png')}}" class="d-block w-100" alt="..."  >
       <div class="carousel-caption   d-flex justify-content-center align-items-center custom-caption"   >
-        <h1   style="color: white !important; height: 93%;" >The ZeroWaste Community Tool - Where waste meets value - and everyone’s included.</h1>
+        <h1   style="color: white !important; height: 93%;" >Return to Repurpose - a reuse revolution in Bengaluru</h1>
 
       </div>
     </div>
     <div class="carousel-item">
       <img src="{{asset('frontend/assets/img/banner2.png')}}" class="d-block w-100" alt="..."  >
       <div class="carousel-caption   d-flex justify-content-center align-items-center custom-caption"   >
-        <h1   style="color: white !important; height: 93%;" >Work with the Backbone of Circular Economy - the on ground waste collectors</h1>
+        <h1   style="color: white !important; height: 93%;" >Reuse before recycle - Repeat use approach to conserve resources</h1>
 
       </div>
     </div>
@@ -150,14 +150,14 @@
       <img src="{{asset('frontend/assets/img/banner3.png')}}" class="d-block w-100" alt="..."  >
       <!--<div class="carousel-caption d-none d-md-block d-flex justify-content-center align-items-center" style="height: 60%;" >-->
        <div class="carousel-caption   d-flex justify-content-center align-items-center custom-caption"   >
-        <h1  style="color: white !important; height: 93%;" >Reuse-first approach, right at source for packaging materials</h1>
+        <h1  style="color: white !important; height: 93%;" >Inclusive solutions - knowledge exchange and empowerment of waste workers</h1>
 
       </div>
     </div>
     <div class="carousel-item">
       <img src="{{asset('frontend/assets/img/banner4.png')}}" class="d-block w-100" alt="..."  >
       <div class="carousel-caption   d-flex justify-content-center align-items-center custom-caption"  >
-        <h1   style="color: white !important; height: 93%;">   Create your own zerowaste community helping onboard your local waste warriors</h1>
+        <h1   style="color: white !important; height: 93%;">3 step process - Collect–Clean–Repurpose</h1>
 
       </div>
     </div>
@@ -178,7 +178,7 @@
                     </div>
                 </div>
 				<div class="row justify-content-center">
-					<div class="col-lg-4 col-md-6 col-6  d-flex ">
+					{{-- <div class="col-lg-4 col-md-6 col-6  d-flex ">
 						<div class="work-box card flex-fill aos toggle-card" data-aos="fade-up">
 							<div class="card-body d-flex flex-column">
                                 <button type="button" class="info-btn d-block d-md-none" data-bs-toggle="modal" data-bs-target="#infoModal1">
@@ -202,7 +202,7 @@
                                 </div>
 							</div>
 						</div>
-					</div>
+					</div> --}}
 					<div class="col-lg-4 col-md-6 col-6 d-flex">
 						<div class="work-box flex-fill card aos toggle-card" data-aos="fade-up">
 							<div class="card-body d-flex flex-column">
@@ -215,7 +215,7 @@
 									</span>
 								</div>
 								<h5>Packaging Reusables</h5>
-								<p class="mob-content">Got clean containers / packaging fit for reuse? Don’t toss them—list them for someone else to reuse! Need some? Just browse. </p>
+								<p class="mob-content">Glass jars and bottles that were collected, washed and sorted for ease of repurpose</p>
 							 	<div class="mt-auto">
                                     <a href="{{route('reusable-choose_one')}}" class="btn btn-lg btn-linear-primary w-100 mt-2">
                                         <span class="d-none d-md-inline">List or Browse Reusables</span>
@@ -227,9 +227,35 @@
 							</div>
 						</div>
 					</div>
+                    <div class="col-lg-4 col-md-6 col-6 d-flex">
+						<div class="work-box flex-fill card aos toggle-card" data-aos="fade-up">
+							<div class="card-body d-flex flex-column">
+                                <button type="button" class="info-btn d-block d-md-none" data-bs-toggle="modal" data-bs-target="#infoModal1">
+                                    <i class="fas fa-info-circle"></i>
+                                </button>
+								<div class="work-icon">
+									<span>
+										<img src="{{asset('frontend/assets/img/icons/location.png')}}" alt="img">
+									</span>
+								</div>
+								<h5>Organize collection drive</h5>
+								{{-- <p class="mob-content">Got clean containers / packaging fit for reuse? Don’t toss them—list them for someone else to reuse! Need some? Just browse. </p> --}}
+							 	<div class="mt-auto">
+                                    <a href="javascript:void(0);" class="btn btn-lg btn-linear-primary w-100 mt-2"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#collectionDriveModal">
+                                        <span class="d-none d-md-inline">Click here to get started</span>
+                                        <span class="d-inline d-md-none">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </span>
+                                    </a>
+                                </div>
+							</div>
+						</div>
+					</div>
 					</div>
 						<div class="row justify-content-center">
-					<div class="col-lg-4 col-md-6 col-6 d-flex">
+					{{-- <div class="col-lg-4 col-md-6 col-6 d-flex">
 						<div class="work-box card flex-fill aos toggle-card" data-aos="fade-up">
 							<div class="card-body d-flex flex-column">
                                 <button type="button" class="info-btn d-block d-md-none" data-bs-toggle="modal" data-bs-target="#infoModal1">
@@ -261,7 +287,7 @@
                                  </div>
 							</div>
 						</div>
-					</div>
+					</div> --}}
 					<div class="col-lg-4 col-md-6 col-6 d-flex">
 						<div class="work-box card flex-fill aos toggle-card" data-aos="fade-up">
 							<div class="card-body d-flex flex-column">
@@ -273,8 +299,8 @@
 										<img src="{{asset('frontend/assets/img/icons/location.png')}}" alt="img">
 									</span>
 								</div>
-								<h5>Locate a Collection Agent near you</h5>
-								<p class="mob-content">Find & support your neighborhood waste warriors directly </p>
+								<h5>Locate Drop off points</h5>
+								{{-- <p class="mob-content">Find & drop off your washed glassware in your neighborhood collection bins</p> --}}
                                  <div class="mt-auto">
                                     @if (session()->has('user_id'))
                                     <a href="{{route('findcollectionagent')}}" class="btn btn-lg btn-linear-primary w-100 mt-2">
@@ -291,6 +317,46 @@
                                             </span>
                                         </a>
                                     @endif
+                                 </div>
+							</div>
+						</div>
+					</div>
+                    <div class="col-lg-4 col-md-6 col-6 d-flex">
+						<div class="work-box card flex-fill aos toggle-card" data-aos="fade-up">
+							<div class="card-body d-flex flex-column">
+                                <button type="button" class="info-btn d-block d-md-none" data-bs-toggle="modal" data-bs-target="#infoModal1">
+                                    <i class="fas fa-info-circle"></i>
+                                </button>
+								<div class="work-icon">
+									<span>
+										<img src="{{asset('frontend/assets/img/icons/location.png')}}" alt="img">
+									</span>
+								</div>
+								<h5>Download Posters</h5>
+								{{-- <p class="mob-content">Instructions to dispose broken glass.</p>
+                                <p class="mob-content">instructions to wash and dry glassware for reuse</p> --}}
+                                 <div class="mt-auto">
+                                    <a href="{{ route('download.posters') }}" class="btn btn-lg btn-linear-primary w-100 mt-2">
+                                        <span class="d-none d-md-inline">Download Posters</span>
+                                        <span class="d-inline d-md-none">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </span>
+                                    </a>
+                                    {{-- @if (session()->has('user_id'))
+                                    <a href="{{route('findcollectionagent')}}" class="btn btn-lg btn-linear-primary w-100 mt-2">
+                                        <span class="d-none d-md-inline">Find Collection Agents</span>
+                                        <span class="d-inline d-md-none">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </span>
+                                    </a>
+                                    @else
+                                        <a href="{{ route('consumer_login', ['redirect' => url()->current()]) }}" class="btn btn-lg btn-linear-primary w-100 mt-2">
+                                            <span class="d-none d-md-inline">Find Collection Agents</span>
+                                            <span class="d-inline d-md-none">
+                                                <i class="fas fa-arrow-right"></i>
+                                            </span>
+                                        </a>
+                                    @endif --}}
                                  </div>
 							</div>
 						</div>
@@ -326,7 +392,7 @@
 									<img src="{{ asset('frontend/assets/img/icons/registartion.gif') }}" alt="img">
 								</span>
 							</div>
-							<h5>Register on the Platform</h5>
+							<h5>Setup/Find Collection Bin</h5>
 
 						</div>
 					</div>
@@ -337,7 +403,7 @@
 									<img src="{{ asset('frontend/assets/img/icons/resources.gif') }}" alt="img">
 								</span>
 							</div>
-							<h5>List your resources to <br> Buy / Sell</h5>
+							<h5>Drop off rinsed glass bottles</h5>
 
 						</div>
 					</div>
@@ -349,7 +415,7 @@
 										<img src="{{ asset('frontend/assets/img/icons/output-onlinegiftools.gif') }}" alt="img">
 									</span>
 								</div>
-								<h5>Connect with interested parties to directly trade waste-to-value resources</h5>
+								<h5>Browse Catalogue to buy</h5>
 
 							</div>
 						</div>
@@ -776,7 +842,43 @@
 							<h2 class="text-center">Our Impact</h2>
 
 						</div>
-						<div class="row justify-content-center">
+                        <div class="row justify-content-center">
+							<div class="col-lg-4 col-md-6 col-12">
+                              <div class="clients-eights-all">
+                                   <h5 class="mb-2">Collection</h5>
+                                <div class="clients-eight-span text-center">
+
+                                  <h3 class="counter d-inline" data-target="2000">0</h3>
+                                  <span  >+</span>
+                                </div>
+                                <p>Glass jars/bottles collected</p>
+                              </div>
+                            </div>
+
+
+							<div class="col-lg-4 col-md-6 col-12">
+								<div class="clients-eights-all">
+								   <h5 class="mb-2"> Repurposed</h5>
+									<div class="clients-eight-span">
+										<h3 class="counter" data-target="200">0</h3>
+										<span>+</span>
+										</div>
+									<p>glass jars/bottles to home makers and small businesses</p>
+								</div>
+							</div>
+
+                            <div class="col-lg-4 col-md-6 col-12">
+								<div class="clients-eights-all">
+								   <h5 class="mb-2">Drop offs</h5>
+									<div class="clients-eight-span">
+										<h3 class="counter" data-target="5">0</h3>
+										<span>+</span>
+										</div>
+									<p>across apartments & community centres</p>
+								</div>
+							</div>
+						</div>
+						{{-- <div class="row justify-content-center">
 							<div class="col-lg-4 col-md-6 col-12">
                               <div class="clients-eights-all">
                                    <h5 class="mb-2">Total Contributors</h5>
@@ -832,7 +934,7 @@
 									<p>connections established    </p>
 								</div>
 							</div>
-						</div>
+						</div> --}}
 					</div>
 
 				</div>
@@ -913,6 +1015,80 @@
     </div>
   </div>
 </section>
+<div class="modal fade" id="collectionDriveModal" tabindex="-1" aria-labelledby="collectionDriveModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="collectionDriveModalLabel">
+                    Organize Collection Drive
+                </h5>
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <form action="" method="POST">
+                @csrf
+
+                <div class="modal-body">
+
+                    <div class="mb-3">
+                        <label class="form-label">Name <span class="text-danger">*</span></label>
+                        <input type="text" name="name" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Contact Number <span class="text-danger">*</span></label>
+                        <input type="tel"
+                               name="contact_number"
+                               class="form-control"
+                               maxlength="10"
+                               pattern="[0-9]{10}"
+                               required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Location for Collection Drive <span class="text-danger">*</span></label>
+                        <textarea name="location"
+                                  class="form-control"
+                                  rows="3"
+                                  required></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">
+                            Approximate Number of Participants
+                            <small>(No. of Houses/Flats)</small>
+                            <span class="text-danger">*</span>
+                        </label>
+
+                        <input type="number"
+                               name="participants"
+                               class="form-control"
+                               min="1"
+                               required>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+
+                    <button type="submit"
+                            class="btn btn-linear-primary">
+                        Submit
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
 
 		<!-- Partners Section -->
 <!-- Footer (should come last) -->

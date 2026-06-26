@@ -249,8 +249,8 @@ $conreviews = RecyclableReview::where('login_user_id', $userId)->first();
 									<li class="active"><a href="{{route('about')}}">About Us</a></li>
 										<li><a href="{{route('howitsworks')}}">How it Works</a></li>
 
-											<li><a href="{{route('blog')}}">Blogs</a></li>
-											<li><a href="{{route('workwithus')}}">Work with us</a></li>
+											{{-- <li><a href="{{route('blog')}}">Blogs</a></li>
+											<li><a href="{{route('workwithus')}}">Work with us</a></li> --}}
 										<li><a href="{{route('contact')}}">Contact</a></li>
 										 <!--	@if (session()->has('user_id'))-->
 											<!--<li><a href="{{route('repairmap')}}">The Repair Map</a></li>-->
