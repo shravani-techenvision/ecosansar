@@ -16,6 +16,7 @@ use App\Models\admin\BreadcrumImage;
 use App\Models\frontend\SABEnquiryMessages;
 use App\Models\frontend\Comment;
 use App\Models\frontend\CommentReply;
+use App\Models\frontend\CollectionDrive;
 use App\Models\admin\Resource;
 use App\Models\admin\Pincode;
 use App\Models\admin\Weight;
@@ -548,6 +549,18 @@ class IndexController extends Controller
         $totalrecyclableconn = RecyclableEnquiry::count();
          $totalreusableconn = ReusableEnquiry::count();
          $totalconn = $totalrecyclableconn + $totalreusableconn;
+         
+         $userRoute = route('consumer_login', ['redirect' => route('reusable-choose_one')]);
+
+        if (session()->has('user_id')) {
+            $user = EcosansarUsers::find(session('user_id'));
+        
+            if ($user && $user->post_access == 1) {
+                $userRoute = route('reusable-choose_one');
+            } else {
+                $userRoute = route('reusable_listings');
+            }
+        }
 
           // user activity start
         $userid = session()->get('user_id');
@@ -563,7 +576,7 @@ class IndexController extends Controller
 
 
         return view('frontend/index', compact('user_type', 'blogs', 'posts', 'reusableposts', 'Contributorusers', 'collagentusers', 'totnooflistings',
-         'totnoresources', 'totalconn'));
+         'totnoresources', 'totalconn','userRoute'));
     }
 
 
@@ -1041,9 +1054,23 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
 
         return view('frontend/privacypolicy', compact('breadcrumbimage'));
     }
-
+    
     public function downloadPoster() {
         return view('frontend.download-poster');
+    }
+    
+    public function storeCollectionDrive(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'contact_number' => 'required|digits:10',
+            'location' => 'required|string',
+            'participants' => 'required|integer|min:1',
+        ]);
+    
+        CollectionDrive::create($validated);
+    
+        return redirect()->back()->with('success', 'Collection drive request submitted successfully.');
     }
     public function blog()
     {
@@ -1536,7 +1563,15 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
     }
     public function reusable_choose_one() {
         $breadcrumbimage = BreadcrumImage::latest()->first();
-        return view('frontend/userdetails/displayreusablepostoption', compact('breadcrumbimage'));
+        $user_id = session()->get('user_id');
+
+        $postAccess = 0;
+    
+        if ($user_id) {
+            $postAccess = EcosansarUsers::where('id', $user_id)
+                            ->value('post_access');
+        }
+        return view('frontend/userdetails/displayreusablepostoption', compact('breadcrumbimage','postAccess'));
     }
 
     public function user_deactivate()
@@ -2042,10 +2077,19 @@ if ($req->type_of_user == 'consumer') {
             Log::info('Redirecting to WhatsApp share URL', ['redirect_url' => $redirect_wpto]);
             return redirect($redirect_wpto);
         }
-     $redirectTo = $request->input('redirect') ?? route('profile', ['id' => $user->id]);
-      // Flash only if it's a direct login (i.e., no custom redirect)
-  Session::flash('success', 'Logged in Successfully');
-return redirect()->to($redirectTo); // ✅ Ensures a valid response
+        
+        if ($request->filled('redirect_reusable')) {
+
+            if ($user->post_access == 1) {
+                return redirect()->route('reusable-choose_one');
+            }
+        
+            return redirect()->route('reusable_listings');
+        }
+        $redirectTo = $request->input('redirect') ?? route('profile', ['id' => $user->id]);
+        // Flash only if it's a direct login (i.e., no custom redirect)
+        Session::flash('success', 'Logged in Successfully');
+        return redirect()->to($redirectTo); // ✅ Ensures a valid response
 
 
 

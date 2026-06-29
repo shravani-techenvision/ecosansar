@@ -32528,3 +32528,36 @@ span.select2-container.select2-container--default.select2-container--open {
 
     color: #000 !important;
 }
+
+/* Download Poster*/
+.poster-card{
+    max-width: 280px;
+    margin: 0 auto;
+}
+
+.poster-card img{
+    width: 100%;
+    object-fit: cover;
+}
+
+.poster-card .card-body{
+    padding: 15px;
+}
+
+.poster-card .btn{
+    width: 100%;
+}
+
+@media (max-width: 768px){
+    .poster-card{
+        max-width: 250px;
+    }
+
+}
+
+@media (max-width: 576px){
+    .poster-card{
+        max-width: 100%;
+    }
+
+}

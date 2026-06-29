@@ -50,20 +50,19 @@
 				<div class="col-md-12 text-center">
 					<div class="section-heading section-heading-four category-heading aos" data-aos="fade-up">
 
-						<p>Welcome! We're thrilled to have you here.
-
-Choose your role to register:</p>
+						<!--<p>Welcome! We're thrilled to have you here. Choose your role to register:</p>-->
+						<p>Welcome! We're thrilled to have you here. Register as a Collection Agent to get started.</p>
 					</div>
 				</div>
 			</div>
 			<div class="row justify-content-center row-gap-3">
-				<div class="col-lg-3 col-md-4 col-sm-6 col-12 d-flex">
-					<div class="trust-us-main flex-fill">
+				<!--<div class="col-lg-3 col-md-4 col-sm-6 col-12 d-flex">-->
+				<!--	<div class="trust-us-main flex-fill">-->
 
-						<h3 class="text-truncate">Contributor</h3>
-						<p>For Waste / Resource Generators (consumers)</p>
-					</div>
-				</div>
+				<!--		<h3 class="text-truncate">Contributor</h3>-->
+				<!--		<p>For Waste / Resource Generators (consumers)</p>-->
+				<!--	</div>-->
+				<!--</div>-->
 				<div class="col-lg-3 col-md-4 col-sm-6 col-12 d-flex">
 					<div class="trust-us-main flex-fill">
 
@@ -71,13 +70,13 @@ Choose your role to register:</p>
 						<p>Resource Pickup Agents</p>
 					</div>
 				</div>
-				<div class="col-lg-3 col-md-4 col-sm-6 col-12 d-flex">
-					<div class="trust-us-main flex-fill">
+				<!--<div class="col-lg-3 col-md-4 col-sm-6 col-12 d-flex">-->
+				<!--	<div class="trust-us-main flex-fill">-->
 
-						<h3 class="text-truncate">Corporate</h3>
-						<p>Brands / Waste Management Companies / Recyclers / businesses dealing in bulk quantities</p>
-					</div>
-				</div>
+				<!--		<h3 class="text-truncate">Corporate</h3>-->
+				<!--		<p>Brands / Waste Management Companies / Recyclers / businesses dealing in bulk quantities</p>-->
+				<!--	</div>-->
+				<!--</div>-->
 
 			</div>
 		</div>
@@ -93,19 +92,20 @@ Choose your role to register:</p>
 									<!--	<h3 class="mb-2">User Signup</h3>-->
 									<!--	<p>Enter your credentials to access your account</p>-->
 									<!--</div>-->
-									<div class="mb-3">
-										<label class="form-label">Who you are<span style="color:red;">*</span></label>
-										<select class="select" name="type_of_user" id="type_of_user">
-													<option value="">Select</option>
-                                        <option value="consumer" {{ old('type_of_user') == 'consumer' ? 'selected' : '' }}>Contributor</option>
-                                        <option value="sab" {{ old('type_of_user') == 'sab' ? 'selected' : '' }}>Collection Agent</option>
-                                        <option value="business" {{ old('type_of_user') == 'business' ? 'selected' : '' }}>Business</option>
-												</select>
-												 @if ($errors->has('type_of_user'))
-                                <span class="text-danger">{{ $errors->first('type_of_user') }}</span>
-                             @endif
-                               <span class="error-message text-danger" id="type_of_user-error"></span>
-									</div>
+									<!--<div class="mb-3">-->
+									<!--	<label class="form-label">Who you are<span style="color:red;">*</span></label>-->
+									<!--	<select class="select" name="type_of_user" id="type_of_user">-->
+									<!--		<option value="">Select</option>-->
+         <!--                                   <option value="consumer" {{ old('type_of_user') == 'consumer' ? 'selected' : '' }}>Contributor</option>-->
+         <!--                                   <option value="sab" {{ old('type_of_user') == 'sab' ? 'selected' : '' }}>Collection Agent</option>-->
+         <!--                                   <option value="business" {{ old('type_of_user') == 'business' ? 'selected' : '' }}>Business</option>-->
+									<!--	</select>-->
+									<!--	@if ($errors->has('type_of_user'))-->
+         <!--                                   <span class="text-danger">{{ $errors->first('type_of_user') }}</span>-->
+         <!--                                @endif-->
+         <!--                                  <span class="error-message text-danger" id="type_of_user-error"></span>-->
+									<!--</div>-->
+									<input type="hidden" name="type_of_user" value="sab">
 									<div class="mb-3">
 										<label class="form-label">Name<span style="color:red;">*</span></label>
 										 <input onkeydown="return /[a-z0-9 ]/i.test(event.key)" type="text" class="form-control" name="name" id="name" placeholder="Name" value={{ old('name') }}>

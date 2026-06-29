@@ -65,6 +65,7 @@
                     <input type="hidden" name="redirect" value="{{ request('redirect') }}">
                     <input type="hidden" name="redirect_list" value="{{ request('redirect_list') }}">
                      <input type="hidden" name="redirect_wp" value="{{ request('redirect_wp') }}">
+                     <input type="hidden" name="redirect_reusable" value="{{ request('redirect_reusable') }}">
                     <div class="d-flex flex-column justify-content-center">
 								<div class="card p-sm-4 my-5">
 									<div class="card-body">
@@ -140,13 +141,60 @@
   
 
 <script>
+document.addEventListener('DOMContentLoaded', function () {
 
+    const enquiryButtons = document.querySelectorAll('.enquiryBtn');
+
+    enquiryButtons.forEach(button => {
+
+        button.addEventListener('click', function () {
+
+            let type = this.dataset.type;
+            let postId = this.dataset.post;
+
+            // Store post id
+            document.getElementById('post_id').value = postId;
+
+            // Change quantity label
+            let label = "Quantity";
+
+            switch (type.toLowerCase()) {
+                case 'jar':
+                case 'jars':
+                    label = 'Number of Jars';
+                    break;
+
+                case 'bottle':
+                case 'bottles':
+                    label = 'Number of Bottles';
+                    break;
+
+                case 'drum':
+                case 'drums':
+                    label = 'Number of Drums';
+                    break;
+
+                case 'container':
+                case 'containers':
+                    label = 'Number of Containers';
+                    break;
+
+                default:
+                    label = 'Number of ' + type;
+            }
+
+            document.getElementById('quantityLabel').innerText = label;
+        });
+
+    });
+
+});
 document.getElementById('submit-contact').addEventListener('click', function() {
     var contact = document.getElementById('contact').value;
     var contactError = document.getElementById('contact-error');
     
      // List of fixed numbers that should receive the static OTP
-    var fixedNumbers = ['9067700409', '9665679920', '8553012812','9561039920']; // Add your fixed numbers here
+    var fixedNumbers = ['9067700409', '9665679920', '8553012812','9561039920','7420911808']; // Add your fixed numbers here
     //alert('hii');
 
     if (contact) {

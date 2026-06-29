@@ -19,3 +19,9 @@
 [13-Jul-2024 15:23:30 Asia/Kolkata] PHP Fatal error:  Cannot redeclare displayStars() (previously declared in /home/ows1kmakt8y2/public_html/storage/framework/views/00a5c86b331cfa8e4d9e773fb4154c0a.php:275) in /home/ows1kmakt8y2/public_html/storage/framework/views/00a5c86b331cfa8e4d9e773fb4154c0a.php on line 275
 [13-Jul-2024 15:24:58 Asia/Kolkata] PHP Fatal error:  Cannot redeclare displayStars12() (previously declared in /home/ows1kmakt8y2/public_html/storage/framework/views/00a5c86b331cfa8e4d9e773fb4154c0a.php:275) in /home/ows1kmakt8y2/public_html/storage/framework/views/00a5c86b331cfa8e4d9e773fb4154c0a.php on line 275
 [13-Jul-2024 15:25:42 Asia/Kolkata] PHP Fatal error:  Cannot redeclare displayStars() (previously declared in /home/ows1kmakt8y2/public_html/storage/framework/views/00a5c86b331cfa8e4d9e773fb4154c0a.php:275) in /home/ows1kmakt8y2/public_html/storage/framework/views/00a5c86b331cfa8e4d9e773fb4154c0a.php on line 275
+[24-Jun-2026 10:24:59 UTC] PHP Warning:  require(/home/niluniquefindson/public_html/ecosansar/public/../vendor/autoload.php): Failed to open stream: No such file or directory in /home/niluniquefindson/public_html/ecosansar/public/index.php on line 34
+[24-Jun-2026 10:24:59 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/niluniquefindson/public_html/ecosansar/public/../vendor/autoload.php' (include_path='.:/opt/alt/php83/usr/share/pear:/opt/alt/php83/usr/share/php:/usr/share/pear:/usr/share/php') in /home/niluniquefindson/public_html/ecosansar/public/index.php:34
+Stack trace:
+#0 /home/niluniquefindson/public_html/ecosansar/index.php(21): require_once()
+#1 {main}
+  thrown in /home/niluniquefindson/public_html/ecosansar/public/index.php on line 34

@@ -184,6 +184,23 @@ if ($redirectRoute === null) {
      $plans = SubscriptionModule::where('active',1)->get();
     return view('admin/usertype/sablist',compact('result','plans'));
   }
+  
+    //   Collection Agent (sab) Post access toggle
+   public function changePostAccess(Request $request)
+    {
+        $request->validate([
+            'user_id' => 'required|exists:ecosansar_users,id',
+        ]);
+    
+        $user = EcosansarUsers::findOrFail($request->user_id);
+    
+        // If checkbox is checked -> 1, otherwise -> 0
+        $user->post_access = $request->has('post_access') ? 1 : 0;
+    
+        $user->save();
+        Alert::success('success','Post access updated successfully.');
+        return redirect()->back();
+    }
   public function consumerlist(){
     $result = EcosansarUsers::where('user_type','consumer')->where('is_delete','0')
      ->orderBy('id','desc')->get();

@@ -217,12 +217,42 @@
 								<h5>Packaging Reusables</h5>
 								<p class="mob-content">Glass jars and bottles that were collected, washed and sorted for ease of repurpose</p>
 							 	<div class="mt-auto">
-                                    <a href="{{route('reusable-choose_one')}}" class="btn btn-lg btn-linear-primary w-100 mt-2">
-                                        <span class="d-none d-md-inline">List or Browse Reusables</span>
-                                        <span class="d-inline d-md-none">
-                                            <i class="fas fa-arrow-right"></i>
-                                        </span>
-                                    </a>
+							 	   @if(session()->has('user_id'))
+                                        @php
+                                            $user = \App\Models\frontend\EcosansarUsers::find(session('user_id'));
+                                        @endphp
+                                    
+                                        <a href="{{ $user && $user->post_access == 1 ? route('reusable-choose_one') : route('reusable_listings') }}"
+                                           class="btn btn-lg btn-linear-primary w-100 mt-2">
+                                            <span class="d-none d-md-inline">List or Browse Reusables</span>
+                                            <span class="d-inline d-md-none">
+                                                <i class="fas fa-arrow-right"></i>
+                                            </span>
+                                        </a>
+                                    @else
+                                        <a href="{{ route('consumer_login', ['redirect_reusable' => 1]) }}"
+                                           class="btn btn-lg btn-linear-primary w-100 mt-2">
+                                            <span class="d-none d-md-inline">List or Browse Reusables</span>
+                                            <span class="d-inline d-md-none">
+                                                <i class="fas fa-arrow-right"></i>
+                                            </span>
+                                        </a>
+                                    @endif
+                                    <!--@if(session()->has('user_id'))-->
+                                    <!--    <a href="{{ route('reusable-choose_one') }}" class="btn btn-lg btn-linear-primary w-100 mt-2">-->
+                                    <!--        <span class="d-none d-md-inline">List or Browse Reusables</span>-->
+                                    <!--        <span class="d-inline d-md-none">-->
+                                    <!--            <i class="fas fa-arrow-right"></i>-->
+                                    <!--        </span>-->
+                                    <!--    </a>-->
+                                    <!--@else-->
+                                    <!--    <a href="{{ route('consumer_login', ['redirect' => route('reusable-choose_one')]) }}" class="btn btn-lg btn-linear-primary w-100 mt-2">-->
+                                    <!--        <span class="d-none d-md-inline">List or Browse Reusables</span>-->
+                                    <!--        <span class="d-inline d-md-none">-->
+                                    <!--            <i class="fas fa-arrow-right"></i>-->
+                                    <!--        </span>-->
+                                    <!--    </a>-->
+                                    <!--@endif-->
                                 </div>
 							</div>
 						</div>
@@ -427,225 +457,225 @@
 
 
 		<!-- Feature Section -->
-		<section class="feature-section" >
+		<!--<section class="feature-section" >-->
 
-			<div class="container">
-				<div class="section-heading">
-					<div class="row align-items-center">
+		<!--	<div class="container">-->
+		<!--		<div class="section-heading">-->
+		<!--			<div class="row align-items-center">-->
 
-							<h2 class="text-center">What can you list</h2>
-					</div>
-				</div>
-				<h3 class="mb-3 text-center">RECYCLABLES</h3>
-				<div class="row justify-content-center">
-					<div class="col-6 col-md-6 col-lg-2 mb-3 px-1">
-						<div class="feature-box aos" data-aos="fade-up">
-							<div class="feature-icon">
-								<span>
-									<img src="{{ asset('frontend/assets/img/icons/paper.png') }}" alt="img">
-								</span>
-							</div>
-							<h5>Paper</h5>
-							<div class="feature-overlay" >
+		<!--					<h2 class="text-center">What can you list</h2>-->
+		<!--			</div>-->
+		<!--		</div>-->
+		<!--		<h3 class="mb-3 text-center">RECYCLABLES</h3>-->
+		<!--		<div class="row justify-content-center">-->
+		<!--			<div class="col-6 col-md-6 col-lg-2 mb-3 px-1">-->
+		<!--				<div class="feature-box aos" data-aos="fade-up">-->
+		<!--					<div class="feature-icon">-->
+		<!--						<span>-->
+		<!--							<img src="{{ asset('frontend/assets/img/icons/paper.png') }}" alt="img">-->
+		<!--						</span>-->
+		<!--					</div>-->
+		<!--					<h5>Paper</h5>-->
+		<!--					<div class="feature-overlay" >-->
 
-							</div>
-						</div>
-					</div>
-					<div class="col-6 col-md-6 col-lg-2 mb-3 px-1">
-						<div  class="feature-box aos" data-aos="fade-up">
-							<div class="feature-icon">
-								<span>
-									<img src="{{ asset('frontend/assets/img/icons/plastic.png') }}" alt="img">
-								</span>
-							</div>
-							<h5>Plastic</h5>
-							<div class="feature-overlay">
+		<!--					</div>-->
+		<!--				</div>-->
+		<!--			</div>-->
+		<!--			<div class="col-6 col-md-6 col-lg-2 mb-3 px-1">-->
+		<!--				<div  class="feature-box aos" data-aos="fade-up">-->
+		<!--					<div class="feature-icon">-->
+		<!--						<span>-->
+		<!--							<img src="{{ asset('frontend/assets/img/icons/plastic.png') }}" alt="img">-->
+		<!--						</span>-->
+		<!--					</div>-->
+		<!--					<h5>Plastic</h5>-->
+		<!--					<div class="feature-overlay">-->
 
-							</div>
-						</div>
-					</div>
-					<div class="col-6 col-md-6 col-lg-2 mb-3 px-1">
-						<div class="feature-box aos" data-aos="fade-up">
-							<div class="feature-icon">
-								<span>
-									<img src="{{ asset('frontend/assets/img/icons/soft-drink_7297368.png') }}" alt="img">
-								</span>
-							</div>
-							<h5>Glass</h5>
-							<div class="feature-overlay">
+		<!--					</div>-->
+		<!--				</div>-->
+		<!--			</div>-->
+		<!--			<div class="col-6 col-md-6 col-lg-2 mb-3 px-1">-->
+		<!--				<div class="feature-box aos" data-aos="fade-up">-->
+		<!--					<div class="feature-icon">-->
+		<!--						<span>-->
+		<!--							<img src="{{ asset('frontend/assets/img/icons/soft-drink_7297368.png') }}" alt="img">-->
+		<!--						</span>-->
+		<!--					</div>-->
+		<!--					<h5>Glass</h5>-->
+		<!--					<div class="feature-overlay">-->
 
-							</div>
-						</div>
-					</div>
-					<div class="col-6 col-md-6 col-lg-2 mb-3 px-1">
-						<div class="feature-box aos" data-aos="fade-up">
-							<div class="feature-icon">
-								<span>
-									<img src="{{ asset('frontend/assets/img/icons/Textile.png') }}" alt="img">
-								</span>
-							</div>
-							<h5>Textile</h5>
-							<div class="feature-overlay">
+		<!--					</div>-->
+		<!--				</div>-->
+		<!--			</div>-->
+		<!--			<div class="col-6 col-md-6 col-lg-2 mb-3 px-1">-->
+		<!--				<div class="feature-box aos" data-aos="fade-up">-->
+		<!--					<div class="feature-icon">-->
+		<!--						<span>-->
+		<!--							<img src="{{ asset('frontend/assets/img/icons/Textile.png') }}" alt="img">-->
+		<!--						</span>-->
+		<!--					</div>-->
+		<!--					<h5>Textile</h5>-->
+		<!--					<div class="feature-overlay">-->
 
-							</div>
-						</div>
-					</div>
-                    <div class="col-6 col-md-6 col-lg-2 mb-3 px-1">
-						<div class="feature-box aos" data-aos="fade-up">
-							<div class="feature-icon">
-								<span>
-									<img src="{{ asset('frontend/assets/img/icons/ewaste.png') }}" alt="img">
-								</span>
-							</div>
-							<h5>Ewaste</h5>
-							<div class="feature-overlay">
+		<!--					</div>-->
+		<!--				</div>-->
+		<!--			</div>-->
+  <!--                  <div class="col-6 col-md-6 col-lg-2 mb-3 px-1">-->
+		<!--				<div class="feature-box aos" data-aos="fade-up">-->
+		<!--					<div class="feature-icon">-->
+		<!--						<span>-->
+		<!--							<img src="{{ asset('frontend/assets/img/icons/ewaste.png') }}" alt="img">-->
+		<!--						</span>-->
+		<!--					</div>-->
+		<!--					<h5>Ewaste</h5>-->
+		<!--					<div class="feature-overlay">-->
 
-							</div>
-						</div>
-					</div>
-
-
-
-				</div>
-					<h3 class="mb-3 mt-4 text-center"> PACKAGING REUSABLES (CLEAN ONLY)   </h3>
-				<div class="row justify-content-center">
-
-					<div class="col-6 col-md-6 col-lg-2 mb-3 px-1">
-						<div class="feature-box aos" data-aos="fade-up">
-							<div class="feature-icon">
-								<span>
-									<img src="{{ asset('frontend/assets/img/icons/drum.png') }}" alt="img">
-								</span>
-							</div>
-							<h5>Drums</h5>
-							<div class="feature-overlay">
-
-							</div>
-						</div>
-					</div>
-					<div class="col-6 col-md-6 col-lg-2 mb-3 px-1">
-						<div class="feature-box aos" data-aos="fade-up">
-							<div class="feature-icon">
-								<span>
-									<img src="{{ asset('frontend/assets/img/icons/carton.png') }}" alt="img">
-								</span>
-							</div>
-							<h5>Cartons</h5>
-							<div class="feature-overlay">
-
-							</div>
-						</div>
-					</div>
-
-						<div class="col-6 col-md-6 col-lg-2 mb-3 px-1">
-						<div class="feature-box aos" data-aos="fade-up">
-							<div class="feature-icon">
-								<span>
-									<img src="{{ asset('frontend/assets/img/icons/Delivery bags.png') }}" alt="img">
-								</span>
-							</div>
-							<h5>Delivery Bags</h5>
-							<div class="feature-overlay">
-
-							</div>
-						</div>
-					</div>
-					<div class="col-6 col-md-6 col-lg-2 mb-3 px-1">
-						<div class="feature-box aos" data-aos="fade-up">
-							<div class="feature-icon">
-								<span>
-									<img src="{{ asset('frontend/assets/img/icons/jar.png') }}" alt="img">
-								</span>
-							</div>
-							<h5 style="font-size: 19px;"> Glass jars and Bottles</h5>
-							<div class="feature-overlay">
-							</div>
-						</div>
-					</div>
-                    			<div class="col-6 col-md-6 col-lg-2 mb-3 px-1">
-						<div class="feature-box aos" data-aos="fade-up">
-							<div class="feature-icon">
-								<span>
-									<img src="{{ asset('frontend/assets/img/icons/bag.png') }}" alt="img">
-								</span>
-							</div>
-							<h5 style="font-size: 19px;">Sacks</h5>
-							<div class="feature-overlay">
-
-							</div>
-						</div>
-					</div>
-					<div class="col-6 col-md-6 col-lg-2 mb-3 px-1">
-						<div class="feature-box aos" data-aos="fade-up">
-							<div class="feature-icon">
-								<span>
-									<img src="{{ asset('frontend/assets/img/icons/blanket.png') }}" alt="img">
-								</span>
-							</div>
-							<h5 style="font-size: 19px;">Product covers(plastic)</h5>
-							<div class="feature-overlay">
-
-							</div>
-						</div>
-					</div>
+		<!--					</div>-->
+		<!--				</div>-->
+		<!--			</div>-->
 
 
-				</div>
-			</div>
-		</section>
+
+		<!--		</div>-->
+		<!--			<h3 class="mb-3 mt-4 text-center"> PACKAGING REUSABLES (CLEAN ONLY)   </h3>-->
+		<!--		<div class="row justify-content-center">-->
+
+		<!--			<div class="col-6 col-md-6 col-lg-2 mb-3 px-1">-->
+		<!--				<div class="feature-box aos" data-aos="fade-up">-->
+		<!--					<div class="feature-icon">-->
+		<!--						<span>-->
+		<!--							<img src="{{ asset('frontend/assets/img/icons/drum.png') }}" alt="img">-->
+		<!--						</span>-->
+		<!--					</div>-->
+		<!--					<h5>Drums</h5>-->
+		<!--					<div class="feature-overlay">-->
+
+		<!--					</div>-->
+		<!--				</div>-->
+		<!--			</div>-->
+		<!--			<div class="col-6 col-md-6 col-lg-2 mb-3 px-1">-->
+		<!--				<div class="feature-box aos" data-aos="fade-up">-->
+		<!--					<div class="feature-icon">-->
+		<!--						<span>-->
+		<!--							<img src="{{ asset('frontend/assets/img/icons/carton.png') }}" alt="img">-->
+		<!--						</span>-->
+		<!--					</div>-->
+		<!--					<h5>Cartons</h5>-->
+		<!--					<div class="feature-overlay">-->
+
+		<!--					</div>-->
+		<!--				</div>-->
+		<!--			</div>-->
+
+		<!--				<div class="col-6 col-md-6 col-lg-2 mb-3 px-1">-->
+		<!--				<div class="feature-box aos" data-aos="fade-up">-->
+		<!--					<div class="feature-icon">-->
+		<!--						<span>-->
+		<!--							<img src="{{ asset('frontend/assets/img/icons/Delivery bags.png') }}" alt="img">-->
+		<!--						</span>-->
+		<!--					</div>-->
+		<!--					<h5>Delivery Bags</h5>-->
+		<!--					<div class="feature-overlay">-->
+
+		<!--					</div>-->
+		<!--				</div>-->
+		<!--			</div>-->
+		<!--			<div class="col-6 col-md-6 col-lg-2 mb-3 px-1">-->
+		<!--				<div class="feature-box aos" data-aos="fade-up">-->
+		<!--					<div class="feature-icon">-->
+		<!--						<span>-->
+		<!--							<img src="{{ asset('frontend/assets/img/icons/jar.png') }}" alt="img">-->
+		<!--						</span>-->
+		<!--					</div>-->
+		<!--					<h5 style="font-size: 19px;"> Glass jars and Bottles</h5>-->
+		<!--					<div class="feature-overlay">-->
+		<!--					</div>-->
+		<!--				</div>-->
+		<!--			</div>-->
+  <!--                  			<div class="col-6 col-md-6 col-lg-2 mb-3 px-1">-->
+		<!--				<div class="feature-box aos" data-aos="fade-up">-->
+		<!--					<div class="feature-icon">-->
+		<!--						<span>-->
+		<!--							<img src="{{ asset('frontend/assets/img/icons/bag.png') }}" alt="img">-->
+		<!--						</span>-->
+		<!--					</div>-->
+		<!--					<h5 style="font-size: 19px;">Sacks</h5>-->
+		<!--					<div class="feature-overlay">-->
+
+		<!--					</div>-->
+		<!--				</div>-->
+		<!--			</div>-->
+		<!--			<div class="col-6 col-md-6 col-lg-2 mb-3 px-1">-->
+		<!--				<div class="feature-box aos" data-aos="fade-up">-->
+		<!--					<div class="feature-icon">-->
+		<!--						<span>-->
+		<!--							<img src="{{ asset('frontend/assets/img/icons/blanket.png') }}" alt="img">-->
+		<!--						</span>-->
+		<!--					</div>-->
+		<!--					<h5 style="font-size: 19px;">Product covers(plastic)</h5>-->
+		<!--					<div class="feature-overlay">-->
+
+		<!--					</div>-->
+		<!--				</div>-->
+		<!--			</div>-->
+
+
+		<!--		</div>-->
+		<!--	</div>-->
+		<!--</section>-->
 		<!-- /Feature Section -->
 
-		<section class="about-our-company"  >
+<!--		<section class="about-our-company"  >-->
 			<!--<div class="our-company-img">-->
 			<!--	<img src="{{ asset('frontend/assets/img/bg/wave.png') }}" alt="image" class="img-fluid">-->
 			<!--</div>-->
-			<div class="container">
-				<div class="section-heading section-heading-six">
-					<div class="row">
-						<div class="col-md-9 col-12 aos" data-aos="fade-up">
+<!--			<div class="container">-->
+<!--				<div class="section-heading section-heading-six">-->
+<!--					<div class="row">-->
+<!--						<div class="col-md-9 col-12 aos" data-aos="fade-up">-->
 
-							<h2>Grow Your Own ZeroWaste Community</h2>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-lg-6 col-12">
-						<div class="our-company-six mt-4" >
-						    <h5>Empower a Scrap Dealer or Waste Collector!</h5>
-							<p>
-								Help them register, add a shortcut to their home screen, and improve conversion of waste to value. Let us know once they're onboarded—we’ll support them in maximizing their benefits!
-							</p>
-						</div>
-							<div class="our-company-six mt-4">
-						    <h5>Boost Community Participation!
-</h5>
-							<p>
-							Share our link and spread the word—more contributors mean better collections and lesser waste in landfills from your community!
-							</p>
-						</div>
+<!--							<h2>Grow Your Own ZeroWaste Community</h2>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--				<div class="row">-->
+<!--					<div class="col-lg-6 col-12">-->
+<!--						<div class="our-company-six mt-4" >-->
+<!--						    <h5>Empower a Scrap Dealer or Waste Collector!</h5>-->
+<!--							<p>-->
+<!--								Help them register, add a shortcut to their home screen, and improve conversion of waste to value. Let us know once they're onboarded—we’ll support them in maximizing their benefits!-->
+<!--							</p>-->
+<!--						</div>-->
+<!--							<div class="our-company-six mt-4">-->
+<!--						    <h5>Boost Community Participation!-->
+<!--</h5>-->
+<!--							<p>-->
+<!--							Share our link and spread the word—more contributors mean better collections and lesser waste in landfills from your community!-->
+<!--							</p>-->
+<!--						</div>-->
 
 
-					</div>
-					<div class="col-lg-6 col-12">
-						<div class="our-company-ryt d-none d-lg-block">
+<!--					</div>-->
+<!--					<div class="col-lg-6 col-12">-->
+<!--						<div class="our-company-ryt d-none d-lg-block">-->
 
-							<div class="our-company-bg  ">
-								<img src="{{ asset('frontend/assets/img/bg/homepage.png') }}" alt="image" class="img-fluid  ">
-							</div>
+<!--							<div class="our-company-bg  ">-->
+<!--								<img src="{{ asset('frontend/assets/img/bg/homepage.png') }}" alt="image" class="img-fluid  ">-->
+<!--							</div>-->
 
-							<div class="our-company-two-content">
-								<div class="company-two-top-content">
-									<img src="{{ asset('frontend/assets/img/icons/trophy-svgrepo-com.svg') }}" alt="image" class="me-2">
-									<h4 class="text-dark">7+</h4>
+<!--							<div class="our-company-two-content">-->
+<!--								<div class="company-two-top-content">-->
+<!--									<img src="{{ asset('frontend/assets/img/icons/trophy-svgrepo-com.svg') }}" alt="image" class="me-2">-->
+<!--									<h4 class="text-dark">7+</h4>-->
 
-								</div>
-								<p>Years Experience</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
+<!--								</div>-->
+<!--								<p>Years Experience</p>-->
+<!--							</div>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--			</div>-->
+<!--		</section>-->
 
  	<!-- Service Section -->
 		<section class="service-section-two" style="background-color:#fff !important;">
@@ -661,15 +691,15 @@
 					<!--	<a href="{{route('listings')}}" class="btn btn-primary btn-view rounded-pill">View All</a>-->
 					<!--</div>-->
 				</div>
-				<h3 class="mb-0 mb-md-3 text-center">Recyclable Listings</h3>
+				<!--<h3 class="mb-0 mb-md-3 text-center">Recyclable Listings</h3>-->
 				<!--<div class="row justify-content-center">-->
-				<div class="row ">
+				<!--<div class="row ">-->
 
-				@foreach ($posts as $post)
-    <div class="col-lg-3 col-md-6">
-        <div class="service-widget service-two aos" data-aos="fade-up">
-            <div class="service-img">
-                @php
+				<!--@foreach ($posts as $post)-->
+    <!--                <div class="col-lg-3 col-md-6">-->
+    <!--                    <div class="service-widget service-two aos" data-aos="fade-up">-->
+    <!--                        <div class="service-img">-->
+                                @php
                                         // Check if $listing->resource_img is set and not empty
                                         $imagePath = !empty($post->resource_img) ? 'Recyclableposts/265x265/' . $post->resource_img : null;
 
@@ -678,73 +708,73 @@
                                                     ? Storage::disk('s3')->url($imagePath)
                                                     : asset('frontend/assets/img/ecosansar.png');
                                     @endphp
-                <a href="{{ url('recyclable_listing_details/'.$post->id) }}">
-                  <img class="img-fluid serv-img" alt="Service Image" src="{{ $imageUrl }}">
-                </a>
-                <div class="fav-item">
-                    <a href="#"><span class="item-cat">{{ $post->resource->resource_name ?? '' }}</span></a>
-                    <!--<a href="javascript:void(0)" class="fav-icon">-->
-                    <!--    <i class="feather-heart"></i>-->
-                    <!--</a>-->
-                </div>
-                <!--<div class="item-info">-->
-                <!--    <a href="#">-->
-                <!--        <span class="item-img">-->
-                <!--            <img src="{{ asset('frontend/assets/img/user.png') }}" class="avatar" alt="User">-->
-                <!--            {{ $post->user->name ?? 'Unknown User' }}-->
-                <!--        </span>-->
-                <!--    </a>-->
-                <!--</div>-->
-            </div>
-            <div class="service-content">
+<!--                                        <a href="{{ url('recyclable_listing_details/'.$post->id) }}">-->
+<!--                                          <img class="img-fluid serv-img" alt="Service Image" src="{{ $imageUrl }}">-->
+<!--                                        </a>-->
+<!--                                        <div class="fav-item">-->
+<!--                                            <a href="#"><span class="item-cat">{{ $post->resource->resource_name ?? '' }}</span></a>-->
+<!--                                            <a href="javascript:void(0)" class="fav-icon">-->
+<!--                                                <i class="feather-heart"></i>-->
+<!--                                            </a>-->
+<!--                                        </div>-->
+<!--                                        <div class="item-info">-->
+<!--                                            <a href="#">-->
+<!--                                                <span class="item-img">-->
+<!--                                                    <img src="{{ asset('frontend/assets/img/user.png') }}" class="avatar" alt="User">-->
+<!--                                                    {{ $post->user->name ?? 'Unknown User' }}-->
+<!--                                                </span>-->
+<!--                                            </a>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    <div class="service-content">-->
+                        
+<!--                                        <p>-->
+<!--                                            <i class="feather-map-pin me-2" style="color: #FF5733;"></i>{{ Str::limit($post->address ?? '', 10, '...') }}-->
+<!--                                             @isset($post->mobile)-->
+<!--                                            <span class="rate">-->
+<!--                            <i class="feather-phone me-2" style="color: green;"></i>-->
+<!--                            ******{{ substr($post->mobile, -4) }}-->
+<!--                        </span>-->
 
-                <p>
-                    <i class="feather-map-pin me-2" style="color: #FF5733;"></i>{{ Str::limit($post->address ?? '', 10, '...') }}
-                     @isset($post->mobile)
-                    <span class="rate">
-    <i class="feather-phone me-2" style="color: green;"></i>
-    ******{{ substr($post->mobile, -4) }}
-</span>
-
-                    @else
-                    @endif
-                </p>
-                <div class="serv-info">
-                    <div class="rating">
-                      <span>
+<!--                    @else-->
+<!--                    @endif-->
+<!--                </p>-->
+<!--                <div class="serv-info">-->
+<!--                    <div class="rating">-->
+<!--                      <span>-->
                                         @php
                                             $rating = round($post->average_rating ?? 0); // Rounded rating
                                         @endphp
 
-                                        @for ($i = 1; $i <= 5; $i++)
-                                            @if ($i <= $rating)
-                                                <i class="fas fa-star" style="color: #ffc107;"></i> {{-- Gold filled --}}
-                                            @else
-                                                <i class="fas fa-star" style="color: #ddd;"></i> {{-- Light gray empty --}}
-                                            @endif
-                                        @endfor
-                                    </span>
-                        <!--<span>({{ $post->reviews_count ?? 0 }})</span>-->
-                    </div>
-                    <h6>₹{{ $post->resource_price ?? '0.00' }}
+<!--                                        @for ($i = 1; $i <= 5; $i++)-->
+<!--                                            @if ($i <= $rating)-->
+<!--                                                <i class="fas fa-star" style="color: #ffc107;"></i> {{-- Gold filled --}}-->
+<!--                                            @else-->
+<!--                                                <i class="fas fa-star" style="color: #ddd;"></i> {{-- Light gray empty --}}-->
+<!--                                            @endif-->
+<!--                                        @endfor-->
+<!--                                    </span>-->
+<!--                        <span>({{ $post->reviews_count ?? 0 }})</span>-->
+<!--                    </div>-->
+<!--                    <h6>₹{{ $post->resource_price ?? '0.00' }}-->
 
-                    </h6>
-                </div>
-            </div>
-        </div>
-    </div>
-@endforeach
+<!--                    </h6>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--@endforeach-->
 
 
-				</div>
-					<div class="text-center mt-0 mt-md-4">
-					@if (session()->has('user_id'))
-					    <a href="{{route('listings')}}" class="btn btn-lg btn-linear-primary btn-responsive-width">View All Listings</a>
-					@else
-						<a href="{{ route('consumer_login', ['redirect' => url()->current()]) }}" class="btn btn-lg btn-linear-primary btn-responsive-width">View All Listings</a>
-					@endif
-				</div>
-				<hr>
+<!--				</div>-->
+<!--					<div class="text-center mt-0 mt-md-4">-->
+<!--					@if (session()->has('user_id'))-->
+<!--					    <a href="{{route('listings')}}" class="btn btn-lg btn-linear-primary btn-responsive-width">View All Listings</a>-->
+<!--					@else-->
+<!--						<a href="{{ route('consumer_login', ['redirect' => url()->current()]) }}" class="btn btn-lg btn-linear-primary btn-responsive-width">View All Listings</a>-->
+<!--					@endif-->
+<!--				</div>-->
+<!--				<hr>-->
 					<h3 class="mb-0 mb-md-3  mt-4 text-center">Reusable Listings</h3>
 				<div class="row ">
 
@@ -943,53 +973,53 @@
 
 
  	<!-- Blog Section -->
-		<section class="blog-section blog-section-two">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12 text-center aos" data-aos="fade-up">
-						<div class="section-heading sec-header">
-							<h2> Recent Blogs</h2>
+		<!--<section class="blog-section blog-section-two">-->
+		<!--	<div class="container">-->
+		<!--		<div class="row">-->
+		<!--			<div class="col-md-12 text-center aos" data-aos="fade-up">-->
+		<!--				<div class="section-heading sec-header">-->
+		<!--					<h2> Recent Blogs</h2>-->
 
-						</div>
-					</div>
-				</div>
-				<div class="row justify-content-center">
-				@foreach ($blogs as $blog)
-    <div class="col-lg-4 col-md-6 d-flex">
-        <div class="blog blog-new flex-fill aos" data-aos="fade-up">
-            <div class="blog-image">
-                <a href="{{ url('blog-detail', ['slug' => $blog->slug]) }}">
-                    <img class="img-fluid" src="{{ asset('frontend/assets/img/ecoSansar.png') }}" alt="Post Image">
-                </a>
-                <div class="date">
-                    {{ $blog->created_at->format('d') }}<span>{{ $blog->created_at->format('M') }}</span>
-                </div>
-                <ul class="blog-item">
-                    <li>
-                        <div class="post-author">
-                            <i class="feather-user"></i><span>{{  $blog->posted_by_name}}</span
-                        </div>
-                    </li>
-                    <li><i class="feather-message-square"></i> Comments ({{ $blog->comments_count ?? 0 }})</li>
-                </ul>
-            </div>
-            <div class="blog-content mb-0">
-                <h3 class="blog-title">
-                    <a href="{{ url('blog-detail', ['slug' => $blog->slug]) }}">{{ $blog->blog_name }}</a>
-                </h3>
-                <p>{!! Str::limit(strip_tags($blog->content), 150) !!}</p>
-            </div>
-        </div>
-    </div>
-@endforeach
+		<!--				</div>-->
+		<!--			</div>-->
+		<!--		</div>-->
+		<!--		<div class="row justify-content-center">-->
+		<!--		@foreach ($blogs as $blog)-->
+  <!--                  <div class="col-lg-4 col-md-6 d-flex">-->
+  <!--                      <div class="blog blog-new flex-fill aos" data-aos="fade-up">-->
+  <!--                          <div class="blog-image">-->
+  <!--                              <a href="{{ url('blog-detail', ['slug' => $blog->slug]) }}">-->
+  <!--                                  <img class="img-fluid" src="{{ asset('frontend/assets/img/ecoSansar.png') }}" alt="Post Image">-->
+  <!--                              </a>-->
+  <!--                              <div class="date">-->
+  <!--                                  {{ $blog->created_at->format('d') }}<span>{{ $blog->created_at->format('M') }}</span>-->
+  <!--                              </div>-->
+  <!--                              <ul class="blog-item">-->
+  <!--                                  <li>-->
+  <!--                                      <div class="post-author">-->
+  <!--                                          <i class="feather-user"></i><span>{{  $blog->posted_by_name}}</span-->
+  <!--                                      </div>-->
+  <!--                                  </li>-->
+  <!--                                  <li><i class="feather-message-square"></i> Comments ({{ $blog->comments_count ?? 0 }})</li>-->
+  <!--                              </ul>-->
+  <!--                          </div>-->
+  <!--                          <div class="blog-content mb-0">-->
+  <!--                              <h3 class="blog-title">-->
+  <!--                                  <a href="{{ url('blog-detail', ['slug' => $blog->slug]) }}">{{ $blog->blog_name }}</a>-->
+  <!--                              </h3>-->
+  <!--                              <p>{!! Str::limit(strip_tags($blog->content), 150) !!}</p>-->
+  <!--                          </div>-->
+  <!--                      </div>-->
+  <!--                  </div>-->
+  <!--              @endforeach-->
 
 
-				</div>
-				<div class="text-center mt-4">
-					<a href="{{route('blog')}}" class="btn btn-lg btn-linear-primary btn-responsive-width">View All Blogs</a>
-				</div>
-			</div>
-		</section>
+		<!--		</div>-->
+		<!--		<div class="text-center mt-4">-->
+		<!--			<a href="{{route('blog')}}" class="btn btn-lg btn-linear-primary btn-responsive-width">View All Blogs</a>-->
+		<!--		</div>-->
+		<!--	</div>-->
+		<!--</section>-->
 		<!-- /Blog Section -->
 			<!-- Partners Section -->
 	<section class="partners-section" >
@@ -1027,7 +1057,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
-            <form action="" method="POST">
+            <form action="{{ route('collection.drive.store') }}" method="POST">
                 @csrf
 
                 <div class="modal-body">
@@ -1043,7 +1073,6 @@
                                name="contact_number"
                                class="form-control"
                                maxlength="10"
-                               pattern="[0-9]{10}"
                                required>
                     </div>
 

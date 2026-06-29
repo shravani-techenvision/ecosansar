@@ -28,13 +28,13 @@
 						<div class="footer-widget">
 							<h5 class="mb-4">Quick Links</h5>
 							<ul class="footer-menu">
-								<li>
-								    @if (session()->has('user_id'))
-									<a href="{{route('listings')}}"> Recyclables Listings</a>
-									@else
-										<a href="{{ route('consumer_login', ['redirect' => url()->current()]) }}"> Recyclables Listings</a>
-										@endif
-								</li>
+								<!--<li>-->
+								<!--    @if (session()->has('user_id'))-->
+								<!--	<a href="{{route('listings')}}"> Recyclables Listings</a>-->
+								<!--	@else-->
+								<!--		<a href="{{ route('consumer_login', ['redirect' => url()->current()]) }}"> Recyclables Listings</a>-->
+								<!--		@endif-->
+								<!--</li>-->
 								<li>
 								     @if (session()->has('user_id'))
 									<a href="{{route('reusable_listings')}}">Reusables Listings</a>

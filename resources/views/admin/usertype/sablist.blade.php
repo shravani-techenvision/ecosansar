@@ -34,6 +34,7 @@
                                 <th>Mobile</th>
                                 <th>Date Time</th>
                                 <!--<th>Status</th>-->
+                                <th>Post Access</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -49,6 +50,22 @@
                                         
                                         <td>{{ $res->mobile }}</td>
                                         <td>{{ \Carbon\Carbon::parse($res->created_at)->format('F j, Y \a\t g:i A') }}</td>
+                                        <td>
+                                            <form action="{{ route('user.collection.agent.post.access') }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="user_id" value="{{ $res->id }}">
+                                        
+                                            <div class="form-check form-switch">
+                                                <input
+                                                    type="checkbox"
+                                                    class="form-check-input"
+                                                    name="post_access"
+                                                    value="1"
+                                                    onchange="this.form.submit()"
+                                                    {{ $res->post_access ? 'checked' : '' }}>
+                                            </div>
+                                        </form>
+                                        </td>
                                         
                                         <td>
                                              
@@ -159,4 +176,6 @@
         });
     });
 </script>
+
+
 @endsection

@@ -56,6 +56,7 @@ Route::controller(IndexController::class)->group(function(){
      Route::get('/blog/category/{slug}', 'categoryBlogs')->name('blog.category');
     Route::get('/blog/tag/{slug}', 'tagBlogs')->name('blog.tag');
     Route::get('/download-posters','downloadPoster')->name('download.posters');
+    Route::post('/collection-drive/store', 'storeCollectionDrive')->name('collection.drive.store');
     
        Route::get('contact','contact')->name('contact');
          Route::get('faq','faq')->name('faq');
@@ -187,6 +188,7 @@ Route::get('/changepassword/{id}', [App\Http\Controllers\admin\AuthController::c
 Route::post('/changepassword_store', [App\Http\Controllers\admin\AuthController::class, 'changepassword_store'])->name('changepassword_store');
 
 Route::controller(AdminController::class)->group(function(){
+    Route::post('user/post-access', 'changePostAccess')->name('user.collection.agent.post.access');  //Collection agent post access toggle
     Route::get('user/recyclableposts','recyclableposts')->name('user.recyclableposts');
      Route::get('user/recyclableposts/delete/{id}','recyclablepostsdelete')->name('recyclableposts.delete');
     Route::get('user/reusableposts','reusableposts')->name('user.reusableposts');
@@ -208,6 +210,7 @@ Route::controller(AdminController::class)->group(function(){
     Route::get('/changeStatus', 'changeStatus')->name('user.changeStatus');
      Route::post('user/businessassignplan','businessassignplan')->name('user.businessassignplan');
     Route::get('user/sablist','sablist')->name('user.sablist');
+    
     Route::get('user/consumerlist','consumerlist')->name('user.consumerlist');
     Route::get('user/businessview/{id}','businessview')->name('user.businessview');
     Route::get('user/sabview/{id}','sabview')->name('user.sabview');

@@ -27,7 +27,7 @@
     display: flex;
     align-items: center;
     gap: 25px;
-    margin-top: 50px;
+    margin-top: 30px;
 }
 
 </style>
@@ -162,6 +162,7 @@
 						<div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
 							<h4 >  <span class="text-primary"> </span></h4>
 							<div class="d-flex align-items-center">
+							   
 								<span class="text-dark me-2">Sort</span>
 							    <div class="dropdown me-2">
                                   <a href="javascript:void(0);" class="dropdown-toggle bg-light-300" data-bs-toggle="dropdown" id="selectedSortOption">Newest First</a>
@@ -253,6 +254,13 @@
                                                 </a>
                                             @endif
                                         </div>
+                                    </div>
+                                    <div class="mt-5">
+                                       <button class="btn btn-linear-primary btn-lg px-4"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#jarEnquiryModal">
+                                            Place Enquiry
+                                        </button>
                                     </div>
                                 </div>
                               </div>
@@ -385,7 +393,100 @@
   </div>
 </div>
 
+ <div class="modal fade" id="jarEnquiryModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
 
+            <form action="" method="POST">
+                @csrf
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Place Enquiry</h5>
+
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-3">
+                            <label>Name</label>
+
+                            <input type="text"
+                                   name="name"
+                                   class="form-control"
+                                  >
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label>Contact Number</label>
+
+                            <input type="text"
+                                   name="mobile"
+                                   class="form-control"
+                                  >
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label>Number of Jars</label>
+
+                            <input type="number"
+                                   name="number_of_jars"
+                                   class="form-control">
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label>Colour of Lid</label>
+
+                            <input type="text"
+                                   name="lid_colour"
+                                   class="form-control">
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label>Place of Delivery</label>
+
+                            <input type="text"
+                                   name="delivery_place"
+                                   class="form-control">
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label>Required By Date</label>
+
+                            <input type="date"
+                                   name="required_by_date"
+                                   class="form-control">
+                        </div>
+
+                        <div class="col-md-12">
+                            <label>Any Other Notes</label>
+
+                            <textarea class="form-control"
+                                      rows="4"
+                                      name="notes"></textarea>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button class="btn btn-linear-primary">
+                        Submit
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
 @include('frontend.include.footer')
 <script>
     const userId = "{{ session('user_id') }}";

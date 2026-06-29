@@ -120,7 +120,7 @@ class ReusableController extends Controller
         if ($request->sale_giveaway == 'Buy') {
             $request->validate([
                 'address' => 'required',
-                'sale_giveaway' => 'required',
+                // 'sale_giveaway' => 'required',
                 'quantity' => 'required',
                 'resource_type' => 'required',
                 'resource_img' => 'mimes:jpg,jpeg,png,webp', // Adjust mime types and max size as needed
@@ -128,7 +128,7 @@ class ReusableController extends Controller
         } else {
             $request->validate([
                 'address' => 'required',
-                'sale_giveaway' => 'required',
+                // 'sale_giveaway' => 'required',
                 'quantity' => 'required',
 
                 'resource_type' => 'required',
@@ -143,7 +143,7 @@ class ReusableController extends Controller
         $user->email = $users->email;
         $user->mobile = $users->mobile;
         $user->address = $request->address;
-        $user->sale_giveaway = $request->sale_giveaway;
+        // $user->sale_giveaway = $request->sale_giveaway;
         $user->quantity = $request->quantity;
         $user->clean_unclean = $request->clean_unclean;
         $user->packaged = $request->packaged;
