@@ -60,7 +60,7 @@ Route::controller(IndexController::class)->group(function(){
     Route::post('download-poster/store-enquiry','storePosterEnquiry')->name('download.poster.enquiry');
     Route::get('/download-poster-file/{id}', 'downloadPosterFile')->name('download.poster.file');
     Route::post('/collection-drive/store', 'storeCollectionDrive')->name('collection.drive.store');
-    
+    Route::get('/collection-drive', 'collectionDrive')->name('collection.drive');
        Route::get('contact','contact')->name('contact');
          Route::get('faq','faq')->name('faq');
     Route::get('howitsworks','howitsworks')->name('howitsworks');

@@ -271,14 +271,23 @@
 								<h5>Organize collection drive</h5>
 								{{-- <p class="mob-content">Got clean containers / packaging fit for reuse? Don’t toss them—list them for someone else to reuse! Need some? Just browse. </p> --}}
 							 	<div class="mt-auto">
-                                    <a href="javascript:void(0);" class="btn btn-lg btn-linear-primary w-100 mt-2"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#collectionDriveModal">
-                                        <span class="d-none d-md-inline">Click here to get started</span>
-                                        <span class="d-inline d-md-none">
-                                            <i class="fas fa-arrow-right"></i>
-                                        </span>
-                                    </a>
+                                    <div class="mt-auto">
+                                        @if(session()->has('user_id'))
+                                            <a href="{{ route('collection.drive') }}" class="btn btn-lg btn-linear-primary w-100 mt-2">
+                                                <span class="d-none d-md-inline">Click here to get started</span>
+                                                <span class="d-inline d-md-none">
+                                                    <i class="fas fa-arrow-right"></i>
+                                                </span>
+                                            </a>
+                                        @else
+                                            <a href="{{ route('consumer_login', ['redirect' => route('collection.drive')]) }}" class="btn btn-lg btn-linear-primary w-100 mt-2">
+                                                <span class="d-none d-md-inline">Click here to get started</span>
+                                                <span class="d-inline d-md-none">
+                                                    <i class="fas fa-arrow-right"></i>
+                                                </span>
+                                            </a>
+                                        @endif
+                                    </div>
                                 </div>
 							</div>
 						</div>

@@ -1116,14 +1116,13 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
         if ($userid){
             $userActivity = new UserActivityLog();
             $userActivity->user_id = $userid;
-            $userActivity->activity = 'Clicked on service page';
+            $userActivity->activity = 'Clicked on colection drive page';
             $userActivity->url = request()->fullUrl();   // Get the full URL of the request
             $userActivity->ip_address = request()->ip();
             $userActivity->save();
         }
         // user activity end
-        $service = Service::get();
-        return view('frontend/service',compact('service', 'breadcrumbimage'));
+        return view('frontend/collection-drive',compact('breadcrumbimage'));
     }
     
     public function storeCollectionDrive(Request $request)
