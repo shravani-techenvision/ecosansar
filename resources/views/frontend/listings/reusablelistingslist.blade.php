@@ -258,7 +258,7 @@
                                     <div class="mt-5">
                                        <button class="btn btn-linear-primary btn-lg px-4"
                                                 data-bs-toggle="modal"
-                                                data-bs-target="#jarEnquiryModal">
+                                                data-bs-target="#REnquiryModal">
                                             Place Enquiry
                                         </button>
                                     </div>
@@ -393,11 +393,11 @@
   </div>
 </div>
 
- <div class="modal fade" id="jarEnquiryModal" tabindex="-1">
+ <div class="modal fade" id="REnquiryModal" tabindex="-1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
 
-            <form action="" method="POST">
+            <form action="{{ route('reusable.item.enquiry.store') }}" method="POST">
                 @csrf
 
                 <div class="modal-header">
@@ -434,7 +434,7 @@
                             <label>Number of Jars</label>
 
                             <input type="number"
-                                   name="number_of_jars"
+                                   name="quantity"
                                    class="form-control">
                         </div>
 

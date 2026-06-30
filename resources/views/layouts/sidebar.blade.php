@@ -168,6 +168,14 @@
                         <span>Reusable</span>
                     </a>
                 </li>
+                <li class="menu-title">Reusable Resource Enquires</li>
+                  <li>
+                    <a href="{{route('reusable_item_enquiry.list')}}">
+
+                        <span>List</span>
+                    </a>
+                </li>
+                </li>
 
                  <li class="menu-title">Users</li>
 

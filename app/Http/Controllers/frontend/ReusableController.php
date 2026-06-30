@@ -10,6 +10,7 @@ use App\Models\frontend\ReusablePost;
 use App\Models\frontend\ReusableEnquiry;
 use App\Models\frontend\ReusableAskReview;
 use App\Models\frontend\ReusableReview;
+use App\Models\frontend\ReusableItemEnquiry;
 use App\Models\frontend\ChangeReusableReview;
 use App\Models\admin\ReusableResource;
 use App\Models\admin\BreadcrumImage;
@@ -21,6 +22,8 @@ use App\Models\admin\GoogleAdsense;
 use Illuminate\Support\Facades\Session;
 use PHPMailer\PHPMailer\PHPMailer;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ReusableItemEnquiryMail;
 
 class ReusableController extends Controller
 {
@@ -85,6 +88,25 @@ class ReusableController extends Controller
 
     return view('frontend/listings/reusablelistingslist', compact('res', 'weight', 'posts', 'user_type', 'user_id', 'breadcrumbimage'));
 }
+    public function storeEnquiry(Request $request)
+    {
+        $validated = $request->validate([
+            'name'              => 'required|string|max:255',
+            'mobile'            => 'required|digits_between:10,15',
+            'quantity'    => 'required|integer|min:1',
+            'lid_colour'        => 'nullable|string|max:100',
+            'delivery_place'    => 'required|string|max:255',
+            'required_by_date'  => 'nullable|date',
+            'notes'             => 'nullable|string',
+        ]);
+
+        $enquiry = ReusableItemEnquiry::create($validated);
+
+        Mail::to('userfortesting456@gmail.com')
+            ->send(new ReusableItemEnquiryMail($enquiry));
+
+        return back()->with('success', 'Your enquiry has been submitted successfully.');
+    }
      public function reusable_add_post()
     {
         $breadcrumbimage = BreadcrumImage::latest()->first();

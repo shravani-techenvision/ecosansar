@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\admin\ReusableResource;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Models\frontend\ReusableItemEnquiry;
 
 class ReusableResourceController extends Controller
 {
@@ -46,5 +47,24 @@ class ReusableResourceController extends Controller
         ReusableResource::where('id',$id)->delete();
         Alert::success('success','Resource Deleted Successfully');
         return redirect()->route('reusable_resource.list');
+    }
+     public function reusableEnquiryList()
+    {
+        $result = ReusableItemEnquiry::latest()->get();
+
+        return view('admin.reusableresource.reusable_item_enquiry_list', compact('result'));
+    }
+    
+    public function enquiryDestroy($id)
+    {
+        $enquiry = ReusableItemEnquiry::find($id);
+    
+        if (!$enquiry) {
+            return redirect()->back()->with('error', 'Enquiry not found.');
+        }
+    
+        $enquiry->delete();
+        Alert::success('success','Resource enquiry deleted successfully.');
+        return redirect()->back();
     }
 }

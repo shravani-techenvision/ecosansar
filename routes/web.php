@@ -122,6 +122,7 @@ Route::controller(ReusableController::class)->group(function(){
      Route::get('reusable_post_filter','reusable_post_filter')->name('reusable_post_filter');
      Route::get('/reusable-post-sort', 'reusable_post_sort')->name('reusable_post_sort');
      Route::get('reusable_listing_details/{id}','reusable_listing_details')->name('reusable_listing_details');
+     Route::post('/reusable-item-enquiry', 'storeEnquiry')->name('reusable.item.enquiry.store');
 
      Route::post('reusable_enquiry_save','reusable_enquiry_save')->name('reusable_enquiry_save');
       Route::get('get_reusable_post_details','get_reusable_post_details')->name('get_reusable_post_details');
@@ -318,6 +319,8 @@ Route::controller(ReusableResourceController::class)->group(function(){
     Route::get('reusable_resource/edit/{id}','edit')->name('reusable_resource.edit');
     Route::post('reusable_resource/update/{id}','update')->name('reusable_resource.update');
     Route::get('reusable_resource/delete/{id}','delete')->name('reusable_resource.delete');
+    Route::get('/reusable-item-enquiry-list','reusableEnquiryList')->name('reusable_item_enquiry.list');
+    Route::get('/reusable-resource-enquiry/delete/{id}','enquiryDestroy')->name('reusable_resource_enquiry.delete');
 });
 Route::controller(PincodeController::class)->group(function(){
     Route::get('pincode/list','list')->name('pincode.list');
