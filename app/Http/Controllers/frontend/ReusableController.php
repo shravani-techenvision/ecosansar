@@ -91,15 +91,16 @@ class ReusableController extends Controller
     public function storeEnquiry(Request $request)
     {
         $validated = $request->validate([
-            'name'              => 'required|string|max:255',
-            'mobile'            => 'required|digits_between:10,15',
-            'quantity'    => 'required|integer|min:1',
-            'lid_colour'        => 'nullable|string|max:100',
-            'delivery_place'    => 'required|string|max:255',
-            'required_by_date'  => 'nullable|date',
-            'notes'             => 'nullable|string',
+            'reusable_resource_id' => 'required|exists:reusable_resources,id',
+            'name'                 => 'required|string|max:255',
+            'mobile'               => 'required|digits_between:10,15',
+            'quantity'             => 'required|integer|min:1',
+            'lid_colour'           => 'nullable|string|max:100',
+            'delivery_place'       => 'required|string|max:255',
+            'required_by_date'     => 'nullable|date',
+            'notes'                => 'nullable|string',
         ]);
-
+        $validated['user_id'] = auth()->id();
         $enquiry = ReusableItemEnquiry::create($validated);
 
         Mail::to('userfortesting456@gmail.com')

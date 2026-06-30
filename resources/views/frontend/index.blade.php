@@ -366,12 +366,23 @@
 								{{-- <p class="mob-content">Instructions to dispose broken glass.</p>
                                 <p class="mob-content">instructions to wash and dry glassware for reuse</p> --}}
                                  <div class="mt-auto">
-                                    <a href="{{ route('download.posters') }}" class="btn btn-lg btn-linear-primary w-100 mt-2">
-                                        <span class="d-none d-md-inline">Download Posters</span>
-                                        <span class="d-inline d-md-none">
-                                            <i class="fas fa-arrow-right"></i>
-                                        </span>
-                                    </a>
+                                    @if(session()->has('user_id'))
+                                        <a href="{{ route('download.posters') }}"
+                                        class="btn btn-lg btn-linear-primary w-100 mt-2">
+                                            <span class="d-none d-md-inline">Download Posters</span>
+                                            <span class="d-inline d-md-none">
+                                                <i class="fas fa-arrow-right"></i>
+                                            </span>
+                                        </a>
+                                    @else
+                                        <a href="{{ route('consumer_login', ['redirect' => route('download.posters')]) }}"
+                                        class="btn btn-lg btn-linear-primary w-100 mt-2">
+                                            <span class="d-none d-md-inline">Download Posters</span>
+                                            <span class="d-inline d-md-none">
+                                                <i class="fas fa-arrow-right"></i>
+                                            </span>
+                                        </a>
+                                    @endif
                                     {{-- @if (session()->has('user_id'))
                                     <a href="{{route('findcollectionagent')}}" class="btn btn-lg btn-linear-primary w-100 mt-2">
                                         <span class="d-none d-md-inline">Find Collection Agents</span>

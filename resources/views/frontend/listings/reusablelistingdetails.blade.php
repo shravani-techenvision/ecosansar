@@ -144,18 +144,24 @@
 									</div>
 
 								</div>
-								<a href="#" data-id="{{ $posts->id }}" data-bs-toggle="modal" data-bs-target="#add-contact" class="btn btn-lg btn-linear-primary w-100 d-flex align-items-center justify-content-center mb-3 consumer-connect-listing"><i class="ti ti-user me-2"></i>Connect</a>
-
+								{{-- <a href="#" data-id="{{ $posts->id }}" data-bs-toggle="modal" data-bs-target="#add-contact" class="btn btn-lg btn-linear-primary w-100 d-flex align-items-center justify-content-center mb-3 consumer-connect-listing"><i class="ti ti-user me-2"></i>Connect</a> --}}
+								<button class="btn btn-linear-primary btn-lg px-4 w-100 place-enquiry-btn"
+												data-id="{{ $posts->id }}"
+												data-type="{{ $posts->resource->reusable_resource_name ?? '' }}"
+												data-bs-toggle="modal"
+												data-bs-target="#REnquiryModal">
+											Place Enquiry
+										</button>
 							</div>
 						</div>
-						<div class="card border-0">
+						{{-- <div class="card border-0">
 							<div class="card-body">
 								<h4 class="mb-3">Posted By</h4>
 								<div class="provider-info text-center bg-light-500 p-3 mb-3">
 
 									<h5>{{$users->name}}</h5>
 									<p class="fs-14"><i class="ti ti-star-filled text-warning me-2"></i><span class="text-gray-9 fw-semibold">{{ $averageRating }}</span> ({{ $reviewsCount }}
-        {{ $reviewsCount == 1 ? 'review' : 'reviews' }})</p>
+        								{{ $reviewsCount == 1 ? 'review' : 'reviews' }})</p>
 								</div>
 
 								<div class="d-flex align-items-center justify-content-between mb-3">
@@ -174,7 +180,7 @@
 									<h6 class="fs-16 fw-medium mb-0"><i class="ti ti-file-text me-1"></i>No of Listings</h6>
 									<p>{{$noofposts}}</p>
 								</div>
-							 <div class="d-flex align-items-center justify-content-between mb-3">
+							 	<div class="d-flex align-items-center justify-content-between mb-3">
 									<h6 class="fs-16 fw-medium">Social Profiles</h6>
 									<div class="d-flex align-items-center">
 										<div class="social-icon">
@@ -188,8 +194,14 @@
 								</div>
 								<div class="row border-top pt-3 g-2">
 									<div class="col-sm-6">
-										<a href="#" data-id="{{ $posts->id }}" data-bs-toggle="modal" data-bs-target="#add-contact" class="btn btn-lg btn-linear-primary w-100 consumer-connect-listing"><i class="ti ti-user me-2"></i>Connect</a>
-
+										{{-- <a href="#" data-id="{{ $posts->id }}" data-bs-toggle="modal" data-bs-target="#add-contact" class="btn btn-lg btn-linear-primary w-100 consumer-connect-listing"><i class="ti ti-user me-2"></i>Connect</a> --}}
+										{{-- <button class="btn btn-linear-primary btn-lg px-4 w-100 place-enquiry-btn"
+												data-id="{{ $posts->id }}"
+												data-type="{{ $posts->resource->reusable_resource_name ?? '' }}"
+												data-bs-toggle="modal"
+												data-bs-target="#REnquiryModal">
+											Place Enquiry
+										</button>
 									</div>
 									<div class="col-sm-6">
 									 @if (!$hideAddReviewButton)
@@ -199,7 +211,7 @@
 
 								</div>
 							</div>
-						</div>
+						</div> --}}
 
 						<div class="card border-0">
 							<div class="card-body">
@@ -272,7 +284,100 @@
 		</div>
 	</div>
 	<!-- /Add Contact -->
+ <div class="modal fade" id="REnquiryModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
 
+            <form action="{{ route('reusable.item.enquiry.store') }}" method="POST">
+                @csrf
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Place Enquiry</h5>
+
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="row">
+						<input type="hidden" name="reusable_item_id" id="reusable_item_id">
+                        <div class="col-md-6 mb-3">
+                            <label>Name</label>
+
+                            <input type="text"
+                                   name="name"
+                                   class="form-control"
+                                  >
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label>Contact Number</label>
+
+                            <input type="text"
+                                   name="mobile"
+                                   class="form-control"
+                                  >
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label id="quantityLabel">Number of Jars</label>
+
+                            <input type="number"
+                                   name="quantity"
+                                   class="form-control">
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label>Colour of Lid</label>
+
+                            <input type="text"
+                                   name="lid_colour"
+                                   class="form-control">
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label>Place of Delivery</label>
+
+                            <input type="text"
+                                   name="delivery_place"
+                                   class="form-control">
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label>Required By Date</label>
+
+                            <input type="date"
+                                   name="required_by_date"
+                                   class="form-control">
+                        </div>
+
+                        <div class="col-md-12">
+                            <label>Any Other Notes</label>
+
+                            <textarea class="form-control"
+                                      rows="4"
+                                      name="notes"></textarea>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button class="btn btn-linear-primary">
+                        Submit
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
 
 @include('frontend.include.footer')
 
@@ -310,6 +415,14 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPfLLFN-fT9hed5CBwFZFKBOpoB_KChL0"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
+		$(document).on('click', '.place-enquiry-btn', function () {
+
+			$('#reusable_item_id').val($(this).data('id'));
+
+			let type = $(this).data('type');
+
+			$('#quantityLabel').text(type ? 'Number of ' + type : 'Quantity');
+		});
         function initMap() {
             // Replace these with the latitude and longitude you want to display
             const latitude = {{ $posts->latitude }};

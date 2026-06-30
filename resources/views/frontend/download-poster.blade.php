@@ -12,125 +12,46 @@ background-size:cover;background-position:center;">
     <div class="content py-5">
         <div class="container">
 
-            <!--<div class="text-center mb-5">-->
-            <!--    <h2>Awareness Posters</h2>-->
-            <!--    <p>Download and print these posters to spread awareness.</p>-->
-            <!--</div>-->
+            <div class="row">
 
-            <div class="row justify-content-center">
+                @forelse($posters as $poster)
 
-                <div class="col-lg-4 col-md-5 col-sm-6 mb-4">
-                    <div class="card poster-card shadow-sm">
-                        <img src="{{ asset('frontend/assets/posters/poster2.jpg') }}" class="card-img-top">
-            
-                        <div class="card-body text-center">
-                            <h5>Glass Disposal</h5>
-            
-                            <button type="button"
-                                class="btn btn-outline-primary mb-2"
-                                data-bs-toggle="modal"
-                                data-bs-target="#downloadModal">
-                                Unlock Download
-                            </button>
-                        
-                            <br>
-                        
-                            <a href="{{ asset('frontend/assets/posters/sample.pdf') }}"
-                               download
-                               class="btn btn-linear-primary download-btn disabled"
-                               id="downloadBtn"
-                               style="pointer-events:none;opacity:.6;">
-                                Download PDF
-                            </a>
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 mb-4">
+                        <div class="card poster-card shadow-sm h-100">
+
+                            <img src="{{ Storage::disk('s3')->url('DownloadPosters/Image/'.$poster->poster_image) }}"
+                                 class="card-img-top"
+                                 style="height:250px;object-fit:cover;">
+
+                            <div class="card-body text-center d-flex flex-column">
+
+                                <h5>{{ $poster->title }}</h5>
+
+                                <button
+                                    type="button"
+                                    class="btn btn-linear-primary downloadPosterBtn"
+                                    data-id="{{ $poster->id }}"
+                                    data-file="{{ Storage::disk('s3')->url('DownloadPosters/PDF/'.$poster->poster_pdf) }}"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#downloadModal">
+
+                                    Download PDF
+
+                                </button>
+
+                            </div>
+
                         </div>
                     </div>
-                </div>
-            
-                <div class="col-lg-4 col-md-5 col-sm-6 mb-4">
-                    <div class="card poster-card shadow-sm">
-                        <img src="{{ asset('frontend/assets/posters/poster2.jpg') }}" class="card-img-top">
-            
-                        <div class="card-body text-center">
-                            <h5>Wash & Dry Glassware</h5>
-            
-                            <button type="button"
-                                class="btn btn-outline-primary mb-2"
-                                data-bs-toggle="modal"
-                                data-bs-target="#downloadModal">
-                                Unlock Download
-                            </button>
-                        
-                            <br>
-                        
-                            <a href="{{ asset('frontend/assets/posters/sample.pdf') }}"
-                               download
-                               class="btn btn-linear-primary download-btn disabled"
-                               id="downloadBtn"
-                               style="pointer-events:none;opacity:.6;">
-                                Download PDF
-                            </a>
-                        </div>
+
+                @empty
+
+                    <div class="col-12 text-center">
+                        <h5>No posters available.</h5>
                     </div>
-                </div>
-            
-            </div>
-            
-            <div class="row justify-content-center">
-            
-                <div class="col-lg-4 col-md-5 col-sm-6 mb-4">
-                    <div class="card poster-card shadow-sm">
-                        <img src="{{ asset('frontend/assets/posters/poster2.jpg') }}" class="card-img-top">
-            
-                        <div class="card-body text-center">
-                            <h5>Poster 3</h5>
-            
-                            <button type="button"
-                                class="btn btn-outline-primary mb-2"
-                                data-bs-toggle="modal"
-                                data-bs-target="#downloadModal">
-                                Unlock Download
-                            </button>
-                        
-                            <br>
-                        
-                            <a href="{{ asset('frontend/assets/posters/sample.pdf') }}"
-                               download
-                               class="btn btn-linear-primary download-btn disabled"
-                               id="downloadBtn"
-                               style="pointer-events:none;opacity:.6;">
-                                Download PDF
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            
-                <div class="col-lg-4 col-md-5 col-sm-6 mb-4">
-                    <div class="card poster-card shadow-sm">
-                        <img src="{{ asset('frontend/assets/posters/poster2.jpg') }}" class="card-img-top">
-            
-                        <div class="card-body text-center">
-                            <h5>Poster 4</h5>
-            
-                            <button type="button"
-                                class="btn btn-outline-primary mb-2"
-                                data-bs-toggle="modal"
-                                data-bs-target="#downloadModal">
-                                Unlock Download
-                            </button>
-                        
-                            <br>
-                        
-                            <a href="{{ asset('frontend/assets/posters/sample.pdf') }}"
-                               download
-                               class="btn btn-linear-primary download-btn disabled"
-                               id="downloadBtn"
-                               style="pointer-events:none;opacity:.6;">
-                                Download PDF
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            
+
+                @endforelse
+
             </div>
 
         </div>
@@ -141,93 +62,187 @@ background-size:cover;background-position:center;">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
 
-            <div class="modal-header">
-                <h5 class="modal-title">Enter Your Details</h5>
-                <button type="button" class="btn-close"
-                    data-bs-dismiss="modal"></button>
-            </div>
+            <form id="downloadForm" action="{{ route('download.poster.enquiry') }}" method="POST">
 
-            <div class="modal-body">
+                @csrf
 
-                <form id="downloadForm">
+                <div class="modal-header">
+                    <h5 class="modal-title">Download Poster</h5>
+
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <input type="hidden"
+                           name="download_poster_id"
+                           id="download_poster_id">
 
                     <div class="row">
 
                         <div class="col-md-6 mb-3">
                             <label>Name <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control required-field">
+
+                            <input type="text"
+                                   name="name"
+                                   class="form-control required-field"
+                                   value="{{ session()->has('user_id') ? optional(\App\Models\frontend\EcosansarUsers::find(session('user_id')))->name : '' }}">
                         </div>
 
                         <div class="col-md-6 mb-3">
                             <label>Email <span class="text-danger">*</span></label>
-                            <input type="email" class="form-control required-field">
+
+                            <input type="email"
+                                   name="email"
+                                   class="form-control required-field"
+                                   value="{{ session()->has('user_id') ? optional(\App\Models\frontend\EcosansarUsers::find(session('user_id')))->email : '' }}">
                         </div>
 
                         <div class="col-md-6 mb-3">
                             <label>Phone <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control required-field">
+
+                            <input type="text"
+                                   name="mobile"
+                                   class="form-control required-field"
+                                   value="{{ session()->has('user_id') ? optional(\App\Models\frontend\EcosansarUsers::find(session('user_id')))->mobile : '' }}">
                         </div>
 
                         <div class="col-md-6 mb-3">
                             <label>Organization <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control required-field">
+
+                            <input type="text"
+                                   name="organization"
+                                   class="form-control required-field">
                         </div>
 
                     </div>
 
-                </form>
+                </div>
 
-            </div>
+                <div class="modal-footer">
 
-            <div class="modal-footer">
-                <button type="button"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal">
-                    Close
-                </button>
+                    <button type="submit"
+                            class="btn btn-linear-primary">
+                        Download PDF
+                    </button>
 
-                <button type="button"
-                    class="btn btn-linear-primary"
-                    id="saveDetails">
-                    Submit
-                </button>
-            </div>
+                </div>
+
+            </form>
 
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
-    $(function(){
+$(document).ready(function () {
 
-        $('#saveDetails').click(function(){
-    
-            let valid = true;
-    
-            $('.required-field').each(function(){
-    
-                if($(this).val().trim()==''){
-                    valid=false;
-                    $(this).addClass('is-invalid');
-                }else{
-                    $(this).removeClass('is-invalid');
-                }
-    
-            });
-    
-            if(valid){
-    
-                $('#downloadBtn')
-                    .removeClass('disabled')
-                    .css({
-                        'pointer-events':'auto',
-                        'opacity':'1'
-                    });
-    
-                $('#downloadModal').modal('hide');
-            }
-    
-        });
-    
+    let pdfUrl = '';
+
+    // Open modal and set poster details
+    $(document).on('click', '.downloadPosterBtn', function () {
+
+        let posterId = $(this).data('id');
+        pdfUrl = $(this).data('file');
+
+        console.log("Poster ID:", posterId);
+
+        $('#download_poster_id').val(posterId);
+
+        // Remove previous validation
+        $('.required-field').removeClass('is-invalid');
     });
+
+    // Submit form using AJAX
+    $(document).on('submit', '#downloadForm', function (e) {
+
+        e.preventDefault();
+
+        let valid = true;
+
+        $('.required-field').each(function () {
+
+            if ($.trim($(this).val()) === '') {
+
+                $(this).addClass('is-invalid');
+                valid = false;
+
+            } else {
+
+                $(this).removeClass('is-invalid');
+
+            }
+
+        });
+
+        if (!valid) {
+            return false;
+        }
+
+        console.log($(this).serialize());
+
+        $.ajax({
+
+            url: $(this).attr('action'),
+            type: 'POST',
+            data: $(this).serialize(),
+            dataType: 'json',
+
+            beforeSend: function () {
+
+                $('button[type="submit"]').prop('disabled', true);
+
+            },
+
+            success: function (response) {
+
+                $('button[type="submit"]').prop('disabled', false);
+
+                $('#downloadModal').modal('hide');
+
+                $('#downloadForm')[0].reset();
+
+                $('#download_poster_id').val('');
+
+                if (response.success) {
+
+                    window.location.href = response.download;
+
+                }
+
+            },
+
+            error: function (xhr) {
+
+                $('button[type="submit"]').prop('disabled', false);
+
+                $('.required-field').removeClass('is-invalid');
+
+                if (xhr.status == 422) {
+
+                    let errors = xhr.responseJSON.errors;
+
+                    $.each(errors, function (key) {
+
+                        $('[name="' + key + '"]').addClass('is-invalid');
+
+                    });
+
+                } else {
+
+                    console.log(xhr.responseText);
+                    alert('Something went wrong.');
+
+                }
+
+            }
+
+        });
+
+    });
+
+});
 </script>
 @include('frontend.include.footer')

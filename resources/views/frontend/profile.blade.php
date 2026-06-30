@@ -899,7 +899,7 @@
                     </div>
 				</div>
 					<div class="row mt-4 justify-content-center">
-					<div class="col-lg-3 col-md-6 d-flex ">
+					{{-- <div class="col-lg-3 col-md-6 d-flex ">
 						<div class="work-box card flex-fill aos" data-aos="fade-up">
 							<div class="card-body">
 								<div class="work-icon ">
@@ -913,7 +913,7 @@
 							 	<a href="{{route('recyclable-choose_one')}}" class="btn btn-lg btn-linear-primary w-100 mt-2">List or Browse Recyclables</a>
 							</div>
 						</div>
-					</div>
+					</div> --}}
 					<div class="col-lg-3 col-md-6 d-flex">
 						<div class="work-box flex-fill card aos" data-aos="fade-up">
 							<div class="card-body">

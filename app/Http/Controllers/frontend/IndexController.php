@@ -30,7 +30,8 @@ use App\Models\admin\BlogCategory;
 use App\Models\admin\BlogTag;
 use App\Models\admin\Service;
 use App\Models\admin\Contact;
-
+use App\Models\DownloadPoster;
+use App\Models\DownloadPosterEnquiry;
 use App\Models\frontend\UserContact;
 use App\Models\frontend\RepairContact;
 use App\Models\frontend\UserActivityLog;
@@ -92,6 +93,15 @@ class IndexController extends Controller
                 'message' => 'User not found. Please register',
                 'registration_url' => url('/user_register'),
             ], 404);
+        }
+
+        // Allow only SAB users
+        if ($user->user_type !== 'sab') {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Only Collection Agent users are allowed to log in.',
+                'registration_url' => url('/consumer_login'),
+            ]);
         }
 
         if ($user->is_delete == 1) {
@@ -1056,7 +1066,64 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
     }
     
     public function downloadPoster() {
-        return view('frontend.download-poster');
+        $posters = DownloadPoster::where('status', 1)
+                    ->latest()
+                    ->get();
+        return view('frontend.download-poster', compact('posters'));
+    }
+
+    public function storePosterEnquiry(Request $request)
+    {
+        $validated = $request->validate([
+
+            'download_poster_id'=>'required|exists:download_posters,id',
+            'name'=>'required|max:255',
+            'email'=>'required|email',
+            'mobile'=>'required|digits_between:10,15',
+            'organization'=>'required|max:255',
+
+        ]);
+
+        $validated['user_id']=session('user_id');
+
+        DownloadPosterEnquiry::create($validated);
+
+        $poster = DownloadPoster::findOrFail(
+            $request->download_poster_id
+        );
+
+        return response()->json([
+            'success'=>true,
+            'download' => route('download.poster.file',$poster->id)
+        ]);
+    }
+
+    public function downloadPosterFile($id)
+    {
+        $poster = DownloadPoster::findOrFail($id);
+
+        return Storage::disk('s3')->download(
+            'DownloadPosters/PDF/'.$poster->poster_pdf,
+            $poster->title.'.pdf'
+        );
+    }
+
+    public function collectionDrive()
+    {
+       // user activity start
+        $userid = session()->get('user_id');
+          $breadcrumbimage = BreadcrumImage::latest()->first();
+        if ($userid){
+            $userActivity = new UserActivityLog();
+            $userActivity->user_id = $userid;
+            $userActivity->activity = 'Clicked on service page';
+            $userActivity->url = request()->fullUrl();   // Get the full URL of the request
+            $userActivity->ip_address = request()->ip();
+            $userActivity->save();
+        }
+        // user activity end
+        $service = Service::get();
+        return view('frontend/service',compact('service', 'breadcrumbimage'));
     }
     
     public function storeCollectionDrive(Request $request)
@@ -1299,6 +1366,7 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
         $service = Service::get();
         return view('frontend/service',compact('service', 'breadcrumbimage'));
     }
+    
     public function repairmap(){
          $userid = session()->get('user_id');
          $breadcrumbimage = BreadcrumImage::latest()->first();
@@ -2020,7 +2088,8 @@ if ($req->type_of_user == 'consumer') {
 
         // Retrieve user by mobile number
         $user = EcosansarUsers::where('mobile', $input['mobile'])
-            ->whereIn('user_type', ['consumer', 'sab', 'business'])
+            // ->whereIn('user_type', ['consumer', 'sab', 'business'])
+             ->whereIn('user_type', ['sab'])
             ->first();
 
         // Verify the otp

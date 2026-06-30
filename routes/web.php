@@ -18,6 +18,7 @@ use App\Http\Controllers\admin\WeightController;
 use App\Http\Controllers\admin\GoogleAdsenseController;
 use App\Http\Controllers\admin\SettingController;
 use App\Http\Controllers\admin\BlogController;
+use App\Http\Controllers\admin\DownloadPosterController;
 use App\Http\Controllers\admin\ServiceController;
 use App\Http\Controllers\admin\PrivacyPolicyController;
 use App\Http\Controllers\admin\PincodeController;
@@ -56,6 +57,8 @@ Route::controller(IndexController::class)->group(function(){
      Route::get('/blog/category/{slug}', 'categoryBlogs')->name('blog.category');
     Route::get('/blog/tag/{slug}', 'tagBlogs')->name('blog.tag');
     Route::get('/download-posters','downloadPoster')->name('download.posters');
+    Route::post('download-poster/store-enquiry','storePosterEnquiry')->name('download.poster.enquiry');
+    Route::get('/download-poster-file/{id}', 'downloadPosterFile')->name('download.poster.file');
     Route::post('/collection-drive/store', 'storeCollectionDrive')->name('collection.drive.store');
     
        Route::get('contact','contact')->name('contact');
@@ -371,6 +374,16 @@ Route::controller(BlogController::class)->group(function(){
         Route::get('/changeCommentReplyStatus','commentreply_status_update')->name('changeCommentReplyStatus');
 
          Route::post('/upload-image','upload')->name('upload.image');
+});
+
+Route::controller(DownloadPosterController::class)->group(function(){
+    Route::get('download-posters-list', 'index')->name('download_posters.index');
+    Route::get('download-posters/add', 'create')->name('download_posters.create');
+    Route::post('download-posters/store','store')->name('download_posters.store');
+    Route::get('download-posters/edit/{id}','edit')->name('download_posters.edit');
+    Route::post('download-posters/update/{id}','update')->name('download_posters.update');
+    Route::get('download-posters/delete/{id}','destroy')->name('download_posters.delete');
+    Route::post('download-posters/status','changeStatus')->name('download_posters.status');
 });
 });
 Route::middleware(['auth', 'superadmin:superadmin'])->group(function () {

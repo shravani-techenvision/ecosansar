@@ -134,7 +134,7 @@
                     </a>
 
                     <ul class="sub-menu" aria-expanded="false">
-
+                        <li><a href="{{ route('download_posters.index') }}">Download Posters</a></li>
                         <li><a href="{{ route('weight.list') }}">Weight</a></li>
                         <li><a href="{{ route('googleadsense.list') }}">Google Adsense</a></li>
                         @if ($serviceId)

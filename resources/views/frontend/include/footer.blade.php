@@ -70,12 +70,12 @@
 								<li>
 									<a href="{{route('about')}}"> About Us</a>
 								</li>
-								<li>
+								{{-- <li>
 									<a href="{{route('workwithus')}}"> Work with us</a>
 								</li>
 								<li>
 									<a href="{{route('blog')}}"> Blogs</a>
-								</li>
+								</li> --}}
 
 							</ul>
 						</div>

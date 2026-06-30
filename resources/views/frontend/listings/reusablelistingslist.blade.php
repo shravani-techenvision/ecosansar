@@ -233,13 +233,14 @@
                                     </span>
 
                                     </div>
-                                      <small >Posted By: {{$post->user->name}} | On {{ date('jS F Y', strtotime($post->created_at)) }}</small>
+                                      {{-- <small >Posted By: {{$post->user->name}} | On {{ date('jS F Y', strtotime($post->created_at)) }}</small> --}}
+                                      <small >Posted By: Admin | On {{ date('jS F Y', strtotime($post->created_at)) }}</small>
                                   </div>
                                 </div>
                                  <div class="flex-column">
                                 <div class="service-action">
                                   <h6>₹{{ $post->resource_price ?? 0  }}</h6>
-                                  <a href="#" data-id="{{ $post->id }}" data-bs-toggle="modal" data-bs-target="#enquiryModal" class="btn btn-light connect-listing mobcon">Connect</a>
+                                  {{-- <a href="#" data-id="{{ $post->id }}" data-bs-toggle="modal" data-bs-target="#enquiryModal" class="btn btn-light connect-listing mobcon">Connect</a> --}}
                                 </div>
                                 	<!-- WhatsApp Share Button on the Next Line -->
                                     <div class="  d-flex justify-content-between gap-4">
@@ -256,11 +257,13 @@
                                         </div>
                                     </div>
                                     <div class="mt-5">
-                                       <button class="btn btn-linear-primary btn-lg px-4"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#REnquiryModal">
-                                            Place Enquiry
-                                        </button>
+                                       <button class="btn btn-linear-primary btn-lg px-4 w-100 place-enquiry-btn"
+												data-id="{{ $post->id }}"
+												data-type="{{ $post->resource->reusable_resource_name ?? '' }}"
+												data-bs-toggle="modal"
+												data-bs-target="#REnquiryModal">
+											Place Enquiry
+										</button>
                                     </div>
                                 </div>
                               </div>
@@ -431,7 +434,7 @@
                         </div>
 
                         <div class="col-md-6 mb-3">
-                            <label>Number of Jars</label>
+                            <label id="quantityLabel">Number of Jars</label>
 
                             <input type="number"
                                    name="quantity"
@@ -492,6 +495,14 @@
     const userId = "{{ session('user_id') }}";
 </script>
  <script>
+    $(document).on('click', '.place-enquiry-btn', function () {
+
+			$('#reusable_item_id').val($(this).data('id'));
+
+			let type = $(this).data('type');
+
+			$('#quantityLabel').text(type ? 'Number of ' + type : 'Quantity');
+		});
 $(document).ready(function() {
     $('#filterForm').on('submit', function(e) {
         e.preventDefault();
