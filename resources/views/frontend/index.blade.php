@@ -134,31 +134,32 @@
  <div class="carousel-inner">
     <div class="carousel-item active">
       <img src="{{asset('frontend/assets/img/banner1.png')}}" class="d-block w-100" alt="..."  >
-      <div class="carousel-caption   d-flex justify-content-center align-items-center custom-caption"   >
-        <h1   style="color: white !important; height: 93%;" >Return to Repurpose - a reuse revolution in Bengaluru</h1>
+      <div class="carousel-caption   d-flex flex-column justify-content-center align-items-center custom-caption"   >
+        <h1   style="color: white !important; height: 93%;" >RETURN to REPURPOSE</h1>
+        <h3   style="color: white !important; height: 93%;" >a reuse revolution in Bengaluru</h3>
 
       </div>
     </div>
     <div class="carousel-item">
       <img src="{{asset('frontend/assets/img/banner2.png')}}" class="d-block w-100" alt="..."  >
-      <div class="carousel-caption   d-flex justify-content-center align-items-center custom-caption"   >
-        <h1   style="color: white !important; height: 93%;" >Reuse before recycle - Repeat use approach to conserve resources</h1>
-
+      <div class="carousel-caption   d-flex flex-column justify-content-center align-items-center custom-caption"   >
+        <h1   style="color: white !important; height: 93%;" >REUSE before RECYCLE</h1>
+        <h3   style="color: white !important; height: 93%;" >‘Repeat use’ approach to conserve resources</h3>
       </div>
     </div>
     <div class="carousel-item">
       <img src="{{asset('frontend/assets/img/banner3.png')}}" class="d-block w-100" alt="..."  >
       <!--<div class="carousel-caption d-none d-md-block d-flex justify-content-center align-items-center" style="height: 60%;" >-->
-       <div class="carousel-caption   d-flex justify-content-center align-items-center custom-caption"   >
-        <h1  style="color: white !important; height: 93%;" >Inclusive solutions - knowledge exchange and empowerment of waste workers</h1>
-
+       <div class="carousel-caption   d-flex flex-column justify-content-center align-items-center custom-caption"   >
+        <h1  style="color: white !important; height: 93%;" >INCLUSIVE SOLUTIONS</h1>
+        <h3   style="color: white !important; height: 93%;" >Knowledge exchange and empowerment of waste workers</h3>
       </div>
     </div>
     <div class="carousel-item">
       <img src="{{asset('frontend/assets/img/banner4.png')}}" class="d-block w-100" alt="..."  >
-      <div class="carousel-caption   d-flex justify-content-center align-items-center custom-caption"  >
-        <h1   style="color: white !important; height: 93%;">3 step process - Collect–Clean–Repurpose</h1>
-
+      <div class="carousel-caption   d-flex flex-column justify-content-center align-items-center custom-caption"  >
+        <h1   style="color: white !important; height: 93%;">3 STEP PROCESS</h1>
+        <h1   style="color: white !important; height: 93%;" >Collect–Clean–Repurpose</h1>
       </div>
     </div>
   </div>

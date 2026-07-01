@@ -33,24 +33,24 @@
 		<div class="page-wrapper">
 		<div class="content">
 			<div class="container">
-  
+			<p class="text-center">We follow a 4 step process in enabling a circular model for glass jars & bottle packaging,</p>
 
     <div class="row align-items-center justify-content-center">
         <div class="col-md-8">
             <div class="work-wrap work-wrap-acc">
                 <span>01</span>
-                <h1 class="display-6">List Your Waste</h1>
-                <p>If you have waste that can be turned into a valuable resource, start by listing it on our platform. You can choose to:</p>
-                <ul style="list-style-type: disc; margin-left: 20px;">
+                <h1 class="display-6">Collection Drive - </h1>
+                <p>Pitching idea to the audience, getting feedback and collection of clean glass jars/bottles</p>
+                {{-- <ul style="list-style-type: disc; margin-left: 20px;">
                     <li>Sell</li>
                     <li>Give Away</li>
                     <li>Buy</li>
-                </ul>
+                </ul> --}}
             </div>
         </div>
         <div class="col-md-4">
             <div class="work-img d-none d-md-block">
-                <img src="{{ asset('frontend/assets/img/bg/step1.png') }}" class="img-fluid" alt="image">
+                <img src="{{ asset('frontend/assets/img/bg/step-1.png') }}" class="img-fluid" alt="image">
             </div>
         </div>
         <div class="work-wrap-img d-none d-md-block">
@@ -62,16 +62,16 @@
     <div class="row align-items-center justify-content-center">
         <div class="col-md-4 order-last order-md-first">
             <div class="work-img d-none d-md-block">
-                <img src="{{ asset('frontend/assets/img/bg/step2.png') }}" class="img-fluid" alt="image">
+                <img src="{{ asset('frontend/assets/img/bg/step-2.png') }}" class="img-fluid" alt="image">
             </div>
         </div>
         <div class="col-md-8 d-flex justify-content-center">
             <div class="work-wrap work-wrap-post">
                 <span>02</span>
-                <h1 class="display-6">Connect with peers or the Next in the Collection Chain</h1>
-                <p>Once your resource is listed, you can search for and connect with peers or the next in the collection chain to sell / giveaway / buy as per your requirement. You could also be reached by someone looking for a requirement fit.</p>
-                <p>Logistics and transactions are offline and The ZeroWaste Community Tool is not involved.</p>
-                <p>This Tool helps you Find and Connect Only. </p>
+                <h1 class="display-6">Transportation - </h1>
+                <p>The collected glass jars/bottles go to washing unit</p>
+                {{-- <p>Logistics and transactions are offline and The ZeroWaste Community Tool is not involved.</p>
+                <p>This Tool helps you Find and Connect Only. </p> --}}
             </div>
         </div>
         <div class="work-wrap-img d-none d-md-block">
@@ -83,16 +83,14 @@
         <div class="col-md-8">
             <div class="work-wrap work-wrap-acc">
                 <span>03</span>
-                <h1 class="display-6">Reactivate or Deactivate Your Post</h1>
-                <p>If you have successfully established a connection and your request has been fulfilled, you can deactivate the listing from your profile page. Don’t forget to leave a review for your vendor.</p>
-                <p>The listing will automatically deactivate after 30 days. You will receive 2 reminder messages regarding the same. If you wish to renew it, simply click on Reactivate on the listing from your profile page.</p>
-
-                 
+                <h1 class="display-6">Cleaning & Drying - </h1>
+                <p>The collection reaches the washing unit, where it is soaked, cleaned and dried for Repurpose. Rusted non usable caps are replaced</p>
+                {{-- <p>The listing will automatically deactivate after 30 days. You will receive 2 reminder messages regarding the same. If you wish to renew it, simply click on Reactivate on the listing from your profile page.</p> --}}
             </div>
         </div>
         <div class="col-md-4">
             <div class="work-img d-none d-md-block">
-                <img src="{{ asset('frontend/assets/img/bg/step3.png') }}" class="img-fluid" alt="image">
+                <img src="{{ asset('frontend/assets/img/bg/step-3.png') }}" class="img-fluid" alt="image">
             </div>
         </div>
         <div class="work-wrap-img d-none d-md-block">
@@ -101,7 +99,7 @@
     </div>
   
     <hr>
-<div class="row align-items-center justify-content-center">
+	<div class="row align-items-center justify-content-center">
         <div class="col-md-4 order-last order-md-first">
             <div class="work-img d-none d-md-block">
                 <img src="{{ asset('frontend/assets/img/bg/step4.png') }}" class="img-fluid" alt="image">
@@ -110,14 +108,37 @@
         <div class="col-md-8 d-flex justify-content-center">
             <div class="work-wrap work-wrap-post">
                 <span>04</span>
-                <h1 class="display-6">Add Review / Rating</h1>
-                <p>After connecting with a registered user, you can request or give a rating and review. This helps build trust and improve reliability.</p>
+                <h1 class="display-6">Sale - </h1>
+                <p>Once washed and cleaned, all glass jars/bottles are ready for sale. They are catalogued to share with customers</p>
             </div>
         </div>
-        
+		<div class="col-md-4">
+            <div class="work-img d-none d-md-block">
+                <img src="{{ asset('frontend/assets/img/bg/step3.png') }}" class="img-fluid" alt="image">
+            </div>
+        </div>
+        <div class="work-wrap-img d-none d-md-block">
+            <img src="{{ asset('frontend/assets/img/bg/Arrow.png') }}" alt="img" class="img-fluid">
+        </div>
     </div>
-    
+
+	<hr>
+	<div class="row align-items-center justify-content-center">
+        <div class="col-md-4 order-last order-md-first">
+            <div class="work-img d-none d-md-block">
+                <img src="{{ asset('frontend/assets/img/bg/step-5.png') }}" class="img-fluid" alt="image">
+            </div>
+        </div>
+        <div class="col-md-8 d-flex justify-content-center">
+            <div class="work-wrap work-wrap-post">
+                <span>05</span>
+                <h1 class="display-6">Storage - </h1>
+                <p>Catalogue is stored in a safe and clean space to ensure similar jars/bottles can then be bundled together for sales</p>
+            </div>
+        </div>
+    </div>
 </div>
+
 	<!-- Feature Section -->
 		<section class="feature-section" style="background-color:#F4F5F5 !important;">
 		 
@@ -131,7 +152,7 @@
 						
 					</div>
 				</div>
-				<h4 class="mb-3 text-center">Recyclables</h4>
+				{{-- <h4 class="mb-3 text-center">Recyclables</h4>
 				<div class="row justify-content-center">
 					<div class="col-md-6 col-lg-2">
 						<div class="feature-box aos" data-aos="fade-up">
@@ -200,7 +221,7 @@
 					</div>
 					 
 					 
-				</div>
+				</div> --}}
 					<h4 class="mb-3 mt-4 text-center"> Packaging Reusables (CLEAN ONLY)   </h4>
 				<div class="row justify-content-center">
 					<div class="col-md-6 col-lg-2">
