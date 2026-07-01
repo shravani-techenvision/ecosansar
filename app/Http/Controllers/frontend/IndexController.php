@@ -1066,10 +1066,20 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
     }
     
     public function downloadPoster() {
+        $userid = session()->get('user_id');
+         $breadcrumbimage = BreadcrumImage::latest()->first();
+        if ($userid){
+            $userActivity = new UserActivityLog();
+            $userActivity->user_id = $userid;
+            $userActivity->activity = 'Clicked on service page';
+            $userActivity->url = request()->fullUrl();   // Get the full URL of the request
+            $userActivity->ip_address = request()->ip();
+            $userActivity->save();
+        }
         $posters = DownloadPoster::where('status', 1)
                     ->latest()
                     ->get();
-        return view('frontend.download-poster', compact('posters'));
+        return view('frontend.download-poster', compact('posters','breadcrumbimage'));
     }
 
     public function storePosterEnquiry(Request $request)

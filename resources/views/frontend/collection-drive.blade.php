@@ -4,12 +4,8 @@
 <style>
     .card {
         border-radius: 18px;
-        transition: .3s;
     }
 
-    .card:hover {
-        transform: translateY(-8px);
-    }
 
     .list-group-item {
         border: none;
@@ -53,6 +49,30 @@
     .table-striped tbody tr:nth-of-type(odd) {
         background-color: #f8f9fa;
     }
+    .collection-table {
+    width: 100%;
+    table-layout: fixed; /* Equal column widths */
+}
+
+.collection-table th,
+.collection-table td {
+    white-space: normal;      /* Allow text to wrap */
+    word-wrap: break-word;    /* Break long words if needed */
+    overflow-wrap: break-word;
+    vertical-align: top;
+    padding: 15px;
+}
+
+.collection-table thead th {
+    background: #a7b79b;
+    color: #fff;
+    text-align: center;
+    font-size: 18px;
+}
+
+.collection-table tbody tr:nth-child(even) {
+    background: #f8f9fa;
+}
 </style>
 <div class="breadcrumb-bar text-center"
     style="background-image: url('{{ $breadcrumbimage ? Storage::disk('s3')->url('Breadcrumbimage/' . $breadcrumbimage->breadcrumb_image) : asset('frontend/assets/img/bg/default.png') }}');
@@ -84,11 +104,11 @@
 <!-- Page Wrapper -->
 <div class="page-wrapper">
     <div class="content">
-        <div class="container py-5">
+        <div class="container">
 
             <div class="text-center mb-5">
 
-                <p class="text-muted w-75 mx-auto">
+                <p class="w-75 mx-auto">
                     Planning a collection drive at corporates or events or in your community? We will facilitate this
                     for you with a local waste collector incubated at ecoSansar. We oversee the process to ensure the
                     collected materials are directed into it's respective proper waste value chain. All proceeds from
@@ -98,54 +118,85 @@
                 </p>
             </div>
 
-            <div class="table-responsive mt-4">
-                <table class="table table-bordered table-striped align-middle">
-                    <thead class="table-success text-center">
-                        <tr>
-                            <th width="50%">Regular drives (for glass jars and bottles / paper bags)</th>
-                            <th width="50%">One off drive (for all recyclables - glass/plastic/textile/paper/ewaste)
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>How it works : </td>
-                            <td>How it works : </td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Bi - monthly dropoffs are communicated via whatsapp posters. Posters provided by
-                                ecoSansar</td>
-                            <td>Creatives for collection drives and encouraging people to start collecting at home are
-                                provided </td>
-                        </tr>
-                        <tr>
-                            <td>Residents are encouraged to store at home</td>
-                            <td>Stalls are setup for dropoffs. Cartons and bags are brought on the day of the drive</td>
-                        </tr>
-                        <tr>
-                            <td>EC provides a common dropoff point</td>
-                            <td>2 Experienced personnel are appointed at stall to interact with visitors and answer
-                                queries and spread awareness</td>
-                        </tr>
-                        <tr>
-                            <td>Pickups happen every alternate Mondays</td>
-                            <td>Pickups happen at 5:30pm from venue</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="text-center">
+            <!--<div class="table-responsive mt-4">-->
+            <!--    <table class="table table-bordered table-striped align-middle">-->
+            <!--        <thead class="table-success text-center">-->
+            <!--            <tr>-->
+            <!--                <th width="50%">Regular drives (for glass jars and bottles / paper bags)</th>-->
+            <!--                <th width="50%">One off drive (for all recyclables - glass/plastic/textile/paper/ewaste)-->
+            <!--                </th>-->
+            <!--            </tr>-->
+            <!--        </thead>-->
+            <!--        <tbody>-->
+            <!--            <tr>-->
+            <!--                <td>How it works : </td>-->
+            <!--                <td>How it works : </td>-->
+            <!--            </tr>-->
+            <!--            <tr>-->
+            <!--                <td></td>-->
+            <!--                <td></td>-->
+            <!--            </tr>-->
+            <!--            <tr>-->
+            <!--                <td>Bi - monthly dropoffs are communicated via whatsapp posters. Posters provided by-->
+            <!--                    ecoSansar</td>-->
+            <!--                <td>Creatives for collection drives and encouraging people to start collecting at home are-->
+            <!--                    provided </td>-->
+            <!--            </tr>-->
+            <!--            <tr>-->
+            <!--                <td>Residents are encouraged to store at home</td>-->
+            <!--                <td>Stalls are setup for dropoffs. Cartons and bags are brought on the day of the drive</td>-->
+            <!--            </tr>-->
+            <!--            <tr>-->
+            <!--                <td>EC provides a common dropoff point</td>-->
+            <!--                <td>2 Experienced personnel are appointed at stall to interact with visitors and answer-->
+            <!--                    queries and spread awareness</td>-->
+            <!--            </tr>-->
+            <!--            <tr>-->
+            <!--                <td>Pickups happen every alternate Mondays</td>-->
+            <!--                <td>Pickups happen at 5:30pm from venue</td>-->
+            <!--            </tr>-->
+            <!--        </tbody>-->
+            <!--    </table>-->
+            <!--</div>-->
+            <div class="mt-4">
+    <table class="table table-bordered collection-table align-middle">
+        <thead>
+            <tr>
+                <th width="50%">Regular drives (for glass jars and bottles / paper bags)</th>
+                <th width="50%">One off drive (for all recyclables - glass/plastic/textile/paper/ewaste)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>How it works :</strong></td>
+                <td><strong>How it works :</strong></td>
+            </tr>
+            <tr>
+                <td>Bi - monthly dropoffs are communicated via whatsapp posters. Posters provided by ecoSansar</td>
+                <td>Creatives for collection drives and encouraging people to start collecting at home are provided </td>
+            </tr>
+            <tr>
+                <td>Residents are encouraged to store at home</td>
+                <td>Stalls are setup for dropoffs. Cartons and bags are brought on the day of the drive</td>
+            </tr>
+            <tr>
+                <td>EC provides a common dropoff point</td>
+                <td>2 Experienced personnel are appointed at stall to interact with visitors and answer queries and spread awareness</td>
+            </tr>
+            <tr>
+                <td>Pickups happen every alternate Mondays</td>
+                <td>Pickups happen at 5:30pm from venue</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+            <div class="text-center my-4">
                 <p>
                     Facilitation fee : Zero (for RWAs) , 5000/day for corporates and events
-                </p>
-                <p>An awareness session can be arranged at extra cost (customised to your requriement) </p>
+                <br>An awareness session can be arranged at extra cost (customised to your requriement) </p>
             </div>
 
-            <hr class="my-5">
+            <hr class="my-3">
 
             <div class="row justify-content-center">
                 <div class="col-lg-10">

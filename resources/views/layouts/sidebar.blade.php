@@ -92,20 +92,20 @@
 
                     </ul>
                 </li>
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                       <img src="{{ URL::asset('/frontend/assets/img/blog.png') }}" alt="" height="16">
-                        <span>Blogs</span>
-                    </a>
+                <!--<li>-->
+                <!--    <a href="javascript: void(0);" class="has-arrow waves-effect">-->
+                <!--       <img src="{{ URL::asset('/frontend/assets/img/blog.png') }}" alt="" height="16">-->
+                <!--        <span>Blogs</span>-->
+                <!--    </a>-->
 
-                    <ul class="sub-menu" aria-expanded="false">
-                         <li><a href="{{ route('admin_blog_list') }}">Post</a></li>
-                        <li><a href="{{ route('blog.blog_category_list') }}">Category</a></li>
-                       <li><a href="{{ route('blog.blog_tag_list') }}">Tag</a></li>
-                        <li><a href="{{ route('blog.comment_list') }}">Comment</a></li>
-                         <li><a href="{{ route('blog.comment_reply_list') }}">Comment Reply</a></li>
-                    </ul>
-                </li>
+                <!--    <ul class="sub-menu" aria-expanded="false">-->
+                <!--         <li><a href="{{ route('admin_blog_list') }}">Post</a></li>-->
+                <!--        <li><a href="{{ route('blog.blog_category_list') }}">Category</a></li>-->
+                <!--       <li><a href="{{ route('blog.blog_tag_list') }}">Tag</a></li>-->
+                <!--        <li><a href="{{ route('blog.comment_list') }}">Comment</a></li>-->
+                <!--         <li><a href="{{ route('blog.comment_reply_list') }}">Comment Reply</a></li>-->
+                <!--    </ul>-->
+                <!--</li>-->
                  @php
 
                         // Fetch the first record from the About table
@@ -156,12 +156,12 @@
                     </ul>
                 </li>
                  <li class="menu-title">Resources</li>
-                  <li>
-                    <a href="{{route('resource.list')}}">
+                <!--  <li>-->
+                <!--    <a href="{{route('resource.list')}}">-->
 
-                        <span>Recyclable</span>
-                    </a>
-                </li>
+                <!--        <span>Recyclable</span>-->
+                <!--    </a>-->
+                <!--</li>-->
                 <li>
                     <a href="{{route('reusable_resource.list')}}">
 
@@ -179,37 +179,37 @@
 
                  <li class="menu-title">Users</li>
 
-                <li>
-                    <a href="{{route('volunteer.list')}}">
+                <!--<li>-->
+                <!--    <a href="{{route('volunteer.list')}}">-->
 
-                        <span>Volunteers</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('user.businesslist') }}">
+                <!--        <span>Volunteers</span>-->
+                <!--    </a>-->
+                <!--</li>-->
+                <!--<li>-->
+                <!--    <a href="{{ route('user.businesslist') }}">-->
 
-                        <span>Corporate list</span>
-                    </a>
-                </li>
+                <!--        <span>Corporate list</span>-->
+                <!--    </a>-->
+                <!--</li>-->
                   <li>
                     <a href="{{ route('user.sablist') }}">
 
                         <span>Collection Agent list</span>
                     </a>
                 </li>
-                 <li>
-                    <a href="{{ route('user.consumerlist') }}">
+                <!-- <li>-->
+                <!--    <a href="{{ route('user.consumerlist') }}">-->
 
-                        <span>Contributor list</span>
-                    </a>
-                </li>
+                <!--        <span>Contributor list</span>-->
+                <!--    </a>-->
+                <!--</li>-->
                   <li class="menu-title">Posts</li>
-                 <li>
-                    <a href="{{route('user.recyclableposts')}}">
-                        <i class="fas fa-envelope"></i>
-                        <span>Recyclable posts</span>
-                    </a>
-                </li>
+                <!-- <li>-->
+                <!--    <a href="{{route('user.recyclableposts')}}">-->
+                <!--        <i class="fas fa-envelope"></i>-->
+                <!--        <span>Recyclable posts</span>-->
+                <!--    </a>-->
+                <!--</li>-->
                 <li>
                     <a href="{{route('user.reusableposts')}}">
                         <i class="fas fa-envelope"></i>
@@ -250,48 +250,48 @@
                         <span>Collection Agent</span>
                     </a>
                 </li>
-                <li>
-                    <a href="{{route('user.reusablerreviews')}}">
-                       <img src="{{ URL::asset('/frontend/assets/img/contributor.png') }}" alt="" height="16">
-                        <span>Contributor</span>
-                    </a>
-                </li>
+                <!--<li>-->
+                <!--    <a href="{{route('user.reusablerreviews')}}">-->
+                <!--       <img src="{{ URL::asset('/frontend/assets/img/contributor.png') }}" alt="" height="16">-->
+                <!--        <span>Contributor</span>-->
+                <!--    </a>-->
+                <!--</li>-->
 
                 <li class="menu-title">Reports</li>
 
-                <li>
-                    <a href="{{ route('user.recyclablepostreportlist') }}">
-                       <img src="{{ URL::asset('/frontend/assets/img/corporate.png') }}" alt="" height="16">
-                        <span>Recyclable Post Report</span>
-                    </a
-                </li>
+                <!--<li>-->
+                <!--    <a href="{{ route('user.recyclablepostreportlist') }}">-->
+                <!--       <img src="{{ URL::asset('/frontend/assets/img/corporate.png') }}" alt="" height="16">-->
+                <!--        <span>Recyclable Post Report</span>-->
+                <!--    </a-->
+                <!--</li>-->
 
                 <li>
                     <a href="{{ route('user.reusablepostreportlist') }}">
                        <img src="{{ URL::asset('/frontend/assets/img/resource.png') }}" alt="" height="16">
                         <span>Reusable Post Report</span>
-                    </a
+                    </a>
                 </li>
 
                 <li>
                     <a href="{{ route('user.activityreportlist') }}">
                         <i class="uil-home-alt"></i>
                         <span>User Activity Report</span>
-                    </a
+                    </a>
                 </li>
 
                  <li class="menu-title">Reports</li>
-                 <li>
-                    <a href="{{ route('user.recyclableconnectreportlist') }}">
-                       <img src="{{ URL::asset('/frontend/assets/img/contributor.png') }}" alt="" height="16">
-                        <span>Recyclable Connect </span>
-                    </a
-                </li>
+                <!-- <li>-->
+                <!--    <a href="{{ route('user.recyclableconnectreportlist') }}">-->
+                <!--       <img src="{{ URL::asset('/frontend/assets/img/contributor.png') }}" alt="" height="16">-->
+                <!--        <span>Recyclable Connect </span>-->
+                <!--    </a>-->
+                <!--</li>-->
                 <li>
                     <a href="{{ route('user.reusableconnectreportlist') }}">
                        <img src="{{ URL::asset('/frontend/assets/img/contributor.png') }}" alt="" height="16">
                         <span>Reusable Connect </span>
-                    </a
+                    </a>
                 </li>
 
 

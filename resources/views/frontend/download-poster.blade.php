@@ -1,10 +1,28 @@
 @include('frontend.include.header')
 
 <div class="breadcrumb-bar text-center"
-style="background-image:url('{{ asset('frontend/assets/img/bg/default.png') }}');
-background-size:cover;background-position:center;">
+    style="background-image: url('{{ $breadcrumbimage ? Storage::disk('s3')->url('Breadcrumbimage/' . $breadcrumbimage->breadcrumb_image) : asset('frontend/assets/img/bg/default.png') }}');
+            background-size: cover; 
+            background-position: center;">
     <div class="container">
-        <h2 class="breadcrumb-title">Download Posters</h2>
+        <div class="row">
+            <div class="col-md-12 col-12">
+                <h2 class="breadcrumb-title mb-2">Download Psoters</h2>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center mb-0">
+                        <li class="breadcrumb-item"><a href="{{ url('/') }}"><i class="ti ti-home-2"></i></a></li>
+                        <li class="breadcrumb-item">Home</li>
+                        <li class="breadcrumb-item active" aria-current="page">Download Psoters</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="breadcrumb-bg">
+            <img src="{{ asset('frontend/assets/img/bg/breadcrumb-bg-01.png') }}" class="breadcrumb-bg-1"
+                alt="Img">
+            <img src="{{ asset('frontend/assets/img/bg/breadcrumb-bg-02.png') }}" class="breadcrumb-bg-2"
+                alt="Img">
+        </div>
     </div>
 </div>
 
@@ -23,7 +41,7 @@ background-size:cover;background-position:center;">
                                  class="card-img-top"
                                  style="height:250px;object-fit:cover;">
 
-                            <div class="card-body text-center d-flex flex-column">
+                            <div class="card-body text-center d-flex flex-column" style="gap: 20px;">
 
                                 <h5>{{ $poster->title }}</h5>
 

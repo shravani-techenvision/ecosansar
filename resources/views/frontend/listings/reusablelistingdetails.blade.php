@@ -300,7 +300,9 @@
                 </div>
 
                 <div class="modal-body">
-
+                     @php
+                            $loggedUser = \App\Models\frontend\EcosansarUsers::find(session('user_id'));
+                        @endphp
                     <div class="row">
 						<input type="hidden" name="reusable_item_id" id="reusable_item_id">
                         <div class="col-md-6 mb-3">
@@ -309,6 +311,7 @@
                             <input type="text"
                                    name="name"
                                    class="form-control"
+                                   value="{{ old('name', $loggedUser->name ?? '') }}"
                                   >
                         </div>
 
@@ -318,6 +321,7 @@
                             <input type="text"
                                    name="mobile"
                                    class="form-control"
+                                   value="{{ old('mobile', $loggedUser->mobile ?? '') }}"
                                   >
                         </div>
 

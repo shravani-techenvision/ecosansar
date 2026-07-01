@@ -402,7 +402,9 @@
 
             <form action="{{ route('reusable.item.enquiry.store') }}" method="POST">
                 @csrf
-
+<!--<pre>-->
+<!--{{ print_r(session()->all(), true) }}-->
+<!--</pre>-->
                 <div class="modal-header">
                     <h5 class="modal-title">Place Enquiry</h5>
 
@@ -414,13 +416,16 @@
                 <div class="modal-body">
 
                     <div class="row">
-
+                        @php
+                            $loggedUser = \App\Models\frontend\EcosansarUsers::find(session('user_id'));
+                        @endphp
                         <div class="col-md-6 mb-3">
                             <label>Name</label>
 
                             <input type="text"
                                    name="name"
                                    class="form-control"
+                                   value="{{ old('name', $loggedUser->name ?? '') }}"
                                   >
                         </div>
 
@@ -430,6 +435,7 @@
                             <input type="text"
                                    name="mobile"
                                    class="form-control"
+                                   value="{{ old('mobile', $loggedUser->mobile ?? '') }}"
                                   >
                         </div>
 
