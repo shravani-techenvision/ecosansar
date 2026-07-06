@@ -50,7 +50,11 @@ class ReusableResourceController extends Controller
     }
      public function reusableEnquiryList()
     {
-        $result = ReusableItemEnquiry::latest()->get();
+        $result = ReusableItemEnquiry::with([
+            'user',
+            'reusablePost',
+            'reusablePost.resource',
+        ])->latest()->get();
 
         return view('admin.reusableresource.reusable_item_enquiry_list', compact('result'));
     }

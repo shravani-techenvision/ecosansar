@@ -64,6 +64,7 @@
                                 <i class="fa-regular fa-circle-user me-2"></i>  Profile Info
                                 </a>
                               </li>
+                              @if($users->post_access == 1)
                               <li class="mb-4">
                                 <a href="#" class="d-flex align-items-center" onclick="showSection('active-listings')">
                                <i class="fa fa-list me-2"></i> My Active Listings
@@ -91,18 +92,19 @@
                                            Reviews Given
                                         </a>
                                     </li>
-                                    <li class="mb-4">
-                                        <a href="#" class="d-flex align-items-center" onclick="showSection('connections')">
-                                           <i class="fa fa-users me-2"></i>
-                                             Connections Initiated by Me
-                                        </a>
-                                    </li>
-                                    <li class="mb-4">
-                                        <a href="#" class="d-flex align-items-center" onclick="showSection('my-connections')">
-                                           <i class="fa fa-users me-2"></i>
-                                            Connection Requests Received
-                                        </a>
-                                    </li>
+                                    <!--<li class="mb-4">-->
+                                    <!--    <a href="#" class="d-flex align-items-center" onclick="showSection('connections')">-->
+                                    <!--       <i class="fa fa-users me-2"></i>-->
+                                    <!--         Connections Initiated by Me-->
+                                    <!--    </a>-->
+                                    <!--</li>-->
+                                    <!--<li class="mb-4">-->
+                                    <!--    <a href="#" class="d-flex align-items-center" onclick="showSection('my-connections')">-->
+                                    <!--       <i class="fa fa-users me-2"></i>-->
+                                    <!--        Connection Requests Received-->
+                                    <!--    </a>-->
+                                    <!--</li>-->
+                                    @endif
 
                                     <li class="mb-0">
                                         <a href="{{ route('user_logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="d-flex align-items-center">

@@ -4,6 +4,7 @@ namespace App\Models\frontend;
 
 use App\Models\admin\ReusableResource;
 use App\Models\frontend\EcosansarUsers;
+use App\Models\frontend\ReusablePost;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -13,6 +14,7 @@ class ReusableItemEnquiry extends Model
     use HasFactory, SoftDeletes;
     protected $fillable = [
         'reusable_resource_id',
+        'user_id',
         'name',
         'mobile',
         'quantity',
@@ -24,14 +26,19 @@ class ReusableItemEnquiry extends Model
     protected $dates = [
         'deleted_at',
     ];
-    public function resource()
-    {
-        return $this->belongsTo(ReusableResource::class, 'reusable_resource_id');
-    }
+    // public function resource()
+    // {
+    //     return $this->belongsTo(ReusableResource::class, 'reusable_resource_id');
+    // }
 
     public function user()
     {
         return $this->belongsTo(EcosansarUsers::class, 'user_id');
+    }
+    
+    public function reusablePost()
+    {
+        return $this->belongsTo(ReusablePost::class, 'reusable_resource_id');
     }
     
 }

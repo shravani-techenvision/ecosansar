@@ -3,18 +3,23 @@
  <style>
      .trust-us-section {
     position: relative;
-    padding-top: 40px;
+    padding: 40px 0px;
     background-color: #fff;
     z-index: 1;
 
 }
 .trust-us-main {
-  background: linear-gradient(135deg, #ffffff, #f8f9fa);
+ background: linear-gradient(90deg,#000000, #8eb66f); /* Gradient on hover */
+  color: #fff; /* Change text color to white */
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
   border-radius: 12px;
   padding: 20px;
   text-align: center;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-  transition: all 0.3s ease;
+  color:white;
+}
+.trust-us-main h3 {
+    color:white;
 }
 
 .trust-us-main:hover {
@@ -86,7 +91,7 @@
 					<form id="registerForm" method="POST">
 					    @csrf
 						<div class="d-flex flex-column justify-content-center">
-							<div class="card p-sm-4 my-5">
+							<div class="card p-sm-4 mb-5">
 								<div class="card-body">
 									<!--<div class="text-center mb-3">-->
 									<!--	<h3 class="mb-2">User Signup</h3>-->

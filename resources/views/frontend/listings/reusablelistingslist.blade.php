@@ -93,25 +93,25 @@
                                         </div>
                                     </div>
 
-									<div class="accordion border-bottom mb-3">
-										<div class="accordion-header" id="accordion-headingFour">
-											<div class="accordion-button p-0 mb-3" data-bs-toggle="collapse" data-bs-target="#accordion-collapseFour" aria-expanded="true" aria-controls="accordion-collapseFour" role="button">
-											Show lisitngs that
-											</div>
-										</div>
-										<div id="accordion-collapseFour" class="accordion-collapse collapse show" aria-labelledby="accordion-headingFour">
-											<div class="mb-3">
-												<select class="select" name="sale_giveaway">
-													<option value="">Show lisitngs that </option>
-												 <option value="Sell">Sell  </option>
-												 <option value="Buy">Buy  </option>
-                                            <option value="Giveaway">Giveaway  </option>
+									<!--<div class="accordion border-bottom mb-3">-->
+									<!--	<div class="accordion-header" id="accordion-headingFour">-->
+									<!--		<div class="accordion-button p-0 mb-3" data-bs-toggle="collapse" data-bs-target="#accordion-collapseFour" aria-expanded="true" aria-controls="accordion-collapseFour" role="button">-->
+									<!--		Show lisitngs that-->
+									<!--		</div>-->
+									<!--	</div>-->
+									<!--	<div id="accordion-collapseFour" class="accordion-collapse collapse show" aria-labelledby="accordion-headingFour">-->
+									<!--		<div class="mb-3">-->
+									<!--			<select class="select" name="sale_giveaway">-->
+									<!--				<option value="">Show lisitngs that </option>-->
+									<!--			 <option value="Sell">Sell  </option>-->
+									<!--			 <option value="Buy">Buy  </option>-->
+         <!--                                   <option value="Giveaway">Giveaway  </option>-->
 
-                                              <option value="Request for free">Request for free  </option>
-												</select>
-											</div>
-										</div>
-									</div>
+         <!--                                     <option value="Request for free">Request for free  </option>-->
+									<!--			</select>-->
+									<!--		</div>-->
+									<!--	</div>-->
+									<!--</div>-->
 									<div class="accordion border-bottom mb-3">
 										<div class="accordion-header" id="accordion-headingFour">
 											<div class="accordion-button p-0 mb-3" data-bs-toggle="collapse" data-bs-target="#accordion-collapseFive" aria-expanded="true" aria-controls="accordion-collapseFive" role="button">
@@ -133,24 +133,24 @@
 										</div>
 									</div>
 
-										<div class="accordion border-bottom mb-3">
-										<div class="accordion-header" id="accordion-headingFour">
-											<div class="accordion-button p-0 mb-3" data-bs-toggle="collapse" data-bs-target="#accordion-collapseSeven" aria-expanded="true" aria-controls="accordion-collapseSeven" role="button">
-										Show Posts listed by
-											</div>
-										</div>
-										<div id="accordion-collapseSeven" class="accordion-collapse collapse show" aria-labelledby="accordion-headingFour">
-											<div class="mb-3">
-												<select class="select" name="user_type" id="user_type">
-													<option value="">Show Posts listed by  </option>
-												 <option value="consumer">Contributor  </option>
-                                            <option value="sab">Collection Agent  </option>
-                                             <option value="business">Businessess  </option>
+									<!--	<div class="accordion border-bottom mb-3">-->
+									<!--	<div class="accordion-header" id="accordion-headingFour">-->
+									<!--		<div class="accordion-button p-0 mb-3" data-bs-toggle="collapse" data-bs-target="#accordion-collapseSeven" aria-expanded="true" aria-controls="accordion-collapseSeven" role="button">-->
+									<!--	Show Posts listed by-->
+									<!--		</div>-->
+									<!--	</div>-->
+									<!--	<div id="accordion-collapseSeven" class="accordion-collapse collapse show" aria-labelledby="accordion-headingFour">-->
+									<!--		<div class="mb-3">-->
+									<!--			<select class="select" name="user_type" id="user_type">-->
+									<!--				<option value="">Show Posts listed by  </option>-->
+									<!--			 <option value="consumer">Contributor  </option>-->
+         <!--                                   <option value="sab">Collection Agent  </option>-->
+         <!--                                    <option value="business">Businessess  </option>-->
 
-												</select>
-											</div>
-										</div>
-									</div>
+									<!--			</select>-->
+									<!--		</div>-->
+									<!--	</div>-->
+									<!--</div>-->
 
 
 									<button type="submit" class="btn btn-dark w-100">Search</button>
@@ -419,14 +419,22 @@
                         @php
                             $loggedUser = \App\Models\frontend\EcosansarUsers::find(session('user_id'));
                         @endphp
+                        <input type="hidden" name="reusable_resource_id" id="reusable_item_id"
+                            value="{{ old('reusable_resource_id') }}">
+                        <input type="hidden"
+                       name="user_id"
+                       value="{{ old('user_id', session('user_id')) }}">
                         <div class="col-md-6 mb-3">
                             <label>Name</label>
 
                             <input type="text"
                                    name="name"
-                                   class="form-control"
-                                   value="{{ old('name', $loggedUser->name ?? '') }}"
-                                  >
+                                   class="form-control @error('name') is-invalid @enderror"
+                                   value="{{ old('name', $loggedUser->name ?? '') }}">
+                            
+                            @error('name')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="col-md-6 mb-3">
@@ -434,9 +442,13 @@
 
                             <input type="text"
                                    name="mobile"
-                                   class="form-control"
-                                   value="{{ old('mobile', $loggedUser->mobile ?? '') }}"
-                                  >
+                                   maxlength ='10'
+                                   class="form-control @error('mobile') is-invalid @enderror"
+                                   value="{{ old('mobile', $loggedUser->mobile ?? '') }}">
+                            
+                            @error('mobile')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="col-md-6 mb-3">
@@ -444,7 +456,12 @@
 
                             <input type="number"
                                    name="quantity"
-                                   class="form-control">
+                                   class="form-control @error('quantity') is-invalid @enderror"
+                                   value="{{ old('quantity') }}">
+                            
+                            @error('quantity')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="col-md-6 mb-3">
@@ -452,7 +469,12 @@
 
                             <input type="text"
                                    name="lid_colour"
-                                   class="form-control">
+                                   class="form-control @error('lid_colour') is-invalid @enderror"
+                                   value="{{ old('lid_colour') }}">
+                            
+                            @error('lid_colour')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="col-md-6 mb-3">
@@ -460,7 +482,12 @@
 
                             <input type="text"
                                    name="delivery_place"
-                                   class="form-control">
+                                   class="form-control @error('delivery_place') is-invalid @enderror"
+                                   value="{{ old('delivery_place') }}">
+                            
+                            @error('delivery_place')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="col-md-6 mb-3">
@@ -468,15 +495,24 @@
 
                             <input type="date"
                                    name="required_by_date"
-                                   class="form-control">
+                                   class="form-control @error('required_by_date') is-invalid @enderror"
+                                   value="{{ old('required_by_date') }}">
+                            
+                            @error('required_by_date')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="col-md-12">
                             <label>Any Other Notes</label>
 
-                            <textarea class="form-control"
+                            <textarea name="notes"
                                       rows="4"
-                                      name="notes"></textarea>
+                                      class="form-control @error('notes') is-invalid @enderror">{{ old('notes') }}</textarea>
+                            
+                            @error('notes')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                     </div>
@@ -497,10 +533,19 @@
     </div>
 </div>
 @include('frontend.include.footer')
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+@if ($errors->any())
+<script>
+    $(document).ready(function () {
+        $('#REnquiryModal').modal('show');
+    });
+</script>
+@endif
 <script>
     const userId = "{{ session('user_id') }}";
 </script>
  <script>
+ 
     $(document).on('click', '.place-enquiry-btn', function () {
 
 			$('#reusable_item_id').val($(this).data('id'));

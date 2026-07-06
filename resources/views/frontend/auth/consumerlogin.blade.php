@@ -346,7 +346,7 @@ document.getElementById('submit-otp').addEventListener('click', function() {
 var otp = getOtpValue();
   
     var otpError = document.getElementById('otp-error');
-    var fixedNumbers = ['9067700409', '9665679920', '8553012812','9561039920']; // Add your fixed numbers here
+    var fixedNumbers = ['9067700409', '9665679920', '8553012812','9561039920','7420911808']; // Add your fixed numbers here
 
     if (otp) {
         // Check if the contact is in the fixed numbers list

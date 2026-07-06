@@ -128,11 +128,11 @@
                         </div>
 
                         <div class="col-md-6 mb-3">
-                            <label>Organization <span class="text-danger">*</span></label>
+                            <label>Notes </label>
 
                             <input type="text"
-                                   name="organization"
-                                   class="form-control required-field">
+                                   name="notes"
+                                   class="form-control">
                         </div>
 
                     </div>

@@ -123,17 +123,18 @@
     </div>
 
 	<hr>
-	<div class="row align-items-center justify-content-center">
-        <div class="col-md-4 order-last order-md-first">
-            <div class="work-img d-none d-md-block">
-                <img src="{{ asset('frontend/assets/img/bg/step-5.png') }}" class="img-fluid" alt="image">
-            </div>
-        </div>
-        <div class="col-md-8 d-flex justify-content-center">
-            <div class="work-wrap work-wrap-post">
-                <span>05</span>
+    <div class="row align-items-center justify-content-center">
+        <div class="col-md-8">
+            <div class="work-wrap work-wrap-acc">
+                <span>03</span>
                 <h1 class="display-6">Storage - </h1>
                 <p>Catalogue is stored in a safe and clean space to ensure similar jars/bottles can then be bundled together for sales</p>
+                {{-- <p>The listing will automatically deactivate after 30 days. You will receive 2 reminder messages regarding the same. If you wish to renew it, simply click on Reactivate on the listing from your profile page.</p> --}}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="work-img d-none d-md-block">
+                <img src="{{ asset('frontend/assets/img/bg/step-5.png') }}" class="img-fluid" alt="image">
             </div>
         </div>
     </div>

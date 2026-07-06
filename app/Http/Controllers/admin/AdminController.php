@@ -12,6 +12,8 @@ use App\Models\frontend\ReusableReview;
 use App\Models\frontend\UserActivityLog;
 use App\Models\admin\PlanHistory;
 use App\Models\admin\Volunteer;
+use App\Models\admin\ReusableResource;
+use App\Models\admin\Weight;
 use App\Models\User;
 use App\Models\admin\SubscriptionModule;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -250,6 +252,180 @@ if ($redirectRoute === null) {
     $result = ReusablePost::where('active',1)->orderBy('id','desc')->get();
     return view('admin/usertype/reusablepostslist',compact('result'));
   }
+  public function addReusablePost(){
+        $user_id = session()->get('user_id');
+        $user_type = session()->get('user_type');
+        $users = EcosansarUsers::where('id', $user_id)->first();
+        $resources = ReusableResource::get();
+        $weights = Weight::orderByRaw('CAST(min_weight AS UNSIGNED) ASC')->get();
+
+          // user activity start
+        $userid = session()->get('user_id');
+        if ($userid){
+            $userActivity = new UserActivityLog();
+            $userActivity->user_id = $userid;
+            $userActivity->activity = 'Clicked on Reusable add post';
+            $userActivity->url = request()->fullUrl();   // Get the full URL of the request
+            $userActivity->ip_address = request()->ip();
+            $userActivity->save();
+        }
+
+        return view('admin/usertype/reusablepostadd', compact('users', 'user_id', 'resources', 'weights'));
+    }
+    
+    public function saveReusablePost(Request $request)
+    {
+
+        // echo "<pre>";
+        // print_r($request->all());die;
+
+        $user = Auth::user();
+        $user_id = $user->id;
+        $user_type = $user->type;
+        $user_name =$user->first_name;
+        $email = $user->email;
+        if ($request->sale_giveaway == 'Buy') {
+            $request->validate([
+                'address' => 'required',
+                // 'sale_giveaway' => 'required',
+                'quantity' => 'required',
+                'resource_type' => 'required',
+                'resource_img' => 'mimes:jpg,jpeg,png,webp', // Adjust mime types and max size as needed
+            ]);
+        } else {
+            $request->validate([
+                'address' => 'required',
+                // 'sale_giveaway' => 'required',
+                'quantity' => 'required',
+
+                'resource_type' => 'required',
+                'resource_img' => 'required|mimes:jpg,jpeg,png,webp', // Adjust mime types and max size as needed
+            ]);
+        }
+        $user = new ReusablePost();
+        $user->user_id = $user_id;
+        $user->user_type = $user_type;
+        $user->name = $user_name;
+        $user->email = $email;
+        // $user->mobile = $users->mobile;
+        $user->address = $request->address;
+        // $user->sale_giveaway = $request->sale_giveaway;
+        $user->quantity = $request->quantity;
+        $user->clean_unclean = $request->clean_unclean;
+        $user->packaged = $request->packaged;
+        $user->latitude = $request->latitude;
+        $user->longitude = $request->longitude;
+        $user->resource_price = $request->resource_price;
+        $user->description = $request->description;
+
+
+       // Function to resize an image using the GD library
+        function resizeImage($source, $width, $height)
+        {
+            // Get the original image dimensions and type
+            list($originalWidth, $originalHeight, $type) = getimagesize($source);
+        
+            // Calculate the new dimensions while maintaining the aspect ratio
+            $ratio = $originalWidth / $originalHeight;
+            if ($width / $height > $ratio) {
+                $width = $height * $ratio;
+            } else {
+                $height = $width / $ratio;
+            }
+        
+            // Create a new blank image with the calculated dimensions
+            $newImage = imagecreatetruecolor($width, $height);
+        
+            // Load the source image based on its type
+            switch ($type) {
+                case IMAGETYPE_JPEG:
+                    $sourceImage = imagecreatefromjpeg($source);
+                    break;
+                case IMAGETYPE_PNG:
+                    $sourceImage = imagecreatefrompng($source);
+                    break;
+                case IMAGETYPE_GIF:
+                    $sourceImage = imagecreatefromgif($source);
+                    break;
+                case IMAGETYPE_WEBP:
+                    $sourceImage = imagecreatefromwebp($source);
+                    break;
+                default:
+                    throw new Exception('Unsupported image type');
+            }
+        
+            // Resize the image
+            imagecopyresampled($newImage, $sourceImage, 0, 0, 0, 0, $width, $height, $originalWidth, $originalHeight);
+        
+            // Start output buffering to capture the image content
+            ob_start();
+            switch ($type) {
+                case IMAGETYPE_JPEG:
+                    imagejpeg($newImage);
+                    break;
+                case IMAGETYPE_PNG:
+                    imagepng($newImage);
+                    break;
+                case IMAGETYPE_GIF:
+                    imagegif($newImage);
+                    break;
+                case IMAGETYPE_WEBP:
+                    imagewebp($newImage);
+                    break;
+            }
+            $imageContent = ob_get_clean(); // Get the image content from the buffer
+        
+            // Free up memory
+            imagedestroy($newImage);
+            imagedestroy($sourceImage);
+        
+            return $imageContent; // Return the resized image content as a binary string
+        }
+
+        $user->resource_type = $request->resource_type;
+
+
+        // Upload file to S3
+        if ($request->hasFile('resource_img')) {
+            $file = $request->file('resource_img');
+            $filePath = 'Reusableposts';
+            $fileName = $user_id . '_' . $user->id . '_' . $request->resource_type . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+
+            $fileTempPath = $file->getRealPath(); // Get the temporary file path
+
+            // Set desired dimensions for resizing (e.g., 800px wide)
+            $newWidth = 800;
+            $newHeight = 600; // You can adjust this based on your aspect ratio logic
+        
+            // Use the resizeImage function to get the resized image content
+            $resizedImageContent = resizeImage($fileTempPath, $newWidth, $newHeight);
+        
+            // Upload to S3
+            Storage::disk('s3')->put($filePath . '/' . $fileName, $resizedImageContent);
+            $user->resource_img = $fileName;
+        }
+        $user->save();
+
+
+        // user activity start
+        $userid = session()->get('user_id');
+        if ($userid){
+            $userActivity = new UserActivityLog();
+            $userActivity->user_id = $userid;
+            $userActivity->activity = 'Reusable post add';
+            $userActivity->url = request()->fullUrl();   // Get the full URL of the request
+            $userActivity->ip_address = request()->ip();
+            $userActivity->save();
+        }
+        // user activity end
+
+        if ($request->action === 'post_another') {
+            Session::flash('success', 'Data saved successfully. You can post another.');
+            return redirect()->back();
+        } else {
+            return redirect()->route('user.reusableposts')->with('success', 'Post Added Successfully. You can view in my profile page');
+        }
+    }
    public function reusablepostsdelete($id){
     $posts = ReusablePost::find($id);
      $posts->delete();
@@ -271,13 +447,28 @@ if ($redirectRoute === null) {
     return view('admin/usertype/recyclablepostsview')->with($data);
   }
   public function reusablepostsview($id){
-
-    $users = ReusablePost::
-       join('resources', 'resources.id', 'reusable_posts.resource_type')
-        ->join('weights', 'reusable_posts.quantity', '=', 'weights.id')
-      ->select('reusable_posts.*', 'resources.resource_name','weights.min_weight', 'weights.min_measure', 'weights.max_weight', 'weights.max_measure')
-        ->where('reusable_posts.id', $id)
-        ->first();
+    // dd($id);
+    // $users = ReusablePost::
+    //   join('resources', 'resources.id', 'reusable_posts.resource_type')
+    //     ->join('weights', 'reusable_posts.quantity', '=', 'weights.id')
+    //   ->select('reusable_posts.*', 'resources.resource_name','weights.min_weight', 'weights.min_measure', 'weights.max_weight', 'weights.max_measure')
+    //     ->where('reusable_posts.id', $id)
+    //     ->first();
+        // $users = ReusablePost::where('id', $id)->first();
+        // dd($users);
+        
+    $users = ReusablePost::join('reusable_resources', 'reusable_resources.id', '=', 'reusable_posts.resource_type')
+    ->join('weights', 'weights.id', '=', 'reusable_posts.quantity')
+    ->select(
+        'reusable_posts.*',
+        'reusable_resources.reusable_resource_name as resource_name',
+        'weights.min_weight',
+        'weights.min_measure',
+        'weights.max_weight',
+        'weights.max_measure'
+    )
+    ->where('reusable_posts.id', $id)
+    ->first();
     $data=compact('users');
     return view('admin/usertype/reusablepostsview')->with($data);
   }

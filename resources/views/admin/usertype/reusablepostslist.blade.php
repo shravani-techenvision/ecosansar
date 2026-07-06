@@ -19,13 +19,21 @@
         <div class="col-12">
             <div class="card">
 
-                <div class="card-body">
+                <!--<div class="card-body">-->
+                <!--    <div class="d-flex justify-content-between mb-3">-->
+                <!--        <div>-->
+                <!--        </div>-->
+                <!--    {{--  <div >-->
+                <!--        <a href="{{ route('category.add') }}" class="btn btn-primary waves-effect waves-light" >Add</a>-->
+                <!--    </div>  --}}-->
+                <!--</div>-->
+                 <div class="card-body">
                     <div class="d-flex justify-content-between mb-3">
                         <div>
                         </div>
-                    {{--  <div >
-                        <a href="{{ route('category.add') }}" class="btn btn-primary waves-effect waves-light" >Add</a>
-                    </div>  --}}
+                    <div >
+                        <a href="{{ route('reusable_resource_post.add') }}" class="btn btn-primary waves-effect waves-light" >Add</a>
+                    </div>
                 </div>
                     <table id="datatable" class="table table-striped table-bordered dt-responsive nowrap"
                         style="border-collapse: collapse; border-spacing: 0; width: 100%;">
@@ -34,7 +42,7 @@
                                 <th>Sr. No</th>
                                 <th>Name</th>
                                 <th>Mobile</th>
-                                 <th>Type of Post</th>
+                                 <!--<th>Type of Post</th>-->
                                 <th>Posted On</th>
 
                                 <th>Address</th>
@@ -52,7 +60,7 @@
                                         <td>{{ $i++ }}</td>
                                         <td>{{ $res->name }}</td>
                                          <td>{{ $res->mobile }}</td>
-                                        <td>{{ $res->sale_giveaway }}</td>
+                                        <!--<td>{{ $res->sale_giveaway }}</td>-->
                                         <td>{{ \Carbon\Carbon::parse($res->created_at)->format('F j, Y \a\t g:i A') }}</td>
 
                                         <td style="word-wrap: break-word !important;white-space: normal; max-width: 200px;">{{ $res->address }}</td>

@@ -225,7 +225,7 @@
                                     
                                         <a href="{{ $user && $user->post_access == 1 ? route('reusable-choose_one') : route('reusable_listings') }}"
                                            class="btn btn-lg btn-linear-primary w-100 mt-2">
-                                            <span class="d-none d-md-inline">List or Browse Reusables</span>
+                                            <span class="d-none d-md-inline">Listing</span>
                                             <span class="d-inline d-md-none">
                                                 <i class="fas fa-arrow-right"></i>
                                             </span>
@@ -233,7 +233,7 @@
                                     @else
                                         <a href="{{ route('consumer_login', ['redirect_reusable' => 1]) }}"
                                            class="btn btn-lg btn-linear-primary w-100 mt-2">
-                                            <span class="d-none d-md-inline">List or Browse Reusables</span>
+                                            <span class="d-none d-md-inline">Listing</span>
                                             <span class="d-inline d-md-none">
                                                 <i class="fas fa-arrow-right"></i>
                                             </span>
@@ -266,7 +266,7 @@
                                 </button>
 								<div class="work-icon">
 									<span>
-										<img src="{{asset('frontend/assets/img/icons/location.png')}}" alt="img">
+										<img src="{{asset('frontend/assets/img/icons/collection-drive.png')}}" alt="img">
 									</span>
 								</div>
 								<h5>Organize collection drive</h5>
@@ -344,14 +344,14 @@
                                  <div class="mt-auto">
                                     @if (session()->has('user_id'))
                                     <a href="{{route('findcollectionagent')}}" class="btn btn-lg btn-linear-primary w-100 mt-2">
-                                        <span class="d-none d-md-inline">Find Collection Agents</span>
+                                        <span class="d-none d-md-inline">Click here to find out</span>
                                         <span class="d-inline d-md-none">
                                             <i class="fas fa-arrow-right"></i>
                                         </span>
                                     </a>
                                     @else
                                         <a href="{{ route('consumer_login', ['redirect' => url()->current()]) }}" class="btn btn-lg btn-linear-primary w-100 mt-2">
-                                            <span class="d-none d-md-inline">Find Collection Agents</span>
+                                            <span class="d-none d-md-inline">Click here to find out</span>
                                             <span class="d-inline d-md-none">
                                                 <i class="fas fa-arrow-right"></i>
                                             </span>
@@ -369,7 +369,7 @@
                                 </button>
 								<div class="work-icon">
 									<span>
-										<img src="{{asset('frontend/assets/img/icons/location.png')}}" alt="img">
+										<img src="{{asset('frontend/assets/img/icons/download-poster.png')}}" alt="img">
 									</span>
 								</div>
 								<h5>Download Posters</h5>
@@ -379,7 +379,7 @@
                                     @if(session()->has('user_id'))
                                         <a href="{{ route('download.posters') }}"
                                         class="btn btn-lg btn-linear-primary w-100 mt-2">
-                                            <span class="d-none d-md-inline">Download Posters</span>
+                                            <span class="d-none d-md-inline">Click here to access</span>
                                             <span class="d-inline d-md-none">
                                                 <i class="fas fa-arrow-right"></i>
                                             </span>
@@ -387,7 +387,7 @@
                                     @else
                                         <a href="{{ route('consumer_login', ['redirect' => route('download.posters')]) }}"
                                         class="btn btn-lg btn-linear-primary w-100 mt-2">
-                                            <span class="d-none d-md-inline">Download Posters</span>
+                                            <span class="d-none d-md-inline">Click here to access</span>
                                             <span class="d-inline d-md-none">
                                                 <i class="fas fa-arrow-right"></i>
                                             </span>

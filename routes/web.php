@@ -196,6 +196,8 @@ Route::controller(AdminController::class)->group(function(){
     Route::get('user/recyclableposts','recyclableposts')->name('user.recyclableposts');
      Route::get('user/recyclableposts/delete/{id}','recyclablepostsdelete')->name('recyclableposts.delete');
     Route::get('user/reusableposts','reusableposts')->name('user.reusableposts');
+    Route::get('reusable_resource_post/add', 'addReusablePost')->name('reusable_resource_post.add');
+    Route::post('reusable_resource_post/save','saveReusablePost')->name('reusable_resource_post.save');
      Route::get('user/reusableposts/delete/{id}','reusablepostsdelete')->name('reusableposts.delete');
     Route::get('user/recyclablepostsview/{id}','recyclablepostsview')->name('user.recyclablepostsview');
     Route::get('user/reusablepostsview/{id}','reusablepostsview')->name('user.reusablepostsview');
@@ -381,9 +383,10 @@ Route::controller(DownloadPosterController::class)->group(function(){
     Route::get('download-posters/add', 'create')->name('download_posters.create');
     Route::post('download-posters/store','store')->name('download_posters.store');
     Route::get('download-posters/edit/{id}','edit')->name('download_posters.edit');
-    Route::post('download-posters/update/{id}','update')->name('download_posters.update');
+    Route::put('download-posters/update/{id}','update')->name('download_posters.update');
     Route::get('download-posters/delete/{id}','destroy')->name('download_posters.delete');
     Route::post('download-posters/status','changeStatus')->name('download_posters.status');
+    Route::get('download-posters-enquiry', 'enquiryList')->name('download_posters.enquiry');
 });
 });
 Route::middleware(['auth', 'superadmin:superadmin'])->group(function () {

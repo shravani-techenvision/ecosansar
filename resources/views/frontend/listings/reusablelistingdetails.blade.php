@@ -304,15 +304,21 @@
                             $loggedUser = \App\Models\frontend\EcosansarUsers::find(session('user_id'));
                         @endphp
                     <div class="row">
-						<input type="hidden" name="reusable_item_id" id="reusable_item_id">
+						<input type="hidden" name="reusable_resource_id" id="reusable_item_id" value="{{ old('reusable_resource_id') }}">
+						<input type="hidden"
+                           name="user_id"
+                           value="{{ old('user_id', session('user_id')) }}">
                         <div class="col-md-6 mb-3">
                             <label>Name</label>
 
                             <input type="text"
                                    name="name"
-                                   class="form-control"
-                                   value="{{ old('name', $loggedUser->name ?? '') }}"
-                                  >
+                                   class="form-control @error('name') is-invalid @enderror"
+                                   value="{{ old('name', $loggedUser->name ?? '') }}">
+                            
+                            @error('name')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="col-md-6 mb-3">
@@ -320,9 +326,12 @@
 
                             <input type="text"
                                    name="mobile"
-                                   class="form-control"
-                                   value="{{ old('mobile', $loggedUser->mobile ?? '') }}"
-                                  >
+                                   class="form-control @error('mobile') is-invalid @enderror"
+                                   value="{{ old('mobile', $loggedUser->mobile ?? '') }}">
+                            
+                            @error('mobile')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="col-md-6 mb-3">
@@ -330,7 +339,12 @@
 
                             <input type="number"
                                    name="quantity"
-                                   class="form-control">
+                                   class="form-control @error('quantity') is-invalid @enderror"
+                                   value="{{ old('quantity') }}">
+                            
+                            @error('quantity')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="col-md-6 mb-3">
@@ -338,7 +352,12 @@
 
                             <input type="text"
                                    name="lid_colour"
-                                   class="form-control">
+                                   class="form-control @error('lid_colour') is-invalid @enderror"
+                                   value="{{ old('lid_colour') }}">
+                            
+                            @error('lid_colour')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="col-md-6 mb-3">
@@ -346,7 +365,12 @@
 
                             <input type="text"
                                    name="delivery_place"
-                                   class="form-control">
+                                   class="form-control @error('delivery_place') is-invalid @enderror"
+                                   value="{{ old('delivery_place') }}">
+                            
+                            @error('delivery_place')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="col-md-6 mb-3">
@@ -354,15 +378,24 @@
 
                             <input type="date"
                                    name="required_by_date"
-                                   class="form-control">
+                                   class="form-control @error('required_by_date') is-invalid @enderror"
+                                   value="{{ old('required_by_date') }}">
+                            
+                            @error('required_by_date')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="col-md-12">
                             <label>Any Other Notes</label>
 
-                            <textarea class="form-control"
+                            <textarea name="notes"
                                       rows="4"
-                                      name="notes"></textarea>
+                                      class="form-control @error('notes') is-invalid @enderror">{{ old('notes') }}</textarea>
+                            
+                            @error('notes')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                     </div>
@@ -384,8 +417,14 @@
 </div>
 
 @include('frontend.include.footer')
-
-
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+@if ($errors->any())
+<script>
+    $(document).ready(function () {
+        $('#REnquiryModal').modal('show');
+    });
+</script>
+@endif
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const starRatingContainers = document.querySelectorAll('#star1');

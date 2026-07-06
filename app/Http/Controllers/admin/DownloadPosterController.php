@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\DownloadPoster;
+use App\Models\DownloadPosterEnquiry;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -162,8 +163,8 @@ class DownloadPosterController extends Controller
     public function edit($id)
     {
         $poster = DownloadPoster::findOrFail($id);
-
-        return view('admin.download_posters.edit', compact('poster'));
+        $url = route('download_posters.update', $poster->id);
+        return view('admin.download_posters.create', compact('poster','url'));
     }
 
     public function update(Request $request, $id)
@@ -232,8 +233,8 @@ class DownloadPosterController extends Controller
 
         $poster->save();
 
-        return redirect()->route('download-posters.index')
-            ->with('success','Poster updated successfully.');
+        Alert::success('success','Poster updated successfully.');
+        return redirect()->route('download_posters.index');
     }
 
     public function destroy($id)
@@ -257,5 +258,12 @@ class DownloadPosterController extends Controller
             'success' => true,
             'status' => $poster->status
         ]);
+    }
+    
+    public function enquiryList()
+    {
+        $postersenquiry = DownloadPosterEnquiry::latest()->get();
+
+        return view('admin.download_posters.enquiry', compact('postersenquiry'));
     }
 }

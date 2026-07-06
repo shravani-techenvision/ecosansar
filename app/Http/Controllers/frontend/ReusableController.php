@@ -90,17 +90,18 @@ class ReusableController extends Controller
 }
     public function storeEnquiry(Request $request)
     {
+       
         $validated = $request->validate([
-            'reusable_resource_id' => 'required|exists:reusable_resources,id',
+            'reusable_resource_id' => 'required|exists:reusable_posts,id',
+            'user_id'              => 'required|exists:ecosansar_users,id',
             'name'                 => 'required|string|max:255',
-            'mobile'               => 'required|digits_between:10,15',
+            'mobile'               => 'required|digits:10',
             'quantity'             => 'required|integer|min:1',
             'lid_colour'           => 'nullable|string|max:100',
             'delivery_place'       => 'required|string|max:255',
             'required_by_date'     => 'nullable|date',
             'notes'                => 'nullable|string',
         ]);
-        $validated['user_id'] = auth()->id();
         $enquiry = ReusableItemEnquiry::create($validated);
 
         Mail::to('userfortesting456@gmail.com')

@@ -1090,7 +1090,7 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
             'name'=>'required|max:255',
             'email'=>'required|email',
             'mobile'=>'required|digits_between:10,15',
-            'organization'=>'required|max:255',
+            'notes'=>'nullable|max:255',
 
         ]);
 
