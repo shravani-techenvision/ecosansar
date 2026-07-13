@@ -59,28 +59,30 @@
 
                                 <div class="mb-3">
 
-                                    <label>
-
+                                    <label for="poster_image">
                                         Poster Image
-
+                                
                                         @if (!isset($poster))
                                             <span class="text-danger">*</span>
                                         @endif
-
                                     </label>
-
-                                    <input type="file" name="poster_image" class="form-control">
-
+                                
+                                    <input type="file"
+                                           id="poster_image"
+                                           name="poster_image"
+                                           class="form-control"
+                                           accept="image/*">
+                                
                                     @error('poster_image')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
-
-                                    @if (isset($poster) && $poster->poster_image)
-                                        <br>
-
-                                        <img src="{{ Storage::disk('s3')->url('DownloadPosters/Image/' . $poster->poster_image) }}"
-                                            width="120">
-                                    @endif
+                                
+                                    <div class="mt-2">
+                                        <img id="posterImagePreview"
+                                             src="{{ isset($poster) && $poster->poster_image ? Storage::disk('s3')->url('DownloadPosters/Image/'.$poster->poster_image) : '' }}"
+                                             width="120"
+                                             style="object-fit:cover; border-radius:5px; {{ isset($poster) && $poster->poster_image ? '' : 'display:none;' }}">
+                                    </div>
 
                                 </div>
 
@@ -158,4 +160,31 @@
     <script src="{{ URL::asset('/assets/libs/parsleyjs/parsleyjs.min.js') }}"></script>
 
     <script src="{{ URL::asset('/assets/js/pages/form-validation.init.js') }}"></script>
+    <script>
+$(document).ready(function () {
+
+    $('#poster_image').on('change', function () {
+
+        const file = this.files[0];
+
+        if (file) {
+
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+
+                $('#posterImagePreview')
+                    .attr('src', e.target.result)
+                    .show();
+
+            };
+
+            reader.readAsDataURL(file);
+
+        }
+
+    });
+
+});
+</script>
 @endsection

@@ -35,109 +35,163 @@
 			<div class="container">
 			<p class="text-center">We follow a 4 step process in enabling a circular model for glass jars & bottle packaging,</p>
 
-    <div class="row align-items-center justify-content-center">
-        <div class="col-md-8">
-            <div class="work-wrap work-wrap-acc">
-                <span>01</span>
-                <h1 class="display-6">Collection Drive - </h1>
-                <p>Pitching idea to the audience, getting feedback and collection of clean glass jars/bottles</p>
-                {{-- <ul style="list-style-type: disc; margin-left: 20px;">
-                    <li>Sell</li>
-                    <li>Give Away</li>
-                    <li>Buy</li>
-                </ul> --}}
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="work-img d-none d-md-block">
-                <img src="{{ asset('frontend/assets/img/bg/step-1.png') }}" class="img-fluid" alt="image">
-            </div>
-        </div>
-        <div class="work-wrap-img d-none d-md-block">
-            <img src="{{ asset('frontend/assets/img/bg/Arrow.png') }}" alt="img" class="img-fluid">
-        </div>
-    </div>
-    <hr>
+ <!--   <div class="row align-items-center justify-content-center">-->
+ <!--       <div class="col-md-8">-->
+ <!--           <div class="work-wrap work-wrap-acc">-->
+ <!--               <span>01</span>-->
+ <!--               <h1 class="display-6">Collection Drive - </h1>-->
+ <!--               <p>Pitching idea to the audience, getting feedback and collection of clean glass jars/bottles</p>-->
+ <!--               {{-- <ul style="list-style-type: disc; margin-left: 20px;">-->
+ <!--                   <li>Sell</li>-->
+ <!--                   <li>Give Away</li>-->
+ <!--                   <li>Buy</li>-->
+ <!--               </ul> --}}-->
+ <!--           </div>-->
+ <!--       </div>-->
+ <!--       <div class="col-md-4">-->
+ <!--           <div class="work-img d-none d-md-block">-->
+ <!--               <img src="{{ asset('frontend/assets/img/bg/step-1.png') }}" class="img-fluid" alt="image">-->
+ <!--           </div>-->
+ <!--       </div>-->
+ <!--       <div class="work-wrap-img d-none d-md-block">-->
+ <!--           <img src="{{ asset('frontend/assets/img/bg/Arrow.png') }}" alt="img" class="img-fluid">-->
+ <!--       </div>-->
+ <!--   </div>-->
+ <!--   <hr>-->
 
-    <div class="row align-items-center justify-content-center">
-        <div class="col-md-4 order-last order-md-first">
-            <div class="work-img d-none d-md-block">
-                <img src="{{ asset('frontend/assets/img/bg/step-2.png') }}" class="img-fluid" alt="image">
-            </div>
-        </div>
-        <div class="col-md-8 d-flex justify-content-center">
-            <div class="work-wrap work-wrap-post">
-                <span>02</span>
-                <h1 class="display-6">Transportation - </h1>
-                <p>The collected glass jars/bottles go to washing unit</p>
-                {{-- <p>Logistics and transactions are offline and The ZeroWaste Community Tool is not involved.</p>
-                <p>This Tool helps you Find and Connect Only. </p> --}}
-            </div>
-        </div>
-        <div class="work-wrap-img d-none d-md-block">
-            <img src="{{ asset('frontend/assets/img/bg/Arrow.png') }}" alt="img" class="img-fluid">
-        </div>
-    </div>
-    <hr>
- <div class="row align-items-center justify-content-center">
-        <div class="col-md-8">
-            <div class="work-wrap work-wrap-acc">
-                <span>03</span>
-                <h1 class="display-6">Cleaning & Drying - </h1>
-                <p>The collection reaches the washing unit, where it is soaked, cleaned and dried for Repurpose. Rusted non usable caps are replaced</p>
-                {{-- <p>The listing will automatically deactivate after 30 days. You will receive 2 reminder messages regarding the same. If you wish to renew it, simply click on Reactivate on the listing from your profile page.</p> --}}
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="work-img d-none d-md-block">
-                <img src="{{ asset('frontend/assets/img/bg/step-3.png') }}" class="img-fluid" alt="image">
-            </div>
-        </div>
-        <div class="work-wrap-img d-none d-md-block">
-            <img src="{{ asset('frontend/assets/img/bg/Arrow.png') }}" alt="img" class="img-fluid">
-        </div>
-    </div>
+ <!--   <div class="row align-items-center justify-content-center">-->
+ <!--       <div class="col-md-4 order-last order-md-first">-->
+ <!--           <div class="work-img d-none d-md-block">-->
+ <!--               <img src="{{ asset('frontend/assets/img/bg/step-2.png') }}" class="img-fluid" alt="image">-->
+ <!--           </div>-->
+ <!--       </div>-->
+ <!--       <div class="col-md-8 d-flex justify-content-center">-->
+ <!--           <div class="work-wrap work-wrap-post">-->
+ <!--               <span>02</span>-->
+ <!--               <h1 class="display-6">Transportation - </h1>-->
+ <!--               <p>The collected glass jars/bottles go to washing unit</p>-->
+ <!--               {{-- <p>Logistics and transactions are offline and The ZeroWaste Community Tool is not involved.</p>-->
+ <!--               <p>This Tool helps you Find and Connect Only. </p> --}}-->
+ <!--           </div>-->
+ <!--       </div>-->
+ <!--       <div class="work-wrap-img d-none d-md-block">-->
+ <!--           <img src="{{ asset('frontend/assets/img/bg/Arrow.png') }}" alt="img" class="img-fluid">-->
+ <!--       </div>-->
+ <!--   </div>-->
+ <!--   <hr>-->
+ <!--<div class="row align-items-center justify-content-center">-->
+ <!--       <div class="col-md-8">-->
+ <!--           <div class="work-wrap work-wrap-acc">-->
+ <!--               <span>03</span>-->
+ <!--               <h1 class="display-6">Cleaning & Drying - </h1>-->
+ <!--               <p>The collection reaches the washing unit, where it is soaked, cleaned and dried for Repurpose. Rusted non usable caps are replaced</p>-->
+ <!--               {{-- <p>The listing will automatically deactivate after 30 days. You will receive 2 reminder messages regarding the same. If you wish to renew it, simply click on Reactivate on the listing from your profile page.</p> --}}-->
+ <!--           </div>-->
+ <!--       </div>-->
+ <!--       <div class="col-md-4">-->
+ <!--           <div class="work-img d-none d-md-block">-->
+ <!--               <img src="{{ asset('frontend/assets/img/bg/step-3.png') }}" class="img-fluid" alt="image">-->
+ <!--           </div>-->
+ <!--       </div>-->
+ <!--       <div class="work-wrap-img d-none d-md-block">-->
+ <!--           <img src="{{ asset('frontend/assets/img/bg/Arrow.png') }}" alt="img" class="img-fluid">-->
+ <!--       </div>-->
+ <!--   </div>-->
   
-    <hr>
-	<div class="row align-items-center justify-content-center">
-        <div class="col-md-4 order-last order-md-first">
-            <div class="work-img d-none d-md-block">
-                <img src="{{ asset('frontend/assets/img/bg/step4.png') }}" class="img-fluid" alt="image">
+ <!--   <hr>-->
+	<!--<div class="row align-items-center justify-content-center">-->
+ <!--       <div class="col-md-4 order-last order-md-first">-->
+ <!--           <div class="work-img d-none d-md-block">-->
+ <!--               <img src="{{ asset('frontend/assets/img/bg/step4.png') }}" class="img-fluid" alt="image">-->
+ <!--           </div>-->
+ <!--       </div>-->
+ <!--       <div class="col-md-8 d-flex justify-content-center">-->
+ <!--           <div class="work-wrap work-wrap-post">-->
+ <!--               <span>04</span>-->
+ <!--               <h1 class="display-6">Sale - </h1>-->
+ <!--               <p>Once washed and cleaned, all glass jars/bottles are ready for sale. They are catalogued to share with customers</p>-->
+ <!--           </div>-->
+ <!--       </div>-->
+	<!--	<div class="col-md-4">-->
+ <!--           <div class="work-img d-none d-md-block">-->
+ <!--               <img src="{{ asset('frontend/assets/img/bg/step3.png') }}" class="img-fluid" alt="image">-->
+ <!--           </div>-->
+ <!--       </div>-->
+ <!--       <div class="work-wrap-img d-none d-md-block">-->
+ <!--           <img src="{{ asset('frontend/assets/img/bg/Arrow.png') }}" alt="img" class="img-fluid">-->
+ <!--       </div>-->
+ <!--   </div>-->
+
+	<!--<hr>-->
+ <!--   <div class="row align-items-center justify-content-center">-->
+ <!--       <div class="col-md-8">-->
+ <!--           <div class="work-wrap work-wrap-acc">-->
+ <!--               <span>03</span>-->
+ <!--               <h1 class="display-6">Storage - </h1>-->
+ <!--               <p>Catalogue is stored in a safe and clean space to ensure similar jars/bottles can then be bundled together for sales</p>-->
+ <!--               {{-- <p>The listing will automatically deactivate after 30 days. You will receive 2 reminder messages regarding the same. If you wish to renew it, simply click on Reactivate on the listing from your profile page.</p> --}}-->
+ <!--           </div>-->
+ <!--       </div>-->
+ <!--       <div class="col-md-4">-->
+ <!--           <div class="work-img d-none d-md-block">-->
+ <!--               <img src="{{ asset('frontend/assets/img/bg/step-5.png') }}" class="img-fluid" alt="image">-->
+ <!--           </div>-->
+ <!--       </div>-->
+ <!--   </div>-->
+    @foreach($sections as $item)
+
+    <div class="row align-items-center justify-content-center mb-4">
+
+        @if($loop->iteration % 2 == 1)
+
+            <div class="col-md-8">
+                <div class="work-wrap work-wrap-acc">
+                    <span>{{ $item->step_number }}</span>
+                    <h1 class="display-6">{{ $item->title }}</h1>
+                    <p>{!! $item->description !!}</p>
+                </div>
             </div>
-        </div>
-        <div class="col-md-8 d-flex justify-content-center">
-            <div class="work-wrap work-wrap-post">
-                <span>04</span>
-                <h1 class="display-6">Sale - </h1>
-                <p>Once washed and cleaned, all glass jars/bottles are ready for sale. They are catalogued to share with customers</p>
+
+            <div class="col-md-4">
+                <div class="work-img d-none d-md-block">
+                    <img src="{{ Storage::disk('s3')->url('howitworks/'.$item->image) }}"
+                         class="img-fluid">
+                </div>
             </div>
-        </div>
-		<div class="col-md-4">
-            <div class="work-img d-none d-md-block">
-                <img src="{{ asset('frontend/assets/img/bg/step3.png') }}" class="img-fluid" alt="image">
+
+        @else
+
+            <div class="col-md-4 order-last order-md-first">
+                <div class="work-img d-none d-md-block">
+                    <img src="{{ Storage::disk('s3')->url('howitworks/'.$item->image) }}"
+                         class="img-fluid">
+                </div>
             </div>
-        </div>
-        <div class="work-wrap-img d-none d-md-block">
-            <img src="{{ asset('frontend/assets/img/bg/Arrow.png') }}" alt="img" class="img-fluid">
-        </div>
+
+            <div class="col-md-8">
+                <div class="work-wrap work-wrap-post">
+                    <span>{{ $item->step_number }}</span>
+                    <h1 class="display-6">{{ $item->title }}</h1>
+                    <p>{!! $item->description !!}</p>
+                </div>
+            </div>
+
+        @endif
+
     </div>
 
-	<hr>
-    <div class="row align-items-center justify-content-center">
-        <div class="col-md-8">
-            <div class="work-wrap work-wrap-acc">
-                <span>03</span>
-                <h1 class="display-6">Storage - </h1>
-                <p>Catalogue is stored in a safe and clean space to ensure similar jars/bottles can then be bundled together for sales</p>
-                {{-- <p>The listing will automatically deactivate after 30 days. You will receive 2 reminder messages regarding the same. If you wish to renew it, simply click on Reactivate on the listing from your profile page.</p> --}}
-            </div>
+    {{-- ARROW BETWEEN STEPS --}}
+    @if(!$loop->last)
+        <div class="d-none d-md-flex justify-content-center my-4">
+            <img src="{{ asset('frontend/assets/img/bg/Arrow.png') }}"
+                 alt="arrow"
+                 class="img-fluid">
         </div>
-        <div class="col-md-4">
-            <div class="work-img d-none d-md-block">
-                <img src="{{ asset('frontend/assets/img/bg/step-5.png') }}" class="img-fluid" alt="image">
-            </div>
-        </div>
-    </div>
+    @endif
+
+    <hr>
+
+@endforeach
 </div>
 
 	<!-- Feature Section -->

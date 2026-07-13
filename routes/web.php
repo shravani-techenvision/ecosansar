@@ -24,6 +24,8 @@ use App\Http\Controllers\admin\PrivacyPolicyController;
 use App\Http\Controllers\admin\PincodeController;
 use App\Http\Controllers\admin\SubscriptionModuleController;
 use App\Http\Controllers\admin\PlanValidity;
+use App\Http\Controllers\admin\AboutPageController;
+use App\Http\Controllers\admin\HowItWorksController;
 use App\Http\Controllers\frontend\ServiceEnquiryController;
 use App\Http\Controllers\frontend\PincodeCheckController;
 /*
@@ -51,6 +53,8 @@ Route::controller(IndexController::class)->group(function(){
     Route::post('profile_update/{id}','profile_update')->name('profile_update');
       Route::post('consumer_save','consumer_save')->name('consumer.save');
      Route::get('about','about')->name('about');
+     Route::get('about-us','aboutUs')->name('about.us');
+     Route::get('/howitsworks','howitsworks')->name('howitsworks');
       Route::get('privacypolicy','privacypolicy')->name('privacypolicy');
      Route::get('blog','blog')->name('blog');
      Route::get('blog-detail/{slug}','blog_detail')->name('blog.detail');
@@ -68,6 +72,7 @@ Route::controller(IndexController::class)->group(function(){
      Route::get('service','service')->name('service');
       Route::get('repairmap','repairmap')->name('repairmap');
         Route::get('findcollectionagent','findcollectionagent')->name('findcollectionagent');
+        Route::get('locate-drop-off-points','findcollectionagent')->name('locatedropoffpoints');
         Route::post('/search-pincode', 'searchPincode');
         Route::post('contact_store','contact_store')->name('contact_store');
           Route::get('/terms_conditions', 'terms_conditions')->name('terms_conditions');
@@ -237,6 +242,11 @@ Route::controller(AdminController::class)->group(function(){
       Route::post('shortactivityreportlist','shortactivityreportlist')->name('user.shortactivityreportlist');
        Route::get('user/requestfulfilledlist','requestfulfilledlist')->name('user.requestfulfilledlist');
 
+    // Our Impact
+    Route::get('/our-impact', 'ourImpact')->name('admin.ourimpact.index');
+    Route::post('/our-impact/save', 'saveOurImpact')->name('admin.ourimpact.save');
+    Route::get('/our-impact/edit/{id}', 'editOurImpact')->name('admin.ourimpact.edit');
+    Route::get('/our-impact/delete/{id}', 'deleteOurImpact')->name('admin.ourimpact.delete');
 
 });
 
@@ -387,7 +397,29 @@ Route::controller(DownloadPosterController::class)->group(function(){
     Route::get('download-posters/delete/{id}','destroy')->name('download_posters.delete');
     Route::post('download-posters/status','changeStatus')->name('download_posters.status');
     Route::get('download-posters-enquiry', 'enquiryList')->name('download_posters.enquiry');
+    Route::get('download-posters-enquiry/delete/{id}', 'deleteEnquiry')->name('download_posters.enquiry.delete');
 });
+
+
+
+Route::controller(AboutPageController::class)->group(function(){
+    Route::get('/about-page','index')->name('admin.about.index');
+    Route::post('/about-page/about','updateAbout')->name('admin.about.update');
+    Route::post('/about-page/journey', 'saveJourney')->name('admin.journey.save');
+    Route::get('/journey/edit/{id}', 'editJourney')->name('admin.journey.edit');
+    Route::get('/about-page/journey/delete/{id}', 'deleteJourney')->name('admin.journey.delete');
+    Route::post('/about-page/team', 'saveTeam')->name('admin.team.save');
+    Route::get('/team/edit/{id}', 'editTeam')->name('admin.team.edit');
+    Route::get('/about-page/team/delete/{id}',  'deleteTeam')->name('admin.team.delete');
+});
+
+Route::controller(HowItWorksController::class)->group(function(){
+    Route::get('/Howitwork', 'index')->name('admin.howitworks.index');
+    Route::post('/save','save')->name('admin.howitworks.save');
+    Route::get('/how-it-works/edit/{id}', 'edit')->name('admin.howitworks.edit');
+    Route::get('/delete/{id}', 'delete')->name('admin.howitworks.delete');
+});
+
 });
 Route::middleware(['auth', 'superadmin:superadmin'])->group(function () {
     Route::controller(AdminController::class)->group(function(){

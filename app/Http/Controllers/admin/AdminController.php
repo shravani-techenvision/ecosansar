@@ -15,11 +15,13 @@ use App\Models\admin\Volunteer;
 use App\Models\admin\ReusableResource;
 use App\Models\admin\Weight;
 use App\Models\User;
+use App\Models\OurImpact;
 use App\Models\admin\SubscriptionModule;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\DB;
 use App\Models\frontend\UserContact;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 use Carbon\Carbon;
 use Hash;
 use Auth;
@@ -826,5 +828,71 @@ if ($redirectRoute === null) {
         return view('admin/requestfulfilled/list', compact('combinedPosts'));
 
    }
+   // List Page
+    public function ourImpact()
+    {
+        $impacts = OurImpact::orderBy('display_order', 'ASC')->get();
+
+        return view('admin.ourimpact.index', compact('impacts'));
+    }
+
+    // Add / Update
+    public function saveOurImpact(Request $request)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'count' => 'required|numeric',
+            'description' => 'required',
+            'display_order' => [
+                'required',
+                'numeric',
+                Rule::unique('our_impacts', 'display_order')->ignore($request->id),
+            ],
+            'status' => 'required|in:0,1',
+        ],[
+            'title.required' => 'Please enter the title.',
+            'count.required' => 'Please enter the count.',
+            'count.numeric' => 'Count must be a number.',
+            'description.required' => 'Please enter the description.',
+            'display_order.required' => 'Please enter the display order.',
+            'display_order.unique' => 'This display order already exists.',
+            'status.required' => 'Please select the status.',
+        ]);
+
+        OurImpact::updateOrCreate(
+            ['id' => $request->id],
+            [
+                'title' => $request->title,
+                'count' => $request->count,
+                'suffix' => $request->suffix,
+                'description' => $request->description,
+                'display_order' => $request->display_order,
+                'status' => $request->status,
+            ]
+        );
+
+        return redirect()->route('admin.ourimpact.index')
+                         ->with('success', 'Our Impact saved successfully.');
+    }
+    
+    public function editOurImpact($id)
+    {
+        $impacts = OurImpact::orderBy('display_order')->get();
+    
+        $editImpact = OurImpact::findOrFail($id);
+    
+        return view('admin.ourimpact.index', compact('impacts', 'editImpact'));
+    }
+
+    // Delete
+    public function deleteOurImpact($id)
+    {
+        $impact = OurImpact::findOrFail($id);
+
+        $impact->delete();
+
+        return redirect()->route('admin.ourimpact.index')
+                         ->with('success', 'Our Impact deleted successfully.');
+    }
 
 }

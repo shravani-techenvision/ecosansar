@@ -169,7 +169,7 @@ Reusable Item Enquiries
                         <p id="e_quantity"></p>
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-4" id="lidColourSection" style="display: none;">
                         <b>Lid Colour :</b>
                         <p id="e_lid_colour"></p>
                     </div>
@@ -213,7 +213,16 @@ $(document).on('click','.view-enquiry',function(){
     $('#e_name').text($(this).data('name'));
     $('#e_mobile').text($(this).data('mobile'));
     $('#e_quantity').text($(this).data('quantity'));
-    $('#e_lid_colour').text($(this).data('lid_colour'));
+    // Show/Hide Lid Colour
+    let lidColour = $(this).data('lid_colour');
+
+    if (lidColour && lidColour.toString().trim() !== '') {
+        $('#e_lid_colour').text(lidColour);
+        $('#lidColourSection').show();
+    } else {
+        $('#e_lid_colour').text('');
+        $('#lidColourSection').hide();
+    }
     $('#e_delivery_place').text($(this).data('delivery_place'));
     $('#e_required_by_date').text($(this).data('required_by_date'));
     $('#e_notes').text($(this).data('notes'));

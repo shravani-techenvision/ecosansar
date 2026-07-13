@@ -64,10 +64,14 @@
                     $conatctId = $about ? $about->id : null;
                 @endphp
                     <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{ route('download_posters.index') }}">Download Posters</a></li>
+                        <li><a href="{{ route('admin.about.index') }}">About Us</a></li>
+                        <li><a href="{{ route('admin.howitworks.index') }}">How It Works</a></li>
+                        <li><a href="{{ route('admin.ourimpact.index') }}">Our Impact</a></li>
                         @if ($aboutId)
-                            <li><a href="{{ url('about/edit/' . $aboutId) }}"> How it Works</a></li>
+                            <!--<li><a href="{{ url('about/edit/' . $aboutId) }}"> How it Works</a></li>-->
                         @else
-                            <li><a href="{{ route('about.add') }}"> How it Works</a></li>
+                            <!--<li><a href="{{ route('about.add') }}"> How it Works</a></li>-->
                         @endif
                         {{--  <li><a href="{{ route('faq.list') }}">FAQs</a></li>  --}}
                         @if ($conatctId)
@@ -134,7 +138,6 @@
                     </a>
 
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('download_posters.index') }}">Download Posters</a></li>
                         <li><a href="{{ route('download_posters.enquiry') }}">Download Posters Enquiry</a></li>
                         <li><a href="{{ route('weight.list') }}">Weight</a></li>
                         <li><a href="{{ route('googleadsense.list') }}">Google Adsense</a></li>

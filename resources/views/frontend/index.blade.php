@@ -837,13 +837,13 @@
             <div class="service-content">
 
                 <p>
-                    <i class="feather-map-pin me-2" style="color: #FF5733;"></i>{{ Str::limit($post->address ?? '', 10, '...') }}
-                    @isset($post->mobile)
-                    <span class="rate">
-                        <i class="feather-phone me-2"></i> ******{{ substr($post->mobile, -4) }}
-                    </span>
-                    @else
-                    @endif
+                    <i class="feather-map-pin me-2" style="color: #FF5733;"></i>{{ Str::limit($post->address ?? '', 20, '...') }}
+                    <!--@isset($post->mobile)-->
+                    <!--<span class="rate">-->
+                    <!--    <i class="feather-phone me-2"></i> ******{{ substr($post->mobile, -4) }}-->
+                    <!--</span>-->
+                    <!--@else-->
+                    <!--@endif-->
                 </p>
                 <div class="serv-info">
                     <div class="rating">
@@ -883,114 +883,160 @@
 				</div>
 			</div>
 		</section>
-		<!-- /Service Section -->
-			<section id="counter-section" class="cat-dog-eight-section" style="background-color:#F4F5F5 !important;">
-			<div class="container">
-				<div class="row align-items-center">
-					<div class="col-lg-12 col-12" class="counter-section" id="counter-section">
-						<div class=" section-heading section-heading-eight passion-eight-heading aos aos-init aos-animate"    data-aos="fade-up">
+		 <!--Service Section -->
+		<!--	<section id="counter-section" class="cat-dog-eight-section" style="background-color:#F4F5F5 !important;">-->
+		<!--	<div class="container">-->
+		<!--		<div class="row align-items-center">-->
+		<!--			<div class="col-lg-12 col-12" class="counter-section" id="counter-section">-->
+		<!--				<div class=" section-heading section-heading-eight passion-eight-heading aos aos-init aos-animate"    data-aos="fade-up">-->
 
-							<h2 class="text-center">Our Impact</h2>
+		<!--					<h2 class="text-center">Our Impact</h2>-->
 
-						</div>
+		<!--				</div>-->
+  <!--                      <div class="row justify-content-center">-->
+		<!--					<div class="col-lg-4 col-md-6 col-12">-->
+  <!--                            <div class="clients-eights-all">-->
+  <!--                                 <h5 class="mb-2">Collection</h5>-->
+  <!--                              <div class="clients-eight-span text-center">-->
+
+  <!--                                <h3 class="counter d-inline" data-target="2000">0</h3>-->
+  <!--                                <span  >+</span>-->
+  <!--                              </div>-->
+  <!--                              <p>Glass jars/bottles collected</p>-->
+  <!--                            </div>-->
+  <!--                          </div>-->
+
+
+		<!--					<div class="col-lg-4 col-md-6 col-12">-->
+		<!--						<div class="clients-eights-all">-->
+		<!--						   <h5 class="mb-2"> Repurposed</h5>-->
+		<!--							<div class="clients-eight-span">-->
+		<!--								<h3 class="counter" data-target="200">0</h3>-->
+		<!--								<span>+</span>-->
+		<!--								</div>-->
+		<!--							<p>glass jars/bottles to home makers and small businesses</p>-->
+		<!--						</div>-->
+		<!--					</div>-->
+
+  <!--                          <div class="col-lg-4 col-md-6 col-12">-->
+		<!--						<div class="clients-eights-all">-->
+		<!--						   <h5 class="mb-2">Drop offs</h5>-->
+		<!--							<div class="clients-eight-span">-->
+		<!--								<h3 class="counter" data-target="5">0</h3>-->
+		<!--								<span>+</span>-->
+		<!--								</div>-->
+		<!--							<p>across apartments & community centres</p>-->
+		<!--						</div>-->
+		<!--					</div>-->
+		<!--				</div>-->
+		<!--				{{-- <div class="row justify-content-center">-->
+		<!--					<div class="col-lg-4 col-md-6 col-12">-->
+  <!--                            <div class="clients-eights-all">-->
+  <!--                                 <h5 class="mb-2">Total Contributors</h5>-->
+  <!--                              <div class="clients-eight-span text-center">-->
+
+  <!--                                <h3 class="counter d-inline" data-target="{{ $Contributorusers }}">0</h3>-->
+  <!--                                <span  >+</span>-->
+  <!--                              </div>-->
+  <!--                              <p>Individuals onboarded to create sustainable change</p>-->
+  <!--                            </div>-->
+  <!--                          </div>-->
+
+
+		<!--					<div class="col-lg-4 col-md-6 col-12">-->
+		<!--						<div class="clients-eights-all">-->
+		<!--						   <h5 class="mb-2"> Local Collection Agents</h5>-->
+		<!--							<div class="clients-eight-span">-->
+		<!--								<h3 class="counter" data-target="{{ $collagentusers }}">0</h3>-->
+		<!--								<span>+</span>-->
+		<!--								</div>-->
+		<!--							<p>waste professionals driving the change</p>-->
+		<!--						</div>-->
+		<!--					</div>-->
+		<!--					</div>-->
+		<!--					<div class="row justify-content-center">-->
+		<!--					<div class="col-lg-4 col-md-6 col-12">-->
+		<!--						<div class="clients-eights-all">-->
+		<!--						    <h5 class="mb-2">Total number of listings</h5>-->
+		<!--							<div class="clients-eight-span">-->
+		<!--								<h3 class="counter" data-target="{{ $totnooflistings }}">0</h3>-->
+		<!--								<span>+</span>-->
+		<!--								</div>-->
+		<!--							<p>opportunities created to repurpose waste into value resources</p>-->
+		<!--						</div>-->
+		<!--					</div>-->
+		<!--						<div class="col-lg-4 col-md-6 col-12">-->
+		<!--						<div class="clients-eights-all" style="padding:55px 20px;">-->
+		<!--						     <h5 class="mb-2">Quantity of waste listed as Resources</h5>-->
+		<!--							<div class="clients-eight-span">-->
+		<!--								<h3 class="counter" data-target="{{ $totnoresources }}">0</h3>-->
+		<!--								<span>kg</span>-->
+		<!--								</div>-->
+
+		<!--						</div>-->
+		<!--					</div>-->
+		<!--					<div class="col-lg-4 col-md-6 col-12">-->
+		<!--						<div class="clients-eights-all" style="padding:43px 20px;">-->
+		<!--						     <h5 class="mb-2">Total Engagements Enabled</h5>-->
+		<!--							<div class="clients-eight-span">-->
+		<!--								<h3 class="counter" data-target="{{ $totalconn }}">0</h3>-->
+		<!--								<span>+</span>-->
+		<!--								</div>-->
+		<!--							<p>connections established    </p>-->
+		<!--						</div>-->
+		<!--					</div>-->
+		<!--				</div> --}}-->
+		<!--			</div>-->
+
+		<!--		</div>-->
+		<!--	</div>-->
+		<!--</section>-->
+		
+		<section id="counter-section" class="cat-dog-eight-section" style="background-color:#F4F5F5 !important;">
+            <div class="container">
+                <div class="row align-items-center">
+        
+                    <div class="col-lg-12 col-12">
+        
+                        <div class="section-heading section-heading-eight passion-eight-heading aos aos-init aos-animate"
+                            data-aos="fade-up">
+                            <h2 class="text-center">Our Impact</h2>
+                        </div>
+        
                         <div class="row justify-content-center">
-							<div class="col-lg-4 col-md-6 col-12">
-                              <div class="clients-eights-all">
-                                   <h5 class="mb-2">Collection</h5>
-                                <div class="clients-eight-span text-center">
-
-                                  <h3 class="counter d-inline" data-target="2000">0</h3>
-                                  <span  >+</span>
-                                </div>
-                                <p>Glass jars/bottles collected</p>
-                              </div>
-                            </div>
-
-
-							<div class="col-lg-4 col-md-6 col-12">
-								<div class="clients-eights-all">
-								   <h5 class="mb-2"> Repurposed</h5>
-									<div class="clients-eight-span">
-										<h3 class="counter" data-target="200">0</h3>
-										<span>+</span>
-										</div>
-									<p>glass jars/bottles to home makers and small businesses</p>
-								</div>
-							</div>
-
-                            <div class="col-lg-4 col-md-6 col-12">
-								<div class="clients-eights-all">
-								   <h5 class="mb-2">Drop offs</h5>
-									<div class="clients-eight-span">
-										<h3 class="counter" data-target="5">0</h3>
-										<span>+</span>
-										</div>
-									<p>across apartments & community centres</p>
-								</div>
-							</div>
-						</div>
-						{{-- <div class="row justify-content-center">
-							<div class="col-lg-4 col-md-6 col-12">
-                              <div class="clients-eights-all">
-                                   <h5 class="mb-2">Total Contributors</h5>
-                                <div class="clients-eight-span text-center">
-
-                                  <h3 class="counter d-inline" data-target="{{ $Contributorusers }}">0</h3>
-                                  <span  >+</span>
-                                </div>
-                                <p>Individuals onboarded to create sustainable change</p>
-                              </div>
-                            </div>
-
-
-							<div class="col-lg-4 col-md-6 col-12">
-								<div class="clients-eights-all">
-								   <h5 class="mb-2"> Local Collection Agents</h5>
-									<div class="clients-eight-span">
-										<h3 class="counter" data-target="{{ $collagentusers }}">0</h3>
-										<span>+</span>
-										</div>
-									<p>waste professionals driving the change</p>
-								</div>
-							</div>
-							</div>
-							<div class="row justify-content-center">
-							<div class="col-lg-4 col-md-6 col-12">
-								<div class="clients-eights-all">
-								    <h5 class="mb-2">Total number of listings</h5>
-									<div class="clients-eight-span">
-										<h3 class="counter" data-target="{{ $totnooflistings }}">0</h3>
-										<span>+</span>
-										</div>
-									<p>opportunities created to repurpose waste into value resources</p>
-								</div>
-							</div>
-								<div class="col-lg-4 col-md-6 col-12">
-								<div class="clients-eights-all" style="padding:55px 20px;">
-								     <h5 class="mb-2">Quantity of waste listed as Resources</h5>
-									<div class="clients-eight-span">
-										<h3 class="counter" data-target="{{ $totnoresources }}">0</h3>
-										<span>kg</span>
-										</div>
-
-								</div>
-							</div>
-							<div class="col-lg-4 col-md-6 col-12">
-								<div class="clients-eights-all" style="padding:43px 20px;">
-								     <h5 class="mb-2">Total Engagements Enabled</h5>
-									<div class="clients-eight-span">
-										<h3 class="counter" data-target="{{ $totalconn }}">0</h3>
-										<span>+</span>
-										</div>
-									<p>connections established    </p>
-								</div>
-							</div>
-						</div> --}}
-					</div>
-
-				</div>
-			</div>
-		</section>
+        
+                            @foreach($impacts as $impact)
+                                @if($impact->status == 1)
+                                    <div class="col-lg-4 col-md-6 col-12">
+                                        <div class="clients-eights-all">
+        
+                                            <h5 class="mb-2">
+                                                {{ $impact->title }}
+                                            </h5>
+        
+                                            <div class="clients-eight-span text-center">
+                                                <h3 class="counter d-inline"
+                                                    data-target="{{ $impact->count }}">
+                                                    0
+                                                </h3>
+        
+                                                <span>{{ $impact->suffix }}</span>
+                                            </div>
+        
+                                            <p>{{ $impact->description }}</p>
+        
+                                        </div>
+                                    </div>
+                                @endif
+                            @endforeach
+        
+                        </div>
+        
+                    </div>
+        
+                </div>
+            </div>
+        </section>
 
 
  	<!-- Blog Section -->

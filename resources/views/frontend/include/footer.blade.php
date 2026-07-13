@@ -17,6 +17,51 @@
 .my-float{
 	margin-top:16px;
 }
+/* WhatsApp Button */
+.float{
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 40px;
+    right: 20px;
+    background-color: #25D366;
+    color: #FFF;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 32px;
+    box-shadow: 2px 2px 8px rgba(0,0,0,.3);
+    z-index: 999;
+}
+
+.my-float{
+    margin-top: 14px;
+}
+
+/* Home Button */
+.home-float{
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 145px; /* Above WhatsApp */
+    right: 20px;
+    background-color: #9bbb6c;
+    color: #fff;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 26px;
+    box-shadow: 2px 2px 8px rgba(0,0,0,.3);
+    z-index: 999;
+    transition: .3s;
+}
+
+.home-float i{
+    line-height: 60px;
+}
+
+.home-float:hover{
+    background:#9bbb6c;
+    color:#fff;
+}
 
 </style>
 	<!-- Footer -->
@@ -42,18 +87,39 @@
 											<a href="{{ route('consumer_login', ['redirect' => url()->current()]) }}">Reusables Listings</a>
 												@endif
 								</li>
+								<!--<li>-->
+								<!--     @if (session()->has('user_id'))-->
+								<!--	<a href="{{route('repairmap')}}"> Repair Map</a>-->
+								<!--	@else-->
+								<!--		<a href="{{ route('consumer_login', ['redirect' => url()->current()]) }}"> Repair Map</a>-->
+								<!--	@endif-->
+								<!--</li>-->
+								<!--<li>-->
+								<!--     @if (session()->has('user_id'))-->
+								<!--	<a href="{{route('findcollectionagent')}}"> Find Your Nearest Collection Agent</a>-->
+								<!--		@else-->
+								<!--			<a href="{{ route('consumer_login', ['redirect' => url()->current()]) }}"> Find Your Nearest Collection Agent</a>-->
+								<!--	@endif-->
+								<!--</li>-->
 								<li>
 								     @if (session()->has('user_id'))
-									<a href="{{route('repairmap')}}"> Repair Map</a>
+									<a href="{{route('collection.drive')}}"> Organize collection drive</a>
 									@else
-										<a href="{{ route('consumer_login', ['redirect' => url()->current()]) }}"> Repair Map</a>
+										<a href="{{ route('consumer_login', ['redirect' => url()->current()]) }}"> Organize collection drive</a>
 									@endif
 								</li>
 								<li>
 								     @if (session()->has('user_id'))
-									<a href="{{route('findcollectionagent')}}"> Find Your Nearest Collection Agent</a>
+									<a href="{{route('locatedropoffpoints')}}"> Locate Drop off points</a>
 										@else
-											<a href="{{ route('consumer_login', ['redirect' => url()->current()]) }}"> Find Your Nearest Collection Agent</a>
+											<a href="{{ route('consumer_login', ['redirect' => url()->current()]) }}"> Locate Drop off points</a>
+									@endif
+								</li>
+								<li>
+								     @if (session()->has('user_id'))
+									<a href="{{route('download.posters')}}"> Download Posters</a>
+										@else
+											<a href="{{ route('consumer_login', ['redirect' => url()->current()]) }}"> Download Posters</a>
 									@endif
 								</li>
 
@@ -64,12 +130,14 @@
 						<div class="footer-widget">
 							<h5 class="mb-4">Quick Links</h5>
 							<ul class="footer-menu">
-								<li>
-									<a href="{{route('faq')}}"> FAQs</a>
-								</li>
+								<!--<li>-->
+								<!--	<a href="{{route('faq')}}"> FAQs</a>-->
+								<!--</li>-->
 								<li>
 									<a href="{{route('about')}}"> About Us</a>
 								</li>
+								<li><a href="{{route('howitsworks')}}">How it Works</a></li>
+								<li><a href="{{route('contact')}}">Contact</a></li>
 								{{-- <li>
 									<a href="{{route('workwithus')}}"> Work with us</a>
 								</li>
@@ -158,6 +226,10 @@
 		</div>
 		<!-- /Footer Bottom -->
 		 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+		 <!-- Home Button -->
+<a href="{{ url('/') }}" class="home-float" title="Home">
+    <i class="fa fa-home"></i>
+</a>
 <a href="https://api.whatsapp.com/send?phone=8553012812&text=" class="float" target="_blank" style="margin-bottom: 40px;">
 <i class="fa fa-whatsapp my-float"></i>
 </a>

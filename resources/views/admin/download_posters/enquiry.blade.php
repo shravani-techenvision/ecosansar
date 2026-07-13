@@ -11,7 +11,7 @@ Download Poster List
 
 @component('common-components.breadcrumb')
     @slot('pagetitle') List @endslot
-    @slot('title') Download Posters @endslot
+    @slot('title') Download Posters Enquiries @endslot
 @endcomponent
 
 <div class="row">
@@ -40,6 +40,7 @@ Download Poster List
                             <th>Mobile</th>
                             <th>Notes</th>
                             <th>Created At</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                 
@@ -60,6 +61,14 @@ Download Poster List
                             <td>
                                 {{ $enquiry->created_at ? $enquiry->created_at->format('d M Y h:i A') : '-' }}
                             </td>
+                            
+                            <td>
+                                <a href="{{ route('download_posters.enquiry.delete',$enquiry->id) }}"
+                                   class="btn btn-outline-danger btn-sm"
+                                   onclick="return confirm('Are you sure you want to delete this enquiry?')">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -72,4 +81,27 @@ Download Poster List
     </div>
 </div>
 
+@endsection
+
+@section('script')
+    <script src="{{ URL::asset('/assets/libs/datatables/datatables.min.js') }}"></script>
+    <script src="{{ URL::asset('/assets/libs/jszip/jszip.min.js') }}"></script>
+    <script src="{{ URL::asset('/assets/libs/pdfmake/pdfmake.min.js') }}"></script>
+    <script src="{{ URL::asset('/assets/js/pages/datatables.init.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            // Check if the datatable has already been initialized
+            if ($.fn.DataTable.isDataTable('#datatable')) {
+                // Destroy the existing DataTable instance
+                $('#datatable').DataTable().destroy();
+            }
+
+            // Initialize the datatable
+            $('#datatable').DataTable({
+                // Your DataTable initialization options here
+                lengthChange: false
+            });
+        });
+
+</script>
 @endsection

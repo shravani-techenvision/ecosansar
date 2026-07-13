@@ -266,4 +266,14 @@ class DownloadPosterController extends Controller
 
         return view('admin.download_posters.enquiry', compact('postersenquiry'));
     }
+    
+    public function deleteEnquiry($id)
+    {
+        $enquiry = DownloadPosterEnquiry::findOrFail($id);
+    
+        $enquiry->delete();
+    
+        Alert::success('success', 'Enquiry deleted successfully.');
+        return redirect()->route('download_posters.enquiry');
+    }
 }

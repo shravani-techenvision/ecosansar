@@ -37,6 +37,11 @@ use App\Models\frontend\RepairContact;
 use App\Models\frontend\UserActivityLog;
 use App\Models\frontend\Notify;
 use App\Models\frontend\NotificationLog;
+use App\Models\AboutSection;
+use App\Models\HowItWorksSection;
+use App\Models\Journey;
+use App\Models\TeamMember;
+use App\Models\OurImpact;
 use RealRashid\SweetAlert\Facades\Alert;
 use Hash;
 use Illuminate\Support\Facades\Validator;
@@ -571,6 +576,10 @@ class IndexController extends Controller
                 $userRoute = route('reusable_listings');
             }
         }
+        
+        $impacts = OurImpact::where('status', 1)
+                ->orderBy('display_order', 'ASC')
+                ->get();
 
           // user activity start
         $userid = session()->get('user_id');
@@ -586,7 +595,7 @@ class IndexController extends Controller
 
 
         return view('frontend/index', compact('user_type', 'blogs', 'posts', 'reusableposts', 'Contributorusers', 'collagentusers', 'totnooflistings',
-         'totnoresources', 'totalconn','userRoute'));
+         'totnoresources', 'totalconn','userRoute', 'impacts'));
     }
 
 
@@ -1047,6 +1056,35 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
 
         return view('frontend/about', compact('breadcrumbimage'));
     }
+    
+    public function aboutUs()
+    {
+          // user activity start
+        $userid = session()->get('user_id');
+        $breadcrumbimage = BreadcrumImage::latest()->first();
+        $about = AboutSection::first();
+        $journeys = Journey::orderBy('position')->get();
+        $teams = TeamMember::where('status',1)->orderBy('member_position')->get();
+
+
+        if ($userid){
+            $userActivity = new UserActivityLog();
+            $userActivity->user_id = $userid;
+            $userActivity->activity = 'Clicked on about page';
+            $userActivity->url = request()->fullUrl();   // Get the full URL of the request
+            $userActivity->ip_address = request()->ip();
+            $userActivity->save();
+        }
+        // user activity end
+
+        return view('frontend.about-us', compact(
+            'about',
+            'journeys',
+            'teams',
+            'breadcrumbimage'
+        ));
+    }
+    
      public function privacypolicy()
     {
           // user activity start
@@ -1330,6 +1368,7 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
        // user activity start
         $userid = session()->get('user_id');
         $breadcrumbimage = BreadcrumImage::latest()->first();
+        $sections = HowItWorksSection::orderBy('position')->get();
         if ($userid){
             $userActivity = new UserActivityLog();
             $userActivity->user_id = $userid;
@@ -1340,7 +1379,7 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
         }
         // user activity end
         $howitwork = About::get();
-        return view('frontend/howitsworks',compact('howitwork', 'breadcrumbimage'));
+        return view('frontend/howitsworks',compact('sections', 'howitwork', 'breadcrumbimage'));
     }
     public function workwithus()
     {

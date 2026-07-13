@@ -82,19 +82,19 @@
 
 														</div>
 													</div>
-													<div class="offer-item d-md-flex align-items-center justify-content-between bg-white mb-2">
-														<div class="d-sm-flex align-items-center mb-2">
+													<!--<div class="offer-item d-md-flex align-items-center justify-content-between bg-white mb-2">-->
+													<!--	<div class="d-sm-flex align-items-center mb-2">-->
 
-															<div class="mb-2">
-																<h6 class="fs-16 fw-medium">Sale/Giveaway</h6>
+													<!--		<div class="mb-2">-->
+													<!--			<h6 class="fs-16 fw-medium">Sale/Giveaway</h6>-->
 
-															</div>
-														</div>
-														<div class="pb-3">
-															<h6 class="fs-16 fw-medium text-primary mb-0"> {{$posts->sale_giveaway}}</h6>
+													<!--		</div>-->
+													<!--	</div>-->
+													<!--	<div class="pb-3">-->
+													<!--		<h6 class="fs-16 fw-medium text-primary mb-0"> {{$posts->sale_giveaway}}</h6>-->
 
-														</div>
-													</div>
+													<!--	</div>-->
+													<!--</div>-->
 													<div class="offer-item d-md-flex align-items-center justify-content-between bg-white mb-2">
 														<div class="d-sm-flex align-items-center mb-2">
 
@@ -347,16 +347,16 @@
                             @enderror
                         </div>
 
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-6 mb-3" id="lidColourDiv" style="display:none;">
                             <label>Colour of Lid</label>
-
+                        
                             <input type="text"
                                    name="lid_colour"
                                    class="form-control @error('lid_colour') is-invalid @enderror"
                                    value="{{ old('lid_colour') }}">
-                            
+                        
                             @error('lid_colour')
-                            <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 
@@ -460,12 +460,23 @@
 <script>
 		$(document).on('click', '.place-enquiry-btn', function () {
 
-			$('#reusable_item_id').val($(this).data('id'));
-
-			let type = $(this).data('type');
-
-			$('#quantityLabel').text(type ? 'Number of ' + type : 'Quantity');
-		});
+            $('#reusable_item_id').val($(this).data('id'));
+        
+            let type = $(this).data('type');
+        
+            // Update Quantity Label
+            $('#quantityLabel').text(type ? 'Number of ' + type : 'Quantity');
+        
+            // Show/Hide Lid Colour Field
+            if (type === 'Glass jars and Bottles') {
+                $('#lidColourDiv').show();
+            } else {
+                $('#lidColourDiv').hide();
+                $('#lidColourDiv input').val('');
+            }
+        
+        });
+		
         function initMap() {
             // Replace these with the latitude and longitude you want to display
             const latitude = {{ $posts->latitude }};
@@ -543,6 +554,7 @@
             });
         });
     });
+   
 </script>
 
 

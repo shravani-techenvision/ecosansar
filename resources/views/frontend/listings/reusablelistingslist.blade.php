@@ -464,16 +464,16 @@
                             @enderror
                         </div>
 
-                        <div class="col-md-6 mb-3">
+                         <div class="col-md-6 mb-3" id="lidColourDiv" style="display:none;">
                             <label>Colour of Lid</label>
-
+                        
                             <input type="text"
                                    name="lid_colour"
                                    class="form-control @error('lid_colour') is-invalid @enderror"
                                    value="{{ old('lid_colour') }}">
-                            
+                        
                             @error('lid_colour')
-                            <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 
@@ -548,12 +548,22 @@
  
     $(document).on('click', '.place-enquiry-btn', function () {
 
-			$('#reusable_item_id').val($(this).data('id'));
-
-			let type = $(this).data('type');
-
-			$('#quantityLabel').text(type ? 'Number of ' + type : 'Quantity');
-		});
+            $('#reusable_item_id').val($(this).data('id'));
+        
+            let type = $(this).data('type');
+        
+            // Update Quantity Label
+            $('#quantityLabel').text(type ? 'Number of ' + type : 'Quantity');
+        
+            // Show/Hide Lid Colour Field
+            if (type === 'Glass jars and Bottles') {
+                $('#lidColourDiv').show();
+            } else {
+                $('#lidColourDiv').hide();
+                $('#lidColourDiv input').val('');
+            }
+        
+        });
 $(document).ready(function() {
     $('#filterForm').on('submit', function(e) {
         e.preventDefault();

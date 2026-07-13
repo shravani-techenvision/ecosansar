@@ -246,8 +246,10 @@ $conreviews = RecyclableReview::where('login_user_id', $userId)->first();
 							<li class="has-submenu ">
 								<a href="javascript:void(0);">About Us <i class="fas fa-chevron-down"></i></a>
 								<ul class="submenu">
-									<li class="active"><a href="{{route('about')}}">About Us</a></li>
-										<li><a href="{{route('howitsworks')}}">How it Works</a></li>
+									<!--<li class="active"><a href="{{route('about')}}">About Us</a></li>-->
+									<li class="active"><a href="{{route('about.us')}}">About Us</a></li>
+										<!--<li><a href="{{route('howitsworks')}}">How it Works</a></li>-->
+									<li><a href="{{route('howitsworks')}}">How it Works</a></li>
 
 											{{-- <li><a href="{{route('blog')}}">Blogs</a></li>
 											<li><a href="{{route('workwithus')}}">Work with us</a></li> --}}
@@ -257,7 +259,7 @@ $conreviews = RecyclableReview::where('login_user_id', $userId)->first();
 											<!--	@else-->
 											<!--		<li><a href="{{ route('consumer_login', ['redirect' => url()->current()]) }}">The Repair Map</a></li>-->
 											<!--			@endif-->
-												<li><a href="{{route('faq')}}">FAQs</a></li>
+												<!--<li><a href="{{route('faq')}}">FAQs</a></li>-->
 
 
 

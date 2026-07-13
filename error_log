@@ -25,3 +25,5 @@ Stack trace:
 #0 /home/niluniquefindson/public_html/ecosansar/index.php(21): require_once()
 #1 {main}
   thrown in /home/niluniquefindson/public_html/ecosansar/public/index.php on line 34
+[06-Jul-2026 13:25:15 Asia/Kolkata] PHP Fatal error:  Cannot redeclare App\Http\Controllers\frontend\IndexController::howitsworks() in /home/niluniquefindson/public_html/ecosansar/app/Http/Controllers/frontend/IndexController.php on line 1368
+[06-Jul-2026 13:25:18 Asia/Kolkata] PHP Fatal error:  Cannot redeclare App\Http\Controllers\frontend\IndexController::howitsworks() in /home/niluniquefindson/public_html/ecosansar/app/Http/Controllers/frontend/IndexController.php on line 1368

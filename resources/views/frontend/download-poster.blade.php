@@ -7,12 +7,12 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12 col-12">
-                <h2 class="breadcrumb-title mb-2">Download Psoters</h2>
+                <h2 class="breadcrumb-title mb-2">Download Posters</h2>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb justify-content-center mb-0">
                         <li class="breadcrumb-item"><a href="{{ url('/') }}"><i class="ti ti-home-2"></i></a></li>
                         <li class="breadcrumb-item">Home</li>
-                        <li class="breadcrumb-item active" aria-current="page">Download Psoters</li>
+                        <li class="breadcrumb-item active" aria-current="page">Download Posters</li>
                     </ol>
                 </nav>
             </div>

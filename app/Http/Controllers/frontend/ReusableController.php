@@ -46,48 +46,48 @@ class ReusableController extends Controller
 }
 
     public function listings()
-{
-    $user_id = session()->get('user_id');
-    $user_type = session()->get('user_type');
-    $breadcrumbimage = BreadcrumImage::latest()->first();
-
-    $query = ReusablePost::with(['resource', 'weight'])
-       // ->where('reusable_posts.user_id', '!=', $user_id)
-         ->where('reusable_posts.request_fulfilled', 0)
-        ->where('reusable_posts.active', 1)
-        ->leftJoin(
-        DB::raw('(SELECT user_id, AVG(rating) as average_rating FROM reusable_reviews GROUP BY user_id) as user_ratings'),
-        'reusable_posts.user_id',  // ✅ Join on recuab_posts.user_id
-        '=',
-        'user_ratings.user_id'
-    )
-    ->select('reusable_posts.*', 'user_ratings.average_rating');
-
-    $posts = $query->orderBy('id','desc')->paginate(20);
-    $res = ReusableResource::get();
-     $weight = Weight::orderByRaw("
-    CASE
-        WHEN min_measure = 'kg' THEN 1
-        WHEN min_measure = 'ton' THEN 2
-        WHEN min_measure = 'piece' THEN 3
-        ELSE 4
-    END ASC,
-    CAST(min_weight AS UNSIGNED) ASC
-")->get();
-           // user activity start
-        $userid = session()->get('user_id');
-        if ($userid){
-            $userActivity = new UserActivityLog();
-            $userActivity->user_id = $userid;
-            $userActivity->activity = 'Clicked on Reusable Browse listings';
-            $userActivity->url = request()->fullUrl();   // Get the full URL of the request
-            $userActivity->ip_address = request()->ip();
-            $userActivity->save();
-        }
-        // user activity end
-
-    return view('frontend/listings/reusablelistingslist', compact('res', 'weight', 'posts', 'user_type', 'user_id', 'breadcrumbimage'));
-}
+    {
+        $user_id = session()->get('user_id');
+        $user_type = session()->get('user_type');
+        $breadcrumbimage = BreadcrumImage::latest()->first();
+    
+        $query = ReusablePost::with(['resource', 'weight'])
+           // ->where('reusable_posts.user_id', '!=', $user_id)
+             ->where('reusable_posts.request_fulfilled', 0)
+            ->where('reusable_posts.active', 1)
+            ->leftJoin(
+            DB::raw('(SELECT user_id, AVG(rating) as average_rating FROM reusable_reviews GROUP BY user_id) as user_ratings'),
+            'reusable_posts.user_id',  // ✅ Join on recuab_posts.user_id
+            '=',
+            'user_ratings.user_id'
+        )
+        ->select('reusable_posts.*', 'user_ratings.average_rating');
+    
+        $posts = $query->orderBy('id','desc')->paginate(20);
+        $res = ReusableResource::get();
+         $weight = Weight::orderByRaw("
+        CASE
+            WHEN min_measure = 'kg' THEN 1
+            WHEN min_measure = 'ton' THEN 2
+            WHEN min_measure = 'piece' THEN 3
+            ELSE 4
+        END ASC,
+        CAST(min_weight AS UNSIGNED) ASC
+    ")->get();
+               // user activity start
+            $userid = session()->get('user_id');
+            if ($userid){
+                $userActivity = new UserActivityLog();
+                $userActivity->user_id = $userid;
+                $userActivity->activity = 'Clicked on Reusable Browse listings';
+                $userActivity->url = request()->fullUrl();   // Get the full URL of the request
+                $userActivity->ip_address = request()->ip();
+                $userActivity->save();
+            }
+            // user activity end
+    
+        return view('frontend/listings/reusablelistingslist', compact('res', 'weight', 'posts', 'user_type', 'user_id', 'breadcrumbimage'));
+    }
     public function storeEnquiry(Request $request)
     {
        
