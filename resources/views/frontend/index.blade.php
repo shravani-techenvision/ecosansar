@@ -174,7 +174,7 @@
                 <div class="row">
                     <div class="col-md-12 text-center">
                         <div class="section-heading aos" data-aos="fade-up">
-                            <h2 class="text-center">Start managing waste responsibly using any of the 4 options below:</h2>
+                            <h2 class="text-center">Choose Your Role in the Reuse Ecosystem</h2>
                         </div>
                     </div>
                 </div>
@@ -216,7 +216,7 @@
 									</span>
 								</div>
 								<h5>Packaging Reusables</h5>
-								<p class="mob-content">Glass jars and bottles that were collected, washed and sorted for ease of repurpose</p>
+								<p class="mob-content">Glass jars and bottles that are collected, washed and sorted for ease of repurpose</p>
 							 	<div class="mt-auto">
 							 	   @if(session()->has('user_id'))
                                         @php
@@ -269,8 +269,8 @@
 										<img src="{{asset('frontend/assets/img/icons/collection-drive.png')}}" alt="img">
 									</span>
 								</div>
-								<h5>Organize collection drive</h5>
-								{{-- <p class="mob-content">Got clean containers / packaging fit for reuse? Don’t toss them—list them for someone else to reuse! Need some? Just browse. </p> --}}
+								<h5>Organize a collection drive</h5>
+								<p class="mob-content">Start a collection drive. We'll help you every step of the way.</p>
 							 	<div class="mt-auto">
                                     <div class="mt-auto">
                                         @if(session()->has('user_id'))
@@ -437,7 +437,7 @@
 				</div>
 				<div class="row justify-content-center">
 					<div class="col-lg-4 col-md-6">
-						<div class="work-wrap-box work-first aos" data-aos="fade-up">
+						<div class="work-wrap-box work-first aos work-animate" data-aos="fade-up">
 							<div class="work-icon flow">
 								<span>
 									<img src="{{ asset('frontend/assets/img/icons/registartion.gif') }}" alt="img">
@@ -448,7 +448,7 @@
 						</div>
 					</div>
 					<div class="col-lg-4 col-md-6">
-						<div class="work-wrap-box work-last aos" data-aos="fade-up">
+						<div class="work-wrap-box work-last aos work-animate" data-aos="fade-up">
 							<div class="work-icon flow">
 								<span>
 									<img src="{{ asset('frontend/assets/img/icons/resources.gif') }}" alt="img">
@@ -459,7 +459,7 @@
 						</div>
 					</div>
 					<div class="col-lg-4 col-md-6">
-						<div class="work-wrap-box aos" data-aos="fade-up">
+						<div class="work-wrap-box aos work-animate" data-aos="fade-up">
 							<div class="work-flex">
 								<div class="work-icon flow">
 									<span>
@@ -475,6 +475,77 @@
 			</div>
 		</section>
 		<!-- /Work Section -->
+
+        <section class="partner-ecosystem-section py-5">
+            <div class="container">
+                <div class="partner-card">
+                    <div class="row">
+
+                        <!-- Left Content -->
+                        <div class="col-lg-7">
+
+                            <span class="partner-tag">
+                                🤝 Build With ecoSansar
+                            </span>
+
+                            <h2 class="partner-title mt-3">
+                                Build the <span>Reuse Ecosystem</span> with Us
+                            </h2>
+
+                            <p class="partner-desc">
+                                A thriving reuse economy requires collaboration across industry, government, philanthropy, and communities. Partner with us to create the systems that make packaging reuse practical, scalable, and inclusive.
+                            </p>
+
+                            <div class="partner-features">
+                                <h4 class="mb-3">Why ecoSansar?</h4>
+                                <div class="feature-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>8+ years of practical reuse experimentation - closed loop and open loop</span>
+                                </div>
+
+                                <div class="feature-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Ground-up ecosystem development</span>
+                                </div>
+
+                                <div class="feature-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Community mobilisation</span>
+                                </div>
+
+                                <div class="feature-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Informal sector inclusion</span>
+                                </div>
+
+                                <div class="feature-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Circular economy implementation</span>
+                                </div>
+
+                            </div>
+
+                            <a href="{{ route('build.with.us') }}"
+                                class="btn partner-btn btn-linear-primary mt-4">
+                                Build With Us
+                                <i class="fas fa-arrow-right ms-2"></i>
+                            </a>
+
+                        </div>
+
+                        <!-- Right Illustration -->
+                        <div class="col-lg-5 text-center mt-5 mt-lg-0 d-flex align-items-end justify-content-center">
+
+                            <img src="{{ asset('frontend/assets/img/partner-illustration.png') }}"
+                                class="img-fluid"
+                                alt="Reuse Ecosystem">
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
 
 
 		<!-- Feature Section -->
@@ -1277,10 +1348,132 @@
         });
     });
 </script>
+{{-- <script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const elements = document.querySelectorAll(
+        ".partner-card, .partner-tag, .partner-title, .partner-desc, .feature-item, .partner-btn, .partner-img"
+    );
+
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("show");
+                }
+            });
+        },
+        {
+            threshold: 0.2
+        }
+    );
+
+    elements.forEach((element) => {
+        observer.observe(element);
+    });
+
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    // Select all cards
+    const cards = document.querySelectorAll(".toggle-card");
+
+    // Create observer
+    const observer = new IntersectionObserver((entries) => {
+
+        entries.forEach((entry) => {
+
+            if (entry.isIntersecting) {
+                entry.target.classList.add("show");
+
+                // Uncomment if you want the animation to play only once
+                observer.unobserve(entry.target);
+            }
+
+        });
+
+    }, {
+        threshold: 0.2
+    });
+
+    // Observe each card
+    cards.forEach((card) => {
+        observer.observe(card);
+    });
+
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const cards = document.querySelectorAll(".work-animate");
+
+    const observer = new IntersectionObserver((entries) => {
+
+        entries.forEach((entry) => {
+
+            if (entry.isIntersecting) {
+
+                const index = [...cards].indexOf(entry.target);
+
+                entry.target.style.animationDelay = `${index * 0.25}s`;
+                entry.target.classList.add("show");
+
+                observer.unobserve(entry.target);
+            }
+
+        });
+
+    }, {
+        threshold: 0.2
+    });
+
+    cards.forEach(card => observer.observe(card));
+
+});
+</script> --}}
 
 
 
 
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+
+            if (!entry.isIntersecting) return;
+
+            // Add animation class
+            entry.target.classList.add("show");
+
+            // Stagger animation for work cards
+            if (entry.target.classList.contains("work-animate")) {
+                const cards = document.querySelectorAll(".work-animate");
+                const index = [...cards].indexOf(entry.target);
+                entry.target.style.animationDelay = `${index * 0.25}s`;
+            }
+
+            // Animate only once
+            observer.unobserve(entry.target);
+
+        });
+    }, {
+        threshold: 0.2
+    });
+
+    // Observe all animated elements
+    document.querySelectorAll(
+        ".partner-card, .partner-tag, .partner-title, .partner-desc, .feature-item, .partner-btn, .partner-img, .toggle-card, .work-animate"
+    ).forEach((element) => {
+        observer.observe(element);
+    });
+
+});
+</script>
 
 
 

@@ -69,7 +69,7 @@ Route::controller(IndexController::class)->group(function(){
          Route::get('faq','faq')->name('faq');
     Route::get('howitsworks','howitsworks')->name('howitsworks');
      Route::get('workwithus','workwithus')->name('workwithus');
-     Route::get('service','service')->name('service');
+     Route::get('build-with-us','service')->name('build.with.us');
       Route::get('repairmap','repairmap')->name('repairmap');
         Route::get('findcollectionagent','findcollectionagent')->name('findcollectionagent');
         Route::get('locate-drop-off-points','findcollectionagent')->name('locatedropoffpoints');

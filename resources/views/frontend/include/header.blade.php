@@ -241,7 +241,7 @@ $conreviews = RecyclableReview::where('login_user_id', $userId)->first();
 								<a class="nav-link" href="{{url('/')}}">Home</a>
 							</li>
 							 <li class="nav-item">
-								<a class="nav-link" href="{{route('service')}}">Services</a>
+								<a class="nav-link" href="{{route('build.with.us')}}">Build with us</a>
 							</li>
 							<li class="has-submenu ">
 								<a href="javascript:void(0);">About Us <i class="fas fa-chevron-down"></i></a>

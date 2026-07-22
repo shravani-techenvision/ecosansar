@@ -195,7 +195,7 @@
 </div>
 
 	<!-- Feature Section -->
-		<section class="feature-section" style="background-color:#F4F5F5 !important;">
+		{{-- <section class="feature-section" style="background-color:#F4F5F5 !important;">
 		 
 			<div class="container">
 				<div class="section-heading">
@@ -206,7 +206,7 @@
 						 
 						
 					</div>
-				</div>
+				</div> --}}
 				{{-- <h4 class="mb-3 text-center">Recyclables</h4>
 				<div class="row justify-content-center">
 					<div class="col-md-6 col-lg-2">
@@ -277,7 +277,7 @@
 					 
 					 
 				</div> --}}
-					<h4 class="mb-3 mt-4 text-center"> Packaging Reusables (CLEAN ONLY)   </h4>
+					{{-- <h4 class="mb-3 mt-4 text-center"> Packaging Reusables (CLEAN ONLY)   </h4>
 				<div class="row justify-content-center">
 					<div class="col-md-6 col-lg-2">
 						<div class="feature-box aos" data-aos="fade-up">
@@ -348,12 +348,12 @@
 					 
 				</div>
 			</div>
-		</section>
+		</section> --}}
 		<!-- /Feature Section -->
-        	<div class="container mt-4">
+        	{{-- <div class="container mt-4">
             <p class="text=center"><i>Helpful note : Some resources can be paid for and some (e.g : construction debris) can be charged for pickup. 
             Please confirm with your Connect before proceeding</i></p>
-        </div>
+        </div> --}}
 		</div>
 		</div>
 		<!-- /Page Wrapper -->        
