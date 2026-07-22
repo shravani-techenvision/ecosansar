@@ -14,6 +14,7 @@ use App\Models\admin\PlanHistory;
 use App\Models\admin\Volunteer;
 use App\Models\admin\ReusableResource;
 use App\Models\admin\Weight;
+use App\Models\AdminActivityLog;
 use App\Models\User;
 use App\Models\OurImpact;
 use App\Models\admin\SubscriptionModule;
@@ -262,9 +263,9 @@ if ($redirectRoute === null) {
         $weights = Weight::orderByRaw('CAST(min_weight AS UNSIGNED) ASC')->get();
 
           // user activity start
-        $userid = session()->get('user_id');
+         $userid = Auth::id();
         if ($userid){
-            $userActivity = new UserActivityLog();
+            $userActivity = new AdminActivityLog();
             $userActivity->user_id = $userid;
             $userActivity->activity = 'Clicked on Reusable add post';
             $userActivity->url = request()->fullUrl();   // Get the full URL of the request
@@ -410,9 +411,9 @@ if ($redirectRoute === null) {
 
 
         // user activity start
-        $userid = session()->get('user_id');
+         $userid = Auth::id();
         if ($userid){
-            $userActivity = new UserActivityLog();
+            $userActivity = new AdminActivityLog();
             $userActivity->user_id = $userid;
             $userActivity->activity = 'Reusable post add';
             $userActivity->url = request()->fullUrl();   // Get the full URL of the request
@@ -431,6 +432,18 @@ if ($redirectRoute === null) {
    public function reusablepostsdelete($id){
     $posts = ReusablePost::find($id);
      $posts->delete();
+     
+     // user activity start
+         $userid = Auth::id();
+        if ($userid){
+            $userActivity = new AdminActivityLog();
+            $userActivity->user_id = $userid;
+            $userActivity->activity = 'Reusable post deleted'. $id;
+            $userActivity->url = request()->fullUrl();   // Get the full URL of the request
+            $userActivity->ip_address = request()->ip();
+            $userActivity->save();
+        }
+        // user activity end
      Alert::success('success','Post Deleted Successfully');
         return redirect()->route('user.reusableposts');
   }
@@ -633,11 +646,22 @@ if ($redirectRoute === null) {
         // ->join('resources', 'resources.id', 'business_resource_posts.resource_type')
         ->select('user_activity_logs.*','ecosansar_users.name as username')
         ->get();
+        
+        
 
       $data=compact('result');
 
     return view('admin/usertype/activityreportlist')->with($data);
   }
+  
+    public function adminActivityreportlist()
+    {
+        $result = AdminActivityLog::with('user')
+            ->latest()
+            ->get();
+    
+        return view('admin.usertype.adminactivityreportlist', compact('result'));
+    }
 
   public function shortActivityReportList(Request $request) {
 
@@ -661,7 +685,29 @@ if ($redirectRoute === null) {
     return view('admin.usertype.activityreportlist')->with($data);
 }
 
- public function volunteerlist(){
+
+ public function shortAdminActivityReportList(Request $request) {
+
+       $request->validate([
+        'start_date' => 'required',
+        'end_date' => 'required',
+       ]);
+    // Ensure that startdate and enddate are provided, otherwise use default values
+       $startDate = $request->start_date;
+     $endDate = $request->end_date;
+
+    // Fetch the user activity logs within the date range
+    $result = AdminActivityLog::with('user')
+        ->whereBetween('admin_activity_logs.created_at', [$startDate, $endDate])
+        ->get();
+
+    // Pass the result to the view
+    $data = compact('result');
+
+    return view('admin.usertype.adminactivityreportlist')->with($data);
+}
+
+public function volunteerlist(){
         $result = Volunteer::orderBy('id','DESC')->get();
         return view('admin/volunteer/list',compact('result'));
    }
@@ -832,6 +878,17 @@ if ($redirectRoute === null) {
     public function ourImpact()
     {
         $impacts = OurImpact::orderBy('display_order', 'ASC')->get();
+        
+         $userid = Auth::id();
+        if ($userid){
+            $userActivity = new AdminActivityLog();
+            $userActivity->user_id = $userid;
+            $userActivity->activity = 'Viewed Our Impact page management';
+            $userActivity->url = request()->fullUrl();   // Get the full URL of the request
+            $userActivity->ip_address = request()->ip();
+            $userActivity->save();
+        }
+        // user activity end
 
         return view('admin.ourimpact.index', compact('impacts'));
     }
@@ -870,6 +927,19 @@ if ($redirectRoute === null) {
                 'status' => $request->status,
             ]
         );
+        
+         $userid = Auth::id();
+        if ($userid){
+            $userActivity = new AdminActivityLog();
+            $userActivity->user_id = $userid;
+           $userActivity->activity = $request->id
+    ? 'Updated Our Impact section'
+    : 'Added new Our Impact section';
+            $userActivity->url = request()->fullUrl();   // Get the full URL of the request
+            $userActivity->ip_address = request()->ip();
+            $userActivity->save();
+        }
+        // user activity end
 
         return redirect()->route('admin.ourimpact.index')
                          ->with('success', 'Our Impact saved successfully.');
@@ -880,6 +950,17 @@ if ($redirectRoute === null) {
         $impacts = OurImpact::orderBy('display_order')->get();
     
         $editImpact = OurImpact::findOrFail($id);
+        
+         $userid = Auth::id();
+        if ($userid){
+            $userActivity = new AdminActivityLog();
+            $userActivity->user_id = $userid;
+            $userActivity->activity = 'Opened Our Impact section for editing'.$id;
+            $userActivity->url = request()->fullUrl();   // Get the full URL of the request
+            $userActivity->ip_address = request()->ip();
+            $userActivity->save();
+        }
+        // user activity end
     
         return view('admin.ourimpact.index', compact('impacts', 'editImpact'));
     }
@@ -890,6 +971,16 @@ if ($redirectRoute === null) {
         $impact = OurImpact::findOrFail($id);
 
         $impact->delete();
+         $userid = Auth::id();
+        if ($userid){
+            $userActivity = new AdminActivityLog();
+            $userActivity->user_id = $userid;
+            $userActivity->activity = 'Deleted Our Impact section'.$id;
+            $userActivity->url = request()->fullUrl();   // Get the full URL of the request
+            $userActivity->ip_address = request()->ip();
+            $userActivity->save();
+        }
+        // user activity end
 
         return redirect()->route('admin.ourimpact.index')
                          ->with('success', 'Our Impact deleted successfully.');

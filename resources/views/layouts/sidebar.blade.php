@@ -276,10 +276,17 @@
                         <span>Reusable Post Report</span>
                     </a>
                 </li>
+                
+                <li>
+                    <a href="{{ route('admin.activityreportlist') }}">
+                        <i class="uil-file-graph"></i>
+                        <span>Admin Activity Report</span>
+                    </a>
+                </li>
 
                 <li>
                     <a href="{{ route('user.activityreportlist') }}">
-                        <i class="uil-home-alt"></i>
+                        <i class="uil-file-graph"></i>
                         <span>User Activity Report</span>
                     </a>
                 </li>

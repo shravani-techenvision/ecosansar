@@ -8,12 +8,24 @@ use App\Models\DownloadPoster;
 use App\Models\DownloadPosterEnquiry;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Models\frontend\UserActivityLog;
+use Illuminate\Support\Facades\Auth;
 
 class DownloadPosterController extends Controller
 {
     public function index()
     {
         $posters = DownloadPoster::latest()->get();
+        $userid = Auth::id();
+        if ($userid){
+            $userActivity = new UserActivityLog();
+            $userActivity->user_id = $userid;
+            $userActivity->activity = 'Viewed Download Posters list';
+            $userActivity->url = request()->fullUrl();   // Get the full URL of the request
+            $userActivity->ip_address = request()->ip();
+            $userActivity->save();
+        }
+        // user activity end
 
         return view('admin.download_posters.index', compact('posters'));
     }
@@ -21,6 +33,9 @@ class DownloadPosterController extends Controller
     public function create()
     {
         $url = route('download_posters.store');
+        $userid = Auth::id();
+       
+        // user activity end
         return view('admin.download_posters.create', compact('url'));
     }
 
@@ -79,6 +94,16 @@ class DownloadPosterController extends Controller
         }
 
         $poster->save();
+        $userid = Auth::id();
+        if ($userid){
+            $userActivity = new UserActivityLog();
+            $userActivity->user_id = $userid;
+            $userActivity->activity = 'Added new download poster';
+            $userActivity->url = request()->fullUrl();   // Get the full URL of the request
+            $userActivity->ip_address = request()->ip();
+            $userActivity->save();
+        }
+        // user activity end
 
         Alert::success('success','Poster added successfully.');
         return redirect()->route('download_posters.index');
@@ -232,6 +257,16 @@ class DownloadPosterController extends Controller
         }
 
         $poster->save();
+        $userid = Auth::id();
+        if ($userid){
+            $userActivity = new UserActivityLog();
+            $userActivity->user_id = $userid;
+            $userActivity->activity = 'Updated download poster'.$id;
+            $userActivity->url = request()->fullUrl();   // Get the full URL of the request
+            $userActivity->ip_address = request()->ip();
+            $userActivity->save();
+        }
+        // user activity end
 
         Alert::success('success','Poster updated successfully.');
         return redirect()->route('download_posters.index');
@@ -242,6 +277,16 @@ class DownloadPosterController extends Controller
         $poster = DownloadPoster::findOrFail($id);
 
         $poster->delete();
+        $userid = Auth::id();
+        if ($userid){
+            $userActivity = new UserActivityLog();
+            $userActivity->user_id = $userid;
+            $userActivity->activity = 'Deleted download poster'.$id;
+            $userActivity->url = request()->fullUrl();   // Get the full URL of the request
+            $userActivity->ip_address = request()->ip();
+            $userActivity->save();
+        }
+        // user activity end
         Alert::success('success','Poster deleted successfully.');
         return redirect()->back();
     }
@@ -253,6 +298,16 @@ class DownloadPosterController extends Controller
         $poster->status = $poster->status == 1 ? 0 : 1;
 
         $poster->save();
+        $userid = Auth::id();
+        if ($userid){
+            $userActivity = new UserActivityLog();
+            $userActivity->user_id = $userid;
+            $userActivity->activity = 'Changed download poster status'.$poster->id;
+            $userActivity->url = request()->fullUrl();   // Get the full URL of the request
+            $userActivity->ip_address = request()->ip();
+            $userActivity->save();
+        }
+        // user activity end
 
         return response()->json([
             'success' => true,
@@ -272,6 +327,16 @@ class DownloadPosterController extends Controller
         $enquiry = DownloadPosterEnquiry::findOrFail($id);
     
         $enquiry->delete();
+        $userid = Auth::id();
+        if ($userid){
+            $userActivity = new UserActivityLog();
+            $userActivity->user_id = $userid;
+            $userActivity->activity = 'Deleted Download Poster enquiry'.$id;
+            $userActivity->url = request()->fullUrl();   // Get the full URL of the request
+            $userActivity->ip_address = request()->ip();
+            $userActivity->save();
+        }
+        // user activity end
     
         Alert::success('success', 'Enquiry deleted successfully.');
         return redirect()->route('download_posters.enquiry');

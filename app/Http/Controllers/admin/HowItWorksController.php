@@ -7,6 +7,9 @@ use App\Models\HowItWorksSection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
+use App\Models\frontend\UserActivityLog;
+use Illuminate\Support\Facades\Auth;
+use App\Models\AdminActivityLog;
 
 class HowItWorksController extends Controller
 {
@@ -14,6 +17,16 @@ class HowItWorksController extends Controller
     public function index()
     {
         $sections = HowItWorksSection::orderBy('position')->get();
+        $userid = Auth::id();
+        if ($userid){
+            $userActivity = new AdminActivityLog();
+            $userActivity->user_id = $userid;
+            $userActivity->activity = 'Viewed How It Works page management';
+            $userActivity->url = request()->fullUrl();   // Get the full URL of the request
+            $userActivity->ip_address = request()->ip();
+            $userActivity->save();
+        }
+        // user activity end
         return view('admin.howitworks.index', compact('sections'));
     }
 
@@ -74,15 +87,39 @@ class HowItWorksController extends Controller
 
             $section->image = $fileName;
             $section->save();
+            
+            
         }
+        
+        $userid = Auth::id();
+        if ($userid){
+            $userActivity = new AdminActivityLog();
+            $userActivity->user_id = $userid;
+            $userActivity->activity = 'Added or updated new How It Works section';
+            $userActivity->url = request()->fullUrl();   // Get the full URL of the request
+            $userActivity->ip_address = request()->ip();
+            $userActivity->save();
+        }
+        // user activity end
 
-        return back()->with('success','Saved Successfully');
+        return redirect()->route('admin.howitworks.index')->with('success','Saved Successfully');
     }
     public function edit($id)
     {
         $sections = HowItWorksSection::orderBy('position')->get();
     
         $editSection = HowItWorksSection::findOrFail($id);
+        
+        $userid = Auth::id();
+        if ($userid){
+            $userActivity = new AdminActivityLog();
+            $userActivity->user_id = $userid;
+            $userActivity->activity = 'Opened How It Works section for editing'. $id;
+            $userActivity->url = request()->fullUrl();   // Get the full URL of the request
+            $userActivity->ip_address = request()->ip();
+            $userActivity->save();
+        }
+        // user activity end
     
         return view('admin.howitworks.index', compact('sections', 'editSection'));
     }
@@ -96,6 +133,17 @@ class HowItWorksController extends Controller
         }
 
         $section->delete();
+        
+        $userid = Auth::id();
+        if ($userid){
+            $userActivity = new AdminActivityLog();
+            $userActivity->user_id = $userid;
+            $userActivity->activity = 'Deleted How It Works section'. $id;
+            $userActivity->url = request()->fullUrl();   // Get the full URL of the request
+            $userActivity->ip_address = request()->ip();
+            $userActivity->save();
+        }
+        // user activity end
 
         return back()->with('success','Deleted Successfully');
     }

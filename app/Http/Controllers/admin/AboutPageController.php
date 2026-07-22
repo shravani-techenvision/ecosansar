@@ -9,7 +9,10 @@ use App\Models\Journey;
 use App\Models\TeamMember;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Models\frontend\UserActivityLog;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
+use App\Models\AdminActivityLog;
 
 class AboutPageController extends Controller
 {
@@ -21,6 +24,18 @@ class AboutPageController extends Controller
         $journeys = Journey::orderBy('position')->get();
 
         $teams = TeamMember::orderBy('member_position')->get();
+        
+        // user activity start
+        $userid = Auth::id();
+        if ($userid){
+            $userActivity = new AdminActivityLog();
+            $userActivity->user_id = $userid;
+            $userActivity->activity = 'Viewed About Us page management';
+            $userActivity->url = request()->fullUrl();   // Get the full URL of the request
+            $userActivity->ip_address = request()->ip();
+            $userActivity->save();
+        }
+        // user activity end
 
         return view('admin.about.index', compact(
             'about',
@@ -143,6 +158,18 @@ class AboutPageController extends Controller
         }
     
         $about->save();
+        
+        // user activity start
+        $userid = Auth::id();
+        if ($userid){
+            $userActivity = new AdminActivityLog();
+            $userActivity->user_id = $userid;
+            $userActivity->activity = 'Updated About Us page introduction content';
+            $userActivity->url = request()->fullUrl();   // Get the full URL of the request
+            $userActivity->ip_address = request()->ip();
+            $userActivity->save();
+        }
+        // user activity end
         Alert::success('success', 'Updated Successfully');
         return redirect()->back();
     }
@@ -214,6 +241,18 @@ class AboutPageController extends Controller
     
             $journey->save();
         }
+        
+        // user activity start
+        $userid = Auth::id();
+        if ($userid){
+            $userActivity = new AdminActivityLog();
+            $userActivity->user_id = $userid;
+            $userActivity->activity = 'Added new journey milestone';
+            $userActivity->url = request()->fullUrl();   // Get the full URL of the request
+            $userActivity->ip_address = request()->ip();
+            $userActivity->save();
+        }
+        // user activity end
     
         return redirect()->route('admin.about.index')->with('success', 'Journey Saved');
     }
@@ -224,6 +263,18 @@ class AboutPageController extends Controller
         $teams = TeamMember::orderBy('member_position')->get();
     
         $editJourney = Journey::findOrFail($id);
+        
+        // user activity start
+        $userid = Auth::id();
+        if ($userid){
+            $userActivity = new AdminActivityLog();
+            $userActivity->user_id = $userid;
+            $userActivity->activity = 'Opened journey milestone for editing';
+            $userActivity->url = request()->fullUrl();   // Get the full URL of the request
+            $userActivity->ip_address = request()->ip();
+            $userActivity->save();
+        }
+        // user activity end
     
         return view('admin.about.index', compact(
             'about',
@@ -236,6 +287,19 @@ class AboutPageController extends Controller
     public function deleteJourney($id)
     {
         Journey::findOrFail($id)->delete();
+        
+        
+        // user activity start
+            $userid = Auth::id();
+            if ($userid){
+                $userActivity = new AdminActivityLog();
+                $userActivity->user_id = $userid;
+                $userActivity->activity = 'Deleted journey milestone';
+                $userActivity->url = request()->fullUrl();   // Get the full URL of the request
+                $userActivity->ip_address = request()->ip();
+                $userActivity->save();
+            }
+            // user activity end
     
         return back();
     }
@@ -310,6 +374,18 @@ class AboutPageController extends Controller
             $team->image = $fileName;
     
             $team->save();
+            
+            // user activity start
+            $userid = Auth::id();
+            if ($userid){
+                $userActivity = new AdminActivityLog();
+                $userActivity->user_id = $userid;
+                $userActivity->activity = 'Added new team member';
+                $userActivity->url = request()->fullUrl();   // Get the full URL of the request
+                $userActivity->ip_address = request()->ip();
+                $userActivity->save();
+            }
+            // user activity end
         }
     
         return redirect()->route('admin.about.index')->with('success', 'Team Member Saved');
@@ -322,6 +398,18 @@ class AboutPageController extends Controller
         $teams = TeamMember::orderBy('member_position')->get();
     
         $editTeam = TeamMember::findOrFail($id);
+        
+        // user activity start
+        $userid = Auth::id();
+        if ($userid){
+            $userActivity = new AdminActivityLog();
+            $userActivity->user_id = $userid;
+            $userActivity->activity = 'Opened team member for editing';
+            $userActivity->url = request()->fullUrl();   // Get the full URL of the request
+            $userActivity->ip_address = request()->ip();
+            $userActivity->save();
+        }
+        // user activity end
     
         return view('admin.about.index', compact(
             'about',
@@ -334,6 +422,18 @@ class AboutPageController extends Controller
     public function deleteTeam($id)
     {
         TeamMember::findOrFail($id)->delete();
+        
+        // user activity start
+        $userid = Auth::id();
+        if ($userid){
+            $userActivity = new AdminActivityLog();
+            $userActivity->user_id = $userid;
+            $userActivity->activity = 'Deleted team member';
+            $userActivity->url = request()->fullUrl();   // Get the full URL of the request
+            $userActivity->ip_address = request()->ip();
+            $userActivity->save();
+        }
+        // user activity end
     
         return redirect()->route('admin.about.index')->with('success', 'Team Member Deleted');
     }

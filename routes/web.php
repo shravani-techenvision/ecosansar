@@ -239,6 +239,9 @@ Route::controller(AdminController::class)->group(function(){
      Route::get('user/consumerpostreportlist','consumerpostreportlist')->name('user.consumerpostreportlist');
      Route::post('shortconsumerReportList','shortconsumerReportList')->name('user.shortconsumerReportList');
       Route::get('user/activityreportlist','activityreportlist')->name('user.activityreportlist');
+      Route::get('admin/activityreportlist','adminActivityreportlist')->name('admin.activityreportlist');
+      Route::post('shortAdminActivityReportList', 'shortAdminActivityReportList')->name('admin.shortAdminActivityReportList');
+      
       Route::post('shortactivityreportlist','shortactivityreportlist')->name('user.shortactivityreportlist');
        Route::get('user/requestfulfilledlist','requestfulfilledlist')->name('user.requestfulfilledlist');
 
