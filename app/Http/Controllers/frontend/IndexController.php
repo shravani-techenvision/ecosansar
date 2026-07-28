@@ -1558,8 +1558,8 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
         $data = [
 
             'name' =>  $req->name,
-            // 'email' => 'ecosansar@yahoo.com',
-            'email' => 'support@ecosansar.com',
+            'email' => 'ecosansar@yahoo.com',
+            // 'email' => 'support@ecosansar.com',
             'useremail' => $req->email,
             'phone' => $req->phone_no,
             'sub' => $req->subject,
@@ -1623,8 +1623,8 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
        $data = [
 
             'name' =>  $req->name,
-            // 'email' => 'ecosansar@yahoo.com',
-            'email' => 'support@ecosansar.com',
+            'email' => 'ecosansar@yahoo.com',
+            // 'email' => 'support@ecosansar.com',
 
             'phone' => $req->phone_no,
             'location' => $req->location,

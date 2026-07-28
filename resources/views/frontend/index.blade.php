@@ -1,5 +1,231 @@
  @include('frontend.include.header')
  <style>
+    .hero-section{
+    display:flex;
+    width:100%;
+    min-height:640px;
+    overflow:hidden;
+}
+
+/* LEFT */
+
+.hero-left{
+    width:53%;
+    background:#edf8d9;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.hero-left::before{
+    content:"";
+    position:absolute;
+    inset:0;
+
+    background:url('{{ asset("frontend/assets/img/Bg-image.png") }}')
+               no-repeat left bottom;
+
+    background-size:95%;
+    opacity:.12;
+}
+
+.hero-content{
+    position:relative;
+    z-index:2;
+
+    width:100%;
+    max-width:620px;
+
+    padding:80px 70px;
+}
+
+.hero-brand{
+    color:#68b64b;
+    font-size:20px;
+    font-weight:500;
+    display:block;
+    margin-bottom:30px;
+}
+
+.hero-content h1{
+    font-size: 48px;
+    line-height:1.2 !important;
+    font-weight:700;
+    color:#111;
+    margin-bottom:28px;
+}
+
+.hero-content p{
+
+    font-size:22px;
+    line-height:1.4;
+    color:#222;
+    margin-bottom:15px;
+}
+
+.hero-content strong{
+    font-style:italic;
+}
+
+.hero-content ul{
+
+    padding-left:28px;
+    margin-bottom:50px;
+}
+
+.hero-content li{
+
+    font-size:22px;
+    line-height:1.4;
+}
+.hero-list{
+    list-style:none;
+    padding:0;
+}
+
+.hero-list li{
+    position:relative;
+    padding-left:25px;
+    margin-bottom:4px;
+    
+}
+
+.hero-list li::before{
+    content:"✓";
+    position:absolute;
+    left:0;
+    top:7px;
+
+    width:15px;
+    height:15px;
+
+    border-radius:50%;
+    background:#79b84d;
+    color:#fff;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:8px;
+    font-weight:bold;
+}
+
+.hero-content small{
+
+    display:block;
+
+    font-size:18px;
+    line-height:1.5;
+    color:#222;
+}
+
+/* RIGHT */
+
+.hero-right{
+
+    width:47%;
+}
+
+.hero-right img{
+
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+}
+@media (max-width:1440px){
+
+.hero-content{
+
+    max-width:560px;
+    padding:60px;
+}
+
+.hero-content h1{
+
+    font-size:48px;
+}
+
+.hero-content p{
+
+    font-size:18px;
+}
+
+.hero-content li{
+
+    font-size:17px;
+}
+
+.hero-content small{
+
+    font-size:16px;
+}
+
+}
+@media (max-width:991px){
+
+.hero-section{
+
+    flex-direction:column;
+}
+
+.hero-left,
+.hero-right{
+
+    width:100%;
+}
+
+.hero-right{
+
+    height:420px;
+}
+
+.hero-content{
+
+    padding:50px 35px;
+}
+
+.hero-content h1{
+
+    font-size:40px;
+}
+
+}
+@media (max-width:576px){
+
+.hero-content{
+
+    padding:35px 20px;
+}
+
+.hero-content h1{
+
+    font-size:32px;
+}
+
+.hero-content p{
+
+    font-size:16px;
+}
+
+.hero-content li{
+
+    font-size:15px;
+}
+
+.hero-content small{
+
+    font-size:14px;
+}
+
+.hero-right{
+
+    height:280px;
+}
+
+}
      .image-wrapper {
     display: inline-block;
     position: relative;
@@ -124,7 +350,7 @@
 
  </style>
  <!-- Hero Section -->
-		<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+{{-- <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-indicators">
     <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
     <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -164,7 +390,49 @@
     </div>
   </div>
 
-</div>
+</div> --}}
+    {{-- <div class="container-fluid"> --}}
+        <section class="hero-section">
+
+    <div class="hero-left">
+
+        <div class="hero-content">
+
+            <span class="hero-brand">| ecoSansar</span>
+
+            <h1>
+                Building India's Hyperlocal Packaging Reuse Ecosystem
+            </h1>
+
+            <p>
+                Through our <strong>Return to Repurpose</strong> Initiative, we are driving
+                grassroot level mobilisation for:
+            </p>
+
+            <ul class="hero-list">
+                <li>Community participation</li>
+                <li>Washing hubs</li>
+                <li>Local micro entrepreneurship through social inclusion and</li>
+                <li>Brand partnerships</li>
+            </ul>
+
+            <small>
+                We design and enable the systems that keep reusable packaging in circulation
+                instead of becoming waste - starting with glass jars and bottles.
+            </small>
+
+        </div>
+
+    </div>
+
+    <div class="hero-right">
+
+        <img src="{{ asset('frontend/assets/img/glass jar.png') }}" alt="Glass Jar">
+
+    </div>
+
+</section>
+    {{-- </div> --}}
 		<!-- /Hero Section -->
 
  	<!-- Work Section -->

@@ -104,7 +104,7 @@ class ReusableController extends Controller
         ]);
         $enquiry = ReusableItemEnquiry::create($validated);
 
-        Mail::to('userfortesting456@gmail.com')
+        Mail::to('ecosansar@yahoo.com')
             ->send(new ReusableItemEnquiryMail($enquiry));
 
         return back()->with('success', 'Your enquiry has been submitted successfully.');
