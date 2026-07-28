@@ -32667,8 +32667,9 @@ span.select2-container.select2-container--default.select2-container--open {
 }
 
 .partner-title {
-    font-size: 46px;
+    font-size: 40px;
     font-weight: 700;
+    width: 550px;
     line-height: 1.2;
     color: #202020;
 }

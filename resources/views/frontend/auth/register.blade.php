@@ -3,7 +3,7 @@
  <style>
      .trust-us-section {
     position: relative;
-    padding: 40px 0px;
+    padding: 40px 0px 0px 0px;
     background-color: #fff;
     z-index: 1;
 
@@ -56,11 +56,11 @@
 					<div class="section-heading section-heading-four category-heading aos" data-aos="fade-up">
 
 						<!--<p>Welcome! We're thrilled to have you here. Choose your role to register:</p>-->
-						<p>Welcome! We're thrilled to have you here. Register as a Collection Agent to get started.</p>
+						<p>Welcome! We're thrilled to have you here.</p>
 					</div>
 				</div>
 			</div>
-			<div class="row justify-content-center row-gap-3">
+			<!--<div class="row justify-content-center row-gap-3">-->
 				<!--<div class="col-lg-3 col-md-4 col-sm-6 col-12 d-flex">-->
 				<!--	<div class="trust-us-main flex-fill">-->
 
@@ -68,13 +68,13 @@
 				<!--		<p>For Waste / Resource Generators (consumers)</p>-->
 				<!--	</div>-->
 				<!--</div>-->
-				<div class="col-lg-3 col-md-4 col-sm-6 col-12 d-flex">
-					<div class="trust-us-main flex-fill">
+				<!--<div class="col-lg-3 col-md-4 col-sm-6 col-12 d-flex">-->
+				<!--	<div class="trust-us-main flex-fill">-->
 
-						<h3 class="text-truncate">Collection Agent</h3>
-						<p>Resource Pickup Agents</p>
-					</div>
-				</div>
+				<!--		<h3 class="text-truncate">Collection Agent</h3>-->
+				<!--		<p>Resource Pickup Agents</p>-->
+				<!--	</div>-->
+				<!--</div>-->
 				<!--<div class="col-lg-3 col-md-4 col-sm-6 col-12 d-flex">-->
 				<!--	<div class="trust-us-main flex-fill">-->
 
@@ -83,7 +83,7 @@
 				<!--	</div>-->
 				<!--</div>-->
 
-			</div>
+			<!--</div>-->
 		</div>
 	</section>
 			<div class="row justify-content-center">
