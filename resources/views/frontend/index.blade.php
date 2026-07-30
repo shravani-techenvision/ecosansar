@@ -16,6 +16,7 @@
     display:flex;
     align-items:center;
     justify-content:center;
+    padding:40px;
 }
 
 .hero-left::before{
@@ -27,7 +28,7 @@
                no-repeat left bottom;
 
     background-size:95%;
-    opacity:.12;
+    opacity:5%;
 }
 
 .hero-content{
@@ -95,7 +96,7 @@
     content:"✓";
     position:absolute;
     left:0;
-    top:7px;
+    top:5px;
 
     width:15px;
     height:15px;
@@ -392,7 +393,7 @@
 
 </div> --}}
     {{-- <div class="container-fluid"> --}}
-        <section class="hero-section">
+        <section class="hero-section" style="padding:0px;">
 
     <div class="hero-left">
 
