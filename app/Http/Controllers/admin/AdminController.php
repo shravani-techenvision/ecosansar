@@ -388,7 +388,7 @@ if ($redirectRoute === null) {
         $user->resource_type = $request->resource_type;
 
 
-        // Upload file to S3
+        // Upload file to server public storage
         if ($request->hasFile('resource_img')) {
             $file = $request->file('resource_img');
             $filePath = 'Reusableposts';
@@ -403,9 +403,9 @@ if ($redirectRoute === null) {
             // Use the resizeImage function to get the resized image content
             $resizedImageContent = resizeImage($fileTempPath, $newWidth, $newHeight);
         
-            // Upload to S3
-            Storage::disk('s3')->put($filePath . '/' . $fileName, $resizedImageContent);
-            $user->resource_img = $fileName;
+            // Upload to server public storage
+            Storage::disk('public')->put($filePath . '/' . $fileName, $resizedImageContent);
+            $user->resource_img = $filePath . '/' . $fileName;
         }
         $user->save();
 
@@ -727,18 +727,18 @@ public function volunteerlist(){
      if ($req->hasFile('image')) {
         $imageFile = $req->file('image');
         $imageName = time() . '.' . $imageFile->getClientOriginalExtension();
-        $s3Directory = 'VolunteerImages';
-        $s3Path = $s3Directory . '/' . $imageName;
+        $Directory = 'VolunteerImages';
+        $Path = $Directory . '/' . $imageName;
 
         // Get the file contents as a stream
         $fileStream = file_get_contents($imageFile->getRealPath());
 
-        // Upload the file to S3 using the put method
-        $uploaded = Storage::disk('s3')->put($s3Path, $fileStream);
+        // Upload the file to public storage using the put method
+        $uploaded = Storage::disk('public')->put($Path, $fileStream);
 
         if ($uploaded) {
-            // Save the S3 file path in the database
-            $category->image = $imageName;
+            // Save the public storage file path in the database
+            $category->image = $Path;
         }
     }
 
@@ -768,18 +768,18 @@ public function volunteerlist(){
     if ($req->hasFile('image')) {
         $imageFile = $req->file('image');
         $imageName = time() . '.' . $imageFile->getClientOriginalExtension();
-        $s3Directory = 'VolunteerImages';
-        $s3Path = $s3Directory . '/' . $imageName;
+        $Directory = 'VolunteerImages';
+        $Path = $Directory . '/' . $imageName;
 
         // Get the file contents as a stream
         $fileStream = file_get_contents($imageFile->getRealPath());
 
-        // Upload the file to S3 using the put method
-        $uploaded = Storage::disk('s3')->put($s3Path, $fileStream);
+        // Upload the file to public storage using the put method
+        $uploaded = Storage::disk('public')->put($Path, $fileStream);
 
         if ($uploaded) {
-            // Save the S3 file path in the database
-            $category->image = $imageName;
+            // Save the storage file path in the database
+            $category->image = $Path;
         }
     }
     $category->save();
@@ -825,18 +825,18 @@ public function volunteerlist(){
      if ($req->hasFile('profile_pic')) {
         $imageFile = $req->file('profile_pic');
         $imageName = time() . '.' . $imageFile->getClientOriginalExtension();
-        $s3Directory = 'AdminImages';
-        $s3Path = $s3Directory . '/' . $imageName;
+        $Directory = 'AdminImages';
+        $Path = $Directory . '/' . $imageName;
 
         // Get the file contents as a stream
         $fileStream = file_get_contents($imageFile->getRealPath());
 
-        // Upload the file to S3 using the put method
-        $uploaded = Storage::disk('s3')->put($s3Path, $fileStream);
+        // Upload the file to storage using the put method
+        $uploaded = Storage::disk('public')->put($Path, $fileStream);
 
         if ($uploaded) {
-            // Save the S3 file path in the database
-            $adminuser->profile_pic = $imageName;
+            // Save the storage file path in the database
+            $adminuser->profile_pic = $Path;
         }
     }
     $adminuser->save();

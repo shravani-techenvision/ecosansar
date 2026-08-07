@@ -48,7 +48,7 @@
                                             <td>{{ $res->first_name }} {{ $res->last_name }}</td>
                                             <td>{{ $res->email }}</td>
                                               <td>
-                                                   <img src="{{ Storage::disk('s3')->url('AdminImages/' . $res->profile_pic) }}" alt="abc" width="150" height="100">
+                                                   <img src="{{ asset('storage/'. $res->profile_pic) }}" alt="abc" width="150" height="100">
                                             </td>
                                              <td>
                                                 <div class="form-check form-switch form-switch-lg mb-3" dir="ltr">

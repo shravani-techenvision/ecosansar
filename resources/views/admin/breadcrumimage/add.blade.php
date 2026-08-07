@@ -28,7 +28,7 @@ Breadcrumb Image Add
                                             @endif
                                            @isset($breadcrumbimage)
     <div class="mt-2">
-        <img src="{{ Storage::disk('s3')->url('Breadcrumbimage/' . $breadcrumbimage->breadcrumb_image) }}" alt="Breadcrumb Image" width="150">
+        <img src="{{ asset('storage/' . $breadcrumbimage->breadcrumb_image) }}" alt="Breadcrumb Image" width="150">
     </div>
 @endisset
 

@@ -85,7 +85,6 @@ function resizeImage($source, $width, $height)
     return $imageContent; // Return the resized image content as a binary string
 }
 
-// Upload file to S3
     if ($request->hasFile('breadcrumb_image')) {
         $file = $request->file('breadcrumb_image');
         $filePath = 'Breadcrumbimage';
@@ -101,9 +100,8 @@ function resizeImage($source, $width, $height)
     // Use the resizeImage function to get the resized image content
     $resizedImageContent = resizeImage($fileTempPath, $newWidth, $newHeight);
 
-    // Upload to S3
-    Storage::disk('s3')->put($filePath . '/' . $fileName, $resizedImageContent);
-$breadcrumbimage->breadcrumb_image = $fileName;
+    Storage::disk('public')->put($filePath . '/' . $fileName, $resizedImageContent);
+$breadcrumbimage->breadcrumb_image = $filePath . '/' . $fileName;
     }
  $breadcrumbimage->save();
         Alert::success('success','BreadcrumImage added successfully');
@@ -184,7 +182,6 @@ function resizeImage($source, $width, $height)
     return $imageContent; // Return the resized image content as a binary string
 }
 
-// Upload file to S3
     if ($request->hasFile('breadcrumb_image')) {
         $file = $request->file('breadcrumb_image');
         $filePath = 'Breadcrumbimage';
@@ -200,9 +197,8 @@ function resizeImage($source, $width, $height)
     // Use the resizeImage function to get the resized image content
     $resizedImageContent = resizeImage($fileTempPath, $newWidth, $newHeight);
 
-    // Upload to S3
-    Storage::disk('s3')->put($filePath . '/' . $fileName, $resizedImageContent);
-$breadcrumbimage->breadcrumb_image = $fileName;
+    Storage::disk('public')->put($filePath . '/' . $fileName, $resizedImageContent);
+$breadcrumbimage->breadcrumb_image = $filePath . '/' . $fileName;
     }
  $breadcrumbimage->save();
 

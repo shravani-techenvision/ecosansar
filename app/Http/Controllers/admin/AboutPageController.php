@@ -149,12 +149,12 @@ class AboutPageController extends Controller
                 600
             );
     
-            Storage::disk('s3')->put(
+            Storage::disk('public')->put(
                 $folder . '/' . $fileName,
                 $resizedImage
             );
     
-            $about->image = $fileName;
+            $about->image = $folder . '/' . $fileName;
         }
     
         $about->save();
@@ -236,14 +236,8 @@ class AboutPageController extends Controller
                 $folder . '/' . $fileName,
                 $resizedImage
             );
-            $files = Storage::disk('s3')->allFiles(); 
-            foreach ($files as $file) { 
-                $content = Storage::disk('s3')->get($file); 
-                Storage::disk('public')->put($file, $content); 
-                
-            }
     
-            $journey->image = $fileName;
+            $journey->image = $folder . '/' . $fileName;
     
             $journey->save();
         }
@@ -372,12 +366,12 @@ class AboutPageController extends Controller
                 500
             );
     
-            Storage::disk('s3')->put(
+            Storage::disk('public')->put(
                 $folder . '/' . $fileName,
                 $resizedImage
             );
     
-            $team->image = $fileName;
+            $team->image = $folder . '/' . $fileName;
     
             $team->save();
             

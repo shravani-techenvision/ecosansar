@@ -79,13 +79,12 @@ class HowItWorksController extends Controller
             $file = $request->file('image');
             $fileName = time().'_'.$file->getClientOriginalName();
 
-            // S3 upload
-            Storage::disk('s3')->put(
+            Storage::disk('public')->put(
                 "howitworks/".$fileName,
                 file_get_contents($file)
             );
 
-            $section->image = $fileName;
+            $section->image = "howitworks/".$fileName;
             $section->save();
             
             
@@ -129,7 +128,7 @@ class HowItWorksController extends Controller
         $section = HowItWorksSection::findOrFail($id);
 
         if ($section->image) {
-            Storage::disk('s3')->delete("howitworks/".$section->image);
+            Storage::disk('public')->delete($section->image);
         }
 
         $section->delete();

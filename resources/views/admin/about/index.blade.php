@@ -93,7 +93,7 @@ About Us Management
                 
                     <div class="mt-2">
                         <img id="aboutImagePreview"
-                             src="{{ !empty($about->image) ? Storage::disk('s3')->url('about/'.$about->image) : '' }}"
+                             src="{{ asset('storage/' .$about->image) }}"
                              width="150"
                              style="object-fit:cover; border-radius:5px; {{ !empty($about->image) ? '' : 'display:none;' }}">
                     </div>
@@ -227,7 +227,9 @@ About Us Management
                         
                         <div class="mt-3">
                             <img id="journeyImagePreview"
-                                 src="{{ isset($editJourney) && $editJourney->image ? Storage::disk('s3')->url('journey/'.$editJourney->image) : '' }}"
+                                 src="{{ isset($editJourney) && $editJourney->image 
+                                    ? asset('storage/' . $editJourney->image) 
+                                    : '' }}"
                                  width="120"
                                  height="80"
                                  style="object-fit:cover;border-radius:5px;{{ isset($editJourney) && $editJourney->image ? '' : 'display:none;' }}">
@@ -290,9 +292,9 @@ About Us Management
     
                                @if(!empty($journey->image))
                                    <img src="{{ asset('storage/' . $journey->image) }}"
-     width="100"
-     height="70"
-     style="object-fit: cover;">
+                                        width="100"
+                                        height="70"
+                                        style="object-fit: cover;">
                                 @endif
     
                             </td>
@@ -462,7 +464,9 @@ About Us Management
                     
                         <div class="mt-2">
                             <img id="teamImagePreview"
-                                 src="{{ isset($editTeam) && $editTeam->image ? Storage::disk('s3')->url('team/'.$editTeam->image) : '' }}"
+                                 src="{{ isset($editTeam) && $editTeam->image 
+                                    ? asset('storage/' . $editTeam->image) 
+                                    : '' }}"
                                  width="120"
                                  height="120"
                                  style="object-fit:cover; border-radius:8px; {{ isset($editTeam) && $editTeam->image ? '' : 'display:none;' }}">
@@ -526,7 +530,7 @@ About Us Management
                             <td>
     
                                 @if(!empty($team->image))
-                                    <img src="{{ Storage::disk('s3')->url('team/'.$team->image) }}"
+                                    <img src="{{ asset('storage/' .$team->image) }}"
                                          width="100"
                                          height="100"
                                          style="object-fit:cover;">

@@ -62,13 +62,13 @@
             <div class="dropdown d-inline-block">
                   @if( Auth('volunteer')->check() && Auth('volunteer')->user()->type == 'volunteer' )
              <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img class="rounded-circle header-profile-user" src="{{ Storage::disk('s3')->url('VolunteerImages/'.Auth('volunteer')->user()->image) }}" alt="Header Avatar">
+                    <img class="rounded-circle header-profile-user" src="{{ asset('storage/' .Auth('volunteer')->user()->image) }}" alt="Header Avatar">
                    
                     <i class="uil-angle-down d-none d-xl-inline-block font-size-15"></i>
                 </button>
                @elseif(Auth::check())
                 <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img class="rounded-circle header-profile-user" src="{{ Storage::disk('s3')->url('AdminImages/'.Auth::user()->profile_pic) }}" alt="Header Avatar">
+                    <img class="rounded-circle header-profile-user" src="{{ asset('storage/' .Auth::user()->profile_pic) }}" alt="Header Avatar">
                     
                     <i class="uil-angle-down d-none d-xl-inline-block font-size-15"></i>
                 </button>

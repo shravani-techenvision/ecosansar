@@ -155,7 +155,9 @@ How It Works Management
 
                 <div class="mt-3">
                     <img id="howitworksImagePreview"
-                         src="{{ isset($editSection) && $editSection->image ? Storage::disk('s3')->url('howitworks/'.$editSection->image) : '' }}"
+                         src="{{ isset($editSection) && $editSection->image 
+                            ? asset('storage/' . $editSection->image) 
+                            : '' }}"
                          width="120"
                          height="80"
                          style="object-fit:cover;border-radius:5px;{{ isset($editSection) && $editSection->image ? '' : 'display:none;' }}">
@@ -201,7 +203,7 @@ How It Works Management
             
                             <td>
                                 @if($item->image)
-                                    <img src="{{ Storage::disk('s3')->url('howitworks/'.$item->image) }}"
+                                    <img src="{{ asset('storage/'.$item->image) }}"
                                          width="80"
                                          height="60"
                                          style="object-fit:cover;">

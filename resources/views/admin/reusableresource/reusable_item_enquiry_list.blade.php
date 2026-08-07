@@ -77,7 +77,7 @@ Reusable Item Enquiries
                                     data-resource_name="{{ optional($row->reusablePost)->description }}"
                                     data-resource_type="{{ optional(optional($row->reusablePost)->resource)->reusable_resource_name }}"
                                     data-resource_price="{{ optional($row->reusablePost)->resource_price }}"
-                                    data-resource_image="{{ optional($row->reusablePost)->resource_img ? Storage::disk('s3')->url('Reusableposts/' . $row->reusablePost->resource_img) : '' }}"
+                                    data-resource_image="{{ optional($row->reusablePost)->resource_img ? asset('storage/'. $row->reusablePost->resource_img) : '' }}"
                                 >
                                     <i class="fas fa-eye"></i>
                                 </button>

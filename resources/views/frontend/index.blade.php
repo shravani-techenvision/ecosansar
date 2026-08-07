@@ -1064,7 +1064,7 @@
                                         // Check if $listing->resource_img is set and not empty
                                         $imagePath = !empty($post->resource_img) ? 'Recyclableposts/265x265/' . $post->resource_img : null;
 
-                                        // Check if the image exists in the S3 bucket or fallback to default
+                                        // Check if the image exists in the  bucket or fallback to default
                                         $imageUrl = $imagePath && Storage::disk('s3')->exists($imagePath)
                                                     ? Storage::disk('s3')->url($imagePath)
                                                     : asset('frontend/assets/img/ecosansar.png');
@@ -1145,12 +1145,12 @@
             <div class="service-img">
 
                 @php
-    $imagePath = !empty($post->resource_img) ? 'Reusableposts/' . $post->resource_img : null;
+    $imagePath = !empty($post->resource_img) ? $post->resource_img : null;
 
     $isDefaultImage = false;
-    if ($imagePath && Storage::disk('s3')->exists($imagePath)) {
-        $imageUrl = Storage::disk('s3')->url($imagePath);
-    } else {
+    if ($imagePath && Storage::disk('public')->exists($imagePath)) {
+        $imageUrl = asset('storage/' . $imagePath);
+    }  else {
         $imageUrl = asset('frontend/assets/img/ecosansar.png');
         $isDefaultImage = true;
     }

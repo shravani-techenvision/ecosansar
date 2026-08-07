@@ -67,12 +67,12 @@ class DownloadPosterController extends Controller
                 600
             );
 
-            Storage::disk('s3')->put(
+            Storage::disk('public')->put(
                 $filePath.'/'.$fileName,
                 $resizedImage
             );
 
-            $poster->poster_image = $fileName;
+            $poster->poster_image = $filePath.'/'.$fileName;
         }
 
         // Upload PDF
@@ -84,13 +84,13 @@ class DownloadPosterController extends Controller
 
             $pdfName = $poster->id.'_'.uniqid().'.'.$pdf->getClientOriginalExtension();
 
-            Storage::disk('s3')->putFileAs(
+            Storage::disk('public')->putFileAs(
                 $pdfPath,
                 $pdf,
                 $pdfName
             );
 
-            $poster->poster_pdf = $pdfName;
+            $poster->poster_pdf = $pdfPath.'/'.$pdfName;
         }
 
         $poster->save();
@@ -209,13 +209,13 @@ class DownloadPosterController extends Controller
 
             if ($poster->poster_image) {
 
-                Storage::disk('s3')->delete(
-                    'DownloadPosters/Image/'.$poster->poster_image
+                Storage::disk('public')->delete(
+                    $poster->poster_image
                 );
             }
 
             $file = $request->file('poster_image');
-
+            
             $fileName = $poster->id.'_'.uniqid().'.'.$file->getClientOriginalExtension();
 
             $resizedImage = resizeImage(
@@ -224,12 +224,12 @@ class DownloadPosterController extends Controller
                 600
             );
 
-            Storage::disk('s3')->put(
+            Storage::disk('public')->put(
                 'DownloadPosters/Image/'.$fileName,
                 $resizedImage
             );
 
-            $poster->poster_image = $fileName;
+            $poster->poster_image = 'DownloadPosters/Image/'.$fileName;
         }
 
         /* Update PDF */
@@ -238,8 +238,8 @@ class DownloadPosterController extends Controller
 
             if ($poster->poster_pdf) {
 
-                Storage::disk('s3')->delete(
-                    'DownloadPosters/PDF/'.$poster->poster_pdf
+                Storage::disk('public')->delete(
+                    $poster->poster_pdf
                 );
             }
 
@@ -247,13 +247,13 @@ class DownloadPosterController extends Controller
 
             $pdfName = $poster->id.'_'.uniqid().'.'.$pdf->getClientOriginalExtension();
 
-            Storage::disk('s3')->putFileAs(
+            Storage::disk('public')->putFileAs(
                 'DownloadPosters/PDF',
                 $pdf,
                 $pdfName
             );
 
-            $poster->poster_pdf = $pdfName;
+            $poster->poster_pdf ='DownloadPosters/PDF/'.$pdfName;
         }
 
         $poster->save();

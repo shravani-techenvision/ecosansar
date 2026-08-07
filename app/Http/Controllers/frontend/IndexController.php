@@ -1150,8 +1150,8 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
     {
         $poster = DownloadPoster::findOrFail($id);
 
-        return Storage::disk('s3')->download(
-            'DownloadPosters/PDF/'.$poster->poster_pdf,
+        return Storage::disk('public')->download(
+            $poster->poster_pdf,
             $poster->title.'.pdf'
         );
     }
@@ -2576,7 +2576,6 @@ if ($req->type_of_user == 'consumer') {
 //             $user->resource_type = $request->resource_type;
 
 
-// // Upload file to S3
 //     if ($request->hasFile('resource_img')) {
 //         $file = $request->file('resource_img');
 //         $filePath = 'Recyclableposts';
@@ -2591,8 +2590,7 @@ if ($req->type_of_user == 'consumer') {
 //     // Use the resizeImage function to get the resized image content
 //     $resizedImageContent = resizeImage($fileTempPath, $newWidth, $newHeight);
 
-//     // Upload to S3
-//     Storage::disk('s3')->put($filePath . '/' . $fileName, $resizedImageContent);
+//     Storage::disk('public')->put($filePath . '/' . $fileName, $resizedImageContent);
 // $user->resource_img = $fileName;
 //     }
 //  $user->save();
@@ -2732,7 +2730,6 @@ function resizeImage($source, $width, $height)
             $user->resource_type = $request->resource_type;
 
 
-// Upload file to S3
    if ($request->hasFile('resource_img')) {
     $file = $request->file('resource_img');
     $fileName = $user_id . '_' . $user->id . '_' . $request->resource_type  .'.'. $file->getClientOriginalExtension();
@@ -2741,11 +2738,11 @@ function resizeImage($source, $width, $height)
 
     // Resize for main (800x600)
     $mainImageContent = resizeImage($fileTempPath, 800, 600);
-    Storage::disk('s3')->put('Recyclableposts/' . $fileName, $mainImageContent);
+    Storage::disk('public')->put('Recyclableposts/' . $fileName, $mainImageContent);
 
     // Resize for thumbnail (265x265)
     $thumbImageContent = resizeImage($fileTempPath, 265, 265);
-    Storage::disk('s3')->put('Recyclableposts/265x265/' . $fileName, $thumbImageContent);
+    Storage::disk('public')->put('Recyclableposts/265x265/' . $fileName, $thumbImageContent);
 
     // Save filename in DB
     $user->resource_img = $fileName;
@@ -2907,8 +2904,8 @@ public function listings()
 //     // Execute and process images for both queries
 //     $posts = $query->get()->map(function ($post) {
 //         $imagePath = !empty($post->resource_img) ? 'Recyclableposts/' . $post->resource_img : null;
-//         $post->image_url = $imagePath && Storage::disk('s3')->exists($imagePath)
-//             ? Storage::disk('s3')->url($imagePath)
+//         $post->image_url = $imagePath && Storage::disk('public')->exists($imagePath)
+//             ? Storage::disk('public')->url($imagePath)
 //             : asset('frontend/assets/img/ecosansar.png');
 //         return $post;
 //     });
@@ -2991,8 +2988,8 @@ public function recyclable_post_filter(Request $request)
     // Map image URLs
     $posts = $query->get()->map(function ($post) {
         $imagePath = !empty($post->resource_img) ? 'Recyclableposts/' . $post->resource_img : null;
-        $post->image_url = $imagePath && Storage::disk('s3')->exists($imagePath)
-            ? Storage::disk('s3')->url($imagePath)
+        $post->image_url = $imagePath && Storage::disk('public')->exists($imagePath)
+            ? Storage::disk('public')->url($imagePath)
             : asset('frontend/assets/img/ecosansar.png');
         return $post;
     });
@@ -3084,8 +3081,8 @@ public function recyclable_post_sort(Request $request)
 
     $posts = $query->get()->map(function ($post) {
         $imagePath = !empty($post->resource_img) ? 'Recyclableposts/' . $post->resource_img : null;
-        $post->image_url = $imagePath && Storage::disk('s3')->exists($imagePath)
-            ? Storage::disk('s3')->url($imagePath)
+        $post->image_url = $imagePath && Storage::disk('public')->exists($imagePath)
+            ? Storage::disk('public')->url($imagePath)
             : asset('frontend/assets/img/ecosansar.png');
         return $post;
     });

@@ -35,7 +35,7 @@
 
 
  <div class="breadcrumb-bar text-center"
- style="background-image: url('{{ $breadcrumbimage ? Storage::disk('s3')->url("Breadcrumbimage/" . $breadcrumbimage->breadcrumb_image) : asset("frontend/assets/img/bg/default.png") }}');
+ style="background-image: url('{{ $breadcrumbimage ? asset('storage/'  . $breadcrumbimage->breadcrumb_image) : asset("frontend/assets/img/bg/default.png") }}');
             background-size: cover;
             background-position: center;">
 		<div class="container">
@@ -194,12 +194,12 @@
 
                                       @php
                                         // Check if $listing->resource_img is set and not empty
-                                        $imagePath = !empty($post->resource_img) ? 'Reusableposts/' . $post->resource_img : null;
+                                        $imagePath = !empty($post->resource_img) ? $post->resource_img : null;
 
-                                        // Check if the image exists in the S3 bucket or fallback to default
-                                        $imageUrl = $imagePath && Storage::disk('s3')->exists($imagePath)
-                                                    ? Storage::disk('s3')->url($imagePath)
-                                                    : asset('frontend/assets/img/ecosansar.png');
+                                        // Check if the image exists in the  bucket or fallback to default
+                                        $imageUrl = ($imagePath && Storage::disk('public')->exists($imagePath))
+                                            ? asset('storage/' . $imagePath)
+                                            : asset('frontend/assets/img/ecosansar.png');
                                     @endphp
 
                                     <!-- Display the Image -->

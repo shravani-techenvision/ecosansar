@@ -73,7 +73,7 @@ Recyclable Posts View
                     <p class="mb-0"><strong>Post Image:</strong><br>
                       
                         <p class="mb-0"><strong></strong>
-                         <img src="{{ Storage::disk('s3')->url('Recyclableposts/' . $users->resource_img) }}" alt="Post Image" class="mb-2" style="max-width: 200px;">
+                         <img src="{{ asset('storage/Recyclableposts/' . $users->resource_img) }}" alt="Post Image" class="mb-2" style="max-width: 200px;">
                             
                         </p>
                     

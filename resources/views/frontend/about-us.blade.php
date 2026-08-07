@@ -488,7 +488,7 @@ body {
 
 	<!-- Breadcrumb -->
 		<div class="breadcrumb-bar text-center"
-    style="background-image: url('{{ $breadcrumbimage ? Storage::disk('s3')->url("Breadcrumbimage/" . $breadcrumbimage->breadcrumb_image) : asset("frontend/assets/img/bg/default.png") }}');
+    style="background-image: url('{{ $breadcrumbimage ? asset('storage/' . $breadcrumbimage->breadcrumb_image) : asset("frontend/assets/img/bg/default.png") }}');
             background-size: cover;
             background-position: center; "
              >
@@ -529,7 +529,7 @@ body {
                                 <div class="abt-img">
             
                                     @if($about && $about->image)
-                                        <img src="{{ Storage::disk('s3')->url('about/'.$about->image) }}"
+                                        <img src="{{ asset('storage/'.$about->image) }}"
                                              class="img-fluid">
                                     @endif
             
@@ -583,7 +583,7 @@ body {
         @if($journey->image)
 
         <img
-            src="{{ Storage::disk('s3')->url('journey/'.$journey->image) }}"
+            src="{{ asset('storage/' . $journey->image) }}"
             class="card-img-top"
             style="height:250px;object-fit:cover;">
 
@@ -657,7 +657,7 @@ body {
 @if($team->image)
 
 <img
-src="{{ Storage::disk('s3')->url('team/'.$team->image) }}"
+src="{{ asset('storage/' . $team->image) }}"
 class="img-fluid">
 
 @endif

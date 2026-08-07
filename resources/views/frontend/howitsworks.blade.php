@@ -6,7 +6,7 @@
  </style>
  	<!-- Breadcrumb -->
 		<div class="breadcrumb-bar text-center"
-		style="background-image: url('{{ $breadcrumbimage ? Storage::disk('s3')->url("Breadcrumbimage/" . $breadcrumbimage->breadcrumb_image) : asset("frontend/assets/img/bg/default.png") }}');
+		style="background-image: url('{{ $breadcrumbimage ? asset('storage/' . $breadcrumbimage->breadcrumb_image) : asset("frontend/assets/img/bg/default.png") }}');
             background-size: cover; 
             background-position: center;" >
 		<div class="container">
@@ -154,7 +154,7 @@
 
             <div class="col-md-4">
                 <div class="work-img d-none d-md-block">
-                    <img src="{{ Storage::disk('s3')->url('howitworks/'.$item->image) }}"
+                    <img src="{{ asset('storage/' .$item->image) }}"
                          class="img-fluid">
                 </div>
             </div>
@@ -163,7 +163,7 @@
 
             <div class="col-md-4 order-last order-md-first">
                 <div class="work-img d-none d-md-block">
-                    <img src="{{ Storage::disk('s3')->url('howitworks/'.$item->image) }}"
+                    <img src="{{ asset('storage/' .$item->image) }}"
                          class="img-fluid">
                 </div>
             </div>

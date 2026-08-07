@@ -57,7 +57,7 @@ Download Poster List
 
                                 @if($poster->poster_image)
 
-                                <img src="{{ Storage::disk('s3')->url('DownloadPosters/Image/'.$poster->poster_image) }}"
+                                <img src="{{ asset('storage/'. $poster->poster_image) }}"
                                     width="80">
 
                                 @endif
@@ -68,7 +68,7 @@ Download Poster List
 
                                 @if($poster->poster_pdf)
 
-                                <a href="{{ Storage::disk('s3')->url('DownloadPosters/PDF/'.$poster->poster_pdf) }}"
+                                <a href="{{ asset('storage/'.$poster->poster_pdf) }}"
                                     target="_blank"
                                     class="btn btn-info btn-sm">
                                     View PDF

@@ -50,7 +50,7 @@
                                             <td>{{ $res->name }}</td>
                                              <td>{{ $res->email }}</td>
                                               <td>
-                                                   <img src="{{ Storage::disk('s3')->url('VolunteerImages/' . $res->image) }}" alt="abc" width="150" height="100">
+                                                   <img src="{{ asset('storage/' . $res->image) }}" alt="abc" width="150" height="100">
                                                 
                                             </td>
                                               <td>{{ $res->description }}</td>

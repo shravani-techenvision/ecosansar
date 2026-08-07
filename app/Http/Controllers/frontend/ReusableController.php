@@ -245,7 +245,6 @@ function resizeImage($source, $width, $height)
             $user->resource_type = $request->resource_type;
 
 
-// Upload file to S3
     if ($request->hasFile('resource_img')) {
         $file = $request->file('resource_img');
         $filePath = 'Reusableposts';
@@ -260,9 +259,8 @@ function resizeImage($source, $width, $height)
     // Use the resizeImage function to get the resized image content
     $resizedImageContent = resizeImage($fileTempPath, $newWidth, $newHeight);
 
-    // Upload to S3
-    Storage::disk('s3')->put($filePath . '/' . $fileName, $resizedImageContent);
-$user->resource_img = $fileName;
+    Storage::disk('public')->put($filePath . '/' . $fileName, $resizedImageContent);
+$user->resource_img = $filePath . '/' . $fileName;
     }
  $user->save();
 

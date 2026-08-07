@@ -53,7 +53,7 @@ User Add
                                         <div class="mb-3">
                                             <label class="form-label" for="formrow-password-input">Image</label><br>
                                              @if(isset($category->image))
-                                               <img src="{{ Storage::disk('s3')->url('VolunteerImages/' . $category->image) }}" alt="Post Image" class="mb-2" style="width: 100px; height: 100px;">
+                                               <img src="{{ asset('storage/'. $category->image) }}" alt="Post Image" class="mb-2" style="width: 100px; height: 100px;">
 
                                         @else
                                             <p>No profile image available.</p>

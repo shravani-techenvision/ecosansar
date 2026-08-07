@@ -5,7 +5,7 @@
 
 	<!-- Breadcrumb -->
 	<div class="breadcrumb-bar text-center"
-	style="background-image: url('{{ $breadcrumbimage ? Storage::disk('s3')->url("Breadcrumbimage/" . $breadcrumbimage->breadcrumb_image) : asset("frontend/assets/img/bg/default.png") }}');
+	style="background-image: url('{{ $breadcrumbimage ? asset('storage/'  . $breadcrumbimage->breadcrumb_image) : asset("frontend/assets/img/bg/default.png") }}');
             background-size: cover;
             background-position: center;">
 		<div class="container">
@@ -188,15 +188,15 @@
                     : 'recyclable_listing_details';
 
                 // Decide the image folder based on source
-                $folder = strtolower($listing->source) === 'reusable' ? 'Reusableposts/' : 'Recyclableposts/';
+                $folder = strtolower($listing->source) === 'reusable' ? '' : 'Recyclableposts/';
 
                 // Generate the image path
                 $imagePath = !empty($listing->resource_img) ? $folder . $listing->resource_img : null;
 
-                // Check if the image exists on S3
-                $imageUrl = $imagePath && Storage::disk('s3')->exists($imagePath)
-                            ? Storage::disk('s3')->url($imagePath)
-                            : asset('frontend/assets/img/ecosansar.png');
+                // Check if the image exists on 
+                $imageUrl = ($imagePath && Storage::disk('public')->exists($imagePath))
+                    ? asset('storage/' . $imagePath)
+                    : asset('frontend/assets/img/ecosansar.png');
             @endphp
 
                             <div class="col-xxl-4 col-md-6">
@@ -314,15 +314,15 @@
                     : 'recyclable_listing_details';
 
                 // Decide the image folder based on source
-                $folder = strtolower($listing->source) === 'reusable' ? 'Reusableposts/' : 'Recyclableposts/';
+                $folder = strtolower($listing->source) === 'reusable' ? '' : 'Recyclableposts/';
 
                 // Generate the image path
                 $imagePath = !empty($listing->resource_img) ? $folder . $listing->resource_img : null;
 
-                // Check if the image exists on S3
-                $imageUrl = $imagePath && Storage::disk('s3')->exists($imagePath)
-                            ? Storage::disk('s3')->url($imagePath)
-                            : asset('frontend/assets/img/ecosansar.png');
+                // Check if the image exists on 
+                $imageUrl = ($imagePath && Storage::disk('public')->exists($imagePath))
+                    ? asset('storage/' . $imagePath)
+                    : asset('frontend/assets/img/ecosansar.png');
             @endphp
                             <div class="col-xxl-4 col-md-6">
                                 <div class="card p-0">
@@ -430,15 +430,15 @@
                     : 'recyclable_listing_details';
 
                 // Decide the image folder based on source
-                $folder = strtolower($listing->source) === 'reusable' ? 'Reusableposts/' : 'Recyclableposts/';
+                $folder = strtolower($listing->source) === 'reusable' ? '' : 'Recclableposts/';
 
                 // Generate the image path
                 $imagePath = !empty($listing->resource_img) ? $folder . $listing->resource_img : null;
 
-                // Check if the image exists on S3
-                $imageUrl = $imagePath && Storage::disk('s3')->exists($imagePath)
-                            ? Storage::disk('s3')->url($imagePath)
-                            : asset('frontend/assets/img/ecosansar.png');
+                // Check if the image exists on 
+                $imageUrl = ($imagePath && Storage::disk('public')->exists($imagePath))
+                    ? asset('storage/' . $imagePath)
+                    : asset('frontend/assets/img/ecosansar.png');
             @endphp
                             <div class="col-xxl-4 col-md-6">
                                 <div class="card p-0">

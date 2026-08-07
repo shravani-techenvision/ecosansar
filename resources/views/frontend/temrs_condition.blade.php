@@ -2,7 +2,7 @@
  
 		<!-- Breadcrumb -->
 		<div class="breadcrumb-bar text-center"
-		style="background-image: url('{{ $breadcrumbimage ? Storage::disk('s3')->url("Breadcrumbimage/" . $breadcrumbimage->breadcrumb_image) : asset("frontend/assets/img/bg/default.png") }}');
+		style="background-image: url('{{ $breadcrumbimage ? asset('storage/'  . $breadcrumbimage->breadcrumb_image) : asset("frontend/assets/img/bg/default.png") }}');
             background-size: cover; 
             background-position: center;">
 			<div class="container">

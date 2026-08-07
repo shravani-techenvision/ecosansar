@@ -60,7 +60,7 @@ Profile Edit
                                         <div class="mb-3">
                                             <label class="form-label" for="formrow-password-input">Profile picture</label> <br>
                                             @if(Auth::user()->profile_pic) 
-                                            <img src="{{ Storage::disk('s3')->url('AdminImages/' . $user->profile_pic) }}" alt="Current Profile Image" class="img-thumbnail mb-2" style="max-width: 200px;">
+                                            <img src="{{ asset('storage/' . $user->profile_pic) }}" alt="Current Profile Image" class="img-thumbnail mb-2" style="max-width: 200px;">
                                         @else
                                             <p>No profile image available.</p>
                                         @endif

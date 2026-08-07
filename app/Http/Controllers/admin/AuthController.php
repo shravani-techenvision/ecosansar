@@ -169,18 +169,18 @@ class AuthController extends Controller
             if ($request->hasFile('profile_pic')) {
         $imageFile = $request->file('profile_pic');
         $imageName = time() . '.' . $imageFile->getClientOriginalExtension();
-        $s3Directory = 'AdminImages';
-        $s3Path = $s3Directory . '/' . $imageName;
+        $Directory = 'AdminImages';
+        $Path = $Directory . '/' . $imageName;
 
         // Get the file contents as a stream
         $fileStream = file_get_contents($imageFile->getRealPath());
 
-        // Upload the file to S3 using the put method
-        $uploaded = Storage::disk('s3')->put($s3Path, $fileStream);
+        // Upload the file to storage using the put method
+        $uploaded = Storage::disk('public')->put($Path, $fileStream);
 
         if ($uploaded) {
-            // Save the S3 file path in the database
-             $user->profile_pic = $imageName;
+            // Save the storage file path in the database
+             $user->profile_pic = $Path;
         }
     }
             $user->save();
@@ -222,18 +222,18 @@ class AuthController extends Controller
             if ($request->hasFile('profile_pic')) {
         $imageFile = $request->file('profile_pic');
         $imageName = time() . '.' . $imageFile->getClientOriginalExtension();
-        $s3Directory = 'AdminImages';
-        $s3Path = $s3Directory . '/' . $imageName;
+        $Directory = 'AdminImages';
+        $Path = $Directory . '/' . $imageName;
 
         // Get the file contents as a stream
         $fileStream = file_get_contents($imageFile->getRealPath());
 
-        // Upload the file to S3 using the put method
-        $uploaded = Storage::disk('s3')->put($s3Path, $fileStream);
+        // Upload the file to storage using the put method
+        $uploaded = Storage::disk('public')->put($Path, $fileStream);
 
         if ($uploaded) {
-            // Save the S3 file path in the database
-             $user->profile_pic = $imageName;
+            // Save the public file path in the database
+             $user->profile_pic = $Path;
         }
     }
             $user->save();
@@ -277,18 +277,18 @@ class AuthController extends Controller
     if ($request->hasFile('image')) {
         $imageFile = $request->file('image');
         $imageName = time() . '.' . $imageFile->getClientOriginalExtension();
-        $s3Directory = 'VolunteerImages';
-        $s3Path = $s3Directory . '/' . $imageName;
+        $Directory = 'VolunteerImages';
+        $Path = $Directory . '/' . $imageName;
 
         // Get the file contents as a stream
         $fileStream = file_get_contents($imageFile->getRealPath());
 
-        // Upload the file to S3 using the put method
-        $uploaded = Storage::disk('s3')->put($s3Path, $fileStream);
+        // Upload the file to storage using the put method
+        $uploaded = Storage::disk('public')->put($Path, $fileStream);
 
         if ($uploaded) {
-            // Save the S3 file path in the database
-            $category->image = $imageName;
+            // Save the storage file path in the database
+            $category->image = $Path;
         }
     }
             $category->save();

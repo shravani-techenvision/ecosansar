@@ -79,7 +79,9 @@
                                 
                                     <div class="mt-2">
                                         <img id="posterImagePreview"
-                                             src="{{ isset($poster) && $poster->poster_image ? Storage::disk('s3')->url('DownloadPosters/Image/'.$poster->poster_image) : '' }}"
+                                             src="{{ isset($poster) && $poster->poster_image 
+                                                ? asset('storage/' . $poster->poster_image) 
+                                                : '' }}"
                                              width="120"
                                              style="object-fit:cover; border-radius:5px; {{ isset($poster) && $poster->poster_image ? '' : 'display:none;' }}">
                                     </div>
@@ -111,7 +113,7 @@
                                     @if (isset($poster) && $poster->poster_pdf)
                                         <br>
 
-                                        <a href="{{ Storage::disk('s3')->url('DownloadPosters/PDF/' . $poster->poster_pdf) }}"
+                                        <a href="{{ asset('storage/'.$poster->poster_pdf) }}"
                                             target="_blank">
 
                                             View Current PDF

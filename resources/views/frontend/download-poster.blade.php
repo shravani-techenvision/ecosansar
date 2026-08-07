@@ -1,7 +1,7 @@
 @include('frontend.include.header')
 
 <div class="breadcrumb-bar text-center"
-    style="background-image: url('{{ $breadcrumbimage ? Storage::disk('s3')->url('Breadcrumbimage/' . $breadcrumbimage->breadcrumb_image) : asset('frontend/assets/img/bg/default.png') }}');
+    style="background-image: url('{{ $breadcrumbimage ? asset('storage/' . $breadcrumbimage->breadcrumb_image) : asset('frontend/assets/img/bg/default.png') }}');
             background-size: cover; 
             background-position: center;">
     <div class="container">
@@ -37,7 +37,7 @@
                     <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 mb-4">
                         <div class="card poster-card shadow-sm h-100">
 
-                            <img src="{{ Storage::disk('s3')->url('DownloadPosters/Image/'.$poster->poster_image) }}"
+                            <img src="{{ asset('storage/'.$poster->poster_image) }}"
                                  class="card-img-top"
                                  style="height:250px;object-fit:cover;">
 
@@ -49,7 +49,7 @@
                                     type="button"
                                     class="btn btn-linear-primary downloadPosterBtn"
                                     data-id="{{ $poster->id }}"
-                                    data-file="{{ Storage::disk('s3')->url('DownloadPosters/PDF/'.$poster->poster_pdf) }}"
+                                    data-file="{{ asset('storage/'.$poster->poster_pdf) }}"
                                     data-bs-toggle="modal"
                                     data-bs-target="#downloadModal">
 
