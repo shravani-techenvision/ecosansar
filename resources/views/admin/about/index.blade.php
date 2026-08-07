@@ -289,10 +289,10 @@ About Us Management
                             <td>
     
                                @if(!empty($journey->image))
-                                    <img src="{{ Storage::disk('s3')->url('journey/'.$journey->image) }}"
-                                         width="100"
-                                         height="70"
-                                         style="object-fit:cover;">
+                                   <img src="{{ asset('storage/' . $journey->image) }}"
+     width="100"
+     height="70"
+     style="object-fit: cover;">
                                 @endif
     
                             </td>
