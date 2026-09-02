@@ -2434,7 +2434,7 @@ public function consumer_save(Request $req)
         // Handle authentication with OTP
         //if ($user && $user->is_checked && $otp == $user->otp && now()->lessThanOrEqualTo($user->otp_expires_at) && $user->is_verify == 1 && $user->is_delete == 0 && $user->status == 1) {
         // if ($user && $user->is_checked && $otp == $user->otp && now()->lessThanOrEqualTo($user->otp_expires_at) && $user->is_verify == 1 && $user->is_delete == 0 ) {
-        if ($user && $user->is_checked && $user->is_verify == 1 && $user->is_delete == 0 ) {
+        if ($user && $user->is_checked && $user->is_delete == 0 ) {
             // Authentication successful
             session()->put('user_id', $user->id);
             session()->put('user_type', $user->user_type);
