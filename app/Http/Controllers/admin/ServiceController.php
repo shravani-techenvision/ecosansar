@@ -6,11 +6,37 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\admin\Service;
 use App\Models\frontend\ServiceEnquiry;
+use App\Models\frontend\CollectionDrive;
 use Illuminate\Support\Str;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Auth;
+use App\Models\frontend\UserActivityLog;
 
 class ServiceController extends Controller
 {
+    public function collectionDriveList(){
+        $result = CollectionDrive::orderBy('id','DESC')->get();
+        return view('admin/service/service_enquiry_list',compact('result'));
+    }
+    public function deleteCollectionDriveEnquiry($id)
+    {
+        $enquiry = CollectionDrive::findOrFail($id);
+    
+        $enquiry->delete();
+        $userid = Auth::id();
+        if ($userid){
+            $userActivity = new UserActivityLog();
+            $userActivity->user_id = $userid;
+            $userActivity->activity = 'Deleted Collection Drive Poster enquiry'.$id;
+            $userActivity->url = request()->fullUrl();   // Get the full URL of the request
+            $userActivity->ip_address = request()->ip();
+            $userActivity->save();
+        }
+        // user activity end
+    
+        Alert::success('success', 'Enquiry deleted successfully.');
+        return redirect()->route('service_enquiry.list');
+    }
    public function list(){
         $result = Service::orderBy('id','DESC')->get();
         return view('admin/service/list',compact('result'));
@@ -51,8 +77,8 @@ class ServiceController extends Controller
         Alert::success('success','Service content deleted successfully');
         return redirect()->route('service.edit');
     }
-     public function service_enquiry(){
-        $result = ServiceEnquiry::orderBy('id','DESC')->get();
-        return view('admin/service/service_enquiry_list',compact('result'));
-    }
+    //  public function service_enquiry(){
+    //     $result = ServiceEnquiry::orderBy('id','DESC')->get();
+    //     return view('admin/service/service_enquiry_list',compact('result'));
+    // }
 }

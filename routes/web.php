@@ -176,6 +176,7 @@ Route::controller(PincodeCheckController::class)->group(function(){
     Route::get('/service-not-available', 'servicenotavailable')->name('service-not-available');
      Route::post('/check-pincode-save', 'checkPincodeSave')->name('check-pincode-save');
      Route::get('/nearby-pincodes/{pincode}', 'nearby');
+     
 });
 
 Auth::routes();
@@ -202,6 +203,7 @@ Route::controller(AdminController::class)->group(function(){
      Route::get('user/recyclableposts/delete/{id}','recyclablepostsdelete')->name('recyclableposts.delete');
     Route::get('user/reusableposts','reusableposts')->name('user.reusableposts');
     Route::get('reusable_resource_post/add', 'addReusablePost')->name('reusable_resource_post.add');
+    Route::get('reusable_resource_post/delected_post', 'deletedReusablePost')->name('reusable_resource_post.deleted_post');
     Route::post('reusable_resource_post/save','saveReusablePost')->name('reusable_resource_post.save');
      Route::get('user/reusableposts/delete/{id}','reusablepostsdelete')->name('reusableposts.delete');
     Route::get('user/recyclablepostsview/{id}','recyclablepostsview')->name('user.recyclablepostsview');
@@ -250,6 +252,15 @@ Route::controller(AdminController::class)->group(function(){
     Route::post('/our-impact/save', 'saveOurImpact')->name('admin.ourimpact.save');
     Route::get('/our-impact/edit/{id}', 'editOurImpact')->name('admin.ourimpact.edit');
     Route::get('/our-impact/delete/{id}', 'deleteOurImpact')->name('admin.ourimpact.delete');
+    
+    
+    // Map pincode display
+    Route::get('user/location-list', 'locationList')->name('user.location-list');
+    Route::get('location-list/add', 'addLocation')->name('location-list.add');
+    Route::post('location-list/save', 'location_store')->name('location-list.save');
+    Route::get('location-list/edit/{id}', 'editLocation')->name('location-list.edit');
+    Route::put('location-list/update/{id}', 'updateLocation')->name('location-list.update');
+    Route::get('location-list/delete/{id}', 'locationDelete')->name('location-list.delete');
 
 });
 
@@ -289,6 +300,9 @@ Route::controller(ServiceController::class)->group(function(){
     Route::get('service/delete/{id}','delete')->name('service.delete');
 
     Route::get('service_enquiry/list','service_enquiry')->name('service_enquiry.list');
+    Route::get('collection-drive-enquiry/list','collectionDriveList')->name('service_enquiry.list');
+    Route::get('collection-drive-enquiry/delete/{id}', 'deleteCollectionDriveEnquiry')->name('collection_drive.enquiry.delete');
+    
 });
 
 Route::controller(PrivacyPolicyController::class)->group(function(){

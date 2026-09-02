@@ -142,11 +142,11 @@
                         <li><a href="{{ route('weight.list') }}">Weight</a></li>
                         <li><a href="{{ route('googleadsense.list') }}">Google Adsense</a></li>
                         @if ($serviceId)
-                            <li><a href="{{ url('service/edit/' . $serviceId) }}">Service</a></li>
+                            <li><a href="{{ url('service/edit/' . $serviceId) }}">Build with us</a></li>
                         @else
                             <li><a href="{{ route('service.add') }}">Service</a></li>
                         @endif
-                        <li><a href="{{ route('service_enquiry.list') }}">Service Enquiry List</a></li>
+                        <li><a href="{{ route('service_enquiry.list') }}">Collection Drive Enquiry List</a></li>
                          @if ($policyId)
                             <li><a href="{{ url('privacypolicy/edit/' . $policyId) }}">Privacy Policy</a></li>
                         @else
@@ -157,6 +157,9 @@
                         @else
                             <li><a href="{{ route('breadcrumimage.add') }}">Breadcrumb Image</a></li>
                         @endif
+                        <li>
+                            <a href="{{ route('user.location-list') }}">Location List</a>
+                        </li>
                     </ul>
                 </li>
                  <li class="menu-title">Resources</li>

@@ -16,6 +16,8 @@ use App\Models\admin\ReusableResource;
 use App\Models\admin\Weight;
 use App\Models\AdminActivityLog;
 use App\Models\User;
+use Illuminate\Support\Facades\Http;
+use App\Models\LocationList;
 use App\Models\OurImpact;
 use App\Models\admin\SubscriptionModule;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -26,6 +28,7 @@ use Illuminate\Validation\Rule;
 use Carbon\Carbon;
 use Hash;
 use Auth;
+use Illuminate\Support\Facades\Session;
 
 class AdminController extends Controller
 {
@@ -275,6 +278,12 @@ if ($redirectRoute === null) {
 
         return view('admin/usertype/reusablepostadd', compact('users', 'user_id', 'resources', 'weights'));
     }
+    public function deletedReusablePost(){
+       $result = ReusablePost::onlyTrashed()
+        ->orderBy('id', 'desc')
+        ->get();
+        return view('admin/usertype/deletedreusablepostslist',compact('result'));
+      }
     
     public function saveReusablePost(Request $request)
     {
@@ -472,7 +481,8 @@ if ($redirectRoute === null) {
         // $users = ReusablePost::where('id', $id)->first();
         // dd($users);
         
-    $users = ReusablePost::join('reusable_resources', 'reusable_resources.id', '=', 'reusable_posts.resource_type')
+    $users = ReusablePost::withTrashed()
+    ->join('reusable_resources', 'reusable_resources.id', '=', 'reusable_posts.resource_type')
     ->join('weights', 'weights.id', '=', 'reusable_posts.quantity')
     ->select(
         'reusable_posts.*',
@@ -484,7 +494,9 @@ if ($redirectRoute === null) {
     )
     ->where('reusable_posts.id', $id)
     ->first();
+    
     $data=compact('users');
+    // dd($data);
     return view('admin/usertype/reusablepostsview')->with($data);
   }
   public function consumerpostsview($id){
@@ -985,5 +997,138 @@ public function volunteerlist(){
         return redirect()->route('admin.ourimpact.index')
                          ->with('success', 'Our Impact deleted successfully.');
     }
+    public function locationList()
+    {
+        $locations = LocationList::orderBy('id', 'desc')->get();
+        return view('admin.location_lists.index', compact('locations'));
+    }
+    public function addLocation()
+    {
+        return view('admin.location_lists.create');
+    }
+    public function getLatLongFromPincode($pincode)
+    {
+        // $apiKey = "AIzaSyCPfLLFN-fT9hed5CBwFZFKBOpoB_KChL0&libraries=places"; // Store your Google API key in .env file
+        $apiKey = "AIzaSyCPfLLFN-fT9hed5CBwFZFKBOpoB_KChL0&libraries=places";
+        $url = "https://maps.googleapis.com/maps/api/geocode/json?address={$pincode}&key={$apiKey}";
+    
+        $response = Http::get($url);
+        $data = $response->json();
+    
+        if (isset($data['results'][0]['geometry']['location'])) {
+            $latitude = $data['results'][0]['geometry']['location']['lat'];
+            $longitude = $data['results'][0]['geometry']['location']['lng'];
+            return [$latitude, $longitude];
+        } else {
+            return [null, null]; // If the API doesn't return results
+        }
+    }
+    public function location_store(Request $request)
+    {
+        // dd($request->all());
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'phone' => 'required|string|max:20',
+            'address' => 'required|string',
+            'pincode' => 'required|digits:6',
+            'rating' => 'required|numeric|min:1|max:5',
+        ]);
+    
+        [$latitude, $longitude] = $this->getLatLongFromPincode(
+            $request->pincode
+        );
+    
+       if ($latitude === null || $longitude === null) {
+
+            Alert::error(
+                'Error',
+                'Unable to find location for this pincode.'
+            );
+    
+            return back()->withInput();
+        }
+    
+        LocationList::create([
+            'name' => $request->name,
+            'phone' => $request->phone,
+            'address' => $request->address,
+            'pincode' => $request->pincode,
+            'latitude' => $latitude,
+            'longitude' => $longitude,
+            'rating' => $request->rating,
+        ]);
+    
+        Alert::success(
+            'Success',
+            'Location added successfully.'
+        );
+
+        return redirect()->route('user.location-list');
+    }
+    public function editLocation($id)
+    {
+        $location = LocationList::findOrFail($id);
+    
+        return view('admin.location_lists.edit', compact('location'));
+    }
+    public function updateLocation(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'phone' => 'required|string|max:20',
+            'address' => 'required|string',
+            'pincode' => 'required|digits:6',
+            'rating' => 'required|numeric|min:1|max:5',
+        ]);
+    
+        $location = LocationList::findOrFail($id);
+    
+        // Recalculate lat/lng if pincode is changed
+        [$latitude, $longitude] = $this->getLatLongFromPincode(
+            $request->pincode
+        );
+    
+        if ($latitude === null || $longitude === null) {
+
+            Alert::error(
+                'Error',
+                'Unable to find location for this pincode.'
+            );
+    
+            return back()->withInput();
+        }
+
+    
+        $location->update([
+            'name' => $request->name,
+            'phone' => $request->phone,
+            'address' => $request->address,
+            'pincode' => $request->pincode,
+            'latitude' => $latitude,
+            'longitude' => $longitude,
+            'rating' => $request->rating,
+        ]);
+    
+        Alert::success(
+            'Success',
+            'Location updated successfully.'
+        );
+    
+        return redirect()->route('user.location-list');
+    }
+    public function locationDelete($id)
+    {
+        $location = LocationList::findOrFail($id);
+    
+        $location->delete();
+    
+        Alert::success(
+            'Success',
+            'Location deleted successfully.'
+        );
+    
+        return redirect()->route('user.location-list');
+    }
+    
 
 }

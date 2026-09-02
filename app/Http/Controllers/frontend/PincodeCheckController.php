@@ -5,6 +5,7 @@ namespace App\Http\Controllers\frontend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\admin\Pincode;
+use App\Models\LocationList;
 use App\Models\frontend\PincodeCheckSave;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Session;
@@ -112,75 +113,141 @@ class PincodeCheckController extends Controller
 //     ]);
 // }
 
-public function nearby(Request $request)
-{
-    $enteredPincode = $request->pincode;
+// public function nearby(Request $request)
+// {
+//     $enteredPincode = $request->pincode;
 
-    // Step 1: Try to get lat/lng of entered pincode from existing users
-    $userLocation = DB::table('ecosansar_users')
-        ->where('pincode', $enteredPincode)
-        ->whereNotNull('latitude')
-        ->whereNotNull('longitude')
-        ->first();
+//     // Step 1: Try to get lat/lng of entered pincode from existing users
+//     $userLocation = DB::table('ecosansar_users')
+//         ->where('pincode', $enteredPincode)
+//         ->whereNotNull('latitude')
+//         ->whereNotNull('longitude')
+//         ->first();
 
-    // Step 2: If not found, get lat/lng of closest pincode from users table
-    if (!$userLocation) {
-        $fallback = DB::table('ecosansar_users')
+//     // Step 2: If not found, get lat/lng of closest pincode from users table
+//     if (!$userLocation) {
+//         $fallback = DB::table('ecosansar_users')
+//             ->whereNotNull('latitude')
+//             ->whereNotNull('longitude')
+//             ->select('latitude', 'longitude')
+//             ->groupBy('latitude', 'longitude')
+//             ->first(); // fallback to any valid lat/lng from table
+
+//         if (!$fallback) {
+//             return response()->json([
+//                 'data' => [],
+//                 'message' => 'No valid location found to perform nearby search.'
+//             ], 404);
+//         }
+
+//         $latitude = $fallback->latitude;
+//         $longitude = $fallback->longitude;
+//     } else {
+//         $latitude = $userLocation->latitude;
+//         $longitude = $userLocation->longitude;
+//     }
+
+//     // Step 3: Get nearby users (sab only)
+//     $users = DB::table('ecosansar_users as eu')
+//         ->leftJoin('recyclable_reviews as rr', 'eu.id', '=', 'rr.user_id')
+//         ->where('eu.user_type', 'sab')
+//         ->whereNotNull('eu.latitude')
+//         ->whereNotNull('eu.longitude')
+//         ->select(
+//             'eu.id',
+//             'eu.name',
+//             'eu.user_type',
+//             'eu.address',
+//             'eu.mobile',
+//             'eu.pincode',
+//             'eu.latitude',
+//             'eu.longitude',
+//             DB::raw('ROUND(AVG(rr.rating), 1) as avg_rating'),
+//             DB::raw("(
+//                 6371 * acos(
+//                     cos(radians($latitude)) *
+//                     cos(radians(eu.latitude)) *
+//                     cos(radians(eu.longitude) - radians($longitude)) +
+//                     sin(radians($latitude)) *
+//                     sin(radians(eu.latitude))
+//                 )
+//             ) AS distance")
+//         )
+//         ->groupBy('eu.id', 'eu.name', 'eu.address', 'eu.mobile', 'eu.pincode', 'eu.latitude', 'eu.longitude')
+//         ->orderBy('distance')
+//         ->get();
+
+//     return response()->json([
+//         'data' => $users
+//     ]);
+// }
+    public function nearby(Request $request)
+    {
+        $enteredPincode = $request->pincode;
+    
+        // Step 1: Get latitude/longitude of entered pincode
+        $userLocation = LocationList::where('pincode', $enteredPincode)
             ->whereNotNull('latitude')
             ->whereNotNull('longitude')
-            ->select('latitude', 'longitude')
-            ->groupBy('latitude', 'longitude')
-            ->first(); // fallback to any valid lat/lng from table
-
-        if (!$fallback) {
-            return response()->json([
-                'data' => [],
-                'message' => 'No valid location found to perform nearby search.'
-            ], 404);
+            ->first();
+    
+        // Step 2: If pincode is not found
+        if (!$userLocation) {
+    
+            $fallback = LocationList::whereNotNull('latitude')
+                ->whereNotNull('longitude')
+                ->select('latitude', 'longitude')
+                ->groupBy('latitude', 'longitude')
+                ->first();
+    
+            if (!$fallback) {
+                return response()->json([
+                    'data' => [],
+                    'message' => 'No valid location found to perform nearby search.'
+                ], 404);
+            }
+    
+            $latitude = $fallback->latitude;
+            $longitude = $fallback->longitude;
+    
+        } else {
+    
+            $latitude = $userLocation->latitude;
+            $longitude = $userLocation->longitude;
         }
-
-        $latitude = $fallback->latitude;
-        $longitude = $fallback->longitude;
-    } else {
-        $latitude = $userLocation->latitude;
-        $longitude = $userLocation->longitude;
+    
+        // Step 3: Get nearby locations
+        $locations = LocationList::select(
+                'id',
+                'name',
+                'phone',
+                'address',
+                'pincode',
+                'latitude',
+                'longitude',
+                'rating'
+            )
+            ->selectRaw(
+                '(
+                    6371 * acos(
+                        cos(radians(?)) *
+                        cos(radians(latitude)) *
+                        cos(radians(longitude) - radians(?)) +
+                        sin(radians(?)) *
+                        sin(radians(latitude))
+                    )
+                ) AS distance',
+                [$latitude, $longitude, $latitude]
+            )
+            ->whereNotNull('latitude')
+            ->whereNotNull('longitude')
+            ->orderBy('distance')
+            ->get();
+    
+        return response()->json([
+            'data' => $locations
+        ]);
     }
-
-    // Step 3: Get nearby users (sab only)
-    $users = DB::table('ecosansar_users as eu')
-        ->leftJoin('recyclable_reviews as rr', 'eu.id', '=', 'rr.user_id')
-        ->where('eu.user_type', 'sab')
-        ->whereNotNull('eu.latitude')
-        ->whereNotNull('eu.longitude')
-        ->select(
-            'eu.id',
-            'eu.name',
-            'eu.user_type',
-            'eu.address',
-            'eu.mobile',
-            'eu.pincode',
-            'eu.latitude',
-            'eu.longitude',
-            DB::raw('ROUND(AVG(rr.rating), 1) as avg_rating'),
-            DB::raw("(
-                6371 * acos(
-                    cos(radians($latitude)) *
-                    cos(radians(eu.latitude)) *
-                    cos(radians(eu.longitude) - radians($longitude)) +
-                    sin(radians($latitude)) *
-                    sin(radians(eu.latitude))
-                )
-            ) AS distance")
-        )
-        ->groupBy('eu.id', 'eu.name', 'eu.address', 'eu.mobile', 'eu.pincode', 'eu.latitude', 'eu.longitude')
-        ->orderBy('distance')
-        ->get();
-
-    return response()->json([
-        'data' => $users
-    ]);
-}
-
 
 
 

@@ -92,21 +92,27 @@ private function sendReminderEmail($user, $daysLeft)
          try {
                 // SMTP configuration
                 $mail->isSMTP();
-                $mail->Host = 'email-smtp.ap-south-1.amazonaws.com';
-                $mail->SMTPAuth = true;
-                $mail->Username = 'AKIAU6GDYQUALD5BWSMU';
-                $mail->Password = 'BEzdqoQCdnG1whfi7OU35Y94cVcs+7PQbTerX6qngnbj';
-                $mail->SMTPSecure = 'tls';
-                $mail->Port = 587;
-
+                $mail->Host = 'localhost';
+                $mail->Port = 25;
+                
+                // No SMTP authentication
+                $mail->SMTPAuth = false;
+                
+                // Disable STARTTLS
+                $mail->SMTPSecure = false;
+                $mail->SMTPAutoTLS = false;
+                
                 // Email content
-                $mail->setFrom('support@mailing.ecosansar.com', 'Team ecoSansar');
-                $mail->addAddress($user->email); // Add recipient
+                $mail->setFrom('contact@ecosansar.com', 'Team ecoSansar');
+                $mail->addAddress($user->email);
                 $mail->Subject = 'Trial Plan Expiry Notice';
                 $mail->isHTML(true);
-                $mail->Body = view('frontend.mail.planexpire', ['user' => $user,
-    'daysLeft' => $daysLeft])->render();
-
+                
+                $mail->Body = view('frontend.mail.planexpire', [
+                    'user' => $user,
+                    'daysLeft' => $daysLeft
+                ])->render();
+                
                 // Send email
                 $mail->send();
 

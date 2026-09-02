@@ -11,23 +11,33 @@ class PHPMailerService
     public function __construct()
     {
         $this->mailer = new PHPMailer(true);
+
+        // SMTP configuration
         $this->mailer->isSMTP();
-        $this->mailer->Host = 'email-smtp.ap-south-1.amazonaws.com';
-        $this->mailer->SMTPAuth = true;
-        $this->mailer->Username = 'AKIAU6GDYQUALD5BWSMU'; 
-        $this->mailer->Password = 'BEzdqoQCdnG1whfi7OU35Y94cVcs+7PQbTerX6qngnbj';
-        $this->mailer->From='support@mailing.ecosansar.com';
-        $this->mailer->FromName='Team EcoSansar';
-        $this->mailer->SMTPSecure = 'tls';
-        $this->mailer->Port = 587;
-         // Default sender
-         $this->mailer->setFrom($this->mailer->From, $this->mailer->FromName);
+        $this->mailer->Host = 'localhost';
+        $this->mailer->Port = 25;
+
+        // No SMTP authentication
+        $this->mailer->SMTPAuth = false;
+
+        // Disable TLS / STARTTLS
+        $this->mailer->SMTPSecure = false;
+        $this->mailer->SMTPAutoTLS = false;
+
+        // Sender
+        $this->mailer->setFrom(
+            'contact@ecosansar.com',
+            'Team EcoSansar'
+        );
     }
 
     public function sendEmail($to, $subject, $body)
     {
         try {
-            // Set recipient
+            // Clear previous recipients
+            $this->mailer->clearAddresses();
+
+            // Recipient
             $this->mailer->addAddress($to);
 
             // Email content
@@ -35,10 +45,11 @@ class PHPMailerService
             $this->mailer->Subject = $subject;
             $this->mailer->Body = $body;
 
-            // Send the email
+            // Send email
             $this->mailer->send();
 
             return "Email sent successfully";
+
         } catch (Exception $e) {
             return "Email could not be sent. Mailer Error: {$this->mailer->ErrorInfo}";
         }

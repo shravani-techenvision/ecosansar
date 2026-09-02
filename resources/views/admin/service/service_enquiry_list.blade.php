@@ -10,7 +10,7 @@
 @section('content')
     @component('common-components.breadcrumb')
         @slot('pagetitle') List @endslot
-        @slot('title') Service Enquiry @endslot
+        @slot('title') Collection Drive Enquiry @endslot
     @endcomponent
 
 
@@ -33,8 +33,8 @@
                                 <th>Name</th>
                                 <th>Mobile</th>
                                 <th>Address</th>
-                                <th>Type of Service</th>
-                                <th>Message</th>
+                                <th>Participants</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -45,10 +45,16 @@
                                     <tr>
                                             <td>{{ $i++ }}</td>
                                             <td>{{ $res->name}}</td>
-                                            <td>{{ $res->mobile }}</td>
-                                            <td>{{ $res->address }}</td>
-                                            <td>{{ $res->type_of_service }}</td>
-                                            <td>{{ $res->message }}</td>
+                                            <td>{{ $res->contact_number }}</td>
+                                            <td>{{ $res->location }}</td>
+                                            <td>{{ $res->participants }}</td>
+                                            <td>
+                                                <a href="{{ route('collection_drive.enquiry.delete',$res->id) }}"
+                                                   class="btn btn-outline-danger btn-sm"
+                                                   onclick="return confirm('Are you sure you want to delete this enquiry?')">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </a>
+                                            </td>
                                              
                                     </tr>
                                 @endforeach

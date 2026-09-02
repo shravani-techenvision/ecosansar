@@ -242,8 +242,10 @@ class IndexController extends Controller
 
         // Generate a 6-digit random OTP
         $otp = mt_rand(100000, 999999);
+        
+         $templateId = '6697c308d6fc0523883d13f3';
 
-        $templateId = '6697c327d6fc05609f5064c2'; // Ensure this is a valid string from MSG91
+        // $templateId = '6697c327d6fc05609f5064c2'; // Ensure this is a valid string from MSG91
         $apiKey = config('services.msg91.authkey'); // Fetch authkey from config
 
         // Update OTP and expiration time in the database
@@ -343,7 +345,8 @@ class IndexController extends Controller
         // Generate a 6-digit random OTP
         $otp = mt_rand(100000, 999999);
 
-        $templateId = '6697c327d6fc05609f5064c2'; // Ensure this is a valid string from MSG91
+         $templateId = '6697c308d6fc0523883d13f3';
+        // $templateId = '6697c327d6fc05609f5064c2'; // Ensure this is a valid string from MSG91
         $apiKey = config('services.msg91.authkey'); // Fetch authkey from config
 
         // Update OTP and expiration time in the database
@@ -1558,8 +1561,9 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
         $data = [
 
             'name' =>  $req->name,
-            'email' => 'ecosansar@yahoo.com',
-            // 'email' => 'support@ecosansar.com',
+            'email' => 'support@ecosansar.com',
+            // 'email' => 'ecosansar@yahoo.com',
+            // 'email' => 'userfortesting456@gmail.com',
             'useremail' => $req->email,
             'phone' => $req->phone_no,
             'sub' => $req->subject,
@@ -1623,8 +1627,8 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
        $data = [
 
             'name' =>  $req->name,
-            'email' => 'ecosansar@yahoo.com',
-            // 'email' => 'support@ecosansar.com',
+            // 'email' => 'ecosansar@yahoo.com',
+            'email' => 'support@ecosansar.com',
 
             'phone' => $req->phone_no,
             'location' => $req->location,
@@ -1738,8 +1742,10 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
 
         // Generate a 6-digit random OTP
         $otp = mt_rand(100000, 999999);
+        
+         $templateId = '6697c308d6fc0523883d13f3';
 
-        $templateId = '6697c327d6fc05609f5064c2'; // Ensure this is a valid string from MSG91
+        // $templateId = '6697c327d6fc05609f5064c2'; // Ensure this is a valid string from MSG91
         $apiKey = config('services.msg91.authkey'); // Fetch authkey from config
 
         //Update OTP and expiration time in the database
@@ -1867,7 +1873,8 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
     }
     public function getLatLongFromPincode($pincode)
 {
-    $apiKey = "AIzaSyCPfLLFN-fT9hed5CBwFZFKBOpoB_KChL0&libraries=places"; // Store your Google API key in .env file
+    // $apiKey = "AIzaSyCPfLLFN-fT9hed5CBwFZFKBOpoB_KChL0&libraries=places"; // Store your Google API key in .env file
+    $apiKey = "AIzaSyCPfLLFN-fT9hed5CBwFZFKBOpoB_KChL0&libraries=places";
     $url = "https://maps.googleapis.com/maps/api/geocode/json?address={$pincode}&key={$apiKey}";
 
     $response = Http::get($url);
@@ -2038,8 +2045,16 @@ if ($req->type_of_user == 'consumer') {
         // Generate a 6-digit random OTP
         $otp = mt_rand(100000, 999999);
 
-        $templateId = '6697c327d6fc05609f5064c2'; // Ensure this is a valid string from MSG91
+         $templateId = '6697c308d6fc0523883d13f3';
+        // $templateId = '6697c327d6fc05609f5064c2'; // Ensure this is a valid string from MSG91
         $apiKey = config('services.msg91.authkey'); // Fetch authkey from config
+        
+        Log::info('MSG91 OTP - Configuration', [
+    'template_id' => $templateId,
+    'api_key_available' => !empty($apiKey),
+    'api_key_length' => strlen($apiKey ?? ''),
+    'mobile' => '91' . $contact,
+]);
 
         //Update OTP and expiration time in the database
         DB::table('ecosansar_users')
@@ -2061,6 +2076,11 @@ if ($req->type_of_user == 'consumer') {
                 ]
             ]
         ]);
+        Log::info('MSG91 OTP - Request', [
+    'template_id' => $templateId,
+    'request_data' => $data,
+]);
+
 
         // Initialize cURL
         $curl = curl_init();
@@ -2084,6 +2104,14 @@ if ($req->type_of_user == 'consumer') {
         // Execute the cURL request and handle the response
         $response = curl_exec($curl);
         $err = curl_error($curl);
+        $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+Log::info('MSG91 OTP - Response', [
+    'template_id' => $templateId,
+    'http_code' => $httpCode,
+    'response' => $response,
+    'curl_error' => $err,
+]);
 
         curl_close($curl);
 
@@ -2100,6 +2128,12 @@ if ($req->type_of_user == 'consumer') {
             ]);
             //return redirect()->route('register_otp', ['id' => $user->id]);
         }
+        Log::info('MSG91 OTP - Request Completed', [
+    'template_id' => $templateId,
+    'http_code' => $httpCode,
+    'response' => $response,
+]);
+
         // Manually log in the user by storing user information in the session
         Session::put('user_id', $user->id);
         Session::put('user_name', $user->name);
@@ -3452,6 +3486,7 @@ public function updateNotificationStatus($id, Request $request)
 
     return response()->json(['success' => false]);
 }
+
 
 
 }

@@ -322,10 +322,10 @@
 
                                                                            <h5> Have something that can be reused? </h5>
                                                                     </div>
-                                                                    <div class="col-md-3">
-                                                                       <a href="{{route('reusable_add_post')}}" class="btn btn-linear-primary btn-lg w-100">
-                                                                            Add Your Listing</a>
-                                                                    </div>
+                                                                    <!--<div class="col-md-3">-->
+                                                                    <!--   <a href="{{route('reusable_add_post')}}" class="btn btn-linear-primary btn-lg w-100">-->
+                                                                    <!--        Add Your Listing</a>-->
+                                                                    <!--</div>-->
                                                                     <div class="col-md-3">
                                                                         <a href="{{route('repairmap')}}" class="btn btn-linear-primary btn-lg w-100">  Repair Map</a>
                                                                     </div>

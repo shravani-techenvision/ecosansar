@@ -28,15 +28,9 @@
                 <!--    </div>  --}}-->
                 <!--</div>-->
                  <div class="card-body">
-                    <div class="d-flex justify-content-end mb-3 gap-2">
+                    <div class="d-flex justify-content-between mb-3">
                         <div>
                         </div>
-                    <div >
-                        <a href="{{ route('reusable_resource_post.add') }}" class="btn btn-primary waves-effect waves-light" >Add</a>
-                    </div>
-                    <div >
-                        <a href="{{ route('reusable_resource_post.deleted_post') }}" class="btn btn-danger waves-effect waves-light" >Deleted Post</a>
-                    </div>
                 </div>
                     <table id="datatable" class="table table-striped table-bordered dt-responsive nowrap"
                         style="border-collapse: collapse; border-spacing: 0; width: 100%;">
@@ -50,7 +44,6 @@
 
                                 <th>Address</th>
 
-                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -68,14 +61,8 @@
 
                                         <td style="word-wrap: break-word !important;white-space: normal; max-width: 200px;">{{ $res->address }}</td>
 
-                                        <td> @if($res->active == 1) Active
-                                             @else
-                                                 Deactive
-                                             @endif
-                                        </td>
                                            <td>
                                             <a title="View" href="{{ route('user.reusablepostsview',$res->id) }}" class="btn btn-outline-primary btn-sm "><i class="fas fa-eye"></i></a>
-                                          <a title="Delete" href="{{ route('reusableposts.delete', $res->id) }}" onclick="return confirm('Are you sure you want to delete this post?');" class="btn btn-outline-danger btn-sm deleteAttr"><i class="fas fa-trash-alt"></i></a>
                                         </td>
                                 </tr>
                             @endforeach

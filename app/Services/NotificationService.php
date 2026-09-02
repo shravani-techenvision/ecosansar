@@ -108,28 +108,31 @@ if ($consumersellPost) {
          try {
                 // SMTP configuration
                 $mail->isSMTP();
-                $mail->Host = 'email-smtp.ap-south-1.amazonaws.com';
-                $mail->SMTPAuth = true;
-                $mail->Username = 'AKIAU6GDYQUALD5BWSMU';
-                $mail->Password = 'BEzdqoQCdnG1whfi7OU35Y94cVcs+7PQbTerX6qngnbj';
-                $mail->SMTPSecure = 'tls';
-                $mail->Port = 587;
-
+                $mail->Host = 'localhost';
+                $mail->Port = 25;
+                
+                // No SMTP authentication
+                $mail->SMTPAuth = false;
+                
+                // Disable STARTTLS
+                $mail->SMTPSecure = false;
+                $mail->SMTPAutoTLS = false;
+                
                 // Email content
-                $mail->setFrom('support@mailing.ecosansar.com', 'Team ecoSansar');
-                $mail->addAddress($userEmail); // Add recipient
+                $mail->setFrom('contact@ecosansar.com', 'Team ecoSansar');
+                $mail->addAddress($userEmail);
                 $mail->Subject = 'New posts notifications';
                 $mail->isHTML(true);
-                  
-
-// Generate the dynamic link
-$dynamicLink = url('con_listing_details' . '/' . $postId);
-               $mail->Body = view('frontend.mail.notify', [
-               'details' => $details,
-            'posts' => $posts,
-            'dynamicLink' => $dynamicLink, // Pass the link
-            ])->render();
-
+                
+                // Generate the dynamic link
+                $dynamicLink = url('con_listing_details/' . $postId);
+                
+                $mail->Body = view('frontend.mail.notify', [
+                    'details' => $details,
+                    'posts' => $posts,
+                    'dynamicLink' => $dynamicLink,
+                ])->render();
+                
                 // Send email
                 $mail->send();
 

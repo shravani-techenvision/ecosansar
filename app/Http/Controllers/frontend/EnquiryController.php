@@ -33,24 +33,30 @@ use Illuminate\Support\Facades\Log;
 
 class EnquiryController extends Controller
 {
-   private function configureMailer() {
+   private function configureMailer()
+{
     $mail = new PHPMailer(true);
 
     // SMTP configuration
     $mail->isSMTP();
-    $mail->Host = env('MAIL_HOST', 'email-smtp.ap-south-1.amazonaws.com');
-    $mail->SMTPAuth = true;
-    $mail->Username = env('MAIL_USERNAME', 'AKIAU6GDYQUALD5BWSMU');
-    $mail->Password = env('MAIL_PASSWORD', 'BEzdqoQCdnG1whfi7OU35Y94cVcs+7PQbTerX6qngnbj');
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-    $mail->Port = 587;
+    $mail->Host = 'localhost';
+    $mail->Port = 25;
+
+    // No SMTP authentication
+    $mail->SMTPAuth = false;
+
+    // Disable STARTTLS
+    $mail->SMTPSecure = false;
+    $mail->SMTPAutoTLS = false;
 
     // Sender email
-    $mail->setFrom(env('MAIL_FROM_ADDRESS', 'support@mailing.ecosansar.com'), env('MAIL_FROM_NAME', 'Team ecoSansar'));
+    $mail->setFrom(
+        'contact@ecosansar.com',
+        'Team ecoSansar'
+    );
 
     return $mail;
 }
-
     public function recyclable_enquiry_save(Request $req){
          $user_id = session()->get('user_id');
          $user_type = session()->get('user_type');

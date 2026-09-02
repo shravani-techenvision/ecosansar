@@ -134,31 +134,31 @@
                                                                              <span class="text-danger">{{ $errors->first('resource_type') }}</span>
                                                                          @endif
                                                                     </div>
-                                                                    <div class="col-md-6">
-                                                                        <label class="form-label">Upload
-                                                                            Image</label>
-                                                                        <div
-                                                                            class="file-upload drag-file w-100 d-flex align-items-center justify-content-center flex-column mb-2">
+                                                                    <!--<div class="col-md-6">-->
+                                                                    <!--    <label class="form-label">Upload-->
+                                                                    <!--        Image</label>-->
+                                                                    <!--    <div-->
+                                                                    <!--        class="file-upload drag-file w-100 d-flex align-items-center justify-content-center flex-column mb-2">-->
 
-                                                                            <span class="upload-img d-block mb-2"><img
-                                                                                    src="{{ asset('frontend/assets/img/icons/upload-icon.svg') }}"
-                                                                                    alt="Img"
-                                                                                    width="30px"></span>
-                                                                            <p class="mb-0"
-                                                                                style="font-size: 12px;">Drag & Drop or
-                                                                                <span class="text-primary">
-                                                                                    Browse</span>
-                                                                            </p>
-                                                                            <input type="file" name="resource_img" id="resource_img" accept="image">
+                                                                    <!--        <span class="upload-img d-block mb-2"><img-->
+                                                                    <!--                src="{{ asset('frontend/assets/img/icons/upload-icon.svg') }}"-->
+                                                                    <!--                alt="Img"-->
+                                                                    <!--                width="30px"></span>-->
+                                                                    <!--        <p class="mb-0"-->
+                                                                    <!--            style="font-size: 12px;">Drag & Drop or-->
+                                                                    <!--            <span class="text-primary">-->
+                                                                    <!--                Browse</span>-->
+                                                                    <!--        </p>-->
+                                                                    <!--        <input type="file" name="resource_img" id="resource_img" accept="image">-->
                                                                            
-                                                                        </div>
-                                                                         @if ($errors->has('resource_img'))
-                                                                                <span class="text-danger">{{ $errors->first('resource_img') }}</span>
-                                                                            @endif
-                                                                    </div>
+                                                                    <!--    </div>-->
+                                                                    <!--     @if ($errors->has('resource_img'))-->
+                                                                    <!--            <span class="text-danger">{{ $errors->first('resource_img') }}</span>-->
+                                                                    <!--        @endif-->
+                                                                    <!--</div>-->
                                                                     <div class="col-md-6">
                                                                         <label class="form-label">Upload Image</label>
-                                                                          Image Preview 
+                                                                          <!--Image Preview -->
                                                                         <div id="imagePreview" class="mt-2" style="display:none;">
                                                                             <img id="previewImg" src="#" alt="Image Preview" style="max-width: 100%; height: 150px;" />
                                                                         </div>

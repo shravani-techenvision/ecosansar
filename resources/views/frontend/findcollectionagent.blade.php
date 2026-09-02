@@ -202,9 +202,9 @@ function pinUsersOnMap(users) {
             .bindPopup(`
                 <b>${user.name}</b><br>
                 Address: ${user.address}<br>
-                Mobile: ${user.mobile}<br>
+                Mobile: ${user.phone}<br>
                 Pincode: ${user.pincode}<br>
-                Rating: ${user.avg_rating !== null ? user.avg_rating : 0}<br>
+                Rating: ${user.rating}<br>
                 Distance: ${user.distance.toFixed(2)} km
             `);
 
