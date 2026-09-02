@@ -88,7 +88,8 @@
 	</section>
 			<div class="row justify-content-center">
 				<div class="col-md-5 mx-auto">
-					<form id="registerForm" method="POST">
+					<!-- <form id="registerForm" method="POST"> -->
+                    <form action="{{ route('consumer.save') }}" method="POST">
 					    @csrf
 						<div class="d-flex flex-column justify-content-center">
 							<div class="card p-sm-4 mb-5">
@@ -152,7 +153,7 @@
 
                              <span class="error-message text-danger" id="pincode-error"></span>
 									</div>
-									<div class="mb-3" id="hide-tresi">
+									<!-- <div class="mb-3" id="hide-tresi">
 										<label class="form-label">Type of residences<span style="color:red;"></span> </label>
 										<select class="select" name="type_of_residences" id="type_of_residences">
 												<option value="">Select</option>
@@ -165,7 +166,7 @@
                                 <span class="text-danger">{{ $errors->first('type_of_residences') }}</span>
                              @endif
                                <span class="error-message text-danger" id="type_of_residences-error"></span>
-									</div>
+									</div> -->
 										<div class="mb-3" id="hide-em">
 										<label class="form-label">Email id<span id="email-star" style="display:none; color:red;">*</span></label>
 										 <input type="email" class="form-control" name="email" id="email" placeholder="Email" value={{ old('email') }}>
@@ -241,54 +242,54 @@
 
 
 <script>
-document.getElementById('registerForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent the form from submitting normally
+// document.getElementById('registerForm').addEventListener('submit', function(event) {
+//     event.preventDefault(); // Prevent the form from submitting normally
 
-   //alert('hhh');
+//    //alert('hhh');
 
-    // Clear previous error messages
-    document.querySelectorAll('.error-message').forEach(function(element) {
-        element.innerHTML = '';
-    });
+//     // Clear previous error messages
+//     document.querySelectorAll('.error-message').forEach(function(element) {
+//         element.innerHTML = '';
+//     });
 
-    // Collect form data
-    let formData = new FormData(this);
+//     // Collect form data
+//     let formData = new FormData(this);
 
-    // Send the form data using AJAX
-    fetch('{{ route('consumer.save') }}', {
-        method: 'POST',
-        headers: {
-            'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
-        },
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
+//     // Send the form data using AJAX
+//     fetch('{{ route('consumer.save') }}', {
+//         method: 'POST',
+//         headers: {
+//             'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
+//         },
+//         body: formData
+//     })
+//     .then(response => response.json())
+//     .then(data => {
 
-        // Handle the response
-       if (data.errors) {
-            // Display errors next to the respective form fields
-            for (let field in data.errors) {
-                document.getElementById(`${field}-error`).innerHTML = data.errors[field][0];
-            }
-        } else {
+//         // Handle the response
+//        if (data.errors) {
+//             // Display errors next to the respective form fields
+//             for (let field in data.errors) {
+//                 document.getElementById(`${field}-error`).innerHTML = data.errors[field][0];
+//             }
+//         } else {
 
-           // alert(data.user_id);
-            // Display success message
-               window.location.href = "{{ url('register_otp') }}/" + data.user_id;
-            // document.getElementById('responseMessage').innerHTML = `<p>${data.success}</p>`;
-            // // Optionally, clear the form
-            // document.getElementById('registerForm').reset();
-        }
-    })
-    .catch(error => console.error('Error:', error));
-});
+//            // alert(data.user_id);
+//             // Display success message
+//                window.location.href = "{{ url('register_otp') }}/" + data.user_id;
+//             // document.getElementById('responseMessage').innerHTML = `<p>${data.success}</p>`;
+//             // // Optionally, clear the form
+//             // document.getElementById('registerForm').reset();
+//         }
+//     })
+//     .catch(error => console.error('Error:', error));
+// });
 </script>
 
 
 
 
-<script>
+<!-- <script>
       document.getElementById('resend-otp').addEventListener('click', function(){
         var contact = document.getElementById('contact').value;
       // alert(contact);
@@ -328,35 +329,35 @@ document.getElementById('registerForm').addEventListener('submit', function(even
             contactError.textContent = 'Please enter your contact information';
         }
     });
-</script>
+</script> -->
 
 <script>
 
-    $(document).ready(function(){
-        function toggleFields() {
-            var userType = $('#type_of_user').val();
-          // alert(userType);
-            if (userType === 'business') {
-                $('#email-star').css('display', 'inline');
-                $('#password-star').css('display', 'inline');
-                $('#hide-tresi').css('display', 'none');
-                $('#hide-pass').css('display', 'block');
-                $('#hide-em').css('display', 'block');
-            } else if (userType === 'consumer') {
-                $('#email-star').css('display', 'inline');
-                $('#hide-pass').css('display', 'none');
-                $('#hide-tresi').css('display', 'inline');
-                $('#hide-em').css('display', 'block');
-            } else {
-                $('#hide-em').css('display', 'none');
-                $('#hide-pass').css('display', 'none');
-                $('#hide-tresi').css('display', 'none');
-            }
-        }
+    // $(document).ready(function(){
+    //     function toggleFields() {
+    //         var userType = $('#type_of_user').val();
+    //       // alert(userType);
+    //         if (userType === 'business') {
+    //             $('#email-star').css('display', 'inline');
+    //             $('#password-star').css('display', 'inline');
+    //             $('#hide-tresi').css('display', 'none');
+    //             $('#hide-pass').css('display', 'block');
+    //             $('#hide-em').css('display', 'block');
+    //         } else if (userType === 'consumer') {
+    //             $('#email-star').css('display', 'inline');
+    //             $('#hide-pass').css('display', 'none');
+    //             $('#hide-tresi').css('display', 'inline');
+    //             $('#hide-em').css('display', 'block');
+    //         } else {
+    //             $('#hide-em').css('display', 'none');
+    //             $('#hide-pass').css('display', 'none');
+    //             $('#hide-tresi').css('display', 'none');
+    //         }
+    //     }
 
-        $('#type_of_user').change(toggleFields);
-        toggleFields(); // Call it initially to set the correct state on page load
-    });
+    //     $('#type_of_user').change(toggleFields);
+    //     toggleFields(); // Call it initially to set the correct state on page load
+    // });
 </script>
 
 

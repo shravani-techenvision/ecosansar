@@ -65,6 +65,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Exception;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Validation\Rule;
 
 
 
@@ -1888,261 +1889,497 @@ if (!$busrev || ($review_id && !$reviewRequest)) {
         return [null, null]; // If the API doesn't return results
     }
 }
- public function consumer_save(Request $req)
-    {
-       // Extend Validator with 'valid_captcha'
-        Validator::extend('valid_captcha', function ($attribute, $value, $parameters, $validator) {
-            // Fetch the captcha value stored in the session
-            $sessionCaptcha = session()->get('captcha');
+//  public function consumer_save(Request $req)
+//     {
+//        // Extend Validator with 'valid_captcha'
+//         Validator::extend('valid_captcha', function ($attribute, $value, $parameters, $validator) {
+//             // Fetch the captcha value stored in the session
+//             $sessionCaptcha = session()->get('captcha');
 
-            // Validate if the user input matches the session captcha
-            return $value === $sessionCaptcha;
-        });
-
-
-        $rules = [
-            'type_of_user' => 'required',
-            'name' => 'required',
-            'pincode' => 'required|min:6|max:6',
-            'address' => 'required',
-            'mobile' => 'required|unique:ecosansar_users,mobile',
-            'terms' => 'required',
-            'captcha' => 'required|valid_captcha',
-
-        ];
+//             // Validate if the user input matches the session captcha
+//             return $value === $sessionCaptcha;
+//         });
 
 
-        if ($req->type_of_user == 'consumer') {
-            $rules['type_of_residences'] = 'required';
-        }
+//         $rules = [
+//             'type_of_user' => 'required',
+//             'name' => 'required',
+//             'pincode' => 'required|min:6|max:6',
+//             'address' => 'required',
+//             'mobile' => 'required|unique:ecosansar_users,mobile',
+//             'terms' => 'required',
+//             'captcha' => 'required|valid_captcha',
 
-        if ($req->type_of_user == 'business') {
-            $rules['email'] = 'required';
-        }
-    // Define custom error messages
-
-        $messages = [
-            'mobile.required' => 'The mobile number is required.',
-            'mobile.unique' => 'This number is in use',
-            'captcha.required' => 'Captcha required',
-            'captcha.valid_captcha' => 'Invalid captcha',
-            // Add more custom messages for the mobile field if needed  Please verify or use another one.
-        ];
-
-        $validator = Validator::make($req->all(), $rules, $messages);
-
-        if ($validator->fails()) {
-            $errors = $validator->errors()->toArray();
-
-            $user = DB::table('ecosansar_users')
-                ->where('mobile', $req->mobile)
-                ->first();
-
-            if ($user) {
-                if ($user->is_delete == 1) {
-                   // $errors['mobile'][0] .= ' but deactivated. <a href="https://ecosansar.com/user_activate/' . $user->id . '">Click to activate</a>';
-                   $errors['mobile'][0] .= ' but deactivated. <a href="' . url('user_activate/' . $user->id) . '">Click to activate</a>';
-
-                } elseif ($user->is_verify == 0) {
-                    //$errors['mobile'][0] .= ' but not verified. <a href="https://ecosansar.com/loginverify_otp/' . $user->id . '">Click to verify</a>';
-                    $errors['mobile'][0] .= ' but not verified. <a href="' . url('loginverify_otp', ['id' => $user->id]) . '">Click to verify</a>';
-
-                } else {
-                   // $errors['mobile'][0] .= ' .<a href="https://ecosansar.com/consumer_login"> Click to login</a>';
-                   $errors['mobile'][0] .= '. <a href="' . url('consumer_login') . '">Click to login</a>';
-
-                }
-            }
-
-            return response()->json(['errors' => $errors], 422);
-        }
+//         ];
 
 
-        // echo "<pre>";
-        //     print_r($req->all());
-        //     die;
+//         if ($req->type_of_user == 'consumer') {
+//             $rules['type_of_residences'] = 'required';
+//         }
+
+//         if ($req->type_of_user == 'business') {
+//             $rules['email'] = 'required';
+//         }
+//         // Define custom error messages
+
+//         $messages = [
+//             'mobile.required' => 'The mobile number is required.',
+//             'mobile.unique' => 'This number is in use',
+//             'captcha.required' => 'Captcha required',
+//             'captcha.valid_captcha' => 'Invalid captcha',
+//             // Add more custom messages for the mobile field if needed  Please verify or use another one.
+//         ];
+
+//         $validator = Validator::make($req->all(), $rules, $messages);
+
+//         if ($validator->fails()) {
+//             $errors = $validator->errors()->toArray();
+
+//             $user = DB::table('ecosansar_users')
+//                 ->where('mobile', $req->mobile)
+//                 ->first();
+
+//             if ($user) {
+//                 if ($user->is_delete == 1) {
+//                    // $errors['mobile'][0] .= ' but deactivated. <a href="https://ecosansar.com/user_activate/' . $user->id . '">Click to activate</a>';
+//                    $errors['mobile'][0] .= ' but deactivated. <a href="' . url('user_activate/' . $user->id) . '">Click to activate</a>';
+
+//                 } elseif ($user->is_verify == 0) {
+//                     //$errors['mobile'][0] .= ' but not verified. <a href="https://ecosansar.com/loginverify_otp/' . $user->id . '">Click to verify</a>';
+//                     $errors['mobile'][0] .= ' but not verified. <a href="' . url('loginverify_otp', ['id' => $user->id]) . '">Click to verify</a>';
+
+//                 } else {
+//                    // $errors['mobile'][0] .= ' .<a href="https://ecosansar.com/consumer_login"> Click to login</a>';
+//                    $errors['mobile'][0] .= '. <a href="' . url('consumer_login') . '">Click to login</a>';
+
+//                 }
+//             }
+
+//             return response()->json(['errors' => $errors], 422);
+//         }
 
 
-       // Fetch lat/long based on pincode
-    list($latitude, $longitude) = $this->getLatLongFromPincode($req->pincode);
+//         // echo "<pre>";
+//         //     print_r($req->all());
+//         //     die;
 
 
-        $user = new EcosansarUsers;
-        $user->user_type = $req->type_of_user;
-        $user->name = $req->name;
-        $user->mobile = $req->mobile;
-        $user->address = $req->address;
-        $user->pincode = $req->pincode;
-         $user->latitude = $latitude;
-    $user->longitude = $longitude;
-        $user->type_of_residences = $req->type_of_residences;
-        $user->email = $req->email;
-        //  $user->password = Hash::make($req->password);
-
-        $user->is_checked = 1;
+//        // Fetch lat/long based on pincode
+//         list($latitude, $longitude) = $this->getLatLongFromPincode($req->pincode);
 
 
+//         $user = new EcosansarUsers;
+//         $user->user_type = $req->type_of_user;
+//         $user->name = $req->name;
+//         $user->mobile = $req->mobile;
+//         $user->address = $req->address;
+//         $user->pincode = $req->pincode;
+//          $user->latitude = $latitude;
+//         $user->longitude = $longitude;
+//         $user->type_of_residences = $req->type_of_residences;
+//         $user->email = $req->email;
+//         //  $user->password = Hash::make($req->password);
+
+//         $user->is_checked = 1;
 
 
-     // Determine the prefix and increment the unique ID
-if ($req->type_of_user == 'consumer') {
-    $prefix = 'CTB';
 
-    // Fetch the latest unique_id with prefix 'CR'
-    $lastConsumer = EcosansarUsers::where('unique_id', 'like', $prefix . '-%')
-                                    ->orderBy('id', 'desc')
-                                    ->first();
 
-    if ($lastConsumer) {
-        // Extract the numeric part from the unique_id
-        $lastNumber = (int) str_replace($prefix . '-', '', $lastConsumer->unique_id);
-        $newNumber = $lastNumber + 1;
-    } else {
-        $newNumber = 1; // Start from 1 if no existing consumer
-    }
+//      // Determine the prefix and increment the unique ID
+//         if ($req->type_of_user == 'consumer') {
+//             $prefix = 'CTB';
 
-    $user->unique_id = $prefix . '-' . $newNumber;
-} elseif ($req->type_of_user == 'sab') {
-    $prefix = 'RC';
+//             // Fetch the latest unique_id with prefix 'CR'
+//             $lastConsumer = EcosansarUsers::where('unique_id', 'like', $prefix . '-%')
+//                                             ->orderBy('id', 'desc')
+//                                             ->first();
 
-    // Fetch the latest unique_id with prefix 'RC'
-    $lastSab = EcosansarUsers::where('unique_id', 'like', $prefix . '-%')
-                              ->orderBy('id', 'desc')
-                              ->first();
+//             if ($lastConsumer) {
+//                 // Extract the numeric part from the unique_id
+//                 $lastNumber = (int) str_replace($prefix . '-', '', $lastConsumer->unique_id);
+//                 $newNumber = $lastNumber + 1;
+//             } else {
+//                 $newNumber = 1; // Start from 1 if no existing consumer
+//             }
 
-    if ($lastSab) {
-        // Extract the numeric part from the unique_id
-        $lastNumber = (int) str_replace($prefix . '-', '', $lastSab->unique_id);
-        $newNumber = $lastNumber + 1;
-    } else {
-        $newNumber = 1; // Start from 1 if no existing sab
-    }
+//             $user->unique_id = $prefix . '-' . $newNumber;
+//         } elseif ($req->type_of_user == 'sab') {
+//             $prefix = 'RC';
 
-    $user->unique_id = $prefix . '-' . $newNumber;
-}else{
-    $prefix = 'CP';
+//             // Fetch the latest unique_id with prefix 'RC'
+//             $lastSab = EcosansarUsers::where('unique_id', 'like', $prefix . '-%')
+//                                     ->orderBy('id', 'desc')
+//                                     ->first();
 
-    // Fetch the latest unique_id with prefix 'RC'
-    $lastCorp = EcosansarUsers::where('unique_id', 'like', $prefix . '-%')
-                              ->orderBy('id', 'desc')
-                              ->first();
+//             if ($lastSab) {
+//                 // Extract the numeric part from the unique_id
+//                 $lastNumber = (int) str_replace($prefix . '-', '', $lastSab->unique_id);
+//                 $newNumber = $lastNumber + 1;
+//             } else {
+//                 $newNumber = 1; // Start from 1 if no existing sab
+//             }
 
-    if ($lastCorp) {
-        // Extract the numeric part from the unique_id
-        $lastNumber = (int) str_replace($prefix . '-', '', $lastCorp->unique_id);
-        $newNumber = $lastNumber + 1;
-    } else {
-        $newNumber = 1; // Start from 1 if no existing sab
-    }
+//             $user->unique_id = $prefix . '-' . $newNumber;
+//         }else{
+//             $prefix = 'CP';
 
-    $user->unique_id = $prefix . '-' . $newNumber;
-}
+//             // Fetch the latest unique_id with prefix 'RC'
+//             $lastCorp = EcosansarUsers::where('unique_id', 'like', $prefix . '-%')
+//                                     ->orderBy('id', 'desc')
+//                                     ->first();
 
-        $user->save();
+//             if ($lastCorp) {
+//                 // Extract the numeric part from the unique_id
+//                 $lastNumber = (int) str_replace($prefix . '-', '', $lastCorp->unique_id);
+//                 $newNumber = $lastNumber + 1;
+//             } else {
+//                 $newNumber = 1; // Start from 1 if no existing sab
+//             }
 
-        $contact = $req->mobile;
+//             $user->unique_id = $prefix . '-' . $newNumber;
+//         }
 
-        // Generate a 6-digit random OTP
-        $otp = mt_rand(100000, 999999);
+//         $user->save();
 
-         $templateId = '6697c308d6fc0523883d13f3';
-        // $templateId = '6697c327d6fc05609f5064c2'; // Ensure this is a valid string from MSG91
-        $apiKey = config('services.msg91.authkey'); // Fetch authkey from config
+//         $contact = $req->mobile;
+
+//         // Generate a 6-digit random OTP
+//         $otp = mt_rand(100000, 999999);
+
+//          $templateId = '6697c308d6fc0523883d13f3';
+//         // $templateId = '6697c327d6fc05609f5064c2'; // Ensure this is a valid string from MSG91
+//         $apiKey = config('services.msg91.authkey'); // Fetch authkey from config
         
-        Log::info('MSG91 OTP - Configuration', [
-    'template_id' => $templateId,
-    'api_key_available' => !empty($apiKey),
-    'api_key_length' => strlen($apiKey ?? ''),
-    'mobile' => '91' . $contact,
-]);
+//         Log::info('MSG91 OTP - Configuration', [
+//             'template_id' => $templateId,
+//             'api_key_available' => !empty($apiKey),
+//             'api_key_length' => strlen($apiKey ?? ''),
+//             'mobile' => '91' . $contact,
+//         ]);
 
-        //Update OTP and expiration time in the database
-        DB::table('ecosansar_users')
-            ->where('mobile', $contact)
-            ->update([
-                'otp' => $otp,
-                'otp_expires_at' => now()->addMinutes(10), // OTP valid for 10 minutes
-            ]);
+//         //Update OTP and expiration time in the database
+//         DB::table('ecosansar_users')
+//             ->where('mobile', $contact)
+//             ->update([
+//                 'otp' => $otp,
+//                 'otp_expires_at' => now()->addMinutes(10), // OTP valid for 10 minutes
+//             ]);
 
-        // Prepare the data for the cURL request
-        $data = json_encode([
-            'template_id' => $templateId,
-            'short_url' => '0',
-            'realTimeResponse' => '1',
-            'recipients' => [
-                [
-                    'mobiles' => '91' . $contact,
-                    'var' => $otp
-                ]
-            ]
-        ]);
-        Log::info('MSG91 OTP - Request', [
-    'template_id' => $templateId,
-    'request_data' => $data,
-]);
+//         // Prepare the data for the cURL request
+//         $data = json_encode([
+//             'template_id' => $templateId,
+//             'short_url' => '0',
+//             'realTimeResponse' => '1',
+//             'recipients' => [
+//                 [
+//                     'mobiles' => '91' . $contact,
+//                     'var' => $otp
+//                 ]
+//             ]
+//         ]);
+//         Log::info('MSG91 OTP - Request', [
+//             'template_id' => $templateId,
+//             'request_data' => $data,
+//         ]);
 
 
-        // Initialize cURL
-        $curl = curl_init();
+//         // Initialize cURL
+//         $curl = curl_init();
 
-        curl_setopt_array($curl, [
-            CURLOPT_URL => "https://control.msg91.com/api/v5/flow",
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => $data,
-            CURLOPT_HTTPHEADER => [
-                "accept: application/json",
-                "authkey: $apiKey",
-                "content-type: application/json"
-            ],
-        ]);
+//         curl_setopt_array($curl, [
+//             CURLOPT_URL => "https://control.msg91.com/api/v5/flow",
+//             CURLOPT_RETURNTRANSFER => true,
+//             CURLOPT_ENCODING => "",
+//             CURLOPT_MAXREDIRS => 10,
+//             CURLOPT_TIMEOUT => 30,
+//             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+//             CURLOPT_CUSTOMREQUEST => "POST",
+//             CURLOPT_POSTFIELDS => $data,
+//             CURLOPT_HTTPHEADER => [
+//                 "accept: application/json",
+//                 "authkey: $apiKey",
+//                 "content-type: application/json"
+//             ],
+//         ]);
 
-        // Execute the cURL request and handle the response
-        $response = curl_exec($curl);
-        $err = curl_error($curl);
-        $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+//         // Execute the cURL request and handle the response
+//         $response = curl_exec($curl);
+//         $err = curl_error($curl);
+//         $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
-Log::info('MSG91 OTP - Response', [
-    'template_id' => $templateId,
-    'http_code' => $httpCode,
-    'response' => $response,
-    'curl_error' => $err,
-]);
+//         Log::info('MSG91 OTP - Response', [
+//             'template_id' => $templateId,
+//             'http_code' => $httpCode,
+//             'response' => $response,
+//             'curl_error' => $err,
+//         ]);
 
-        curl_close($curl);
+//         curl_close($curl);
 
-        if ($err) {
-            return response()->json([
-                'status' => 'error',
-                'message' => "cURL Error #: $err",
-            ], 500);
-        } else {
-            return response()->json([
-                'status' => 'success',
-                'message' => $response,
-                'user_id' => $user->id,
-            ]);
-            //return redirect()->route('register_otp', ['id' => $user->id]);
-        }
-        Log::info('MSG91 OTP - Request Completed', [
-    'template_id' => $templateId,
-    'http_code' => $httpCode,
-    'response' => $response,
-]);
+//         if ($err) {
+//             return response()->json([
+//                 'status' => 'error',
+//                 'message' => "cURL Error #: $err",
+//             ], 500);
+//         } else {
+//             return response()->json([
+//                 'status' => 'success',
+//                 'message' => $response,
+//                 'user_id' => $user->id,
+//             ]);
+//             //return redirect()->route('register_otp', ['id' => $user->id]);
+//         }
+//         Log::info('MSG91 OTP - Request Completed', [
+//             'template_id' => $templateId,
+//             'http_code' => $httpCode,
+//             'response' => $response,
+//         ]);
 
-        // Manually log in the user by storing user information in the session
-        Session::put('user_id', $user->id);
-        Session::put('user_name', $user->name);
-        Session::put('user_email', $user->email);
-        Session::put('user_type', $user->user_type);
-        Session::flash('success', 'Registration Successful');
- return redirect()->route('profile', ['id' => $user->id]);
-        //return redirect()->route('consumer_login');
+//         // Manually log in the user by storing user information in the session
+//         Session::put('user_id', $user->id);
+//         Session::put('user_name', $user->name);
+//         Session::put('user_email', $user->email);
+//         Session::put('user_type', $user->user_type);
+//         Session::flash('success', 'Registration Successful');
+//         return redirect()->route('profile', ['id' => $user->id]);
+//         //return redirect()->route('consumer_login');
+//     }
+public function consumer_save(Request $req)
+{
+    // Custom captcha validation
+    Validator::extend('valid_captcha', function ($attribute, $value, $parameters, $validator) {
+        $sessionCaptcha = session()->get('captcha');
+
+        return $value === $sessionCaptcha;
+    });
+
+    // Validation rules
+    $rules = [
+        'type_of_user' => 'required',
+        'name'         => 'required',
+        'pincode'      => 'required|min:6|max:6',
+        'address'      => 'required',
+        'mobile'       => 'required|unique:ecosansar_users,mobile',
+        'terms'        => 'required',
+        'captcha'      => 'required|valid_captcha',
+    ];
+
+    if ($req->type_of_user == 'consumer') {
+        $rules['type_of_residences'] = 'required';
     }
+
+    if ($req->type_of_user == 'business') {
+        $rules['email'] = 'required';
+    }
+
+    // Custom error messages
+    $messages = [
+        'mobile.required'       => 'The mobile number is required.',
+        'mobile.unique'         => 'This number is in use',
+        'captcha.required'      => 'Captcha required',
+        'captcha.valid_captcha' => 'Invalid captcha',
+    ];
+
+    // Validate request
+    $validator = Validator::make(
+        $req->all(),
+        $rules,
+        $messages
+    );
+
+    if ($validator->fails()) {
+
+        $errors = $validator->errors()->toArray();
+
+        $user = DB::table('ecosansar_users')
+            ->where('mobile', $req->mobile)
+            ->first();
+
+        if ($user) {
+
+            if ($user->is_delete == 1) {
+
+                $errors['mobile'][0] .=
+                    ' but deactivated. <a href="' .
+                    url('user_activate/' . $user->id) .
+                    '">Click to activate</a>';
+
+            } elseif ($user->is_verify == 0) {
+
+                // OTP verification is no longer required
+                $errors['mobile'][0] .=
+                    '. <a href="' .
+                    url('consumer_login') .
+                    '">Click to login</a>';
+
+            } else {
+
+                $errors['mobile'][0] .=
+                    '. <a href="' .
+                    url('consumer_login') .
+                    '">Click to login</a>';
+            }
+        }
+
+        // Normal form submission -> redirect back with errors
+        return redirect()
+            ->back()
+            ->withErrors($errors)
+            ->withInput();
+    }
+
+    // Get latitude and longitude using pincode
+    list($latitude, $longitude) =
+        $this->getLatLongFromPincode($req->pincode);
+
+    // Create new user
+    $user = new EcosansarUsers;
+
+    $user->user_type = $req->type_of_user;
+    $user->name = $req->name;
+    $user->mobile = $req->mobile;
+    $user->address = $req->address;
+    $user->pincode = $req->pincode;
+    $user->latitude = $latitude;
+    $user->longitude = $longitude;
+    $user->type_of_residences = $req->type_of_residences;
+    $user->email = $req->email;
+
+    // Password is not required
+    // $user->password = Hash::make($req->password);
+
+    // User is directly checked
+    $user->is_checked = 1;
+
+    /*
+    |--------------------------------------------------------------------------
+    | Generate Unique ID
+    |--------------------------------------------------------------------------
+    */
+
+    if ($req->type_of_user == 'consumer') {
+
+        $prefix = 'CTB';
+
+        $lastConsumer = EcosansarUsers::where(
+            'unique_id',
+            'like',
+            $prefix . '-%'
+        )
+        ->orderBy('id', 'desc')
+        ->first();
+
+        if ($lastConsumer) {
+
+            $lastNumber = (int) str_replace(
+                $prefix . '-',
+                '',
+                $lastConsumer->unique_id
+            );
+
+            $newNumber = $lastNumber + 1;
+
+        } else {
+
+            $newNumber = 1;
+        }
+
+        $user->unique_id = $prefix . '-' . $newNumber;
+
+    } elseif ($req->type_of_user == 'sab') {
+
+        $prefix = 'RC';
+
+        $lastSab = EcosansarUsers::where(
+            'unique_id',
+            'like',
+            $prefix . '-%'
+        )
+        ->orderBy('id', 'desc')
+        ->first();
+
+        if ($lastSab) {
+
+            $lastNumber = (int) str_replace(
+                $prefix . '-',
+                '',
+                $lastSab->unique_id
+            );
+
+            $newNumber = $lastNumber + 1;
+
+        } else {
+
+            $newNumber = 1;
+        }
+
+        $user->unique_id = $prefix . '-' . $newNumber;
+
+    } else {
+
+        $prefix = 'CP';
+
+        $lastCorp = EcosansarUsers::where(
+            'unique_id',
+            'like',
+            $prefix . '-%'
+        )
+        ->orderBy('id', 'desc')
+        ->first();
+
+        if ($lastCorp) {
+
+            $lastNumber = (int) str_replace(
+                $prefix . '-',
+                '',
+                $lastCorp->unique_id
+            );
+
+            $newNumber = $lastNumber + 1;
+
+        } else {
+
+            $newNumber = 1;
+        }
+
+        $user->unique_id = $prefix . '-' . $newNumber;
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Save User
+    |--------------------------------------------------------------------------
+    */
+
+    $user->save();
+
+    /*
+    |--------------------------------------------------------------------------
+    | Direct Login
+    |--------------------------------------------------------------------------
+    */
+
+    Session::put('user_id', $user->id);
+    Session::put('user_name', $user->name);
+    Session::put('user_email', $user->email);
+    Session::put('user_type', $user->user_type);
+
+    Session::flash(
+        'success',
+        'Registration Successful'
+    );
+
+    /*
+    |--------------------------------------------------------------------------
+    | Redirect Directly To Profile
+    |--------------------------------------------------------------------------
+    */
+
+    return redirect()->route(
+        'profile',
+        ['id' => $user->id]
+    );
+}
   public function consumer_store(Request $request)
     {
         // Get the input data from the request
@@ -2156,23 +2393,37 @@ Log::info('MSG91 OTP - Response', [
 
         // Perform validation on the input data
         $validator = Validator::make($input, [
-            'mobile' => 'required|mobile',
-           'otp' => 'required|array|size:6',
-            'otp.*' => 'required|digits:1',
+             'mobile' => [
+                'required',
+                'mobile',
+                Rule::exists('ecosansar_users', 'mobile')
+                    ->where(function ($query) {
+                        $query->where('user_type', 'sab');
+                    }),
+            ],
+        //    'otp' => 'required|array|size:6',
+        //     'otp.*' => 'required|digits:1',
+        ],[
+
+            'mobile.exists' => 'Mobile number not found. Please register first.',
+            'mobile.required' => 'Mobile number is required.',
+            'mobile.mobile' => 'Please enter a valid mobile number.',
+
         ]);
 
         // Check if the validation fails
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-          $otp = implode('', $request->otp); // Convert array to a single OTP string
-//dd($otp);
+        //   $otp = implode('', $request->otp); // Convert array to a single OTP string
+    //dd($otp);
 
         // Retrieve user by mobile number
         $user = EcosansarUsers::where('mobile', $input['mobile'])
             // ->whereIn('user_type', ['consumer', 'sab', 'business'])
              ->whereIn('user_type', ['sab'])
             ->first();
+        // dd($user);
 
         // Verify the otp
         if (!$user) {
@@ -2182,8 +2433,8 @@ Log::info('MSG91 OTP - Response', [
 
         // Handle authentication with OTP
         //if ($user && $user->is_checked && $otp == $user->otp && now()->lessThanOrEqualTo($user->otp_expires_at) && $user->is_verify == 1 && $user->is_delete == 0 && $user->status == 1) {
-        if ($user && $user->is_checked && $otp == $user->otp && now()->lessThanOrEqualTo($user->otp_expires_at) && $user->is_verify == 1 && $user->is_delete == 0 ) {
-
+        // if ($user && $user->is_checked && $otp == $user->otp && now()->lessThanOrEqualTo($user->otp_expires_at) && $user->is_verify == 1 && $user->is_delete == 0 ) {
+        if ($user && $user->is_checked && $user->is_verify == 1 && $user->is_delete == 0 ) {
             // Authentication successful
             session()->put('user_id', $user->id);
             session()->put('user_type', $user->user_type);
