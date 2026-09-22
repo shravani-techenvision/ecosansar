@@ -113,6 +113,62 @@
                             @endif
                         </div>
 
+                        {{-- Get Latitude Longitude Button --}}
+                        <div class="row">
+                        <div class="col-md-4 d-flex align-items-end">
+                            <button
+                                type="button"
+                                class="btn btn-info w-100"
+                                id="getLatLongBtn"
+                            >
+                                Get Latitude & Longitude
+                            </button>
+                        </div>
+                        </div>
+                        {{-- Latitude --}}
+                        <div class="col-md-6">
+                            <label class="form-label">
+                                Latitude
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                name="latitude"
+                                id="latitude"
+                                value="{{ old('latitude', $location->latitude) }}"
+                                placeholder="Latitude"
+                            >
+
+                            @if ($errors->has('latitude'))
+                                <span class="text-danger">
+                                    {{ $errors->first('latitude') }}
+                                </span>
+                            @endif
+                        </div>
+
+                        {{-- Longitude --}}
+                        <div class="col-md-6">
+                            <label class="form-label">
+                                Longitude
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                name="longitude"
+                                id="longitude"
+                                value="{{ old('longitude', $location->longitude) }}"
+                                placeholder="Longitude"
+                            >
+
+                            @if ($errors->has('longitude'))
+                                <span class="text-danger">
+                                    {{ $errors->first('longitude') }}
+                                </span>
+                            @endif
+                        </div>
+
                         {{-- Rating --}}
                         <div class="col-md-12">
                             <label class="form-label">
@@ -181,7 +237,9 @@
                     <div class="row mt-4">
                         <div class="col-md-12 text-center">
 
-                            <button type="submit" class="btn btn-primary">
+                            <button
+                                type="submit"
+                                class="btn btn-primary">
                                 Update
                             </button>
 
@@ -201,5 +259,86 @@
 
     </div>
 </div>
+
+@endsection
+
+@section('script')
+
+<script>
+$(document).ready(function () {
+
+    $('#getLatLongBtn').on('click', function () {
+
+        let pincode = $('input[name="pincode"]').val();
+
+        if (!pincode) {
+            alert('Please enter pincode.');
+            $('input[name="pincode"]').focus();
+            return;
+        }
+
+        pincode = pincode.trim();
+
+        if (!/^\d{6}$/.test(pincode)) {
+            alert('Please enter a valid 6 digit pincode.');
+            $('input[name="pincode"]').focus();
+            return;
+        }
+
+        let button = $(this);
+
+        button.prop('disabled', true);
+        button.text('Getting Location...');
+
+        $.ajax({
+            url: "{{ route('location.get-lat-long') }}",
+            type: "POST",
+
+            data: {
+                _token: "{{ csrf_token() }}",
+                pincode: pincode
+            },
+
+            success: function (response) {
+
+                if (response.success) {
+
+                    $('#latitude').val(response.latitude);
+                    $('#longitude').val(response.longitude);
+
+                    alert('Latitude and Longitude calculated successfully.');
+
+                } else {
+
+                    alert(response.message || 'Unable to find location.');
+
+                }
+            },
+
+            error: function (xhr) {
+
+                console.log(xhr.responseJSON);
+
+                let message = 'Unable to find location.';
+
+                if (xhr.responseJSON && xhr.responseJSON.message) {
+                    message = xhr.responseJSON.message;
+                }
+
+                alert(message);
+            },
+
+            complete: function () {
+
+                button.prop('disabled', false);
+                button.text('Get Latitude & Longitude');
+
+            }
+        });
+
+    });
+
+});
+</script>
 
 @endsection

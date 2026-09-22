@@ -257,6 +257,7 @@ Route::controller(AdminController::class)->group(function(){
     // Map pincode display
     Route::get('user/location-list', 'locationList')->name('user.location-list');
     Route::get('location-list/add', 'addLocation')->name('location-list.add');
+    Route::post('/location/get-lat-long','getLatLong')->name('location.get-lat-long');
     Route::post('location-list/save', 'location_store')->name('location-list.save');
     Route::get('location-list/edit/{id}', 'editLocation')->name('location-list.edit');
     Route::put('location-list/update/{id}', 'updateLocation')->name('location-list.update');

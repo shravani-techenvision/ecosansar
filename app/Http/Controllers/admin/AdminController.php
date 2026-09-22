@@ -1023,6 +1023,29 @@ public function volunteerlist(){
             return [null, null]; // If the API doesn't return results
         }
     }
+    public function getLatLong(Request $request)
+    {
+        $request->validate([
+            'pincode' => 'required|digits:6',
+        ]);
+
+        [$latitude, $longitude] = $this->getLatLongFromPincode(
+            $request->pincode
+        );
+
+        if ($latitude === null || $longitude === null) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Unable to find location for this address and pincode.'
+            ], 422);
+        }
+
+        return response()->json([
+            'success'   => true,
+            'latitude'  => $latitude,
+            'longitude' => $longitude,
+        ]);
+    }
     public function location_store(Request $request)
     {
         // dd($request->all());
@@ -1031,30 +1054,18 @@ public function volunteerlist(){
             'phone' => 'required|string|max:20',
             'address' => 'required|string',
             'pincode' => 'required|digits:6',
+            'latitude' => 'nullable|numeric',
+            'longitude' => 'nullable|numeric',
             'rating' => 'required|numeric|min:1|max:5',
         ]);
-    
-        [$latitude, $longitude] = $this->getLatLongFromPincode(
-            $request->pincode
-        );
-    
-       if ($latitude === null || $longitude === null) {
-
-            Alert::error(
-                'Error',
-                'Unable to find location for this pincode.'
-            );
-    
-            return back()->withInput();
-        }
     
         LocationList::create([
             'name' => $request->name,
             'phone' => $request->phone,
             'address' => $request->address,
             'pincode' => $request->pincode,
-            'latitude' => $latitude,
-            'longitude' => $longitude,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
             'rating' => $request->rating,
         ]);
     
@@ -1078,25 +1089,14 @@ public function volunteerlist(){
             'phone' => 'required|string|max:20',
             'address' => 'required|string',
             'pincode' => 'required|digits:6',
+            'latitude' => 'nullable|numeric',
+            'longitude' => 'nullable|numeric',
             'rating' => 'required|numeric|min:1|max:5',
         ]);
     
         $location = LocationList::findOrFail($id);
     
-        // Recalculate lat/lng if pincode is changed
-        [$latitude, $longitude] = $this->getLatLongFromPincode(
-            $request->pincode
-        );
-    
-        if ($latitude === null || $longitude === null) {
-
-            Alert::error(
-                'Error',
-                'Unable to find location for this pincode.'
-            );
-    
-            return back()->withInput();
-        }
+        
 
     
         $location->update([
@@ -1104,8 +1104,8 @@ public function volunteerlist(){
             'phone' => $request->phone,
             'address' => $request->address,
             'pincode' => $request->pincode,
-            'latitude' => $latitude,
-            'longitude' => $longitude,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
             'rating' => $request->rating,
         ]);
     
